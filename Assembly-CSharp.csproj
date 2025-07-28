@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{FC35929E-7201-C225-7048-31CE928E0090}</ProjectGuid>
+    <ProjectGuid>{AAD24E19-6C21-3511-5C30-173F843D417B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -61,11 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Model\MissionData.cs" />
+    <Compile Include="Assets\Scripts\Model\MonthMissionData.cs" />
+    <Compile Include="Assets\Scripts\Model\DayMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Model\PersonalityType.cs" />
     <Compile Include="Assets\Scripts\Model\ItemData.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Model\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\Model\EffectType.cs" />
+    <Compile Include="Assets\Scripts\Model\CharacterData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

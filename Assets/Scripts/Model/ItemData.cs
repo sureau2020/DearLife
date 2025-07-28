@@ -10,5 +10,7 @@ public class ItemData
 
     public int Price { get; private set; }
 
+    public bool IsConsumable { get; private set; } // 是否是消耗品,不是消耗品的只能买一次
+
     public Dictionary<EffectType, int> Effect { get; private set; }
 }

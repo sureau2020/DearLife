@@ -1,21 +1,12 @@
-
-
-
-// 这个类用于存储玩家（游戏主要角色）的数据，处理玩家底层model的交互
-
-
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
+
+// 这个类表示玩家（使用这个软件的用户）数据，处理与玩家底层model的交互
 public class PlayerData 
 {
-    private const int MAXVAR = 100;//各数值最高数
-    public int Full { get; private set; } = MAXVAR;//饱腹值初始值满
-
-    public int San { get; private set; } = MAXVAR;//理智
-    public int Clean { get; private set; } = MAXVAR;//清洁
-    public int Love { get; private set; } = 0;//好感度
     public int Money { get; private set; } = 0;//金钱
 
-    public List<PersonalityType> personalities { get; private set; } = new List<PersonalityType>();//性格列表
-
+    public Dictionary<string, int> Items { get; private set; } = new Dictionary<string, int>();//背包里有啥物品
 }
