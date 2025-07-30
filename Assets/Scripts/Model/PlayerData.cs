@@ -14,7 +14,7 @@ public class PlayerData
 
 
     // 购买给定数量的物品，没钱返回，背包满了且没有相同物品返回。(返回失败OperationResult)
-    // 成功则扣钱并添加物品到背包，没有相同物品则新建一项，有的话数量加1，返回成功OperationResult
+    // 成功则扣钱并添加物品到背包，没有相同物品则新建一项，有的话数量加1，都插入list首位，返回成功OperationResult
     public OperationResult BuyItem(int cost, ItemData item, int quantity) {
         if (!IsMoneyEnough(cost * quantity)) { 
             return OperationResult.Fail("金币不足。");
@@ -29,11 +29,13 @@ public class PlayerData
         {
             // 背包里没有这个物品，添加新条目
             ItemEntryData newItem = new(item.Id, quantity);
-            Items.Add(newItem);
+            Items.Insert(0, newItem);
         }
         else
         {
             isInBag.Count+= quantity;
+            Items.Remove(isInBag);
+            Items.Insert(0, isInBag);
         }
         return OperationResult.Complete();
     }
@@ -44,6 +46,7 @@ public class PlayerData
     {
         return Items.Count <= MaxBagCapacity;
     }
+
 
 
     // 检查背包里是否有相同物品,有的话返回该物品条目，没有则返回null
