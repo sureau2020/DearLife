@@ -14,4 +14,8 @@ public class ItemData
     public ItemType Type { get; private set; }
 
     public Dictionary<EffectType, int> Effect { get; private set; }
+
+
+    
+
 }

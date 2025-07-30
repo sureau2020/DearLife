@@ -41,12 +41,21 @@ public class PlayerData
     }
 
 
-    // 背包还有空位不
-    public bool IsBagHasSpace()
+    // 使用背包里的物品，扣除数量，返回操作结果
+    public OperationResult UseItem(string itemId, int quantity, CharacterData character)
     {
-        return Items.Count <= MaxBagCapacity;
+        ItemEntryData entry = GetTheItemInBag(itemId);
+        if (entry == null || entry.Count < quantity)
+        {
+            return OperationResult.Fail("背包里物品数量不足。");
+        }
+        entry.Count -= quantity;
+        if (entry.Count <= 0)
+        {
+            Items.Remove(entry);
+        }
+        return character.ApplyItemEffect(ItemDataBase.GetItemById(itemId), quantity);
     }
-
 
 
     // 检查背包里是否有相同物品,有的话返回该物品条目，没有则返回null
@@ -61,6 +70,26 @@ public class PlayerData
         }
         return null;
     }
+
+
+
+    //获取背包里特定物品的数量，没有返回0
+    public int GetItemCount(string itemId)
+    {
+        ItemEntryData entry = GetTheItemInBag(itemId);
+        if (entry != null)
+        {
+            return entry.Count;
+        }
+        return 0;
+    }
+
+    // 背包还有空位不
+    public bool IsBagHasSpace()
+    {
+        return Items.Count <= MaxBagCapacity;
+    }
+
 
     public bool IsMoneyEnough(int cost)
     {
