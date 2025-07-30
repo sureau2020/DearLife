@@ -60,16 +60,21 @@
     <Analyzer Include="D:\program\unity\Editor\2022.3.62f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Model\MissionData.cs" />
-    <Compile Include="Assets\Scripts\Model\MonthMissionData.cs" />
-    <Compile Include="Assets\Scripts\Model\DayMissionData.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
+    <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
+    <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\Model\PersonalityType.cs" />
-    <Compile Include="Assets\Scripts\Model\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Model\TaskManagerModel.cs" />
-    <Compile Include="Assets\Scripts\Model\EffectType.cs" />
-    <Compile Include="Assets\Scripts\Model\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
+    <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
