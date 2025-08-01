@@ -40,9 +40,16 @@ public class PlayerData
         return OperationResult.Complete();
     }
 
+    //完成任务后玩家收到金币
+    public OperationResult EarnMoney(int salary)
+    {
+        Money += salary;
+        return OperationResult.Complete();
+    }
 
-    // 使用背包里的物品，扣除数量，返回操作结果
-    public OperationResult UseItem(string itemId, int quantity, CharacterData character)
+
+    // 拿去玩家背包里的物品，扣除数量，返回操作结果
+    public OperationResult UseItem(string itemId, int quantity)
     {
         ItemEntryData entry = GetTheItemInBag(itemId);
         if (entry == null || entry.Count < quantity)
@@ -54,7 +61,7 @@ public class PlayerData
         {
             Items.Remove(entry);
         }
-        return character.ApplyItemEffect(ItemDataBase.GetItemById(itemId), quantity);
+        return OperationResult.Complete();
     }
 
 

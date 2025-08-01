@@ -21,8 +21,9 @@ public class CharacterData
     public DateTime FirstStartTime { get; private set; }
 
 
-
-    public OperationResult ApplyItemEffect(ItemData item, int quantity) {
+    // 在主角身上真正使用物品，应用效果，返回操作结果
+    public OperationResult ApplyItemEffect(string itemId, int quantity) {
+        ItemData item = ItemDataBase.GetItemById(itemId);
         if (item == null)
         {
             return OperationResult.Fail("物品不存在。疑似物品数据库损坏，尝试重启或还原数据库json文件。");
