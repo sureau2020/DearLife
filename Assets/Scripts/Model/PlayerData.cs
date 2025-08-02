@@ -24,8 +24,8 @@ public class PlayerData
         {
             return OperationResult.Fail("背包已满。");
         }
-        Money -= cost; 
-        if( isInBag == null)
+        SpendMoney(cost * quantity);
+        if ( isInBag == null)
         {
             // 背包里没有这个物品，添加新条目
             ItemEntryData newItem = new(item.Id, quantity);
@@ -45,6 +45,14 @@ public class PlayerData
     {
         Money += salary;
         return OperationResult.Complete();
+    }
+
+
+    // REQUIRE:调用时已经验证过钱够了
+    // 花钱
+    public void SpendMoney(int cost)
+    {
+        Money -= cost;
     }
 
 

@@ -6,6 +6,8 @@ public class StateManager
     public CharacterData Character { get; }
     public GameSettings Settings { get; }
 
+    private const int DelayTime = 10;
+
 
     public StateManager(PlayerData player, CharacterData character, GameSettings settings)
     {
@@ -52,5 +54,24 @@ public class StateManager
         int salary = Calculators.RandomSalary(mission.Duration,mission.Difficulty,Settings.MinSalaryFactor,Settings.MaxSalaryFactor,Settings.HourlyWage,Settings.DifficultyBonus);
         return Player.EarnMoney(salary);
     }
+
+
+
+    // 检查玩家是否有足够的金钱，有的话最近几个任务的ddl推迟
+    public OperationResult PushRecentMissionsDDL(MissionData mission)
+    {
+        if (!Player.IsMoneyEnough(Settings.DelayCost))
+        {
+            return OperationResult.Fail("金币不足，无法延迟任务。");
+        }
+        OperationResult isDelayAllowed = TaskManagerModel.Instance.pushDDL(mission, DelayTime);
+        if (!isDelayAllowed.Success)
+        {
+            return isDelayAllowed;
+        }
+        Player.SpendMoney(Settings.DelayCost);
+        return OperationResult.Complete();
+    }
+
 
 }

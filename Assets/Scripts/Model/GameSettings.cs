@@ -10,6 +10,12 @@ public class GameSettings
     public int DifficultyBonus { get; private set; } = 3; //任务难度每1，薪水增加多少
 
     public int CountdownWagePerHour { get; private set; } = 3; //倒计时模式的每小时低保
+    //TODO：还没检测这个wage是否valid，代价和任务数也没测
+
+    public int DelayCost { get; private set; } = 5; //倒计时加时所花钱数
+
+    public int DelayMissionNum { get; private set; } = 3; //倒计时模式加时任务数
+
 
     public OperationResult Validate()
     {
@@ -35,6 +41,7 @@ public class GameSettings
 
         return OperationResult.Complete();
     }
+
 
 
 

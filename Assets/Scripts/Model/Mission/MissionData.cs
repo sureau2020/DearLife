@@ -11,12 +11,21 @@ public class MissionData
     public float Difficulty { get; private set; }
     public bool IsCompleted { get; private set; }
 
+    public bool HasDeadline { get; private set; }
 
-    // REQUIRE: 0 <= duration,dificulty <= 4; deadline > DateTime.Now; title != null
+
+    // REQUIRE: 0 <= duration,dificulty <= 4; 若有deadline > DateTime.Now;若没有deadline就传入DateTime.MinValue； title != null
     public MissionData(string title, DateTime deadline, float duration, float difficulty)
     {
         Title = title;
         Deadline = deadline;
+        if (Deadline == DateTime.MinValue)
+        {
+            HasDeadline = false;
+        }
+        else { 
+            HasDeadline = true;
+        }
         Duration = duration;
         Difficulty = difficulty;
         IsCompleted = false;
@@ -38,6 +47,14 @@ public class MissionData
         return OperationResult.Complete();
     }
 
+    // 推迟任务的DDL，如果跨天了也更新，但返回false提醒
+    public bool pushMission(int delayMinutes)
+    {
+        DateTime newDeadline = Deadline.AddMinutes(delayMinutes);
+        bool isCrossDay = newDeadline.Date != Deadline.Date;
+        Deadline = newDeadline;
+        return !isCrossDay;
+    }
 
 
 }
