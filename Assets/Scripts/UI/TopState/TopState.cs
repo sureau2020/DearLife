@@ -19,10 +19,16 @@ public class TopState : MonoBehaviour
         san = transform.Find("San").GetComponent<TextMeshProUGUI>();
 
         stateManager = GameObject.Find("GameManager").GetComponent<GameManager>().StateManager;
-        hungry.text = "±•∏π£∫ "+ stateManager.Character.Full.ToString();
-        clean.text = "«ÂΩ‡£∫ "+ stateManager.Character.Clean.ToString();
-        san.text = "¿Ì÷«£∫ "+ stateManager.Character.San.ToString();
+        stateManager.OnCharacterStateChanged += OnCharacterStateChangedHandler;
 
+        InitializeStateTexts();
+    }
+
+    private void InitializeStateTexts()
+    {
+        hungry.text = "±•∏π£∫ " + stateManager.Character.Full.ToString();
+        clean.text = "«ÂΩ‡£∫ " + stateManager.Character.Clean.ToString();
+        san.text = "¿Ì÷«£∫ " + stateManager.Character.San.ToString();
     }
 
     void OnDestroy()
@@ -36,6 +42,7 @@ public class TopState : MonoBehaviour
 
     private void OnCharacterStateChangedHandler(string statName, int value)
     {
+        Debug.Log($"State changed: {statName} = {value}");
         switch (statName)
         {
             case "Full":

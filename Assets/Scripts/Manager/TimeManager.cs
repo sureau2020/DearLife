@@ -29,10 +29,15 @@ public class TimeManager : MonoBehaviour
     {
         DateTime now = DateTime.Now;
 
-        if (now.Minute != lastTime.Minute) {
-            frequency++;
+        // 每秒检查一次时间变化
+        if (now.Second != lastTime.Second)
+        {
             OnMinuteChanged?.Invoke(now);
         }
+
+        //if (now.Minute != lastTime.Minute) {
+        //    OnMinuteChanged?.Invoke(now);
+        //}
 
         if (now.Hour != lastTime.Hour)
             OnHourChanged?.Invoke(now);
