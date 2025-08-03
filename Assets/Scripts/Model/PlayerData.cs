@@ -7,9 +7,15 @@ using UnityEngine;
 public class PlayerData 
 {
     public const int MaxBagCapacity = 30; // 背包最大容量30项不同物品
+
     public int Money { get; private set; } = 0;//金钱
 
     public List<ItemEntryData> Items { get; private set; } = new List<ItemEntryData>();//背包里有啥物品
+
+    public PlayerData(int money)
+    {
+        Money = money;
+    }
 
 
 

@@ -1,18 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager Instance { get; private set; }
+
+    public StateManager StateManager { get; private set; }
+
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // 初始化数据,目前硬编码
+        PlayerData playerData = new PlayerData(10);// 初始金钱10
+        CharacterData characterData = new CharacterData();
+        GameSettings settings = new GameSettings();
+
+        StateManager = new StateManager(playerData, characterData, settings);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        TimeManager.Instance.OnMinuteChanged += OnMinuteChanged;
+        TimeManager.Instance.OnHourChanged += OnHourChanged;
+        TimeManager.Instance.OnDayChanged += OnDayChanged;
+    }
+
+    private void OnDestroy()
+    {
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnMinuteChanged -= OnMinuteChanged;
+            TimeManager.Instance.OnHourChanged -= OnHourChanged;
+            TimeManager.Instance.OnDayChanged -= OnDayChanged;
+        }
+    }
+
+    private void OnMinuteChanged(DateTime now)
+    {
+        Debug.Log("一分钟过去了，当前时间：" + now.ToString("HH:mm"));
+
+        // 这里可以刷新UI或发通知
+    }
+
+    private void OnHourChanged(DateTime now)
+    {
+        Debug.Log("一小时过去了，当前时间：" + now.ToString("HH:mm"));
+        // 每小时额外逻辑，比如任务倒计时等
+    }
+
+    private void OnDayChanged(DateTime now)
+    {
+        Debug.Log("新一天开始：" + now.ToString("yyyy-MM-dd"));
+        // 每天刷新任务、状态等
     }
 }

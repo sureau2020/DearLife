@@ -20,6 +20,11 @@ public class CharacterData
 
     public DateTime FirstStartTime { get; private set; }
 
+    public CharacterData()
+    {
+        FirstStartTime = DateTime.Now; // 记录第一次开始游戏的时间
+    }
+
 
     // 在主角身上真正使用物品，应用效果，返回操作结果
     public OperationResult ApplyItemEffect(string itemId, int quantity) {
