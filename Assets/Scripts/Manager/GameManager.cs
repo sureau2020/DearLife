@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     private void OnMinuteChanged(DateTime now)
     {
         Debug.Log("一分钟过去了，当前时间：" + now.ToString("HH:mm"));
-
+        StateManager.DecayStates();
         // 这里可以刷新UI或发通知
     }
 

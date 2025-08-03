@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
   </ItemGroup>
   <ItemGroup>

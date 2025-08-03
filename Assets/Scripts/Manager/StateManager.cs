@@ -1,5 +1,7 @@
 
 
+using System;
+
 public class StateManager 
 {
     public PlayerData Player { get; }
@@ -8,6 +10,11 @@ public class StateManager
 
     private const int DelayTime = 10;
 
+    public event Action<string,int> OnCharacterStateChanged;// 角色状态变化事件，参数为状态名称和变化值
+
+    private int cleanDecayCounter = 0;
+    private int sanDecayCounter = 0;
+
 
     public StateManager(PlayerData player, CharacterData character, GameSettings settings)
     {
@@ -15,6 +22,32 @@ public class StateManager
         Character = character;
         Settings = settings;
     }
+
+
+
+    // 每分钟调用一次，衰减角色状态
+    public void DecayStates()
+    {
+        Character.ChangeFull(-1);
+        OnCharacterStateChanged?.Invoke("Full", Character.Full);
+
+        cleanDecayCounter++;
+        if (cleanDecayCounter >= 2)
+        {
+            Character.ChangeClean(-1);
+            OnCharacterStateChanged?.Invoke("Clean", Character.Clean);
+            cleanDecayCounter = 0;
+        }
+
+        sanDecayCounter++;
+        if (sanDecayCounter >= 4)
+        {
+            Character.ChangeSan(-1);
+            OnCharacterStateChanged?.Invoke("San", Character.San);
+            sanDecayCounter = 0;
+        }
+    }
+
 
     // 购买物品，扣除金钱，添加物品到背包，返回操作结果
     public OperationResult BuyItem(int cost, ItemData item, int quantity)

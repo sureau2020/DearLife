@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CharacterData 
 {
@@ -14,6 +15,8 @@ public class CharacterData
 
     public int San { get; private set; } = MaxVar;//理智
     public int Clean { get; private set; } = MaxVar;//清洁
+
+    public HealthState HealthState { get; private set; } = HealthState.Normal;//健康状态
     public int Love { get; private set; } = 0;//好感度
 
     public List<PersonalityType> Personalities { get; private set; } = new List<PersonalityType>();//性格列表
@@ -39,13 +42,13 @@ public class CharacterData
             switch (effect.Key)
             {
                 case EffectType.Full:
-                    Full = Math.Min(MaxVar, Full + effect.Value * quantity);
+                    ChangeFull(effect.Value * quantity);
                     break;
                 case EffectType.San:
-                    San = Math.Min(MaxVar, San + effect.Value * quantity);
+                    ChangeSan(effect.Value * quantity);
                     break;
                 case EffectType.Clean:
-                    Clean = Math.Min(MaxVar, Clean + effect.Value * quantity);
+                    ChangeClean(effect.Value * quantity);
                     break;
                 case EffectType.Love:
                     Love += effect.Value * quantity;
@@ -58,5 +61,23 @@ public class CharacterData
     }
 
     // TODO:使用物品后显示对话！
+
+
+    public void ChangeFull(int delta)
+    {
+        Full = Mathf.Clamp(Full + delta, 0, 100);
+    }
+
+    public void ChangeClean(int delta)
+    {
+        Clean = Mathf.Clamp(Clean + delta, 0, 100);
+    }
+
+    public void ChangeSan(int delta)
+    {
+        San = Mathf.Clamp(San + delta, 0, 100);
+    }
+
+
 
 }
