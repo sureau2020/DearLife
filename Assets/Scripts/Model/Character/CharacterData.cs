@@ -53,4 +53,5 @@ public class CharacterData
     }
 
     // TODO:使用物品后显示对话！
+
 }

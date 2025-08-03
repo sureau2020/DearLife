@@ -68,11 +68,13 @@
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
+    <Compile Include="Assets\Scripts\UI\MissionUI.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
+    <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
