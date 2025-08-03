@@ -9,6 +9,7 @@ public class ItemData
     public string Name { get; private set; } 
     public string Description { get; private set; }
 
+    public string Author { get; private set; }
     public int Price { get; private set; }
 
     public ItemType Type { get; private set; }
