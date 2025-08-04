@@ -8,7 +8,6 @@ public class TimeManager : MonoBehaviour
     public event Action<DateTime> OnMinuteChanged;
     public event Action<DateTime> OnHourChanged;
     public event Action<DateTime> OnDayChanged;
-    private int frequency = 0;
 
     private DateTime lastTime;
 

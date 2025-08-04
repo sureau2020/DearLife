@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 
@@ -46,7 +44,7 @@ public class TopState : MonoBehaviour
         switch (statName)
         {
             case "Full":
-                hungry.text = "±¥¸¹£º " + value.ToString();
+                hungry.text = $"±¥¸¹£º {value.ToString()}/100";
                 break;
             case "Clean":
                 clean.text = "Çå½à£º " + value.ToString();
