@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
         TimeManager.Instance.OnMinuteChanged += OnMinuteChanged;
         TimeManager.Instance.OnHourChanged += OnHourChanged;
         TimeManager.Instance.OnDayChanged += OnDayChanged;

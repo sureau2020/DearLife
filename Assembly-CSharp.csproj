@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
+    <Compile Include="Assets\Scripts\UI\ItemUI.cs" />
     <Compile Include="Assets\Scripts\Manager\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
