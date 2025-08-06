@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BackPackUI : MonoBehaviour
 {
-    [SerializeField] private GameObject itemPrefab; // ÔÚInspectorÍÏÈëÄãµÄPrefab
+    [SerializeField] private GameObject itemPrefab; 
     private StateManager stateManager;
 
     public void GenerateItems(List<ItemEntryData> items)
