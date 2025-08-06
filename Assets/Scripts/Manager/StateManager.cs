@@ -12,8 +12,6 @@ public class StateManager
 
     private const int DelayTime = 10;
 
-    public event Action<string,int> OnCharacterStateChanged;// 角色状态变化事件，参数为状态名称和变化值
-
     private int cleanDecayCounter = 0;
     private int sanDecayCounter = 0;
 
@@ -31,13 +29,11 @@ public class StateManager
     public void DecayStates()
     {
         Character.ChangeFull(-1);
-        OnCharacterStateChanged?.Invoke("Full", Character.Full);
 
         cleanDecayCounter++;
         if (cleanDecayCounter >= 2)
         {
             Character.ChangeClean(-1);
-            OnCharacterStateChanged?.Invoke("Clean", Character.Clean);
             cleanDecayCounter = 0;
         }
 
@@ -45,7 +41,6 @@ public class StateManager
         if (sanDecayCounter >= 4)
         {
             Character.ChangeSan(-1);
-            OnCharacterStateChanged?.Invoke("San", Character.San);
             sanDecayCounter = 0;
         }
     }

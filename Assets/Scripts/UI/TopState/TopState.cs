@@ -19,25 +19,25 @@ public class TopState : MonoBehaviour
         money = transform.Find("Money").GetComponent<TextMeshProUGUI>();
 
         stateManager = GameManager.Instance.StateManager;
-        stateManager.OnCharacterStateChanged += OnCharacterStateChangedHandler;
+        stateManager.Character.OnCharacterStateChanged += OnCharacterStateChangedHandler;
 
         InitializeStateTexts();
     }
 
     private void InitializeStateTexts()
     {
-        hungry.text = "饱腹： " + stateManager.Character.Full.ToString();
-        clean.text = "清洁： " + stateManager.Character.Clean.ToString();
-        san.text = "理智： " + stateManager.Character.San.ToString();
-        money.text = "金钱： " + stateManager.Player.Money.ToString();
+        hungry.text = "饱腹：" + stateManager.Character.Full.ToString();
+        clean.text = "清洁：" + stateManager.Character.Clean.ToString();
+        san.text = "理智：" + stateManager.Character.San.ToString();
+        money.text = "金钱：" + stateManager.Player.Money.ToString();
     }
 
     void OnDestroy()
     {
         // 取消订阅事件，防止内存泄漏
-        if (stateManager != null)
+        if (stateManager.Character != null)
         {
-            stateManager.OnCharacterStateChanged -= OnCharacterStateChangedHandler;
+            stateManager.Character.OnCharacterStateChanged -= OnCharacterStateChangedHandler;
         }
     }
 

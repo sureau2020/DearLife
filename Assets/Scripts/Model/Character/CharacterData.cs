@@ -23,6 +23,8 @@ public class CharacterData
 
     public DateTime FirstStartTime { get; private set; }
 
+    public event Action<string, int> OnCharacterStateChanged;// 角色状态变化事件，参数为状态名称和变化值
+
     public CharacterData()
     {
         FirstStartTime = DateTime.Now; // 记录第一次开始游戏的时间
@@ -66,16 +68,19 @@ public class CharacterData
     public void ChangeFull(int delta)
     {
         Full = Mathf.Clamp(Full + delta, 0, 100);
+        OnCharacterStateChanged?.Invoke("Full", Full);
     }
 
     public void ChangeClean(int delta)
     {
         Clean = Mathf.Clamp(Clean + delta, 0, 100);
+        OnCharacterStateChanged?.Invoke("Clean", Clean);
     }
 
     public void ChangeSan(int delta)
     {
         San = Mathf.Clamp(San + delta, 0, 100);
+        OnCharacterStateChanged?.Invoke("San", San);
     }
 
 
