@@ -10,6 +10,8 @@ public class PlayerData
 
     public int Money { get; private set; } = 0;//金钱
 
+
+    // list是倒序存的，最新的物品在前面
     public List<ItemEntryData> Items { get; private set; } = new List<ItemEntryData>();//背包里有啥物品
 
     public PlayerData(int money)
@@ -17,7 +19,9 @@ public class PlayerData
         Money = money;
 
         // 测试用：背包里写死一个 food001，数量为 1
-        //Items.Add(new ItemEntryData("food001", 1));
+        Items.Add(new ItemEntryData("food001", 1));
+        // 测试用：背包里写死一个 food002，数量为 2
+        Items.Add(new ItemEntryData("food002", 2));
     }
 
 
@@ -48,6 +52,7 @@ public class PlayerData
         }
         return OperationResult.Complete();
     }
+
 
     //完成任务后玩家收到金币
     public OperationResult EarnMoney(int salary)

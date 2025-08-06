@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class ItemUi : MonoBehaviour
 {
-    private ItemData item;
     private string itemId;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetItemId(string id)
     {
-        itemId = "food001"; // 测试用，暂时写死了
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        itemId = id;
     }
 
     public void OnItemClick()
-    {   
+    {
         OperationResult result = GameManager.Instance.StateManager.UseItem(itemId, 1);
         if (!result.Success)
         {
             ErrorNotifier.NotifyError(result.Message);
+        }
+        else
+        {
+            // 成功使用物品后，更新背包UI
+            BackPackUI backpackUI = gameObject.transform.parent.GetComponent<BackPackUI>();
+            if (backpackUI != null)
+            {
+                backpackUI.RefreshBackPackUI();
+            }
         }
     }
 }

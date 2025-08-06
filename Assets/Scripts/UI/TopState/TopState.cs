@@ -18,7 +18,7 @@ public class TopState : MonoBehaviour
         san = transform.Find("San").GetComponent<TextMeshProUGUI>();
         money = transform.Find("Money").GetComponent<TextMeshProUGUI>();
 
-        stateManager = GameObject.Find("GameManager").GetComponent<GameManager>().StateManager;
+        stateManager = GameManager.Instance.StateManager;
         stateManager.OnCharacterStateChanged += OnCharacterStateChangedHandler;
 
         InitializeStateTexts();

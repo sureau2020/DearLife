@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 public class StateManager 
@@ -107,5 +108,8 @@ public class StateManager
         return OperationResult.Complete();
     }
 
-
+    public List<ItemEntryData> GetAllItemsInBackPack()
+    {
+        return Player.Items;
+    }
 }
