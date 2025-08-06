@@ -7,6 +7,7 @@ public class TopState : MonoBehaviour
     private TextMeshProUGUI hungry;
     private TextMeshProUGUI clean;
     private TextMeshProUGUI san;
+    private TextMeshProUGUI money;
     private StateManager stateManager;
 
     // Start is called before the first frame update
@@ -15,6 +16,7 @@ public class TopState : MonoBehaviour
         hungry = transform.Find("Hungry").GetComponent<TextMeshProUGUI>();
         clean = transform.Find("Clean").GetComponent<TextMeshProUGUI>();
         san = transform.Find("San").GetComponent<TextMeshProUGUI>();
+        money = transform.Find("Money").GetComponent<TextMeshProUGUI>();
 
         stateManager = GameObject.Find("GameManager").GetComponent<GameManager>().StateManager;
         stateManager.OnCharacterStateChanged += OnCharacterStateChangedHandler;
@@ -27,6 +29,7 @@ public class TopState : MonoBehaviour
         hungry.text = "±•∏π£∫ " + stateManager.Character.Full.ToString();
         clean.text = "«ÂΩ‡£∫ " + stateManager.Character.Clean.ToString();
         san.text = "¿Ì÷«£∫ " + stateManager.Character.San.ToString();
+        money.text = "Ω«Æ£∫ " + stateManager.Player.Money.ToString();
     }
 
     void OnDestroy()
