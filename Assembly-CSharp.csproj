@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
     <Compile Include="Assets\Scripts\UI\ItemUI.cs" />
+    <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
     <Compile Include="Assets\Scripts\Manager\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
@@ -78,9 +79,11 @@
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
+    <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
   </ItemGroup>

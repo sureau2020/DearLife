@@ -20,18 +20,11 @@ public class ItemUi : MonoBehaviour
     }
 
     public void OnItemClick()
-    {
-        Debug.Log($"Clicked on item");
-        
+    {   
         OperationResult result = GameManager.Instance.StateManager.UseItem(itemId, 1);
-
-        if (result.Success)
+        if (!result.Success)
         {
-            Debug.Log("Item purchased successfully!");
-        }
-        else
-        {
-            Debug.LogError($"Failed to purchase item: {result.Message}");
+            ErrorNotifier.NotifyError(result.Message);
         }
     }
 }
