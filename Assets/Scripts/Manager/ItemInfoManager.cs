@@ -13,10 +13,10 @@ public class ItemInfoManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowBuyPanel(ItemData item)
+    public OperationResult ShowBuyPanel(ItemData item)
     {
         infoPanel.gameObject.SetActive(true);
-        infoPanel.Show(item);
+        return infoPanel.StoreShow(item);
     }
 
     public void HideBuyPanel()

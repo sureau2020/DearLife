@@ -84,8 +84,8 @@
     <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
-    <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\UI\Buttons\TaskButton.cs" />
+    <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />

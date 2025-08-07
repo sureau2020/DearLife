@@ -22,6 +22,10 @@ public class Goods : MonoBehaviour
  
     public void OnClick()
     {
-        ItemInfoManager.Instance.ShowBuyPanel(itemData);
+       OperationResult isShow = ItemInfoManager.Instance.ShowBuyPanel(itemData);
+       if (!isShow.Success)
+       {
+           ErrorNotifier.NotifyError(isShow.Message);
+        }
     }
 }
