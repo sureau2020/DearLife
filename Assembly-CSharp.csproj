@@ -70,11 +70,13 @@
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\UI\MissionUI.cs" />
     <Compile Include="Assets\Scripts\UI\Buttons\StoreButton.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Manager\ItemInfoManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Goods : MonoBehaviour
 {
-
     private ItemData itemData;
     private TextMeshProUGUI itemName;
 
@@ -20,5 +19,9 @@ public class Goods : MonoBehaviour
         itemName.text = itemData.Name;
     }
 
-
+ 
+    public void OnClick()
+    {
+        ItemInfoManager.Instance.ShowBuyPanel(itemData);
+    }
 }

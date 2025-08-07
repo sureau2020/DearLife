@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 351911550566661900}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8383630172240034593}
+        m_TargetAssemblyTypeName: Goods, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8383630172240034593
 MonoBehaviour:
   m_ObjectHideFlags: 0
