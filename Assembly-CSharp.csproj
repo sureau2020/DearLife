@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
+    <Compile Include="Assets\Scripts\UI\Buttons\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />

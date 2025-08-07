@@ -12,9 +12,10 @@ public class ItemList : MonoBehaviour
         GenerateAllGoodsByType(ItemType.Food);
     }
 
+ 
 
 
-    private OperationResult GenerateAllGoodsByType(ItemType type)
+    public void GenerateAllGoodsByType(ItemType type)
     {
         foreach (Transform child in transform)
         {
@@ -30,11 +31,11 @@ public class ItemList : MonoBehaviour
             // 数据校验
             if (item == null || string.IsNullOrEmpty(item.Name))
             {
-                return OperationResult.Fail("疑似数据库商品数据有缺失，检查该类别未被加载出来的第一个商品数据。");
+                ErrorNotifier.NotifyError("疑似数据库商品数据有缺失，检查该类别未被加载出来的第一个商品数据。");
+                return;
             }
             g.ShowInfo();
             
         }
-        return OperationResult.Complete();
     }
 }
