@@ -1,11 +1,10 @@
 using UnityEngine;
-
+using UnityEngine.EventSystems; // 需要引入
 
 // 代表屏幕上显示的角色，处理显示的相关逻辑
 public class Character : MonoBehaviour
 {
     private GameObject characterUI; 
-
     private float lastClickTime = 0f;
     private const float doubleClickThreshold = 0.5f; // 双击最大间隔（秒）
 
@@ -29,6 +28,10 @@ public class Character : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended)
             {
+                // 检查是否点在UI上
+                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    return;
+
                 Ray ray = Camera.main.ScreenPointToRay(touch.position);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
@@ -54,6 +57,10 @@ public class Character : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
+            // 检查是否点在UI上
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {

@@ -16,6 +16,10 @@ public class ItemList : MonoBehaviour
 
     private OperationResult GenerateAllGoodsByType(ItemType type)
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         var items = ItemDataBase.GetItemsByType(type);
         foreach (var item in items)
         {

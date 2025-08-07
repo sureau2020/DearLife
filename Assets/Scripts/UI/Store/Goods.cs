@@ -16,8 +16,9 @@ public class Goods : MonoBehaviour
 
     public void ShowInfo()
     {
-        itemName = transform.GetComponent<TextMeshProUGUI>();
+        itemName = GetComponentInChildren<TextMeshProUGUI>();
         itemName.text = itemData.Name;
     }
+
 
 }
