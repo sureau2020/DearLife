@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
     <Compile Include="Assets\Scripts\UI\ItemUI.cs" />
     <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
     <Compile Include="Assets\Scripts\Manager\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemInfoManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
+    <Compile Include="Assets\Scripts\UI\Buttons\Task\DayCell.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
     <Compile Include="Assets\Scripts\UI\Buttons\Store\StoreCategoryButton.cs" />

@@ -20,6 +20,7 @@ public class TopState : MonoBehaviour
 
         stateManager = GameManager.Instance.StateManager;
         stateManager.Character.OnCharacterStateChanged += OnCharacterStateChangedHandler;
+        stateManager.Player.OnMoneyChanged += OnMoneyChangedHandler;
 
         InitializeStateTexts();
     }
@@ -38,6 +39,7 @@ public class TopState : MonoBehaviour
         if (stateManager.Character != null)
         {
             stateManager.Character.OnCharacterStateChanged -= OnCharacterStateChangedHandler;
+            stateManager.Player.OnMoneyChanged -= OnMoneyChangedHandler;
         }
     }
 
@@ -56,6 +58,11 @@ public class TopState : MonoBehaviour
                 san.text = "¿Ì÷«£∫ " + value.ToString();
                 break;
         }
+    }
+
+    private void OnMoneyChangedHandler(int newMoney)
+    {
+        money.text = "Ω«Æ£∫" + newMoney.ToString();
     }
 
 }

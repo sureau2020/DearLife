@@ -47,9 +47,9 @@ public class StateManager
 
 
     // 购买物品，扣除金钱，添加物品到背包，返回操作结果
-    public OperationResult BuyItem(int cost, ItemData item, int quantity)
+    public OperationResult BuyItem(int singlePrice, ItemData item, int quantity)
     {
-        return Player.BuyItem(cost, item, quantity);
+        return Player.BuyItem(singlePrice, item, quantity);
     }
 
 

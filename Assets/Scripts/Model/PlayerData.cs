@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class PlayerData
     public const int MaxBagCapacity = 12; // 背包最大容量12项不同物品
 
     public int Money { get; private set; } = 0;//金钱
+
+    public event Action<int> OnMoneyChanged;
 
 
     // list是倒序存的，最新的物品在前面
@@ -63,10 +66,11 @@ public class PlayerData
 
 
     // REQUIRE:调用时已经验证过钱够了
-    // 花钱
+    // 花钱,通知更新状态
     public void SpendMoney(int cost)
     {
         Money -= cost;
+        OnMoneyChanged?.Invoke(Money);
     }
 
 
@@ -125,7 +129,5 @@ public class PlayerData
         return Money >= cost;
     }
 
-
-
-
+    
 }
