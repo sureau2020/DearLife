@@ -81,7 +81,7 @@ public class StateManager
         {
             return isNormallyComplete;
         }
-        int salary = Calculators.RandomSalary(mission.Duration,mission.Difficulty,Settings.MinSalaryFactor,Settings.MaxSalaryFactor,Settings.HourlyWage,Settings.DifficultyBonus);
+        int salary = Calculators.RandomSalary(mission.Duration,mission.Difficulty,Settings.MaxSalaryFactor,Settings.HourlyWage,Settings.DifficultyBonus);
         return Player.EarnMoney(salary);
     }
 

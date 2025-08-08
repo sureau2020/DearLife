@@ -14,6 +14,7 @@ public class WeekCalendar : MonoBehaviour
     private void OnEnable()
     {
         GenerateWeekGrid();
+        AutoClickToday(); // 自动"点击"当天格子
     }
 
     private void GenerateWeekGrid()
@@ -39,5 +40,18 @@ public class WeekCalendar : MonoBehaviour
         }
     }
 
-   
+    private void AutoClickToday()
+    {
+        DateTime today = DateTime.Now.Date;
+
+        foreach (var cellObject in dayCells)
+        {
+            DayCell dayCell = cellObject.GetComponent<DayCell>();
+            if (dayCell != null && dayCell.Date.Date == today)
+            {
+                dayCell.OnCellClicked(); // 直接调用点击方法
+                break;
+            }
+        }
+    }
 }

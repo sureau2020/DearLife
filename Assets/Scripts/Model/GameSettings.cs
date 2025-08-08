@@ -3,7 +3,6 @@
 public class GameSettings 
 {
     public float MaxSalaryFactor { get; private set; } = 1.2f; //任务薪水的最大随机因子
-    public float MinSalaryFactor { get; private set; } = 0.8f; //任务薪水的最小随机因子
 
     public int HourlyWage { get; private set; } = 15;//小时工资
 
@@ -19,14 +18,10 @@ public class GameSettings
 
     public OperationResult Validate()
     {
-        if (MinSalaryFactor < 0)
-        {
-            return OperationResult.Fail("薪水随机因子下限不得小于0");
-        }
 
-        if (MaxSalaryFactor < MinSalaryFactor)
+        if (MaxSalaryFactor <= 1)
         {
-            return OperationResult.Fail("薪水随机因子下限 不能大于 薪水随机因子上限");
+            return OperationResult.Fail("薪水随机因子上限 不得 小于0");
         }
 
         if(HourlyWage <= 0)
