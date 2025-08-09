@@ -16,7 +16,29 @@ public class DayMissionData
         Tasks.Remove(mission);
     }
 
-    public void AddMission(MissionData mission) {
+    // 按任务事件远近插入任务，如果是无ddl的任务，就放在最后
+    public void AddMission(MissionData mission)
+    {
+        if (mission == null) return;
+        if (!mission.HasDeadline)
+        {
+            Tasks.Add(mission);
+            return;
+        }
+        for (int i = 0; i < Tasks.Count; i++)
+        {
+            var t = Tasks[i];
+            if (!t.HasDeadline) 
+            {
+                Tasks.Insert(i, mission);
+                return;
+            }
+            if (mission.Deadline < t.Deadline)
+            {
+                Tasks.Insert(i, mission);
+                return;
+            }
+        }
         Tasks.Add(mission);
     }
 
