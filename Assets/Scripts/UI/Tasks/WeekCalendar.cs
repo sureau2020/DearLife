@@ -27,8 +27,9 @@ public class WeekCalendar : MonoBehaviour
 
     public void GenerateWeekGrid(DateTime targetDate)
     {
-        // 根据传入的日期计算该周的周一
-        DateTime startOfWeek = targetDate.AddDays(-(int)targetDate.DayOfWeek + 1);
+        // 让周日作为一周的第一天
+        int diff = (int)targetDate.DayOfWeek;
+        DateTime startOfWeek = targetDate.AddDays(-diff);
 
         for (int i = 0; i < 7; i++)
         {
