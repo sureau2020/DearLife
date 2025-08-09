@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2696573833098779602}
   - component: {fileID: 66411073204706102}
   m_Layer: 5
-  m_Name: DayCell
+  m_Name: WeekDayCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 66411073204706102}
         m_TargetAssemblyTypeName: DayCell, Assembly-CSharp
-        m_MethodName: OnCellClicked
+        m_MethodName: OnWeekDayCellClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -11,8 +11,7 @@ public class DayCell : MonoBehaviour
 
     public DateTime Date => date;
 
-    // 点击事件，外部可注册
-    public event Action<DateTime> OnCellClickedEvent;
+
 
     public void Initialize(DateTime date)
     {
@@ -20,10 +19,14 @@ public class DayCell : MonoBehaviour
         dateText.text = date.ToString("dd");
     }
 
-    public void OnCellClicked()
+    public void OnWeekDayCellClicked()
     {
         cellButton.Select();
-        OnCellClickedEvent?.Invoke(date); // 触发事件
         TaskManager.Instance.OnDaySelected(date); 
+    }
+
+    public void OnMonthDayCellClicked() { 
+        cellButton.Select();
+        TaskManager.Instance.OnDaySelected(date);
     }
 }

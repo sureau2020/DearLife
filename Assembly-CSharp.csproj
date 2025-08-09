@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Tasks\MonthCalendar.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
