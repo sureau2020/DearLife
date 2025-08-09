@@ -21,7 +21,7 @@ public class WeekCalendar : MonoBehaviour
     private void GenerateWeekGrid()
     {
         // 无参数版本，使用当前时间
-        DateTime currentDate = TimeManager.Instance != null ? DateTime.Now : DateTime.Now;
+        DateTime currentDate = DateTime.Now;
         GenerateWeekGrid(currentDate);
     }
 

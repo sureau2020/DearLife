@@ -32,7 +32,7 @@ public class MonthCalendar : MonoBehaviour
 
     private void GenerateMonthGrid()
     {
-        DateTime currentDate = TimeManager.Instance != null ? TaskManager.Instance.SelectedDate : DateTime.Now;
+        DateTime currentDate = DateTime.Now;
         GenerateMonthGrid(currentDate);
     }
 
