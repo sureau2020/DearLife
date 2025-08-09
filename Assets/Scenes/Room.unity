@@ -1161,6 +1161,7 @@ GameObject:
   - component: {fileID: 147942692}
   - component: {fileID: 147942694}
   - component: {fileID: 147942693}
+  - component: {fileID: 147942695}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1227,6 +1228,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147942691}
   m_CullTransparentMesh: 1
+--- !u!114 &147942695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147942691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d03866dffea85442a33149b0bbc1f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: {fileID: 467879463}
+  area: {fileID: 147942692}
 --- !u!1 &154335428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1658,7 @@ GameObject:
   - component: {fileID: 188931754}
   - component: {fileID: 188931756}
   - component: {fileID: 188931755}
+  - component: {fileID: 188931757}
   m_Layer: 5
   m_Name: InputTaskPanel
   m_TagString: Untagged
@@ -1713,6 +1729,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188931753}
   m_CullTransparentMesh: 1
+--- !u!114 &188931757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188931753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97fa62df78fe06a489fe0238d3a5df2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameInput: {fileID: 1325052547}
+  hourInput: {fileID: 101054060}
+  minuteInput: {fileID: 1444934150}
+  cartesianSelector: {fileID: 147942695}
+  confirmButton: {fileID: 2094394288}
 --- !u!1 &194878929
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,6 +4341,7 @@ GameObject:
   - component: {fileID: 606242833}
   - component: {fileID: 606242832}
   - component: {fileID: 606242831}
+  - component: {fileID: 606242834}
   m_Layer: 5
   m_Name: AddTaskButton
   m_TagString: Untagged
@@ -4378,7 +4412,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 606242832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 606242834}
+        m_TargetAssemblyTypeName: AddTaskButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &606242832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4417,6 +4463,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606242829}
   m_CullTransparentMesh: 1
+--- !u!114 &606242834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606242829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b55b8dd1c2264dbedc7be8b2b72e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addTaskPanel: {fileID: 188931757}
+  weekCalendar: {fileID: 565645065}
 --- !u!1 &662550277
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,8 +5584,8 @@ RectTransform:
   m_Children:
   - {fileID: 792034533}
   - {fileID: 606242830}
-  - {fileID: 188931754}
   - {fileID: 385989497}
+  - {fileID: 188931754}
   m_Father: {fileID: 275180969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10433,7 +10493,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1648580094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 188931757}
+        m_TargetAssemblyTypeName: InputTaskPanel, Assembly-CSharp
+        m_MethodName: ClosePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1648580094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12830,7 +12902,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2094394289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 188931757}
+        m_TargetAssemblyTypeName: InputTaskPanel, Assembly-CSharp
+        m_MethodName: ClosePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2094394289
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,8 +9,10 @@ public class DayCell : MonoBehaviour
     [SerializeField] private Button cellButton;
     private DateTime date;
 
- 
     public DateTime Date => date;
+
+    // 点击事件，外部可注册
+    public event Action<DateTime> OnCellClickedEvent;
 
     public void Initialize(DateTime date)
     {
@@ -20,8 +22,9 @@ public class DayCell : MonoBehaviour
 
     public void OnCellClicked()
     {
-        Debug.Log($"点击了日期: {date.ToString("yyyy-MM-dd")}");
+        Debug.Log($"点击了日期: {date:yyyy-MM-dd}");
         cellButton.Select();
+        OnCellClickedEvent?.Invoke(date); // 触发事件
         TaskManager.Instance.OnDaySelected(date); 
     }
 }
