@@ -6,12 +6,15 @@ public class TaskManager : MonoBehaviour
 {
     public static TaskManager Instance { get; private set; }
 
+    [SerializeField] private MonthCalendar monthCalendar;
+    [SerializeField] private WeekCalendar weekCalendar;
+
     // 定义事件，当任务列表需要更新时触发
     public event Action<List<MissionData>> OnTaskListUpdated;
 
     private DateTime selectedDate = DateTime.Now;
     private List<MissionData> currentTasks = new List<MissionData>();
-    
+
     public DateTime SelectedDate => selectedDate;
     public List<MissionData> CurrentTasks => currentTasks;
 
@@ -33,8 +36,26 @@ public class TaskManager : MonoBehaviour
         // 从 TaskManagerModel 获取任务数据
         var dayMissionData = TaskManagerModel.Instance.GetMonth(selectedDate.ToString("yyyy-MM"))
             .GetDayMissionData(selectedDate.ToString("yyyy-MM-dd"));
-        
+
         currentTasks = dayMissionData.Tasks ?? new List<MissionData>();
         OnTaskListUpdated?.Invoke(currentTasks);
+    }
+
+    public void OnMonthDaySelected(DateTime selectedDate) { 
+        DeactiveMonthCalendar();
+        weekCalendar.GenerateWeekGrid(selectedDate);
+        weekCalendar.AutoClickSpecificDay(selectedDate);
+    }
+
+
+    public void ActiveMonthCalendar()
+    {
+        monthCalendar.gameObject.SetActive(true);
+    }
+
+    public void DeactiveMonthCalendar()
+    {
+        monthCalendar.gameObject.SetActive(false);
+
     }
 }

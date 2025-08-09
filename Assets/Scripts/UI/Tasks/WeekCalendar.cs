@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class WeekCalendar : MonoBehaviour
 {
-    [SerializeField] private Transform weekGridParent; 
+    [SerializeField] private Transform weekGridParent;
     [SerializeField] private GameObject dayCellPrefab;
     //private DateTime selectedDate = DateTime.Now;
     private List<GameObject> dayCells = new List<GameObject>();
@@ -25,7 +25,7 @@ public class WeekCalendar : MonoBehaviour
         GenerateWeekGrid(currentDate);
     }
 
-    private void GenerateWeekGrid(DateTime targetDate)
+    public void GenerateWeekGrid(DateTime targetDate)
     {
         // 根据传入的日期计算该周的周一
         DateTime startOfWeek = targetDate.AddDays(-(int)targetDate.DayOfWeek + 1);
@@ -46,18 +46,23 @@ public class WeekCalendar : MonoBehaviour
     private void AutoClickToday()
     {
         DateTime today = DateTime.Now.Date;
+        AutoClickSpecificDay(today);
+    }
+
+    public void AutoClickSpecificDay(DateTime specificDate)
+    {
         foreach (var cellObject in dayCells)
         {
             DayCell dayCell = cellObject.GetComponent<DayCell>();
-            if (dayCell != null && dayCell.Date.Date == today)
+            if (dayCell != null && dayCell.Date.Date == specificDate.Date)
             {
                 dayCell.OnWeekDayCellClicked();
-                Debug.Log($"自动选择今天的日期: {today.ToString("yyyy-MM-dd")}");
-                TaskManager.Instance.OnDaySelected(today);
+                Debug.Log($"自动选择指定日期: {specificDate.ToString("yyyy-MM-dd")}");
+                TaskManager.Instance.OnDaySelected(specificDate);
                 break;
             }
         }
-    }
 
-    
+
+    }
 }

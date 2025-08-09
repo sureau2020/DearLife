@@ -16,6 +16,8 @@ public class DayCell : MonoBehaviour
     public void Initialize(DateTime date)
     {
         this.date = date;
+        cellButton.interactable = true;
+        GetComponent<Image>().color = Color.white;
         dateText.text = date.ToString("dd");
     }
 
@@ -27,6 +29,13 @@ public class DayCell : MonoBehaviour
 
     public void OnMonthDayCellClicked() { 
         cellButton.Select();
-        TaskManager.Instance.OnDaySelected(date);
+        TaskManager.Instance.OnMonthDaySelected(date);
+    }
+
+    public void SetEmpty()
+    {
+        dateText.text = "";
+        cellButton.interactable = false;
+        GetComponent<Image>().color = Color.gray;
     }
 }
