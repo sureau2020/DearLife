@@ -8,7 +8,7 @@ public class WeekCalendar : MonoBehaviour
 {
     [SerializeField] private Transform weekGridParent; 
     [SerializeField] private GameObject dayCellPrefab;
-    private DateTime selectedDate;
+    private DateTime selectedDate = DateTime.Now;
     private List<GameObject> dayCells = new List<GameObject>();
 
     private void OnEnable()
@@ -75,6 +75,8 @@ public class WeekCalendar : MonoBehaviour
             if (dayCell != null && dayCell.Date.Date == today)
             {
                 dayCell.OnCellClicked();
+                Debug.Log($"自动选择今天的日期: {today.ToString("yyyy-MM-dd")}");
+                TaskManager.Instance.OnDaySelected(today);
                 break;
             }
         }

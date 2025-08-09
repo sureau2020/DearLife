@@ -22,7 +22,6 @@ public class DayCell : MonoBehaviour
 
     public void OnCellClicked()
     {
-        Debug.Log($"点击了日期: {date:yyyy-MM-dd}");
         cellButton.Select();
         OnCellClickedEvent?.Invoke(date); // 触发事件
         TaskManager.Instance.OnDaySelected(date); 

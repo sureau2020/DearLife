@@ -8,6 +8,7 @@ public class TaskManager : MonoBehaviour
 
     // 定义事件，当任务列表需要更新时触发
     public event Action<List<MissionData>> OnTaskListUpdated;
+    private List<MissionData> lastTaskList;
 
     private void Awake()
     {
@@ -26,8 +27,17 @@ public class TaskManager : MonoBehaviour
         // 从 TaskManagerModel 获取任务数据
         var dayMissionData = TaskManagerModel.Instance.GetMonth(selectedDate.ToString("yyyy-MM"))
             .GetDayMissionData(selectedDate.ToString("yyyy-MM-dd"));
-
+        lastTaskList = dayMissionData.Tasks;
         OnTaskListUpdated?.Invoke(dayMissionData.Tasks);
        
+    }
+
+    public void RegisterTaskListListener(Action<List<MissionData>> listener)
+    {
+        OnTaskListUpdated += listener;
+        if (lastTaskList != null)
+        {
+            listener(lastTaskList);
+        }
     }
 }
