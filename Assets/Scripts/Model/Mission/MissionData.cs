@@ -39,7 +39,7 @@ public class MissionData
         {
             return OperationResult.Fail("任务已完成，无法重复完成。");
         }
-        if (DateTime.Now > Deadline)
+        if (HasDeadline && DateTime.Now > Deadline)
         {
             return OperationResult.Fail("任务已过期，无法完成。");
         }

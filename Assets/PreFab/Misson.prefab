@@ -231,6 +231,8 @@ MonoBehaviour:
   taskNameText: {fileID: 2205601352295482536}
   ddlText: {fileID: 1635539241389738928}
   estimatedMinSalaryText: {fileID: 2453738702655008476}
+  completeButton: {fileID: 7939285664820032938}
+  deleteButton: {fileID: 710504011149146353}
 --- !u!1 &3472167645441804799
 GameObject:
   m_ObjectHideFlags: 0

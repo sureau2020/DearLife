@@ -61,6 +61,7 @@ public class PlayerData
     public OperationResult EarnMoney(int salary)
     {
         Money += salary;
+        OnMoneyChanged?.Invoke(Money);
         return OperationResult.Complete();
     }
 
