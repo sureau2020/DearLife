@@ -1,17 +1,14 @@
 using UnityEngine;
-using UnityEngine.EventSystems; // 需要引入
+using UnityEngine.EventSystems; 
 
 // 代表屏幕上显示的角色，处理显示的相关逻辑
 public class Character : MonoBehaviour
 {
-    private GameObject characterUI; 
+    [SerializeField] private GameObject characterUI; 
     private float lastClickTime = 0f;
     private const float doubleClickThreshold = 0.5f; // 双击最大间隔（秒）
 
-    private void Start()
-    {
-        characterUI = GameObject.Find("UI").transform.Find("Character").gameObject;
-    }
+
 
     void Update()
     {

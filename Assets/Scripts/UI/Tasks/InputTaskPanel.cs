@@ -15,14 +15,12 @@ public class InputTaskPanel : MonoBehaviour
 
     public void Show(DateTime date)
     {
-        Debug.Log("oeaifjieia");
         targetDate = date;
         nameInput.text = "";
         hourInput.text = "";
         minuteInput.text = "";
         cartesianSelector.SetPointByValue(2, 2);
         gameObject.SetActive(true);
-        Debug.Log("faeohoeiajfij");
     }
 
 
@@ -38,18 +36,15 @@ public class InputTaskPanel : MonoBehaviour
             deadline = new DateTime(targetDate.Year, targetDate.Month, targetDate.Day, hour, minute, 0); 
         }
 
-        // 创建任务数据
         var mission = new MissionData(title, deadline, duration, difficulty);
 
-        // 添加到model
         var dayMissionData = TaskManagerModel.Instance.GetMonth(targetDate.ToString("yyyy-MM"))
             .GetDayMissionData(targetDate.ToString("yyyy-MM-dd"));
         dayMissionData.AddMission(mission);
 
-        // 通知UI刷新
         TaskManager.Instance.OnDaySelected(targetDate);
 
-        gameObject.SetActive(false);
+        ClosePanel();
     }
 
     public void ClosePanel()

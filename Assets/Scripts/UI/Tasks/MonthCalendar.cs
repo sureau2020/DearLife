@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,13 +10,13 @@ public class MonthCalendar : MonoBehaviour
     [SerializeField] private GameObject monthDateCellPrefab;
     private List<GameObject> monthDateCells = new List<GameObject>();
 
-    private const int MaxCells = 42; // 6周最多42格
+    private const int MaxCells = 42; // 42格对象池
 
     private DateTime currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
     void OnEnable()
     {
-        GenerateMonthGrid();
+        GenerateMonthGrid(TaskManager.Instance.SelectedDate);
     }
 
     void Awake()
@@ -30,14 +29,11 @@ public class MonthCalendar : MonoBehaviour
         }
     }
 
-    private void GenerateMonthGrid()
-    {
-        DateTime currentDate = DateTime.Now;
-        GenerateMonthGrid(currentDate);
-    }
 
     private void GenerateMonthGrid(DateTime targetDate)
     {
+        currentMonth = new DateTime(targetDate.Year, targetDate.Month, 1);
+
         yearMonth.text = targetDate.ToString("yyyy-MM");
         DateTime firstDayOfMonth = new DateTime(targetDate.Year, targetDate.Month, 1);
         DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
@@ -65,6 +61,7 @@ public class MonthCalendar : MonoBehaviour
     public void OnPrevMonth()
     {
         currentMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1).AddMonths(-1);
+        Debug.Log($"切换到上个月: {currentMonth.ToString("yyyy-MM")}");
         GenerateMonthGrid(currentMonth);
     }
 

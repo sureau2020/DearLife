@@ -5207,10 +5207,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1873800768}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1873800772}
+        m_TargetAssemblyTypeName: ErrorUI, Assembly-CSharp
+        m_MethodName: HideError
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8722,6 +8722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116e7997e8ddb0049978a6f325108a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorUI: {fileID: 1873800772}
 --- !u!1 &1325052545
 GameObject:
   m_ObjectHideFlags: 0
@@ -9175,7 +9176,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1340587025}
-        m_TargetAssemblyTypeName: TaskButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: BottomButton, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -9233,9 +9234,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1340587020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b923b7850622e234c8805b6bb545ae60, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2e4aa6d38ebb04b8bb7a2c843ff74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectToHide: {fileID: 1935516638}
+  objectToShow: {fileID: 810331361}
 --- !u!1 &1386597301
 GameObject:
   m_ObjectHideFlags: 0
@@ -10419,6 +10422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170d78bfc4d756840a5294578f5122c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterUI: {fileID: 1461152693}
 --- !u!1 &1631149744 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9081365561411708976, guid: 0ed349078b6c1dc48a28130c8c0f3d44,
@@ -10571,6 +10575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e4aa6d38ebb04b8bb7a2c843ff74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectToHide: {fileID: 810331361}
+  objectToShow: {fileID: 1935516638}
 --- !u!1 &1648580091
 GameObject:
   m_ObjectHideFlags: 0
@@ -11616,6 +11622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2952e2843cfb9b48b89c4e24b85c4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hungry: {fileID: 341771650}
+  clean: {fileID: 1067322685}
+  san: {fileID: 194878931}
+  money: {fileID: 154335430}
 --- !u!1 &1821787005
 GameObject:
   m_ObjectHideFlags: 0
@@ -12322,6 +12332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad05711bdfd0a348a9604357da2365d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorText: {fileID: 85762068}
 --- !u!1 &1899841689
 GameObject:
   m_ObjectHideFlags: 0

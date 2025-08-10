@@ -8,18 +8,15 @@ public class TaskList : MonoBehaviour
 
     private void OnEnable()
     {
-        // 订阅 TaskManager 的事件
         if (TaskManager.Instance != null)
         {
             TaskManager.Instance.OnTaskListUpdated += UpdateTaskList;
-            // 主动刷新一次（用缓存）
             UpdateTaskList(TaskManager.Instance.CurrentTasks);
         }
     }
 
     private void OnDisable()
     {
-        // 取消订阅，避免内存泄漏
         if (TaskManager.Instance != null)
         {
             TaskManager.Instance.OnTaskListUpdated -= UpdateTaskList;

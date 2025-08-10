@@ -8,8 +8,8 @@ public class Task : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskNameText; 
     [SerializeField] private TextMeshProUGUI ddlText; 
     [SerializeField] private TextMeshProUGUI estimatedMinSalaryText;
-    [SerializeField] private Button completeButton; // 完成任务按钮
-    [SerializeField] private Button deleteButton; // 删除任务按钮
+    [SerializeField] private Button completeButton; 
+    [SerializeField] private Button deleteButton; 
     
     private MissionData missionData;
     private GameSettings settings;
@@ -25,7 +25,6 @@ public class Task : MonoBehaviour
 
     private void UpdateTaskDisplay()
     {
-        // 设置任务名称，如果已完成则添加（已完成）标识
         if (string.IsNullOrEmpty(missionData.Title))
         {
             taskNameText.text = missionData.IsCompleted ? "未命名任务（已完成）" : "未命名任务";
@@ -35,7 +34,6 @@ public class Task : MonoBehaviour
             taskNameText.text = missionData.IsCompleted ? $"{missionData.Title}（已完成）" : missionData.Title;
         }
 
-        // 设置截止时间
         if (!missionData.HasDeadline)
         {
             ddlText.text = "无截止时间";
@@ -45,7 +43,6 @@ public class Task : MonoBehaviour
             ddlText.text = missionData.Deadline.ToString("HH:mm");
         }
 
-        // 设置预估薪资
         if (missionData.Duration <= 0 || missionData.Difficulty <= 0)
         {
             estimatedMinSalaryText.text = "无预估薪资";
@@ -82,23 +79,18 @@ public class Task : MonoBehaviour
  
     public void OnCompleteTask()
     {
-        // 调用 StateManager 完成任务
         var result = GameManager.Instance.StateManager.CompleteMission(missionData);
         
         if (result.Success)
         {
-            Debug.Log($"任务 '{missionData.Title}' 完成成功！");
-            
-            // 更新UI显示
             UpdateTaskDisplay();
             
-            // 刷新任务列表（通知 TaskManager 更新当天的任务显示）
-            var selectedDate = GetTaskDate();
-            TaskManager.Instance.OnDaySelected(selectedDate);
+            // 刷新任务列表
+            TaskManager.Instance.OnDaySelected(GetTaskDate());
         }
         else
         {
-            Debug.LogWarning($"任务完成失败: {result.Message}");
+            ErrorNotifier.NotifyError(result.Message);
         }
     }
 
@@ -110,11 +102,9 @@ public class Task : MonoBehaviour
         var dayMissionData = TaskManagerModel.Instance.GetMonth(selectedDate.ToString("yyyy-MM"))
             .GetDayMissionData(selectedDate.ToString("yyyy-MM-dd"));
         dayMissionData.DeleteSpecificMission(missionData);
-        
-        Debug.Log($"任务 '{missionData.Title}' 删除成功！");
-        
+
         // 刷新任务列表
-        TaskManager.Instance.OnDaySelected(selectedDate);
+        TaskManager.Instance.OnDaySelected(GetTaskDate());
     }
 
 
@@ -126,13 +116,11 @@ public class Task : MonoBehaviour
             return missionData.Deadline.Date;
         }
         
-        // 如果没有截止时间，使用当前选中的日期
         return TaskManager.Instance.SelectedDate;
     }
 
     private void OnDestroy()
     {
-        // 清理事件监听
         if (completeButton != null)
         {
             completeButton.onClick.RemoveAllListeners();

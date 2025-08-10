@@ -6,7 +6,7 @@ using UnityEngine;
 public class Goods : MonoBehaviour
 {
     private ItemData itemData;
-    private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemName;
 
     public void SetItemData(ItemData item)
     {
@@ -15,7 +15,6 @@ public class Goods : MonoBehaviour
 
     public void ShowInfo()
     {
-        itemName = GetComponentInChildren<TextMeshProUGUI>();
         itemName.text = itemData.Name;
     }
 

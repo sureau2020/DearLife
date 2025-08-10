@@ -8,7 +8,6 @@ public class WeekCalendar : MonoBehaviour
 {
     [SerializeField] private Transform weekGridParent;
     [SerializeField] private GameObject dayCellPrefab;
-    //private DateTime selectedDate = DateTime.Now;
     private List<GameObject> dayCells = new List<GameObject>();
 
     private void OnEnable()
@@ -20,14 +19,12 @@ public class WeekCalendar : MonoBehaviour
 
     private void GenerateWeekGrid()
     {
-        // 无参数版本，使用当前时间
         DateTime currentDate = DateTime.Now;
         GenerateWeekGrid(currentDate);
     }
 
     public void GenerateWeekGrid(DateTime targetDate)
     {
-        // 让周日作为一周的第一天
         int diff = (int)targetDate.DayOfWeek;
         DateTime startOfWeek = targetDate.AddDays(-diff);
 

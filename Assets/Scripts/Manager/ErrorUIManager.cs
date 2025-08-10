@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class ErrorUIManager : MonoBehaviour
 {
-    private GameObject errorPanel;
+    [SerializeField] private ErrorUI errorUI;
 
-    void Start()
-    {
-        errorPanel = GameObject.Find("UI").transform.Find("ErrorPanel").gameObject;
-    }
 
     void OnEnable()
     {
@@ -23,8 +19,7 @@ public class ErrorUIManager : MonoBehaviour
 
     private void HandleError(string message)
     {
-        errorPanel.SetActive(true);
-        ErrorUI errorUI = errorPanel.GetComponent<ErrorUI>();
+        errorUI.gameObject.SetActive(true);
         errorUI.ShowError(message);
     }
 }

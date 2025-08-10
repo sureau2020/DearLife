@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class TopState : MonoBehaviour
 {
-    private TextMeshProUGUI hungry;
-    private TextMeshProUGUI clean;
-    private TextMeshProUGUI san;
-    private TextMeshProUGUI money;
+    [SerializeField] private TextMeshProUGUI hungry;
+    [SerializeField] private TextMeshProUGUI clean;
+    [SerializeField] private TextMeshProUGUI san;
+    [SerializeField] private TextMeshProUGUI money;
     private StateManager stateManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        hungry = transform.Find("Hungry").GetComponent<TextMeshProUGUI>();
-        clean = transform.Find("Clean").GetComponent<TextMeshProUGUI>();
-        san = transform.Find("San").GetComponent<TextMeshProUGUI>();
-        money = transform.Find("Money").GetComponent<TextMeshProUGUI>();
-
         stateManager = GameManager.Instance.StateManager;
         stateManager.Character.OnCharacterStateChanged += OnCharacterStateChangedHandler;
         stateManager.Player.OnMoneyChanged += OnMoneyChangedHandler;
