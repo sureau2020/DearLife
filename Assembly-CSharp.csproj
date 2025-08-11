@@ -61,9 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\DialogueLoader.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
     <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\DialogueNode.cs" />
     <Compile Include="Assets\Scripts\Manager\TaskManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\MicroDataTypes.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
@@ -89,15 +94,18 @@
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\MonthCalendar.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\DayCell.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
+    <Compile Include="Assets\Scripts\Manager\DialogueManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputTaskPanel.cs" />
     <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
