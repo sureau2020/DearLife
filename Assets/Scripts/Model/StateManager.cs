@@ -64,6 +64,11 @@ public class StateManager
         return Character.ApplyItemEffect(itemId, quantity);
     }
 
+    public OperationResult ApplyEffect(EffectType type, int quantity)
+    {
+        return Character.ApplyEffect(type, quantity);
+    }
+
     // 任务标记为完成，让玩家获得报酬
     public OperationResult CompleteMission(MissionData mission)
     {

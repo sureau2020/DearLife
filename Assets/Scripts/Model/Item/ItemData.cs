@@ -14,6 +14,8 @@ public class ItemData
 
     public Dictionary<EffectType, int> Effect { get; private set; }
 
+    public List<string> Events { get; private set; }
+
 
     // 测试用的构造函数, effect是写死的
     public ItemData(string id, string name, string description, int price, ItemType type)

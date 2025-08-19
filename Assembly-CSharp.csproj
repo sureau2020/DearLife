@@ -60,6 +60,7 @@
     <Analyzer Include="D:\program\unity\Editor\2022.3.62f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\EventData.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
     <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\DialogueNode.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ConditionNode.cs" />
     <Compile Include="Assets\Scripts\Manager\TaskManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
@@ -75,7 +77,7 @@
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
-    <Compile Include="Assets\Scripts\Model\DialogueSystem\MicroDataTypes.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\EventDataBase.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
     <Compile Include="Assets\Scripts\UI\Character\ItemUI.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\NodeExecResult.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />

@@ -64,6 +64,28 @@ public class CharacterData
 
     // TODO:使用物品后显示对话！
 
+    public OperationResult ApplyEffect(EffectType type, int quantity)
+    {
+        switch (type)
+        {
+            case EffectType.Full:
+                ChangeFull(quantity);
+                break;
+            case EffectType.San:
+                ChangeSan(quantity);
+                break;
+            case EffectType.Clean:
+                ChangeClean(quantity);
+                break;
+            case EffectType.Love:
+                Love += quantity;
+                break;
+            default:
+                return OperationResult.Fail("未知效果类型，请检查当前事件");
+        }
+        return OperationResult.Complete();
+    }
+
 
     public void ChangeFull(int delta)
     {
