@@ -7,6 +7,7 @@ public class DialogueRunner
     private string currentNodeId;
 
     public event Action<DialoguePayload,DialogueType> OnShowDialogue;
+    public event Action<DialogueType> StartDialogue;
     public event Action<List<ChoiceOption>> OnShowChoices;
     public event Action OnDialogueEnd;
 
@@ -22,6 +23,7 @@ public class DialogueRunner
     {
         CurrentEvent = eventData;
         currentNodeId = eventData.StartNodeId;
+        StartDialogue?.Invoke(eventData.Type);
         Continue();
     }
 
