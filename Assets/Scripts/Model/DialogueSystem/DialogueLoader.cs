@@ -6,7 +6,7 @@ public class DialogueRunner
     public EventData CurrentEvent { get; private set; }
     private string currentNodeId;
 
-    public event Action<DialoguePayload> OnShowDialogue;
+    public event Action<DialoguePayload,DialogueType> OnShowDialogue;
     public event Action<List<ChoiceOption>> OnShowChoices;
     public event Action OnDialogueEnd;
 
@@ -39,7 +39,7 @@ public class DialogueRunner
         switch (result.Type)
         {
             case NodeExecResultType.ShowDialogue:
-                OnShowDialogue?.Invoke((DialoguePayload)result.Payload);
+                OnShowDialogue?.Invoke((DialoguePayload)result.Payload,CurrentEvent.Type);
                 break;
 
             case NodeExecResultType.ShowChoices:

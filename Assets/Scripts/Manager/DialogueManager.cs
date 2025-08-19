@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] DialogueRunner runner;
+    [SerializeField] private DialoguePanelUI dailyDialoguePanel;
+    [SerializeField] private DialoguePanelUI characterDialoguePanel;
+
+    void Awake()
     {
+        runner.OnShowDialogue += HandleShowDialogue;
+        runner.OnShowChoices += HandleShowChoices;
+        runner.OnDialogueEnd += HandleEnd;
+    }
+
+    private void HandleShowDialogue(DialoguePayload payload, DialogueType type) { 
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void HandleShowChoices(List<ChoiceOption> choices) { 
+    
     }
+
+    private void HandleEnd() { 
+    
+    }
+
 }
