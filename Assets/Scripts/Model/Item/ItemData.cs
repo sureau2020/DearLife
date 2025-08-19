@@ -29,5 +29,6 @@ public class ItemData
         {
             { EffectType.Full, 20 }
         };
+
     }
 }

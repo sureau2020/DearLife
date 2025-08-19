@@ -29,43 +29,49 @@ public class DialogueRunner
 
     private void Continue()
     {
-        if (string.IsNullOrEmpty(currentNodeId))
+        bool advancing = true;
+        while (advancing)
         {
-            OnDialogueEnd?.Invoke();
-            return;
-        }
-
-        var node = CurrentEvent.Nodes[currentNodeId];
-        var result = node.Execute(parameters);
-
-        switch (result.Type)
-        {
-            case NodeExecResultType.ShowDialogue:
-                OnShowDialogue?.Invoke((DialoguePayload)result.Payload,CurrentEvent.Type);
-                break;
-
-            case NodeExecResultType.ShowChoices:
-                OnShowChoices?.Invoke((List<ChoiceOption>)result.Payload);
-                break;
-
-            case NodeExecResultType.EndEvent:
+            if (string.IsNullOrEmpty(currentNodeId))
+            {
                 OnDialogueEnd?.Invoke();
-                break;
+                return;
+            }
 
-            case NodeExecResultType.Advance:
-                currentNodeId = result.Payload as string ?? node.NextNodeId;
-                Continue();
-                break;
+            var node = CurrentEvent.Nodes[currentNodeId];
+            var result = node.Execute(parameters);
 
-            case NodeExecResultType.NavigateEvent:
-                string targetEventId = result.Payload as string;
-                if (!string.IsNullOrEmpty(targetEventId))
-                {
-                    var newEvent = EventDataBase.GetEvent(targetEventId);
-                    StartEvent(newEvent); 
-                }
-                break;
+            switch (result.Type)
+            {
+                case NodeExecResultType.ShowDialogue:
+                    OnShowDialogue?.Invoke((DialoguePayload)result.Payload, CurrentEvent.Type);
+                    advancing = false;
+                    break;
 
+                case NodeExecResultType.ShowChoices:
+                    OnShowChoices?.Invoke((List<ChoiceOption>)result.Payload);
+                    advancing = false;
+                    break;
+
+                case NodeExecResultType.EndEvent:
+                    OnDialogueEnd?.Invoke();
+                    advancing = false;
+                    break;
+
+                case NodeExecResultType.Advance:
+                    currentNodeId = result.Payload as string ?? node.NextNodeId;
+                    break;
+
+                case NodeExecResultType.NavigateEvent:
+                    string targetEventId = result.Payload as string;
+                    if (!string.IsNullOrEmpty(targetEventId))
+                    {
+                        var newEvent = EventDataBase.GetEvent(targetEventId);
+                        StartEvent(newEvent);
+                    }
+                    advancing = false;
+                    break;
+            }
         }
     }
 

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public StateManager StateManager { get; private set; }
+    public DialogueManager DialogueManager {get; private set; }
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         GameSettings settings = new GameSettings();
 
         StateManager = new StateManager(playerData, characterData, settings);
+        DialogueManager = new DialogueManager();
     }
 
     private void Start()

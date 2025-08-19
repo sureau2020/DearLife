@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+
     [SerializeField] DialogueRunner runner;
     [SerializeField] private DialoguePanelUI dailyDialoguePanel;
     [SerializeField] private DialoguePanelUI characterDialoguePanel;
@@ -23,6 +24,16 @@ public class DialogueManager : MonoBehaviour
         runner.OnShowChoices -= HandleShowChoices;
         runner.OnDialogueEnd -= HandleEnd;
         runner.StartDialogue -= HandleStart;
+    }
+
+    public OperationResult StartDialogue(string eventId, Dictionary<string, int> parameters) {
+        runner.SetParameters(parameters);
+        EventData eventData = EventDataBase.GetEvent(eventId);
+        if (eventData == null) {
+            return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
+        }
+        runner.StartEvent(eventData);
+        return OperationResult.Complete();
     }
 
     private void HandleStart(DialogueType type) {
