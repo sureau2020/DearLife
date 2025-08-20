@@ -75,15 +75,10 @@ public class DialogueRunner
         }
     }
 
-    public void OnClickNext(string nextNodeId = null)
+    public void OnClickNext(string nextNodeId)
     {
         currentNodeId = nextNodeId ?? currentNodeId;
         Continue();
     }
 
-    public void OnChoiceSelected(string nextNodeId)
-    {
-        currentNodeId = nextNodeId;
-        Continue();
-    }
 }

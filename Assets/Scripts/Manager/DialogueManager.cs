@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
         runner.OnShowChoices += HandleShowChoices;
         runner.OnDialogueEnd += HandleEnd;
         runner.StartDialogue += HandleStart;
+        dailyDialoguePanel.OnNextClicked += HandleAdvance;
     }
 
     void OnDestroy()
@@ -24,7 +25,9 @@ public class DialogueManager : MonoBehaviour
         runner.OnShowChoices -= HandleShowChoices;
         runner.OnDialogueEnd -= HandleEnd;
         runner.StartDialogue -= HandleStart;
+        dailyDialoguePanel.OnNextClicked -= HandleAdvance;
     }
+
 
     public OperationResult StartDialogue(string eventId, Dictionary<string, int> parameters) {
         runner.SetParameters(parameters);
@@ -84,8 +87,14 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void HandleEnd() { 
-    
+        dailyDialoguePanel.gameObject.SetActive(false);
+        characterDialoguePanel.gameObject.SetActive(false);
+        choicePanelUI.gameObject.SetActive(false);
     }
 
-    
+    public void HandleAdvance(string nextNodeId)
+    {
+        runner.OnClickNext(nextNodeId);
+    }
+
 }
