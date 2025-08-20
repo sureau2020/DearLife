@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public static class Calculators
 {
@@ -21,5 +22,17 @@ public static class Calculators
     {
         float baseReward = duration * hourlyWage + difficulty * difficultyBonus;
         return (int)Math.Round(baseReward);
+    }
+
+
+    //随机生成一个1-5的数字，如果小于等于p则返回true，否则返回false
+    public static bool RandomChance(int p)
+    {
+        return rng.Next(1, 6) <= p;
+    }
+
+    public static string RandomEvent(List<string> events) { 
+        int index = rng.Next(events.Count);
+        return events[index];
     }
 }

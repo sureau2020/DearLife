@@ -15,6 +15,9 @@ public class GameSettings
 
     public int DelayMissionNum { get; private set; } = 3; //倒计时模式加时任务数
 
+    //0-5的数字，数字越大回复概率越高，0不回复，5肯定回复
+    public int ReplyChance { get; private set; } = 4;
+
 
     public OperationResult Validate()
     {

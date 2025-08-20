@@ -47,6 +47,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    // parameter没写呢，想想咋整
+    public OperationResult UseItemWithDialogue(string itemId, int quantity) { 
+        OperationResult result = StateManager.UseItem(itemId, quantity);
+        if (!result.Success) {
+            return result;
+        }
+
+        return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId, null);
+    }
+
+
     private void OnMinuteChanged(DateTime now)
     {
         Debug.Log("一分钟过去了，当前时间：" + now.ToString("HH:mm"));

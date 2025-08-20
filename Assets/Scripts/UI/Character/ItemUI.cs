@@ -13,7 +13,7 @@ public class ItemUi : MonoBehaviour
 
     public void OnItemClick()
     {
-        OperationResult result = GameManager.Instance.StateManager.UseItem(itemId, 1);
+        OperationResult result = GameManager.Instance.UseItemWithDialogue(itemId, 1);
         if (!result.Success)
         {
             ErrorNotifier.NotifyError(result.Message);
