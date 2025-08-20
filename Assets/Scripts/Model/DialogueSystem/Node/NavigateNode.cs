@@ -4,6 +4,11 @@ public class NavigateNode : BaseNode
 {
     public string TargetEventId; // 要跳转的事件 ID
 
+    public NavigateNode(string id, string nextNodeId, string targetEventId) : base(id, nextNodeId)
+    {
+        TargetEventId = targetEventId;
+    }
+
     public override NodeExecResult Execute(Dictionary<string, int> parameters)
     {
         // 立刻通知 Runner 跳事件

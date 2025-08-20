@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         GameSettings settings = new GameSettings();
 
         StateManager = new StateManager(playerData, characterData, settings);
-        DialogueManager = new DialogueManager();
+        DialogueManager = GetComponent<DialogueManager>();
     }
 
     private void Start()

@@ -4,6 +4,12 @@ public class EffectNode : BaseNode
 {
     public Dictionary<EffectType,int> Effects = new();
 
+    public EffectNode(string id, string nextNodeId, Dictionary<EffectType, int> effects) 
+        : base(id, nextNodeId)
+    {
+        Effects = effects;
+    }
+
     public override NodeExecResult Execute(Dictionary<string, int> parameters)
     {
         foreach (var effect in Effects)

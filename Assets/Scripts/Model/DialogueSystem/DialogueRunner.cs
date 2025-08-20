@@ -77,7 +77,7 @@ public class DialogueRunner
 
     public void OnClickNext(string nextNodeId)
     {
-        currentNodeId = nextNodeId ?? currentNodeId;
+        currentNodeId = nextNodeId;
         Continue();
     }
 

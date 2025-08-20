@@ -5,18 +5,20 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
 
-    [SerializeField] DialogueRunner runner;
+    private DialogueRunner runner;
     [SerializeField] private DialoguePanelUI dailyDialoguePanel;
     [SerializeField] private DialoguePanelUI characterDialoguePanel;
     [SerializeField] private ChoicePanelUI choicePanelUI;
 
     void Awake()
     {
+        runner = new DialogueRunner();
         runner.OnShowDialogue += HandleShowDialogue;
         runner.OnShowChoices += HandleShowChoices;
         runner.OnDialogueEnd += HandleEnd;
         runner.StartDialogue += HandleStart;
         dailyDialoguePanel.OnNextClicked += HandleAdvance;
+        characterDialoguePanel.OnNextClicked += HandleAdvance;
     }
 
     void OnDestroy()
@@ -26,14 +28,20 @@ public class DialogueManager : MonoBehaviour
         runner.OnDialogueEnd -= HandleEnd;
         runner.StartDialogue -= HandleStart;
         dailyDialoguePanel.OnNextClicked -= HandleAdvance;
+        characterDialoguePanel.OnNextClicked -= HandleAdvance;
     }
 
 
     public OperationResult StartDialogue(string eventId, Dictionary<string, int> parameters) {
-        runner.SetParameters(parameters);
+        if (parameters != null) {
+            runner.SetParameters(parameters);
+        }
         EventData eventData = EventDataBase.GetEvent(eventId);
         if (eventData == null) {
             return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
+        }
+        if (runner != null) {
+            Debug.Log($"开始对话：{eventId}");
         }
         runner.StartEvent(eventData);
         return OperationResult.Complete();

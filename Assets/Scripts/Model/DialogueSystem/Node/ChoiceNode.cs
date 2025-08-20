@@ -6,6 +6,11 @@ public class ChoiceNode : BaseNode
 {
     public List<ChoiceOption> Options;
 
+    public ChoiceNode(string id, string text, List<ChoiceOption> options) : base(id, text)
+    {
+        Options = options;
+    }
+
     public override NodeExecResult Execute(Dictionary<string, int> parameters)
     {
         return new NodeExecResult

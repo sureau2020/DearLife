@@ -65,7 +65,6 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
-    <Compile Include="Assets\Scripts\Model\DialogueSystem\DialogueLoader.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
     <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\DialogueNode.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\TaskList.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\DialogueRunner.cs" />
     <Compile Include="Assets\Scripts\Model\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemInfoManager.cs" />
