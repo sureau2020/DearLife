@@ -9,4 +9,11 @@ public abstract class BaseNode
 
     // Ö´ÐÐ½Úµã
     public abstract NodeExecResult Execute(Dictionary<string, int> parameters);
+
+    protected BaseNode(string id, string nextNodeId)
+    {
+        Id = id;
+        NextNodeId = nextNodeId;
+    }
+
 }
