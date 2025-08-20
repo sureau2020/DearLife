@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\TaskList.cs" />
+    <Compile Include="Assets\Scripts\UI\Choice\ChoicesUI.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\DialogueRunner.cs" />
     <Compile Include="Assets\Scripts\Model\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
-    <Compile Include="Assets\Scripts\UI\Character\ChoicePanelUI.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\UI\Choice\ChoiceUI.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\DayCell.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />

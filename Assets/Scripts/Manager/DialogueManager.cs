@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour
     private DialogueRunner runner;
     [SerializeField] private DialoguePanelUI dailyDialoguePanel;
     [SerializeField] private DialoguePanelUI characterDialoguePanel;
-    [SerializeField] private ChoicePanelUI choicePanelUI;
+    [SerializeField] private ChoicesUI choicePanelUI;
 
     void Awake()
     {
@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
         runner.StartDialogue += HandleStart;
         dailyDialoguePanel.OnNextClicked += HandleAdvance;
         characterDialoguePanel.OnNextClicked += HandleAdvance;
+        choicePanelUI.OnChoiceClicked += HandleAdvance;
     }
 
     void OnDestroy()
@@ -29,6 +30,7 @@ public class DialogueManager : MonoBehaviour
         runner.StartDialogue -= HandleStart;
         dailyDialoguePanel.OnNextClicked -= HandleAdvance;
         characterDialoguePanel.OnNextClicked -= HandleAdvance;
+        choicePanelUI.OnChoiceClicked -= HandleAdvance;
     }
 
 
@@ -91,7 +93,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void HandleShowChoices(List<ChoiceOption> choices) { 
-    
+        
     }
 
     private void HandleEnd() { 
