@@ -5686,7 +5686,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C\u6D4B\u8BD5\u6587\u672C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0b2b7f240d217c84d97847c944bcf0c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d1ea100ee753f84484c82a12daf8a61, type: 2}
   m_sharedMaterial: {fileID: 7305823724028497165, guid: 0b2b7f240d217c84d97847c944bcf0c2,
     type: 2}
   m_fontSharedMaterials: []
@@ -5751,7 +5751,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &774252833
@@ -6582,7 +6582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &898922575
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6685,7 +6685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoicePrefab: {fileID: 331613775143045664, guid: 6c44ed6994f8353458b94dab1497a6a6,
     type: 3}
-  weekGridParent: {fileID: 2050353945}
+  gridParent: {fileID: 2050353945}
 --- !u!1 &937971625
 GameObject:
   m_ObjectHideFlags: 0
@@ -9530,7 +9530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dailyDialoguePanel: {fileID: 731056578}
   characterDialoguePanel: {fileID: 1261470717}
-  choicePanelUI: {fileID: 0}
+  choicePanelUI: {fileID: 898922580}
 --- !u!1 &1340587020
 GameObject:
   m_ObjectHideFlags: 0
@@ -13402,7 +13402,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u738B\u660E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0b2b7f240d217c84d97847c944bcf0c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d1ea100ee753f84484c82a12daf8a61, type: 2}
   m_sharedMaterial: {fileID: 7305823724028497165, guid: 0b2b7f240d217c84d97847c944bcf0c2,
     type: 2}
   m_fontSharedMaterials: []
@@ -13467,7 +13467,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2065591020

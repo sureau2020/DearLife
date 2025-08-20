@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChoicesUI : MonoBehaviour
@@ -19,7 +20,7 @@ public class ChoicesUI : MonoBehaviour
         ChoicePrefab.GetComponent<ChoiceUI>().OnChoiceClicked -= HandleChoiceClicked;
     }
 
-    public void GenerateChoices(ChoiceOption[] choiceOptions) { 
+    public void GenerateChoices(List<ChoiceOption> choiceOptions) { 
         foreach (Transform child in gridParent) {
             Destroy(child.gameObject);
         }

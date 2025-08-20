@@ -92,8 +92,9 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void HandleShowChoices(List<ChoiceOption> choices) { 
-        
+    private void HandleShowChoices(List<ChoiceOption> choices) {
+        choicePanelUI.gameObject.SetActive(true);
+        choicePanelUI.GenerateChoices(choices);
     }
 
     private void HandleEnd() { 

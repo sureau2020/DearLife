@@ -25,4 +25,10 @@ public class ChoiceOption
 {
     public string Text { get; private set; }
     public string NextNodeId { get; private set; }
+
+    public ChoiceOption(string text, string nextNodeId)
+    {
+        Text = text;
+        NextNodeId = nextNodeId;
+    }
 }

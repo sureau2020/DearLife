@@ -49,9 +49,27 @@ public class EventDataBase
             new Dictionary<string, BaseNode>
             {
                 { "node_301", new DialogueNode("node_301", "node_302", "好友", "这套衣服挺适合你的！") },
-                { "node_302", new DialogueNode("node_302", null,       "玩家", "真的吗？谢谢！") }
+
+                // 玩家接话，然后进入选择
+                { "node_302", new DialogueNode("node_302", "node_Choice", "{characterName}", "真的吗？谢谢！要不要现在就穿上？") },
+
+                // 选择节点，没有对话，只有选项
+                { "node_Choice", new ChoiceNode(
+                    "node_Choice",
+                    "node_303", // 默认的“一个选项”id，就随便给个默认的nextNodeId
+                    new List<ChoiceOption>
+                    {
+                        new ChoiceOption("当然要！", "node_303"),
+                        new ChoiceOption("还是算了吧……", "node_304")
+                    }
+                )},
+
+                { "node_303", new DialogueNode("node_303", null, "好友", "太好了！你穿上真的很合适。") },
+                { "node_304", new DialogueNode("node_304", null, "好友", "好吧，下次有机会再穿！") }
             }
         ));
+
+
 
         AddEvent(new EventData(
             "event_005",

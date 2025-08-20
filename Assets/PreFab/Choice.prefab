@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8530977637846082875}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4611213653112041399}
+        m_TargetAssemblyTypeName: ChoiceUI, Assembly-CSharp
+        m_MethodName: OnClickChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4611213653112041399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c206afec17a24af46b396378f2cee1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  choiceText: {fileID: 797820128470009788}
 --- !u!1 &8135978223194954253
 GameObject:
   m_ObjectHideFlags: 0
