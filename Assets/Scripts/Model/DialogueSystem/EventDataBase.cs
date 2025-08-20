@@ -15,8 +15,8 @@ public class EventDataBase
            "node_001",
            new Dictionary<string, BaseNode>
            {
-                { "node_001", new DialogueNode("node_001", "node_002", "Alice", "今天天气真好呀！") },
-                { "node_002", new DialogueNode("node_002", null,       "Bob",   "是啊，出去走走吧。") }
+                { "node_001", new DialogueNode("node_001", "node_002", "{characterName}", "今天天气真好呀！") },
+                { "node_002", new DialogueNode("node_002", null,       "Bob",   "是啊，{characterName}出去走走吧。") }
            }
        ));
 
@@ -59,8 +59,8 @@ public class EventDataBase
             "node_401",
             new Dictionary<string, BaseNode>
             {
-                { "node_401", new DialogueNode("node_401", "node_402", "Alice", "午饭想吃点什么？") },
-                { "node_402", new DialogueNode("node_402", null,       "Bob",   "随便啦，你决定就好。") }
+                { "node_401", new DialogueNode("node_401", "node_402", "{characterName}", "午饭想吃点什么？") },
+                { "node_402", new DialogueNode("node_402", null,       "Bob",   "随便啦，{characterName}决定就好。") }
             }
         ));
     }
