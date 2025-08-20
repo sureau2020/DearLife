@@ -60,6 +60,7 @@ public class DialogueRunner
 
                 case NodeExecResultType.Advance:
                     currentNodeId = result.Payload as string ?? node.NextNodeId;
+
                     break;
 
                 case NodeExecResultType.NavigateEvent:
@@ -67,9 +68,15 @@ public class DialogueRunner
                     if (!string.IsNullOrEmpty(targetEventId))
                     {
                         var newEvent = EventDataBase.GetEvent(targetEventId);
-                        StartEvent(newEvent);
+                        if (newEvent == null)
+                        {
+                            ErrorNotifier.NotifyError($"无法找到事件：{targetEventId}，检查当前事件的跳转node是否有问题");
+                            return;
+                        }
+                        CurrentEvent = newEvent;
+                        currentNodeId = newEvent.StartNodeId;
+                        StartDialogue?.Invoke(newEvent.Type);
                     }
-                    advancing = false;
                     break;
             }
         }

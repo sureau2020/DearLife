@@ -23,6 +23,7 @@ public class ChoiceUI : MonoBehaviour
 
     public void OnClickChoice()
     {
+        Debug.Log($"Choice clicked: {choiceText.text}, Next Node ID: {nextNodeId},这是第一层");
         OnChoiceClicked?.Invoke(nextNodeId);
     }
 

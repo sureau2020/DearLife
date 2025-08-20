@@ -81,6 +81,34 @@ public class EventDataBase
                 { "node_402", new DialogueNode("node_402", null,       "Bob",   "随便啦，{characterName}决定就好。") }
             }
         ));
+
+        AddEvent(new EventData(
+            "event_007",
+            DialogueType.Item,
+            "node_501",
+            new Dictionary<string, BaseNode>
+            {
+                { "node_501", new DialogueNode("node_501", "node_choice", "好友", "我们去哪里玩？") },
+
+                { "node_choice", new ChoiceNode(
+                    "node_choice",
+                    "node_502", // 默认选项的 nextNodeId，可以随便给
+                    new List<ChoiceOption>
+                    {
+                        // 继续当前事件的分支
+                        new ChoiceOption("去公园吧！", "node_502"),
+                        // 跳到别的事件，用 NavigateNode 实现
+                        new ChoiceOption("去商场逛逛！", "node_nav")
+                    }
+                )},
+
+                { "node_502", new DialogueNode("node_502", null, "玩家", "好啊，我们去公园！") },
+
+                // 跳转节点，直接触发另一个事件
+                { "node_nav", new NavigateNode("node_nav", null, "event_003") }
+            }
+        ));
+
     }
 
     public static void AddEvent(EventData eventData)

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,24 +9,18 @@ public class ChoicesUI : MonoBehaviour
     public event Action<string> OnChoiceClicked;
 
 
-    void OnEnable()
-    {
-        ChoicePrefab.GetComponent<ChoiceUI>().OnChoiceClicked += HandleChoiceClicked;
-    }
-
-    void OnDisable()
-    {
-        ChoicePrefab.GetComponent<ChoiceUI>().OnChoiceClicked -= HandleChoiceClicked;
-    }
-
     public void GenerateChoices(List<ChoiceOption> choiceOptions) { 
         foreach (Transform child in gridParent) {
+            var choiceUI = child.GetComponent<ChoiceUI>();
+            if (choiceUI != null)
+                choiceUI.OnChoiceClicked -= HandleChoiceClicked;
             Destroy(child.gameObject);
         }
         foreach (var option in choiceOptions) {
             GameObject choiceObj = Instantiate(ChoicePrefab, gridParent);
             ChoiceUI choiceUI = choiceObj.GetComponent<ChoiceUI>();
             choiceUI.SetChoice(option); 
+            choiceUI.OnChoiceClicked += HandleChoiceClicked;
         }
     }
 
