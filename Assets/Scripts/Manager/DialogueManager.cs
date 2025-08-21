@@ -46,12 +46,14 @@ public class DialogueManager : MonoBehaviour
         if (eventData == null) {
             return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
         }
+        Debug.Log($"开始对话事件: {eventId}");
         runner.StartEvent(eventData);
         return OperationResult.Complete();
     }
 
     public void StartRandomDailyDialogue() {
         string eventId = Calculators.RandomEvent(EventDataBase.GetCandidateDailyEventIds());
+        Debug.Log($"随机事件ID: {eventId}");
         OperationResult result = StartDialogue(eventId);
         if (!result.Success) {
             ErrorNotifier.NotifyError(result.Message);

@@ -23,7 +23,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_002",
-            DialogueType.Daily,
+            DialogueType.Item,
             "node_101",
             new Dictionary<string, BaseNode>
             {
@@ -85,7 +85,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_007",
-            DialogueType.Item,
+            DialogueType.Daily,
             "node_501",
             new Dictionary<string, BaseNode>
             {
@@ -221,9 +221,10 @@ public class EventDataBase
         }
         eventMap.Add(eventData.EventId, eventData);
         RegisterEventByType(eventData);
-        FilterDailyEventsMatchCharacter(eventData);
     }
 
+
+    // 注册事件到对应的类型映射,如果是每日事件，还会筛选符合角色性格的事件
     private static void RegisterEventByType(EventData eventData)
     {
         if (!eventMapByType.ContainsKey(eventData.Type))
@@ -231,6 +232,10 @@ public class EventDataBase
             eventMapByType[eventData.Type] = new HashSet<string>();
         }
         eventMapByType[eventData.Type].Add(eventData.EventId);
+        if (eventData.Type == DialogueType.Daily)
+        {
+            FilterDailyEventsMatchCharacter(eventData);
+        }
     }
 
     private static void FilterDailyEventsMatchCharacter(EventData eventData) {
