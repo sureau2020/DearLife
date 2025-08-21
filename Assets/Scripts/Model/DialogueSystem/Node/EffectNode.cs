@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class EffectNode : BaseNode
 {
@@ -17,7 +18,6 @@ public class EffectNode : BaseNode
         {
             GameManager.Instance.SetValueOfState(effect.Key, effect.Value);
         }
-
         // 执行完效果，立刻走下一节点
         return new NodeExecResult
         {

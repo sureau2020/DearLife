@@ -154,6 +154,59 @@ public class EventDataBase
             }
         ));
 
+        // 事件示例：测试 EffectNode
+        AddEvent(new EventData(
+            "event_009",
+            DialogueType.Item,
+            "node_start",
+            new Dictionary<string, BaseNode>
+            {
+        // 开始节点：普通对话
+        { "node_start", new DialogueNode(
+            "node_start",
+            "node_effect",
+            "好友",
+            "嘿，你今天状态怎么样？"
+        )},
+
+        // 效果节点：增加 San 和 Money
+        { "node_effect", new EffectNode(
+            "node_effect",
+            "node_after_effect",
+            new Dictionary<string,int>
+            {
+                { "Love", 50 },      
+                { "Money", 50 },
+            }
+        )},
+
+        // 效果后对话
+        { "node_after_effect", new DialogueNode(
+            "node_after_effect",
+            "node_choice",
+            "玩家",
+            "哇，我感觉好多了！"
+        )},
+
+        // 选择节点
+        { "node_choice", new ChoiceNode(
+            "node_choice",
+            "node_end",
+            new List<ChoiceOption>
+            {
+                new ChoiceOption("去散步吧！", "node_walk"),
+                new ChoiceOption("去买东西！", "node_shop")
+            }
+        )},
+
+        { "node_walk", new DialogueNode("node_walk", null, "好友", "好啊，我们去散步！") },
+
+        { "node_shop", new DialogueNode("node_shop", null, "好友", "好，我们去商店逛逛！") },
+
+        { "node_end", new DialogueNode("node_end", null, "系统", "事件结束") }
+            }
+        ));
+
 
     }
 

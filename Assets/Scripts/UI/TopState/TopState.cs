@@ -8,6 +8,7 @@ public class TopState : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clean;
     [SerializeField] private TextMeshProUGUI san;
     [SerializeField] private TextMeshProUGUI money;
+    [SerializeField] private TextMeshProUGUI love;
     private StateManager stateManager;
 
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class TopState : MonoBehaviour
         clean.text = "清洁：" + stateManager.Character.Clean.ToString();
         san.text = "理智：" + stateManager.Character.San.ToString();
         money.text = "金钱：" + stateManager.Player.Money.ToString();
+        love.text = "好感：" + stateManager.Character.Love.ToString();
     }
 
     void OnDestroy()
@@ -51,6 +53,9 @@ public class TopState : MonoBehaviour
                 break;
             case "San":
                 san.text = "理智： " + value.ToString();
+                break;
+            case "Love":
+                love.text = "好感： " + value.ToString();
                 break;
         }
     }

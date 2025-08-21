@@ -12156,6 +12156,7 @@ MonoBehaviour:
   clean: {fileID: 1067322685}
   san: {fileID: 194878931}
   money: {fileID: 154335430}
+  love: {fileID: 1052927742}
 --- !u!1 &1821787005
 GameObject:
   m_ObjectHideFlags: 0

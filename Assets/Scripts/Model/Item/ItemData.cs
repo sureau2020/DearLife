@@ -30,7 +30,7 @@ public class ItemData
             { EffectType.Full, 20 }
         };
         //°üº¬¡°001¡±ÊÂ¼þ
-        Events = new List<string> { "event_008" };
+        Events = new List<string> { "event_009" };
 
     }
 }
