@@ -9,6 +9,7 @@ public class StateManager
     public PlayerData Player { get; }
     public CharacterData Character { get; }
     public GameSettings Settings { get; }
+    public Dictionary<string, int> CustomStates { get; }
 
     private const int DelayTime = 10;
 
@@ -16,13 +17,24 @@ public class StateManager
     private int sanDecayCounter = 0;
 
 
-    public StateManager(PlayerData player, CharacterData character, GameSettings settings)
+    public StateManager(PlayerData player, CharacterData character, GameSettings settings, Dictionary<string,int> customStates)
     {
         Player = player;
         Character = character;
         Settings = settings;
+        CustomStates = customStates;
     }
 
+
+    // 没有就返回minValue
+    public int GetCustomState(string key)
+    {
+        if (CustomStates.TryGetValue(key, out int value))
+        {
+            return value;
+        }
+        return int.MinValue; 
+    }
 
 
     // 每分钟调用一次，衰减角色状态

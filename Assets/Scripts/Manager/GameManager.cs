@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,8 +25,14 @@ public class GameManager : MonoBehaviour
         PlayerData playerData = new PlayerData(10);// 初始金钱10
         CharacterData characterData = new CharacterData();
         GameSettings settings = new GameSettings();
+        Dictionary<string, int> customStates = new Dictionary<string, int>
+        {
+            { "A", 100 },
+            { "Thirst", 100 },
+            { "Fatigue", 0 }
+        };
 
-        StateManager = new StateManager(playerData, characterData, settings);
+        StateManager = new StateManager(playerData, characterData, settings, customStates);
         DialogueManager = GetComponent<DialogueManager>();
     }
 
@@ -55,6 +62,25 @@ public class GameManager : MonoBehaviour
         }
 
         return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId);
+    }
+
+
+    // 获取全局需要的状态值，给对话分支用的
+    public int GetValueOfState(string stateName) {
+        switch(stateName) {
+            case "Full":
+                return StateManager.Character.Full;
+            case "Clean":
+                return StateManager.Character.Clean;
+            case "San":
+                return StateManager.Character.San;
+            case "Love":
+                return StateManager.Character.Love;
+            case "Money":
+                return StateManager.Player.Money;
+            default:
+                return StateManager.GetCustomState(stateName);
+        }
     }
 
 
