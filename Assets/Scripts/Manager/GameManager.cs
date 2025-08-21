@@ -83,6 +83,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //使用对话中产生的效果+
+    public void SetValueOfState(string stateName, int value) {
+        switch(stateName) {
+            case "Full":
+                StateManager.Character.ChangeFull(value);
+                break;
+            case "Clean":
+                StateManager.Character.ChangeClean(value);
+                break;
+            case "San":
+                StateManager.Character.ChangeSan(value);
+                break;
+            case "Love":
+                StateManager.Character.ChangeLove(value);
+                break;
+            case "Money":
+                StateManager.Player.EarnMoney(value);
+                break;
+            default:
+                StateManager.SetCustomState(stateName, value);
+                break;
+        }
+    }
+
 
     private void OnMinuteChanged(DateTime now)
     {

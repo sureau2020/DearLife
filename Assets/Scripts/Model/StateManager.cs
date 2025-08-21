@@ -36,6 +36,18 @@ public class StateManager
         return int.MinValue; 
     }
 
+    public void SetCustomState(string key, int value)
+    {
+        if (CustomStates.ContainsKey(key))
+        {
+            CustomStates[key] += value;
+        }
+        else
+        {
+            CustomStates.Add(key, value);
+        }
+    }
+
 
     // 每分钟调用一次，衰减角色状态
     public void DecayStates()

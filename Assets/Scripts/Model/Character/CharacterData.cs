@@ -56,7 +56,7 @@ public class CharacterData
                     ChangeClean(effect.Value * quantity);
                     break;
                 case EffectType.Love:
-                    Love += effect.Value * quantity;
+                    ChangeLove(effect.Value * quantity);
                     break;
                 default:
                     return OperationResult.Fail("物品效果包含未知类型，请检查物品效果。");
@@ -81,7 +81,7 @@ public class CharacterData
                 ChangeClean(quantity);
                 break;
             case EffectType.Love:
-                Love += quantity;
+                ChangeLove(quantity);
                 break;
             default:
                 return OperationResult.Fail("未知效果类型，请检查当前事件");
@@ -108,6 +108,11 @@ public class CharacterData
         OnCharacterStateChanged?.Invoke("San", San);
     }
 
+    public void ChangeLove(int delta)
+    {
+        Love = Mathf.Max(0, Love + delta); // Love不能小于0
+        OnCharacterStateChanged?.Invoke("Love", Love);
+    }
 
 
 }

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public class EffectNode : BaseNode
 {
-    public Dictionary<EffectType,int> Effects = new();
+    public Dictionary<string,int> Effects = new();
 
-    public EffectNode(string id, string nextNodeId, Dictionary<EffectType, int> effects) 
+    public EffectNode(string id, string nextNodeId, Dictionary<string, int> effects) 
         : base(id, nextNodeId)
     {
         Effects = effects;
@@ -14,14 +14,14 @@ public class EffectNode : BaseNode
     {
         foreach (var effect in Effects)
         {
-            GameManager.Instance.StateManager.ApplyEffect(effect.Key, effect.Value);
+            
         }
 
         // 执行完效果，立刻走下一节点
         return new NodeExecResult
         {
             Type = NodeExecResultType.Advance,
-            Payload = NextNodeId // 可以为空，Runner 按顺序走
+            Payload = NextNodeId 
         };
     }
 }
