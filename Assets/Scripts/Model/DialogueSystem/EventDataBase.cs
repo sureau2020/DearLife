@@ -74,7 +74,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_005",
-            DialogueType.Daily,
+            DialogueType.Item,
             "node_401",
             new Dictionary<string, BaseNode>
             {
@@ -85,7 +85,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_007",
-            DialogueType.Daily,
+            DialogueType.Item,
             "node_501",
             new Dictionary<string, BaseNode>
             {
@@ -158,7 +158,7 @@ public class EventDataBase
         // ÊÂ¼þÊ¾Àý£º²âÊÔ EffectNode
         AddEvent(new EventData(
             "event_009",
-            DialogueType.Item,
+            DialogueType.Daily,
             "node_start",
             new Dictionary<string, BaseNode>
             {

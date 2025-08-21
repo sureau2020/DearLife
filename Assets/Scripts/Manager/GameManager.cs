@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // parameter没写呢，想想咋整
     public OperationResult UseItemWithDialogue(string itemId, int quantity) { 
         OperationResult result = StateManager.UseItem(itemId, quantity);
         if (!result.Success) {
