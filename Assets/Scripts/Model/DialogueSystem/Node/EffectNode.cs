@@ -10,11 +10,12 @@ public class EffectNode : BaseNode
         Effects = effects;
     }
 
+    // 目前只有+效果，没有=效果
     public override NodeExecResult Execute()
     {
         foreach (var effect in Effects)
         {
-            
+            GameManager.Instance.SetValueOfState(effect.Key, effect.Value);
         }
 
         // 执行完效果，立刻走下一节点
