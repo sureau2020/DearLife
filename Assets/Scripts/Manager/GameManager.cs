@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         TimeManager.Instance.OnMinuteChanged += OnMinuteChanged;
         TimeManager.Instance.OnHourChanged += OnHourChanged;
         TimeManager.Instance.OnDayChanged += OnDayChanged;
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
             return result;
         }
 
-        return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId, null);
+        return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId);
     }
 
 

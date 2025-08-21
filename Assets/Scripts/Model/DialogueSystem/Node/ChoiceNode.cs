@@ -11,7 +11,7 @@ public class ChoiceNode : BaseNode
         Options = options;
     }
 
-    public override NodeExecResult Execute(Dictionary<string, int> parameters)
+    public override NodeExecResult Execute()
     {
         return new NodeExecResult
         {

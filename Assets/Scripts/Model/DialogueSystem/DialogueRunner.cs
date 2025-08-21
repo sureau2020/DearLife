@@ -11,13 +11,6 @@ public class DialogueRunner
     public event Action<List<ChoiceOption>> OnShowChoices;
     public event Action OnDialogueEnd;
 
-    // 存储外部传入参数
-    private Dictionary<string, int> parameters = new();
-
-    public void SetParameters(Dictionary<string, int> param)
-    {
-        parameters = param;
-    }
 
     public void StartEvent(EventData eventData)
     {
@@ -39,7 +32,7 @@ public class DialogueRunner
             }
 
             var node = CurrentEvent.Nodes[currentNodeId];
-            var result = node.Execute(parameters);
+            var result = node.Execute();
 
             switch (result.Type)
             {

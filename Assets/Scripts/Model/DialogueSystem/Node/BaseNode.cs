@@ -8,7 +8,7 @@ public abstract class BaseNode
     public string NextNodeId;
 
     // Ö´ÐÐ½Úµã
-    public abstract NodeExecResult Execute(Dictionary<string, int> parameters);
+    public abstract NodeExecResult Execute();
 
     protected BaseNode(string id, string nextNodeId)
     {

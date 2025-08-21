@@ -9,7 +9,7 @@ public class NavigateNode : BaseNode
         TargetEventId = targetEventId;
     }
 
-    public override NodeExecResult Execute(Dictionary<string, int> parameters)
+    public override NodeExecResult Execute()
     {
         // 立刻通知 Runner 跳事件
         return new NodeExecResult

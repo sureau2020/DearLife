@@ -34,10 +34,7 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    public OperationResult StartDialogue(string eventId, Dictionary<string, int> parameters) {
-        if (parameters != null) {
-            runner.SetParameters(parameters);
-        }
+    public OperationResult StartDialogue(string eventId) {
         EventData eventData = EventDataBase.GetEvent(eventId);
         if (eventData == null) {
             return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
@@ -53,14 +50,14 @@ public class DialogueManager : MonoBehaviour
     // REQUIRE: itemID对应的item不等于null，这点在GameManager中已经验证过了，0<=p<=5
     // 使用物品时，先使用物品,根据setting里的概率随机决定是否有对话，有对话的话随机对话，返回结果
     // todo item id 随机event ，传过去id
-    public OperationResult ShowRandomItemDialogue(int p, string itemId, Dictionary<string, int> parameters) {
+    public OperationResult ShowRandomItemDialogue(int p, string itemId) {
         if (p <= 1 || !Calculators.RandomChance(p))
         {
             return OperationResult.Complete();
         }
         else { 
             ItemData item = ItemDataBase.GetItemById(itemId);
-            return StartDialogue(Calculators.RandomEvent(item.Events), parameters);
+            return StartDialogue(Calculators.RandomEvent(item.Events));
         }
     }
 

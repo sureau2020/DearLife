@@ -14,7 +14,7 @@ public class DialogueNode : BaseNode
         this.dialogueText = dialogueText;
     }
 
-    public override NodeExecResult Execute(Dictionary<string, int> parameters)
+    public override NodeExecResult Execute()
     {
         
         return new NodeExecResult

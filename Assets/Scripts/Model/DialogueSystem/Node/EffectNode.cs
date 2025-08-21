@@ -10,7 +10,7 @@ public class EffectNode : BaseNode
         Effects = effects;
     }
 
-    public override NodeExecResult Execute(Dictionary<string, int> parameters)
+    public override NodeExecResult Execute()
     {
         foreach (var effect in Effects)
         {
