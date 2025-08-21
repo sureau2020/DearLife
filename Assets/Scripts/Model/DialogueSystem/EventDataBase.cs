@@ -4,7 +4,7 @@ public class EventDataBase
 {
     private static Dictionary<DialogueType, HashSet<string>> eventMapByType = new Dictionary<DialogueType, HashSet<string>>();
     private static Dictionary<string, EventData> eventMap = new Dictionary<string, EventData>();
-    private static HashSet<string> candidateDailyEventIds = new HashSet<string>();
+    private static List<string> candidateDailyEventIds = new List<string>();
 
 
     // 目前硬编码，写死了事件测试，启动后固定有一次筛选
@@ -23,7 +23,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_002",
-            DialogueType.Item,
+            DialogueType.Daily,
             "node_101",
             new Dictionary<string, BaseNode>
             {
@@ -74,7 +74,7 @@ public class EventDataBase
 
         AddEvent(new EventData(
             "event_005",
-            DialogueType.Item,
+            DialogueType.Daily,
             "node_401",
             new Dictionary<string, BaseNode>
             {
@@ -245,6 +245,10 @@ public class EventDataBase
         if (eventMap.TryGetValue(eventId, out var ev))
             return ev;
         return null;
+    }
+
+    public static List<string> GetCandidateDailyEventIds() { 
+        return candidateDailyEventIds;
     }
 
     //public static EventData GetItemEvent(string eventId) { 

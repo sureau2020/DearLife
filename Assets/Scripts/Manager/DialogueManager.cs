@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialoguePanelUI dailyDialoguePanel;
     [SerializeField] private DialoguePanelUI characterDialoguePanel;
     [SerializeField] private ChoicesUI choicePanelUI;
+    [SerializeField] private BottomButton randomDailyEventGenerator;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class DialogueManager : MonoBehaviour
         dailyDialoguePanel.OnNextClicked += HandleAdvance;
         characterDialoguePanel.OnNextClicked += HandleAdvance;
         choicePanelUI.OnChoiceClicked += HandleAdvance;
+        randomDailyEventGenerator.randomDailyEvent += StartRandomDailyDialogue;
     }
 
     void OnDestroy()
@@ -31,16 +33,29 @@ public class DialogueManager : MonoBehaviour
         dailyDialoguePanel.OnNextClicked -= HandleAdvance;
         characterDialoguePanel.OnNextClicked -= HandleAdvance;
         choicePanelUI.OnChoiceClicked -= HandleAdvance;
+        randomDailyEventGenerator.randomDailyEvent -= StartRandomDailyDialogue;
     }
 
 
-    public OperationResult StartItemDialogue(string eventId) {
+    public OperationResult StartDialogue(string eventId) {
+        if (eventId == null)
+        {
+            return OperationResult.Complete();//没有随机到事件，直接返回成功
+        }
         EventData eventData = EventDataBase.GetEvent(eventId);
         if (eventData == null) {
             return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
         }
         runner.StartEvent(eventData);
         return OperationResult.Complete();
+    }
+
+    public void StartRandomDailyDialogue() {
+        string eventId = Calculators.RandomEvent(EventDataBase.GetCandidateDailyEventIds());
+        OperationResult result = StartDialogue(eventId);
+        if (!result.Success) {
+            ErrorNotifier.NotifyError(result.Message);
+        }
     }
 
 
@@ -53,11 +68,7 @@ public class DialogueManager : MonoBehaviour
         }
         else { 
             ItemData item = ItemDataBase.GetItemById(itemId);
-            string eventId = Calculators.RandomEvent(item.FilteredEventIds);
-            if (eventId == null) {
-                return OperationResult.Complete();
-            }
-            return StartItemDialogue(eventId);
+            return StartDialogue(Calculators.RandomEvent(item.FilteredEventIds));
         }
     }
 
