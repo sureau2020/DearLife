@@ -21,6 +21,6 @@ public class EventData
         Type = type;
         StartNodeId = startNodeId;
         Nodes = nodes;
-        Tags = new List<string> { "mature", "aaa", "calm" }; 
+        Tags = new List<string> { "calm" }; 
     }
 }

@@ -53,7 +53,11 @@ public class DialogueManager : MonoBehaviour
         }
         else { 
             ItemData item = ItemDataBase.GetItemById(itemId);
-            return StartItemDialogue(Calculators.RandomEvent(item.FilteredEventIds));
+            string eventId = Calculators.RandomEvent(item.FilteredEventIds);
+            if (eventId == null) {
+                return OperationResult.Complete();
+            }
+            return StartItemDialogue(eventId);
         }
     }
 

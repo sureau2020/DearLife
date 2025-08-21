@@ -31,7 +31,10 @@ public static class Calculators
         return rng.Next(1, 6) <= p;
     }
 
-    public static string RandomEvent(List<string> events) { 
+    public static string RandomEvent(List<string> events) {
+        if (events.Count <= 0) { 
+            return null;
+        }
         int index = rng.Next(events.Count);
         return events[index];
     }
