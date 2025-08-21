@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 public class DialogueRunner
 {
@@ -68,7 +67,6 @@ public class DialogueRunner
                         }
                         CurrentEvent = newEvent;
                         currentNodeId = newEvent.StartNodeId;
-                        StartDialogue?.Invoke(newEvent.Type);
                     }
                     break;
             }

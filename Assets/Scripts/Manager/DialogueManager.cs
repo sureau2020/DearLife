@@ -46,14 +46,12 @@ public class DialogueManager : MonoBehaviour
         if (eventData == null) {
             return OperationResult.Fail($"事件：{eventId} 没找到，检查物体事件id是否有误，检查事件数据库是否完好。");
         }
-        Debug.Log($"开始对话事件: {eventId}");
         runner.StartEvent(eventData);
         return OperationResult.Complete();
     }
 
     public void StartRandomDailyDialogue() {
         string eventId = Calculators.RandomEvent(EventDataBase.GetCandidateDailyEventIds());
-        Debug.Log($"随机事件ID: {eventId}");
         OperationResult result = StartDialogue(eventId);
         if (!result.Success) {
             ErrorNotifier.NotifyError(result.Message);
@@ -91,12 +89,25 @@ public class DialogueManager : MonoBehaviour
     private void HandleShowDialogue(DialoguePayload payload, DialogueType type) { 
         switch(type) {
             case DialogueType.Daily:
-                dailyDialoguePanel.ShowDialogue(payload);
+                if (dailyDialoguePanel.isActiveAndEnabled)
+                {
+                    dailyDialoguePanel.ShowDialogue(payload);
+                }
+                else { 
+                    characterDialoguePanel.ShowDialogue(payload);
+                }
                 break;
             case DialogueType.Item:
-                characterDialoguePanel.ShowDialogue(payload);
+                if (characterDialoguePanel.isActiveAndEnabled)
+                {
+                    characterDialoguePanel.ShowDialogue(payload);
+                }
+                else {
+                    dailyDialoguePanel.ShowDialogue(payload);
+                }
                 break;
             default:
+                dailyDialoguePanel.gameObject.SetActive(true);
                 dailyDialoguePanel.ShowDialogue(payload);
                 break;
         }
