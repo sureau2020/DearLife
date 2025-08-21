@@ -109,6 +109,52 @@ public class EventDataBase
             }
         ));
 
+        // 事件示例：测试 ConditionNode
+        AddEvent(new EventData(
+            "event_008",
+            DialogueType.Item,
+            "node_start",
+            new Dictionary<string, BaseNode>
+            {
+        // 开始节点：检查条件
+        { "node_start", new ConditionNode(
+            "node_start",
+            new Dictionary<string, Condition>
+            {
+                { "SSS", new Condition { Type = ConditionType.AtMost, Value = 120 } },   // San >= 50
+                { "A", new Condition { Type = ConditionType.Equal, Value = 100 } }  // Money >= 50
+            },
+            "node_true",  // 条件满足
+            "node_false"  // 条件不满足
+        )},
+
+        // 条件满足分支
+        { "node_true", new DialogueNode("node_true", "node_choice", "玩家", "太棒了，你状态很好，我们可以出发了！") },
+
+        // 条件不满足分支
+        { "node_false", new DialogueNode("node_false", "node_choice", "玩家", "你可能需要休息或补充一些道具。") },
+
+        // 选择节点
+        { "node_choice", new ChoiceNode(
+            "node_choice",
+            "node_end",
+            new List<ChoiceOption>
+            {
+                new ChoiceOption("去公园吧！", "node_park"),
+                new ChoiceOption("去商场逛逛！", "node_nav")
+            }
+        )},
+
+        { "node_park", new DialogueNode("node_park", null, "好友", "好啊，我们去公园玩！") },
+
+        // NavigateNode 跳转到其他事件
+        { "node_nav", new NavigateNode("node_nav", null, "event_003") },
+
+        { "node_end", new DialogueNode("node_end", null, "系统", "事件结束") }
+            }
+        ));
+
+
     }
 
     public static void AddEvent(EventData eventData)

@@ -53,7 +53,6 @@ public class DialogueRunner
 
                 case NodeExecResultType.Advance:
                     currentNodeId = result.Payload as string ?? node.NextNodeId;
-
                     break;
 
                 case NodeExecResultType.NavigateEvent:
