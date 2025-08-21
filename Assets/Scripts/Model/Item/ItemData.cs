@@ -16,8 +16,10 @@ public class ItemData
 
     public List<string> Events { get; private set; }
 
+    public List<string> FilteredEventIds { get; private set; }
 
-    // 测试用的构造函数, effect是写死的
+
+    // 测试用的构造函数, effect,event是写死的
     public ItemData(string id, string name, string description, int price, ItemType type)
     {
         Id = id;
@@ -31,6 +33,21 @@ public class ItemData
         };
         //包含“001”事件
         Events = new List<string> { "event_009" };
+        FilterEventsByCharacterTraits();
+    }
 
+
+
+    // 筛选所有符合角色性格的事件
+    private void FilterEventsByCharacterTraits()
+    {
+        FilteredEventIds = new List<string>();
+        foreach (var eventId in Events)
+        {
+            if (EventDataBase.IsEventMatchCharacterByEventId(eventId))
+            {
+                FilteredEventIds.Add(eventId);
+            }
+        }
     }
 }

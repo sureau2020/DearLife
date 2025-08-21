@@ -22,15 +22,18 @@ public class CharacterData
     public HealthState HealthState { get; private set; } = HealthState.Normal;//健康状态
     public int Love { get; private set; } = 0;//好感度
 
-    public List<PersonalityType> Personalities { get; private set; } = new List<PersonalityType>();//性格列表
+    public HashSet<string> PersonalityTags { get; private set; }
 
     public DateTime FirstStartTime { get; private set; }
 
     public event Action<string, int> OnCharacterStateChanged;// 角色状态变化事件，参数为状态名称和变化值
 
+
+    // 目前硬编码，写死了一个角色的性格标签
     public CharacterData()
     {
         FirstStartTime = DateTime.Now; // 记录第一次开始游戏的时间
+        PersonalityTags = new HashSet<string> { "mature", "calm" }; 
     }
 
 
