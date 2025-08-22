@@ -1,0 +1,18 @@
+{
+  "Id": "medicine001",
+  "Name": "维生素片",
+  "Description": "补充营养的维生素片",
+  "Author": "制药公司",
+  "Price": 12,
+  "Type": "Medicine",
+  "Effect": {
+    "San": 15,
+    "Full": 5
+  },
+  "Events": [
+    "event_item_002"
+  ],
+  "FilteredEventIds": [
+    "event_item_002"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "Id": "gift001",
+  "Name": "玫瑰花",
+  "Description": "美丽的红玫瑰，表达爱意的最佳选择",
+  "Author": "花店老板",
+  "Price": 15,
+  "Type": "Gift",
+  "Effect": {
+    "Love": 25
+  },
+  "Events": [
+    "event_item_001"
+  ],
+  "FilteredEventIds": [
+    "event_item_001"
+  ]
+}

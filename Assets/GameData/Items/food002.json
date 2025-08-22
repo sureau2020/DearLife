@@ -1,0 +1,16 @@
+{
+  "Id": "food002",
+  "Name": "面包",
+  "Description": "简单的面包",
+  "Author": null,
+  "Price": 8,
+  "Type": "Food",
+  "Effect": {
+    "Full": 20
+  },
+  "Events": [
+    "event_001",
+    "event_002"
+  ],
+  "FilteredEventIds": []
+}

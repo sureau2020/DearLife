@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
         StateManager = new StateManager(playerData, characterData, settings, customStates);
         DialogueManager = GetComponent<DialogueManager>();
+        LoaderManager.LoadAllData();
     }
 
     private void Start()

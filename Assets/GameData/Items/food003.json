@@ -1,0 +1,16 @@
+{
+  "Id": "food003",
+  "Name": "牛奶",
+  "Description": "新鲜牛奶",
+  "Author": null,
+  "Price": 6,
+  "Type": "Food",
+  "Effect": {
+    "Full": 20
+  },
+  "Events": [
+    "event_001",
+    "event_002"
+  ],
+  "FilteredEventIds": []
+}

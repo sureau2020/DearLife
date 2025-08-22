@@ -21,10 +21,6 @@ public class PlayerData
     {
         Money = money;
 
-        // 测试用：背包里写死一个 food001，数量为 1
-        Items.Add(new ItemEntryData("food001", 1));
-        // 测试用：背包里写死一个 food002，数量为 2
-        Items.Add(new ItemEntryData("food002", 2));
     }
 
 

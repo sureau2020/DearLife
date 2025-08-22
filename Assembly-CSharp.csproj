@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Manager\Persistence\LoaderManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventDataBase.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\Persistence\SaveManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\MonthCalendar.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
@@ -462,6 +464,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Android.Types">

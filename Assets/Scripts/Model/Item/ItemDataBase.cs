@@ -6,17 +6,11 @@ public class ItemDataBase
 {
     private static readonly Dictionary<string, ItemData> allItems = new();// 游戏中所有可获得物品的图鉴，key为物品ID
 
-    // 静态构造函数，初始化测试数据
-    static ItemDataBase()
-    {
-        AddItem(new ItemData("food001", "苹果", "恢复体力的苹果", 5, ItemType.Food));
-        AddItem(new ItemData("food002", "面包", "简单的面包", 8, ItemType.Food));
-        AddItem(new ItemData("food003", "牛奶", "新鲜牛奶", 6, ItemType.Food));
-    }
 
     public static void AddItem(ItemData item)
     {
         allItems[item.Id] = item;
+        item.FilterEventsByCharacterTraits();
     }
 
     // 通过ID获取物品，没找到返回null
@@ -41,4 +35,9 @@ public class ItemDataBase
         return result;
     }
 
+    // 获取所有物品
+    public static List<ItemData> GetAllItems()
+    {
+        return new List<ItemData>(allItems.Values);
+    }
 }

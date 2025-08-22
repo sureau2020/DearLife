@@ -1,6 +1,5 @@
-
-
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 
 public enum DialogueType { Daily, Item, Special, Clothes }
@@ -15,6 +14,7 @@ public class EventData
 
 
     // ƒø«∞”≤±‡¬Î£¨–¥À¿¡Àtag≤‚ ‘
+    
     public EventData(string eventId, DialogueType type, string startNodeId, Dictionary<string, BaseNode> nodes)
     {
         EventId = eventId;
@@ -22,5 +22,12 @@ public class EventData
         StartNodeId = startNodeId;
         Nodes = nodes;
         Tags = new List<string> { "calm" }; 
+    }
+
+    [JsonConstructor]
+    public EventData() 
+    {
+        Tags = new List<string>();
+        Nodes = new Dictionary<string, BaseNode>();
     }
 }
