@@ -157,3 +157,6 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+/Assets/Arts/3Dresources
+/Assets/Brick Project Studio
+/Assets/UnityTechnologies
