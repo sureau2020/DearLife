@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject characterUI;
+    [SerializeField] private CameraFocus cameraFocus;
 
     void Update()
     {
@@ -58,5 +59,8 @@ public class Character : MonoBehaviour
     private void ChangeShowingOfCharacterUI()
     {
         characterUI.SetActive(!characterUI.activeSelf);
+        if (characterUI.activeSelf) {
+            cameraFocus.FocusOnTarget();
+        }
     }
 }

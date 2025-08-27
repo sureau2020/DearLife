@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TopState : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hungry;
-    [SerializeField] private TextMeshProUGUI clean;
-    [SerializeField] private TextMeshProUGUI san;
+    [SerializeField] private StatusBar full;
+    [SerializeField] private StatusBar clean;
+    [SerializeField] private StatusBar san;
     [SerializeField] private TextMeshProUGUI money;
-    [SerializeField] private TextMeshProUGUI love;
+    [SerializeField] private StatusBar love;
     private StateManager stateManager;
 
     // Start is called before the first frame update
@@ -18,16 +18,16 @@ public class TopState : MonoBehaviour
         stateManager.Character.OnCharacterStateChanged += OnCharacterStateChangedHandler;
         stateManager.Player.OnMoneyChanged += OnMoneyChangedHandler;
 
-        InitializeStateTexts();
+        InitializeState();
     }
 
-    private void InitializeStateTexts()
+    private void InitializeState()
     {
-        hungry.text = "饱腹：" + stateManager.Character.Full.ToString();
-        clean.text = "清洁：" + stateManager.Character.Clean.ToString();
-        san.text = "理智：" + stateManager.Character.San.ToString();
-        money.text = "金钱：" + stateManager.Player.Money.ToString();
-        love.text = "好感：" + stateManager.Character.Love.ToString();
+        full.UpdateBar(stateManager.Character.Full);
+        clean.UpdateBar(stateManager.Character.Clean);
+        san.UpdateBar(stateManager.Character.San);
+        money.text = stateManager.Player.Money.ToString();
+        love.UpdateBar(stateManager.Character.Love);
     }
 
     void OnDestroy()
@@ -46,16 +46,16 @@ public class TopState : MonoBehaviour
         switch (statName)
         {
             case "Full":
-                hungry.text = $"饱腹： {value.ToString()}/100";
+                full.UpdateBar(stateManager.Character.Full);
                 break;
             case "Clean":
-                clean.text = "清洁： " + value.ToString();
+                clean.UpdateBar(stateManager.Character.Clean);
                 break;
             case "San":
-                san.text = "理智： " + value.ToString();
+                san.UpdateBar(stateManager.Character.San);
                 break;
             case "Love":
-                love.text = "好感： " + value.ToString();
+                love.UpdateBar(stateManager.Character.Love);
                 break;
         }
     }

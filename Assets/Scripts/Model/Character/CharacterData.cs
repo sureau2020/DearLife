@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class CharacterData 
 {
-    private const int MaxVar = 100;//各数值最高数
+    public const int MaxVar = 100;//各数值最高数
 
     public string Name { get; set; } = "主角";//角色名称//目前写死硬编码todo
 
