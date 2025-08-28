@@ -59,8 +59,12 @@ public class Character : MonoBehaviour
     private void ChangeShowingOfCharacterUI()
     {
         characterUI.SetActive(!characterUI.activeSelf);
-        if (characterUI.activeSelf) {
+        if (characterUI.activeSelf)
+        {
             cameraFocus.FocusOnTarget();
+        }
+        else { 
+            cameraFocus.ResetCamera();
         }
     }
 }

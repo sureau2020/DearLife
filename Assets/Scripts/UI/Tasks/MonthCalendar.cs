@@ -8,6 +8,7 @@ public class MonthCalendar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI yearMonth;
     [SerializeField] private Transform monthGridParent;
     [SerializeField] private GameObject monthDateCellPrefab;
+    [SerializeField] private GameObject monthCalBackground;
     private List<GameObject> monthDateCells = new List<GameObject>();
 
     private const int MaxCells = 42; // 42∏Ò∂‘œÛ≥ÿ
@@ -16,6 +17,7 @@ public class MonthCalendar : MonoBehaviour
 
     void OnEnable()
     {
+        monthCalBackground.SetActive(true);
         GenerateMonthGrid(TaskManager.Instance.SelectedDate);
     }
 
@@ -27,6 +29,12 @@ public class MonthCalendar : MonoBehaviour
             GameObject dateCell = Instantiate(monthDateCellPrefab, monthGridParent);
             monthDateCells.Add(dateCell);
         }
+    }
+
+    public void CloseCalendar()
+    {
+        monthCalBackground.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 

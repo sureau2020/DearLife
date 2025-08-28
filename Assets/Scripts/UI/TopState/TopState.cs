@@ -62,7 +62,7 @@ public class TopState : MonoBehaviour
 
     private void OnMoneyChangedHandler(int newMoney)
     {
-        money.text = "½ðÇ®£º" + newMoney.ToString();
+        money.text = newMoney.ToString();
     }
 
 }

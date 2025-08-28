@@ -36,6 +36,5 @@ public class DayCell : MonoBehaviour
     {
         dateText.text = "";
         cellButton.interactable = false;
-        GetComponent<Image>().color = Color.gray;
     }
 }

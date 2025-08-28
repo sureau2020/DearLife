@@ -55,7 +55,7 @@ public class TaskManager : MonoBehaviour
 
     public void DeactiveMonthCalendar()
     {
-        monthCalendar.gameObject.SetActive(false);
+        monthCalendar.CloseCalendar();
 
     }
 }

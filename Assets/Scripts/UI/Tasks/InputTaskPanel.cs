@@ -9,6 +9,7 @@ public class InputTaskPanel : MonoBehaviour
     [SerializeField] private TMP_InputField hourInput;
     [SerializeField] private TMP_InputField minuteInput;
     [SerializeField] private CartesianSelector cartesianSelector;
+    [SerializeField] private GameObject inputTaskBackGround;
     [SerializeField] private Button confirmButton;
 
     private DateTime targetDate;
@@ -20,6 +21,7 @@ public class InputTaskPanel : MonoBehaviour
         hourInput.text = "";
         minuteInput.text = "";
         cartesianSelector.SetPointByValue(2, 2);
+        inputTaskBackGround.SetActive(true);
         gameObject.SetActive(true);
     }
 
@@ -49,6 +51,7 @@ public class InputTaskPanel : MonoBehaviour
 
     public void ClosePanel()
     {
+        inputTaskBackGround.SetActive(false);
         gameObject.SetActive(false);
     }
 }
