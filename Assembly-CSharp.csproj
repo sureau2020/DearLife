@@ -61,23 +61,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventData.cs" />
+    <Compile Include="Assets\Scripts\Manager\IconManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Scenes\Quitgame.cs" />
+    <Compile Include="Assets\Scripts\UI\Character\InfoUI.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\TypeButton.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\BRGlassDoor.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor1.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
+    <Compile Include="Assets\Scripts\GameObject\CharacterBreatheComponent.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\ApparenceComponent.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
     <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\FinalConfirmEditButton.cs" />
+    <Compile Include="Assets\Scripts\Manager\EditScene\CharacterInfoManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\DialogueNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraController.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ConditionNode.cs" />
     <Compile Include="Assets\Scripts\Manager\TaskManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
+    <Compile Include="Assets\Scripts\UI\Character\EditButton.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
+    <Compile Include="Assets\Scripts\Notification\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\UI\Setting\SettingItem.cs" />
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
@@ -88,6 +98,7 @@
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
+    <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceLoader.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\TaskList.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
@@ -98,9 +109,11 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\MouseLook.cs" />
     <Compile Include="Assets\Scripts\Model\StateManager.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemInfoManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\Billboard.cs" />
+    <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\StatusBar.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
@@ -115,8 +128,12 @@
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Windows\opencloseWindowApt.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\ComfirmInfo.cs" />
+    <Compile Include="Assets\Scripts\GameObject\CharacterAppearanceRenderer.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\InfoItem.cs" />
+    <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraFocus.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
@@ -124,6 +141,9 @@
     <Compile Include="Assets\Scripts\Manager\Persistence\SaveManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\MonthCalendar.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Manager\BackgroundFXManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\BootScene\BootSceneManager.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Name.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
@@ -132,11 +152,13 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\X Axis\Drawer_Pull_X.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\HSVSliderController.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
     <Compile Include="Assets\Scripts\Manager\DialogueManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterMoveAI.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputTaskPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\Setting\BgmButton.cs" />
     <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseStallDoor.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
@@ -157,6 +179,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Shader\SpriteHSL.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
@@ -999,6 +1022,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Notifications">
+      <HintPath>Library\ScriptAssemblies\Unity.Notifications.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -1033,6 +1060,10 @@
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Notifications.iOS">
+      <HintPath>Library\ScriptAssemblies\Unity.Notifications.iOS.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">
@@ -1147,12 +1178,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Notifications.Android">
+      <HintPath>Library\ScriptAssemblies\Unity.Notifications.Android.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Notifications.Unified">
+      <HintPath>Library\ScriptAssemblies\Unity.Notifications.Unified.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

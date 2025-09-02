@@ -58,6 +58,7 @@ public class Character : MonoBehaviour
     
     private void ChangeShowingOfCharacterUI()
     {
+        SoundManager.Instance.PlaySfx("Type");
         characterUI.SetActive(!characterUI.activeSelf);
         if (characterUI.activeSelf)
         {

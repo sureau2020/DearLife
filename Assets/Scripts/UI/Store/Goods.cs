@@ -1,11 +1,12 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goods : MonoBehaviour
 {
     private ItemData itemData;
-    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private Image itemIcon;
 
     public void SetItemData(ItemData item)
     {
@@ -14,13 +15,16 @@ public class Goods : MonoBehaviour
 
     public void ShowInfo()
     {
-        itemName.text = itemData.Name;
+        Sprite icon = IconManager.GetIcon(itemData.Type, itemData.ImagePath);
+        if (icon != null)
+            itemIcon.sprite = icon;
     }
 
  
     public void OnClick()
     {
-       OperationResult isShow = ItemInfoManager.Instance.ShowBuyPanel(itemData);
+        SoundManager.Instance.PlaySfx("PickItem");
+        OperationResult isShow = ItemInfoManager.Instance.ShowBuyPanel(itemData);
        if (!isShow.Success)
        {
            ErrorNotifier.NotifyError(isShow.Message);

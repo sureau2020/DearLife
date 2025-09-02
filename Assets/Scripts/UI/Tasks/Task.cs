@@ -27,16 +27,16 @@ public class Task : MonoBehaviour
     {
         if (string.IsNullOrEmpty(missionData.Title))
         {
-            taskNameText.text = missionData.IsCompleted ? "未命名任务（已完成）" : "未命名任务";
+            taskNameText.text = missionData.IsCompleted ? "<s>未命名任务</s>" : "未命名任务";
         }
         else
         {
-            taskNameText.text = missionData.IsCompleted ? $"{missionData.Title}（已完成）" : missionData.Title;
+            taskNameText.text = missionData.IsCompleted ? $"<s>{missionData.Title}</s>" : missionData.Title;
         }
 
         if (!missionData.HasDeadline)
         {
-            ddlText.text = "无截止时间";
+            ddlText.text = "无DDL";
         }
         else
         {
@@ -45,7 +45,7 @@ public class Task : MonoBehaviour
 
         if (missionData.Duration <= 0 || missionData.Difficulty <= 0)
         {
-            estimatedMinSalaryText.text = "无预估薪资";
+            estimatedMinSalaryText.text = "?";
         }
         else
         {
@@ -55,7 +55,7 @@ public class Task : MonoBehaviour
                 settings.HourlyWage, 
                 settings.DifficultyBonus
             );
-            estimatedMinSalaryText.text = $"最低薪资：{estimatedSalary} 金币";
+            estimatedMinSalaryText.text = $"{estimatedSalary}+";
         }
     }
 
@@ -79,6 +79,7 @@ public class Task : MonoBehaviour
  
     public void OnCompleteTask()
     {
+        SoundManager.Instance.PlaySfx("BuyItem");
         var result = GameManager.Instance.StateManager.CompleteMission(missionData);
         
         if (result.Success)
@@ -96,6 +97,7 @@ public class Task : MonoBehaviour
 
     public void OnDeleteTask()
     {
+        SoundManager.Instance.PlaySfx("Delete");
         var selectedDate = GetTaskDate();
         
         // 从 DayMissionData 中删除任务

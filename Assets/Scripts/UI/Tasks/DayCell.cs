@@ -23,11 +23,13 @@ public class DayCell : MonoBehaviour
 
     public void OnWeekDayCellClicked()
     {
+        SoundManager.Instance.PlaySfx("Type");
         cellButton.Select();
         TaskManager.Instance.OnDaySelected(date); 
     }
 
     public void OnMonthDayCellClicked() { 
+        SoundManager.Instance.PlaySfx("HitWood");
         cellButton.Select();
         TaskManager.Instance.OnMonthDaySelected(date);
     }

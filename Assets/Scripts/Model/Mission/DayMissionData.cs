@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class DayMissionData 
 {
-    public string Day { get; private set; } // 表示是哪一天的任务数据，2023-10-10这种
-    public List<MissionData> Tasks { get; private set; } = new List<MissionData>(); // 任务列表
+    public string Day { get; set; } // 表示是哪一天的任务数据，2023-10-10这种
+    public List<MissionData> Tasks { get; set; } = new List<MissionData>(); // 任务列表
 
     public DayMissionData(string day)
     {
@@ -14,6 +14,7 @@ public class DayMissionData
 
     public void DeleteSpecificMission(MissionData mission) { 
         Tasks.Remove(mission);
+        _ = TaskManagerModel.Instance.SaveMonthAsync(Day.Substring(0,7));
     }
 
     // 按任务事件远近插入任务，如果是无ddl的任务，就放在最后
@@ -23,23 +24,21 @@ public class DayMissionData
         if (!mission.HasDeadline)
         {
             Tasks.Add(mission);
+            _ = TaskManagerModel.Instance.SaveMonthAsync(Day.Substring(0, 7));
             return;
         }
         for (int i = 0; i < Tasks.Count; i++)
         {
             var t = Tasks[i];
-            if (!t.HasDeadline) 
+            if (!t.HasDeadline || mission.Deadline < t.Deadline)
             {
                 Tasks.Insert(i, mission);
-                return;
-            }
-            if (mission.Deadline < t.Deadline)
-            {
-                Tasks.Insert(i, mission);
+                _ = TaskManagerModel.Instance.SaveMonthAsync(Day.Substring(0, 7));
                 return;
             }
         }
         Tasks.Add(mission);
+        _ = TaskManagerModel.Instance.SaveMonthAsync(Day.Substring(0, 7));
     }
 
 

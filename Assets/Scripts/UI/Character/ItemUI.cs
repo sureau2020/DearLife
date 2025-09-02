@@ -20,6 +20,7 @@ public class ItemUi : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySfx("LittleType");
             // 成功使用物品后，更新背包UI
             BackPackUI backpackUI = gameObject.transform.parent.GetComponent<BackPackUI>();
             if (backpackUI != null)

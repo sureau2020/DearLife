@@ -27,7 +27,7 @@ public class TopState : MonoBehaviour
         clean.UpdateBar(stateManager.Character.Clean);
         san.UpdateBar(stateManager.Character.San);
         money.text = stateManager.Player.Money.ToString();
-        love.UpdateBar(stateManager.Character.Love);
+        love.UpdateLoveBar(stateManager.Character.Love); 
     }
 
     void OnDestroy()
@@ -52,10 +52,10 @@ public class TopState : MonoBehaviour
                 clean.UpdateBar(stateManager.Character.Clean);
                 break;
             case "San":
-                san.UpdateBar(stateManager.Character.San);
+                san.UpdateBar(stateManager.Character.San); 
                 break;
             case "Love":
-                love.UpdateBar(stateManager.Character.Love);
+                love.UpdateLoveBar(stateManager.Character.Love);
                 break;
         }
     }

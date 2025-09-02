@@ -1,8 +1,7 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 public class StateManager 
 {
@@ -50,21 +49,33 @@ public class StateManager
 
 
     // 每分钟调用一次，衰减角色状态
-    public void DecayStates()
-    {
-        Character.ChangeFull(-1);
-
+    public void DecayStates() { 
+        if (Character.HealthState == HealthState.Dead){
+            return;
+        }
+        if (Character.HealthState == HealthState.Crazy)
+        {
+            Character.ChangeFull(-3);
+            Character.ChangeLove(-2);
+        }
+        else {
+            Character.ChangeFull(-1);
+        }
         cleanDecayCounter++;
         if (cleanDecayCounter >= 2)
         {
             Character.ChangeClean(-1);
             cleanDecayCounter = 0;
         }
-
         sanDecayCounter++;
         if (sanDecayCounter >= 4)
         {
-            Character.ChangeSan(-1);
+            if (Character.HealthState == HealthState.Dirty)
+            {
+                Character.ChangeSan(-3);
+            }
+            else
+                Character.ChangeSan(-1);
             sanDecayCounter = 0;
         }
     }
@@ -135,5 +146,49 @@ public class StateManager
     public List<ItemEntryData> GetAllItemsInBackPack()
     {
         return Player.Items;
+    }
+
+    // 保存当前状态
+    public OperationResult SaveState()
+    {
+        return SaveManager.SaveStateManager(this);
+    }
+
+    public async Task<OperationResult> SaveStateAsync()
+    {
+        return await SaveManager.SaveStateManagerAsync(this);
+    }
+
+    // 从保存数据恢复状态
+    public static OperationResult<StateManager> LoadState()
+    {
+        var loadResult = SaveManager.LoadStateManager();
+        if (!loadResult.Success)
+        {
+            return OperationResult<StateManager>.Fail(loadResult.Message);
+        }
+
+        try
+        {
+            var saveData = loadResult.Data;
+            CharacterData characterData = saveData.Character;
+            if (BootSceneManager.Instance != null && BootSceneManager.Instance.CreatedCharacter != null)
+            {
+                characterData = BootSceneManager.Instance.CreatedCharacter;
+            }
+
+            StateManager stateManager = new StateManager(
+                saveData.Player, 
+                characterData,
+                saveData.Settings, 
+                saveData.CustomStates
+            );
+            
+            return OperationResult<StateManager>.Complete(stateManager);
+        }
+        catch (System.Exception ex)
+        {
+            return OperationResult<StateManager>.Fail($"恢复状态失败：{ex.Message}");
+        }
     }
 }

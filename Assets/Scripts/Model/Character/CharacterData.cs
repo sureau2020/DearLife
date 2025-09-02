@@ -1,48 +1,91 @@
-
-
-
-// Õâ¸öÀàÓÃÓÚ´æ´¢ÓÎÏ·Ö÷Òª½ÇÉ«µÄÊı¾İ£¬´¦Àíµ×²ãmodelµÄ½»»¥
+ï»¿// è¿™ä¸ªç±»ç”¨äºå­˜å‚¨æ¸¸æˆä¸»è¦è§’è‰²çš„æ•°æ®ï¼Œå¤„ç†åº•å±‚modelçš„äº¤äº’
 
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.CullingGroup;
 
 public class CharacterData 
 {
-    public const int MaxVar = 100;//¸÷ÊıÖµ×î¸ßÊı
+    public const int MaxVar = 100;//å„æ•°å€¼æœ€é«˜æ•°
 
-    public string Name { get; set; } = "Ö÷½Ç";//½ÇÉ«Ãû³Æ//Ä¿Ç°Ğ´ËÀÓ²±àÂëtodo
+    public string Name { get; set; }
 
-    public int Full { get; private set; } = MaxVar;//±¥¸¹Öµ³õÊ¼ÖµÂú
+    public string Pronoun { get; set; }
 
-    public int San { get; private set; } = MaxVar;//ÀíÖÇ
-    public int Clean { get; private set; } = MaxVar;//Çå½à
+// ä¸´æ—¶æ”¹ä¸º public set æµ‹è¯•ååºåˆ—åŒ–
+    public int Full { get; set; } = MaxVar;
+    public int San { get; set; } = MaxVar;
+    public int Clean { get; set; } = MaxVar;
 
-    public HealthState HealthState { get; private set; } = HealthState.Normal;//½¡¿µ×´Ì¬
-    public int Love { get; private set; } = 0;//ºÃ¸Ğ¶È
+    public CharacterAppearance Appearance { get; set; }
+    public HealthState HealthState { get; set; } = HealthState.Normal;
+    public int Love { get; set; } = 0;
+    public HashSet<string> PersonalityTags { get; set; }
+    public DateTime FirstStartTime { get; set; }
 
-    public HashSet<string> PersonalityTags { get; private set; }
+    public int DeathNum { get; set; } = 0;
 
-    public DateTime FirstStartTime { get; private set; }
+    public string Relationship { get; set; } = "ç¤¼è²Œ";
+    public string PlayerAppellation { get; set; }
 
-    public event Action<string, int> OnCharacterStateChanged;// ½ÇÉ«×´Ì¬±ä»¯ÊÂ¼ş£¬²ÎÊıÎª×´Ì¬Ãû³ÆºÍ±ä»¯Öµ
+    public event Action<string, int> OnCharacterStateChanged;// è§’è‰²çŠ¶æ€å˜åŒ–äº‹ä»¶ï¼Œå‚æ•°ä¸ºçŠ¶æ€åç§°å’Œå˜åŒ–å€¼
+    public event Action OnHealthChanged;
 
 
-    // Ä¿Ç°Ó²±àÂë£¬Ğ´ËÀÁËÒ»¸ö½ÇÉ«µÄĞÔ¸ñ±êÇ©
+    // ç›®å‰ç¡¬ç¼–ç ï¼Œå†™æ­»äº†ä¸€ä¸ªè§’è‰²çš„æ€§æ ¼æ ‡ç­¾
     public CharacterData()
     {
-        FirstStartTime = DateTime.Now; // ¼ÇÂ¼µÚÒ»´Î¿ªÊ¼ÓÎÏ·µÄÊ±¼ä
+        FirstStartTime = DateTime.Now; 
         PersonalityTags = new HashSet<string> { "mature", "calm" }; 
     }
 
+    public CharacterData(string name, string pronoun, CharacterAppearance appearance, HashSet<string> personalityTags, string playerAppellation)
+    {
+        Name = name;
+        Pronoun = pronoun;
+        Appearance = appearance;
+        PersonalityTags = personalityTags;
+        PlayerAppellation = playerAppellation;
 
-    // ÔÚÖ÷½ÇÉíÉÏÕæÕıÊ¹ÓÃÎïÆ·£¬Ó¦ÓÃĞ§¹û£¬·µ»Ø²Ù×÷½á¹û
+        // å°è¯•ä» SaveManager åŠ è½½å·²æœ‰çš„çŠ¶æ€æ•°æ®
+        var loadResult = SaveManager.LoadStateManager();
+        if (loadResult.Success && loadResult.Data?.Character != null)
+        {
+            var savedCharacter = loadResult.Data.Character;
+            
+            // ä½¿ç”¨ä¿å­˜çš„çŠ¶æ€æ•°æ®
+            FirstStartTime = savedCharacter.FirstStartTime;
+            DeathNum = savedCharacter.DeathNum;
+            Full = savedCharacter.Full;
+            San = savedCharacter.San;
+            Clean = savedCharacter.Clean;
+            Love = savedCharacter.Love;
+            HealthState = savedCharacter.HealthState;
+            Relationship = savedCharacter.Relationship;
+            
+        }
+        else
+        {
+            FirstStartTime = DateTime.Now;
+            DeathNum = 0;
+            Full = MaxVar;
+            San = MaxVar;
+            Clean = MaxVar;
+            Love = 0;
+            HealthState = HealthState.Normal;
+            Relationship = DetermineRelation();
+        }
+    }
+
+
+    // åœ¨ä¸»è§’èº«ä¸ŠçœŸæ­£ä½¿ç”¨ç‰©å“ï¼Œåº”ç”¨æ•ˆæœï¼Œè¿”å›æ“ä½œç»“æœ
     public OperationResult ApplyItemEffect(string itemId, int quantity) {
         ItemData item = ItemDataBase.GetItemById(itemId);
         if (item == null)
         {
-            return OperationResult.Fail("ÎïÆ·²»´æÔÚ¡£ÒÉËÆÎïÆ·Êı¾İ¿âËğ»µ£¬³¢ÊÔÖØÆô»ò»¹Ô­Êı¾İ¿âjsonÎÄ¼ş¡£");
+            return OperationResult.Fail("ç‰©å“ä¸å­˜åœ¨ã€‚ç–‘ä¼¼ç‰©å“æ•°æ®åº“æŸåï¼Œå°è¯•é‡å¯æˆ–è¿˜åŸæ•°æ®åº“jsonæ–‡ä»¶ã€‚");
         }
 
         foreach (var effect in item.Effect)
@@ -62,13 +105,13 @@ public class CharacterData
                     ChangeLove(effect.Value * quantity);
                     break;
                 default:
-                    return OperationResult.Fail("ÎïÆ·Ğ§¹û°üº¬Î´ÖªÀàĞÍ£¬Çë¼ì²éÎïÆ·Ğ§¹û¡£");
+                    return OperationResult.Fail("ç‰©å“æ•ˆæœåŒ…å«æœªçŸ¥ç±»å‹ï¼Œè¯·æ£€æŸ¥ç‰©å“æ•ˆæœã€‚");
             }
         }
         return OperationResult.Complete();
     }
 
-    // TODO:Ê¹ÓÃÎïÆ·ºóÏÔÊ¾¶Ô»°£¡
+    // TODO:ä½¿ç”¨ç‰©å“åæ˜¾ç¤ºå¯¹è¯ï¼
 
     public OperationResult ApplyEffect(EffectType type, int quantity)
     {
@@ -87,35 +130,251 @@ public class CharacterData
                 ChangeLove(quantity);
                 break;
             default:
-                return OperationResult.Fail("Î´ÖªĞ§¹ûÀàĞÍ£¬Çë¼ì²éµ±Ç°ÊÂ¼ş");
+                return OperationResult.Fail("æœªçŸ¥æ•ˆæœç±»å‹ï¼Œè¯·æ£€æŸ¥å½“å‰äº‹ä»¶");
         }
         return OperationResult.Complete();
     }
+
+    public void SetRelationShip() {
+        Relationship = DetermineRelation();
+    } 
+
+    public string DetermineRelation() {
+        if (Love >= 10000)
+            return "æ— å¯æ›¿ä»£";
+        else if (Love >= 8000)
+            return "æŒšå‹";
+        else if (Love >= 5000)
+            return "å¥½å‹";
+        else if (Love >= 3000)
+            return "æ™®é€šæœ‹å‹";
+        else if (Love >= 2000)
+            return "ç¤¼è²Œæœ‹å‹";
+        else if (Love >= 1000)
+            return "åˆç›¸è¯†";
+        else if (Love >= 0)
+            return "ç¤¼è²Œ";
+        else if (Love >= -300)
+            return "è­¦æƒ•";
+        else if (Love >= -1000)
+            return "æ•Œå¯¹";
+        else if (Love >= -2000)
+            return "æ­»æ•Œ";
+        else
+            return "æ— å¯æŒ½å›";
+    }
+
+
+    public string GetHealthStateDescription()
+    {
+        switch (HealthState)
+        {
+            case HealthState.Normal:
+                return "å¥åº·";
+            case HealthState.Weak:
+                return "è™šå¼±";
+            case HealthState.Sick:
+                return "ç”Ÿç—…";
+            case HealthState.Crazy:
+                return "ç–¯ç‹‚";
+            case HealthState.Dead:
+                return "æ­»äº¡";
+            case HealthState.Dirty:
+                return "è‚®è„";
+            default:
+                return "æœªçŸ¥çŠ¶æ€";
+        }
+    }
+
+
+    //è¿”å›ä¸­æ–‡æ€§æ ¼æè¿°
+    public string GetPersonalityDescription()
+    {
+        if (PersonalityTags == null || PersonalityTags.Count == 0)
+            return "æ— ";
+
+        // è‹±æ–‡tagåˆ°ä¸­æ–‡çš„æ˜ å°„
+        Dictionary<string, string> personalityDescriptions = new Dictionary<string, string>
+        {
+            { "calm", "å†·é™" },
+            { "innocent", "å¤©çœŸ" },
+            { "mature", "æˆç†Ÿ" },
+            { "lively", "æ´»æ³¼" },
+            { "realistic", "ç°å®" },
+            { "denpa", "ç”µæ³¢" },
+            { "crazy", "ç–¯ç‹‚" }
+        };
+
+        List<string> descList = new List<string>();
+        foreach (var tag in PersonalityTags)
+        {
+            if (personalityDescriptions.TryGetValue(tag, out string desc))
+                descList.Add(desc);
+            else
+                descList.Add(tag); // æœªå®šä¹‰çš„tagç›´æ¥æ˜¾ç¤ºè‹±æ–‡
+        }
+        return string.Join("ã€", descList);
+    }
+
+    // true represents promoted
+    void UpdateStatus()
+    {
+        if (HealthState == HealthState.Normal && Full <= 0)
+        {
+            SwitchState(HealthState.Weak, false);
+        }
+        else if (HealthState == HealthState.Weak && Full <= 0)
+        {
+            SwitchState(HealthState.Dead, false);
+        }
+        else if (HealthState == HealthState.Normal && San <= 0)
+        {
+            SwitchState(HealthState.Crazy, false);
+        }
+        else if (HealthState == HealthState.Normal && Clean <= 0)
+        {
+            SwitchState(HealthState.Dirty, false);
+        }
+        else if ((HealthState == HealthState.Weak && Full >= 100) 
+            || (HealthState == HealthState.Crazy && San >= 70)
+            || (HealthState == HealthState.Dirty && Clean >= 70))
+        {
+            SwitchState(HealthState.Normal, true);
+        }
+    }
+
+    void SwitchState(HealthState newState, bool isPromoted)
+    {
+        HealthState = newState;
+        if (isPromoted) {
+            ZeroStateValue(newState);
+        }
+        else
+        {
+            FillStateValue(newState);
+        }
+        OnHealthChanged?.Invoke();
+    }
+
+    private void FillStateValue(HealthState state)
+    {
+        if (state == HealthState.Weak) Full = 99; 
+        if (state == HealthState.Dead) DeathNum++;;
+    }
+
+    private void ZeroStateValue(HealthState state) {
+        if (state == HealthState.Normal) { 
+            Full = 20;
+            Clean = 20;
+            San = 20;
+        } 
+    }
+
+    public void Rebirth()
+    {
+        if (HealthState != HealthState.Dead)
+            return;
+        ChangeLove(-200);
+        Full = MaxVar;
+        San = MaxVar;
+        Clean = MaxVar;
+        HealthState = HealthState.Normal;
+        OnHealthChanged?.Invoke();
+    }
+
 
 
     public void ChangeFull(int delta)
     {
         Full = Mathf.Clamp(Full + delta, 0, 100);
         OnCharacterStateChanged?.Invoke("Full", Full);
+        UpdateStatus();
+        
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
     }
 
     public void ChangeClean(int delta)
     {
         Clean = Mathf.Clamp(Clean + delta, 0, 100);
         OnCharacterStateChanged?.Invoke("Clean", Clean);
+        UpdateStatus();
+        
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
     }
 
     public void ChangeSan(int delta)
     {
         San = Mathf.Clamp(San + delta, 0, 100);
         OnCharacterStateChanged?.Invoke("San", San);
+        UpdateStatus();
+        
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
     }
 
     public void ChangeLove(int delta)
     {
-        Love = Mathf.Max(0, Love + delta); // Love²»ÄÜĞ¡ÓÚ0
+        Love = Love + delta;
+        Relationship = DetermineRelation();
         OnCharacterStateChanged?.Invoke("Love", Love);
+        
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
     }
 
 
+}
+
+
+public struct HSV
+{
+    public float h; // è‰²ç›¸ -1..1
+    public float s; // é¥±å’Œåº¦ -1..1
+    public float v; // æ˜åº¦ -1..1
+}
+
+
+public class CharacterAppearance
+{
+    public int FrontHairId;
+    public HSV FrontHairColor;
+
+    public int BodyId;
+    public HSV BodyColor;
+
+    public int BackHairId;
+    public HSV BackHairColor;
+
+    public int EyeId;
+    public HSV EyeColor;
+
+    public int ClothesId;
+    public HSV ClothesColor;
+
+    public int SideHairId;
+    public HSV SideHairColor;
+
+    public int HeadDeco1Id;
+    public HSV HeadDeco1Color;
+
+    public int HeadDeco2Id;
+    public HSV HeadDeco2Color;
+
+    public CharacterAppearance()
+    {
+        FrontHairId = 0;
+        FrontHairColor = new HSV { h = 0, s = 1, v = 1 };
+        BodyId = 1;
+        BodyColor = new HSV { h = 0, s = 1, v = 1 };
+        BackHairId = 0;
+        BackHairColor = new HSV { h = 0, s = 1, v = 1 };
+        EyeId = 0;
+        EyeColor = new HSV { h = 0, s = 1, v = 1 };
+        ClothesId = 0;
+        ClothesColor = new HSV { h = 0, s = 1, v = 1 };
+        SideHairId = 0;
+        SideHairColor = new HSV { h = 0, s = 1, v = 1 };
+        HeadDeco1Id = 0;
+        HeadDeco1Color = new HSV { h = 0, s = 1, v = 1 };
+        HeadDeco2Id = 0;
+        HeadDeco2Color = new HSV { h = 0, s = 1, v = 1 };
+    }
 }

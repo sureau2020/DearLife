@@ -8,6 +8,7 @@ public class ErrorUI : MonoBehaviour
 
     public void ShowError(string message)
     {
+        SoundManager.Instance.PlaySfx("Delete");
         errorText.text = message;
     }
 

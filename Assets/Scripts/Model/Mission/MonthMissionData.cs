@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class MonthMissionData
 {
-    public string Month { get; private set; } // 表示是哪一个月的任务数据，2023-10这种格式
+    public string Month { get; set; } // 表示是哪一个月的任务数据，2023-10这种格式
+    public Dictionary<string, DayMissionData> Days { get => dayMap; set => dayMap = value; } // 用于序列化
     private Dictionary<string, DayMissionData> dayMap = new();
 
 

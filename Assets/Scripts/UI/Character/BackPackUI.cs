@@ -36,7 +36,10 @@ public class BackPackUI : MonoBehaviour
         }
         GameObject go = Instantiate(itemPrefab, transform);
         go.GetComponent<ItemUi>().SetItemId(item.ItemID);
-        go.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = data.Name;
+        //go.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = data.Name;
+        Sprite icon = IconManager.GetIcon(data.Type, data.ImagePath);
+        if (icon != null)
+            go.transform.Find("Icon").GetComponent<UnityEngine.UI.Image>().sprite = icon;
         go.transform.Find("Quantity").GetComponent<TextMeshProUGUI>().text = item.Count.ToString();
         return true;
     }

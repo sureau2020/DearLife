@@ -38,7 +38,7 @@ public class InputTaskPanel : MonoBehaviour
             deadline = new DateTime(targetDate.Year, targetDate.Month, targetDate.Day, hour, minute, 0); 
         }
 
-        var mission = new MissionData(title, deadline, duration, difficulty);
+        var mission = new MissionData(title, deadline, duration, difficulty, targetDate);
 
         var dayMissionData = TaskManagerModel.Instance.GetMonth(targetDate.ToString("yyyy-MM"))
             .GetDayMissionData(targetDate.ToString("yyyy-MM-dd"));

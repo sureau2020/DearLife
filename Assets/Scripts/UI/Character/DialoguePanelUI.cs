@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using System;
 using TMPro;
@@ -12,25 +12,30 @@ public class DialoguePanelUI : MonoBehaviour
     public event Action<string> OnNextClicked;
     private string nextNodeId;
 
-    public void ShowDialogue(DialoguePayload payload) {
-        // 如果payload的Speaker包含{playerName}，则替换为玩家名字
-        if (payload.Speaker.Contains("{characterName}"))
-        {
-            speaker.text = payload.Speaker.Replace("{characterName}", GameManager.Instance.StateManager.Character.Name);
-        }
-        else { 
-            speaker.text = payload.Speaker;
-        }
-        if (payload.Text.Contains("{characterName}"))
-        {
-            dialogueText.text = payload.Text.Replace("{characterName}", GameManager.Instance.StateManager.Character.Name);
-        }
-        else
-        {
-            dialogueText.text = payload.Text;
-        }
-        nextNodeId = payload.NextNodeId;
+    public void ShowDialogue(DialoguePayload payload)
+    {
+        CharacterData character = GameManager.Instance.StateManager.Character;
 
+        var replacements = new Dictionary<string, string>
+        {
+            { "{characterName}", character.Name },
+            { "{appellation}", character.PlayerAppellation },
+            { "{characterPronoun}", character.Pronoun }
+        };
+
+        string speakerStr = payload.Speaker;
+        string textStr = payload.Text;
+        foreach (var kv in replacements)
+        {
+            if (speakerStr.Contains(kv.Key))
+                speakerStr = speakerStr.Replace(kv.Key, kv.Value);
+            if (textStr.Contains(kv.Key))
+                textStr = textStr.Replace(kv.Key, kv.Value);
+        }
+
+        speaker.text = speakerStr;
+        dialogueText.text = textStr;
+        nextNodeId = payload.NextNodeId;
     }
 
     public void OnAdvanceClicked()

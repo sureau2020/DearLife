@@ -19,22 +19,53 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        // 初始化数据,目前硬编码
-        PlayerData playerData = new PlayerData(10);// 初始金钱10
-        CharacterData characterData = new CharacterData();
-        GameSettings settings = new GameSettings();
-        Dictionary<string, int> customStates = new Dictionary<string, int>
+        // 尝试加载存档
+        Debug.Log("开始尝试加载存档...");
+        var loadResult = StateManager.LoadState();
+        if (loadResult.Success)
         {
-            { "A", 100 },
-            { "Thirst", 100 },
-            { "Fatigue", 0 }
-        };
+            StateManager = loadResult.Data;
+            Debug.Log("存档加载成功");
+        }
+        else
+        {
+            Debug.Log($"加载失败：{loadResult.Message}");
+            if (loadResult.Message.Contains("存档文件不存在"))
+            {
+                Debug.Log("使用默认初始化");
+                InitializeDefaultState();
+            }
+            else
+            {
+                ErrorNotifier.NotifyError($"存档文件损坏：{loadResult.Message}");
+                return; 
+            }
+        }
 
-        StateManager = new StateManager(playerData, characterData, settings, customStates);
         DialogueManager = GetComponent<DialogueManager>();
         LoaderManager.LoadAllData();
+    }
+
+ 
+    private void InitializeDefaultState()
+    {
+        CharacterData characterData;
+        
+        if (BootSceneManager.Instance != null && BootSceneManager.Instance.CreatedCharacter != null)
+        {
+            characterData = BootSceneManager.Instance.CreatedCharacter;
+        }
+        else
+        {
+            characterData = new CharacterData();
+        }
+
+        PlayerData playerData = new PlayerData(10); // 初始金钱10
+        GameSettings settings = new GameSettings();
+        Dictionary<string, int> customStates = new Dictionary<string, int>();
+
+        StateManager = new StateManager(playerData, characterData, settings, customStates);
     }
 
     private void Start()
@@ -107,6 +138,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public string GetSetting(string key) { 
+        switch(key) {
+            case "MaxSalaryFactor": return StateManager.Settings.MaxSalaryFactor.ToString("F2");
+            case "HourlyWage": return StateManager.Settings.HourlyWage.ToString();
+            case "DifficultyBonus": return StateManager.Settings.DifficultyBonus.ToString();
+            case "ReplyChance": return StateManager.Settings.ReplyChance.ToString();
+            default: return "未知设置项";
+        }
+    }
+
+    public OperationResult ChangeSetting(string key, string value) {
+        if (key == "MaxSalaryFactor") {
+            if (float.TryParse(value, out float factor))
+            {
+                return StateManager.Settings.ChangeMaxRandomFactor(factor);
+            }
+            else
+            {
+                return OperationResult.Fail("请输入合法的小数");
+            }
+        }
+        if (int.TryParse(value, out int var)) {
+            switch (key) {
+                case "HourlyWage": return StateManager.Settings.ChangeHourlyWage(var);
+                case "DifficultyBonus": return StateManager.Settings.ChangeDifficultyBonus(var);
+                case "ReplyChance": return StateManager.Settings.ChangeReplyChance(var);
+                default: return OperationResult.Fail("未知设置项");
+            }
+        }
+        else {
+            return OperationResult.Fail("请输入合法的整数");
+        }
+    }
+
 
     private void OnMinuteChanged(DateTime now)
     {
@@ -125,5 +190,44 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("新一天开始：" + now.ToString("yyyy-MM-dd"));
         // 每天刷新任务、状态等
+    }
+
+    public OperationResult SaveGame()
+    {
+        return StateManager.SaveState();
+    }
+
+    
+
+    public OperationResult LoadGame()
+    {
+        var loadResult = StateManager.LoadState();
+        if (loadResult.Success)
+        {
+            StateManager = loadResult.Data;
+            Debug.Log("游戏重新加载成功");
+            return OperationResult.Complete();
+        }
+        else
+        {
+            Debug.LogError($"重新加载失败：{loadResult.Message}");
+            return OperationResult.Fail(loadResult.Message);
+        }
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus && StateManager != null)
+        {
+            SaveGame(); 
+        }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus && StateManager != null)
+        {
+            SaveGame(); 
+        }
     }
 }

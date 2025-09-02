@@ -10,6 +10,7 @@ public class TimeManager : MonoBehaviour
     public event Action<DateTime> OnDayChanged;
 
     private DateTime lastTime;
+    private float minuteTimer = 0f; // 新增计时器
 
     private void Awake()
     {
@@ -19,7 +20,6 @@ public class TimeManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         lastTime = DateTime.Now;
     }
@@ -28,15 +28,13 @@ public class TimeManager : MonoBehaviour
     {
         DateTime now = DateTime.Now;
 
-        // 每秒检查一次时间变化
-        if (now.Second != lastTime.Second)
+        // 每0.2秒触发一次
+        minuteTimer += Time.deltaTime;
+        if (minuteTimer >= 5f)
         {
             OnMinuteChanged?.Invoke(now);
+            minuteTimer = 0f;
         }
-
-        //if (now.Minute != lastTime.Minute) {
-        //    OnMinuteChanged?.Invoke(now);
-        //}
 
         if (now.Hour != lastTime.Hour)
             OnHourChanged?.Invoke(now);

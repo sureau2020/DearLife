@@ -23,6 +23,7 @@ public class ChoiceUI : MonoBehaviour
 
     public void OnClickChoice()
     {
+        SoundManager.Instance.PlaySfx("Click");
         OnChoiceClicked?.Invoke(nextNodeId);
     }
 

@@ -10,6 +10,7 @@ public class ItemInfoPanel : MonoBehaviour
     private const int minQuantity = 1;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
+    [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemPrice;
     [SerializeField] private Button okButton;
     [SerializeField] private Slider quantitySlider;
@@ -25,13 +26,18 @@ public class ItemInfoPanel : MonoBehaviour
     {
         quantity = minQuantity;
         itemPrice.gameObject.SetActive(true);
+        
         try {
             itemData = item;
             singlePrice = item.Price;
             itemPrice.text = $" {singlePrice * quantity}金币";
             itemName.text = item.Name;
             itemDescription.text = item.Description;
-        }catch (System.Exception e) {
+            Sprite icon = IconManager.GetIcon(item.Type, item.ImagePath);
+            if (icon != null)
+                itemIcon.sprite = icon;
+        }
+        catch (System.Exception e) {
             return OperationResult.Fail($"显示该物品信息失败,物品信息不全");
         }
         InitializeSlider();
@@ -73,6 +79,7 @@ public class ItemInfoPanel : MonoBehaviour
 
     public void HidePanel()
     {
+        SoundManager.Instance.PlaySfx("BuyItem");
         gameObject.SetActive(false);
     }
 }

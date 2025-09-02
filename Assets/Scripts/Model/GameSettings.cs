@@ -24,7 +24,7 @@ public class GameSettings
 
         if (MaxSalaryFactor <= 1)
         {
-            return OperationResult.Fail("薪水随机因子上限 不得 小于0");
+            return OperationResult.Fail("薪水随机因子上限 不得 小于1");
         }
 
         if(HourlyWage <= 0)
@@ -41,7 +41,52 @@ public class GameSettings
     }
 
 
+    public OperationResult ChangeMaxRandomFactor(float factor)
+    {
+        if (factor <= 1)
+        {
+            return OperationResult.Fail("最大薪水随机因子 不得 小于等于1");
+        }
+        if(factor >= 2) { 
+            return OperationResult.Fail("最大薪水随机因子 不得 大于等于2");
+        }
+        MaxSalaryFactor = factor;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
 
+    public OperationResult ChangeHourlyWage(int wage)
+    {
+        if (wage <= 0)
+        {
+            return OperationResult.Fail("时薪必须大于0，不要贴钱上班哇");
+        }
+        HourlyWage = wage;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
+
+    public OperationResult ChangeDifficultyBonus(int bonus)
+    {
+        if (bonus < 0)
+        {
+            return OperationResult.Fail("任务难度奖励不能小于0，不要贴钱干难活哇");
+        }
+        DifficultyBonus = bonus;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
+
+    public OperationResult ChangeReplyChance(int chance)
+    {
+        if (chance < 0 || chance > 5)
+        {
+            return OperationResult.Fail("回复概率必须在0-5之间");
+        }
+        ReplyChance = chance;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
 
 
 }

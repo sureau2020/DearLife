@@ -7,7 +7,7 @@ using UnityEngine;
 // 这个类表示玩家（使用这个软件的用户）数据，处理与玩家底层model的交互
 public class PlayerData 
 {
-    public const int MaxBagCapacity = 8; // 背包最大容量12项不同物品
+    public const int MaxBagCapacity = 8; // 背包最大容量8项不同物品
 
     public int Money { get; private set; } = 0;//金钱
 
@@ -58,6 +58,7 @@ public class PlayerData
     {
         Money += salary;
         OnMoneyChanged?.Invoke(Money);
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
         return OperationResult.Complete();
     }
 
@@ -67,6 +68,7 @@ public class PlayerData
     public void SpendMoney(int cost)
     {
         Money -= cost;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
         OnMoneyChanged?.Invoke(Money);
     }
 
@@ -117,7 +119,7 @@ public class PlayerData
     // 背包还有空位不
     public bool IsBagHasSpace()
     {
-        return Items.Count <= MaxBagCapacity;
+        return Items.Count < MaxBagCapacity;
     }
 
 
