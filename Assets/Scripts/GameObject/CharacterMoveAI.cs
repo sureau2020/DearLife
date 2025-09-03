@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 
 public class CharacterMoveAI : MonoBehaviour
 {

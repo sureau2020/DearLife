@@ -10,7 +10,8 @@ public class TimeManager : MonoBehaviour
     public event Action<DateTime> OnDayChanged;
 
     private DateTime lastTime;
-    private float minuteTimer = 0f; // 新增计时器
+    private DateTime nextMinuteTick;           // 下一次“分钟事件”触发时间
+    private const int MinuteInterval = 12;     // 每12分钟触发一次
 
     private void Awake()
     {
@@ -22,25 +23,28 @@ public class TimeManager : MonoBehaviour
         Instance = this;
 
         lastTime = DateTime.Now;
+        nextMinuteTick = lastTime.AddMinutes(MinuteInterval);
     }
 
     private void Update()
     {
         DateTime now = DateTime.Now;
 
-        // 每0.2秒触发一次
-        minuteTimer += Time.deltaTime;
-        if (minuteTimer >= 5f)
+        // 每14分钟触发一次“分钟变化”事件
+        while (now >= nextMinuteTick)
         {
+            // 按你的要求传入 now
             OnMinuteChanged?.Invoke(now);
-            minuteTimer = 0f;
+            nextMinuteTick = nextMinuteTick.AddMinutes(MinuteInterval);
         }
 
-        if (now.Hour != lastTime.Hour)
-            OnHourChanged?.Invoke(now);
+        //// 小时变化
+        //if (now.Hour != lastTime.Hour)
+        //    OnHourChanged?.Invoke(now);
 
-        if (now.Day != lastTime.Day)
-            OnDayChanged?.Invoke(now);
+        //// 天变化
+        //if (now.Day != lastTime.Day)
+        //    OnDayChanged?.Invoke(now);
 
         lastTime = now;
     }

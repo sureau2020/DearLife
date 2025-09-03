@@ -69,7 +69,7 @@ public static class LoaderManager
                 if (eventData != null && !string.IsNullOrEmpty(eventData.EventId))
                 {
                     EventDataBase.AddEvent(eventData);
-                    Debug.Log($"成功加载事件：{eventData.EventId}");
+                    
                 }
                 else
                 {
@@ -105,7 +105,7 @@ public static class LoaderManager
                 if (itemData != null && !string.IsNullOrEmpty(itemData.Id))
                 {
                     ItemDataBase.AddItem(itemData);
-                    Debug.Log($"成功加载物品：{itemData.Id}");
+                    
                 }
                 else
                 {

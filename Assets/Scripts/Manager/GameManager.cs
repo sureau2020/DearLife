@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         // 尝试加载存档
-        Debug.Log("开始尝试加载存档...");
         var loadResult = StateManager.LoadState();
         if (loadResult.Success)
         {
@@ -175,21 +174,16 @@ public class GameManager : MonoBehaviour
 
     private void OnMinuteChanged(DateTime now)
     {
-        Debug.Log("一分钟过去了，当前时间：" + now.ToString("HH:mm"));
         StateManager.DecayStates();
         // 这里可以刷新UI或发通知
     }
 
     private void OnHourChanged(DateTime now)
     {
-        Debug.Log("一小时过去了，当前时间：" + now.ToString("HH:mm"));
-        // 每小时额外逻辑，比如任务倒计时等
     }
 
     private void OnDayChanged(DateTime now)
     {
-        Debug.Log("新一天开始：" + now.ToString("yyyy-MM-dd"));
-        // 每天刷新任务、状态等
     }
 
     public OperationResult SaveGame()
@@ -205,7 +199,6 @@ public class GameManager : MonoBehaviour
         if (loadResult.Success)
         {
             StateManager = loadResult.Data;
-            Debug.Log("游戏重新加载成功");
             return OperationResult.Complete();
         }
         else

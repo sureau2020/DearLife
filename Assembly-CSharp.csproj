@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\UI\Character\InfoUI.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
+    <Compile Include="Assets\Scripts\Notification\CharacterStatsManager.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\TypeButton.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\BRGlassDoor.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
@@ -86,12 +87,12 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\Scripts\UI\Character\EditButton.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\DayMissionData.cs" />
-    <Compile Include="Assets\Scripts\Notification\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\SettingItem.cs" />
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Notification\NotificationManager.cs" />
     <Compile Include="Assets\Scripts\Manager\Persistence\LoaderManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventDataBase.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemInfoManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
+    <Compile Include="Assets\Scripts\Notification\CharacterStat.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />

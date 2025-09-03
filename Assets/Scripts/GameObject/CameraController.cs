@@ -6,12 +6,16 @@ public class CameraController : MonoBehaviour
     [Header("缩放设置")]
     public float zoomSpeed = 2f;        // 缩放速度
     public float minZoom = 2f;          // 最小缩放
-    public float maxZoom = 7f;         // 最大缩放
+    public float maxZoom = 7f;          // 最大缩放
 
     [Header("拖动设置")]
     public float panSpeed = 10f;        // 拖动速度
     public Vector2 panLimitMin = new Vector2(0, 6); // 相机可移动的最小范围
-    public Vector2 panLimitMax = new Vector2(3, 8);   // 相机可移动的最大范围
+    public Vector2 panLimitMax = new Vector2(3, 8); // 相机可移动的最大范围
+
+    [Header("行为")]
+    [Tooltip("指针在UI上时是否仍允许拖动相机（移动端RaycastTarget全屏UI时很有用）")]
+    public bool allowPanWhenPointerOverUI = false;
 
     private Camera cam;
     private Vector3 dragOrigin;
@@ -46,7 +50,7 @@ public class CameraController : MonoBehaviour
 
     void HandleZoom()
     {
-        if (IsPointerOverUI()) return;
+        if (!allowPanWhenPointerOverUI && IsPointerOverUI()) return;
 
         // 鼠标滚轮缩放
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -77,7 +81,7 @@ public class CameraController : MonoBehaviour
 
     void HandlePan()
     {
-        if (IsPointerOverUI()) return;
+        if (!allowPanWhenPointerOverUI && IsPointerOverUI()) return;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         // 鼠标拖动
@@ -87,16 +91,16 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            Vector3 diff = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+            // 使用缓存相机 cam
+            Vector3 diff = cam.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
             diff.x *= cam.aspect;
             Vector3 move = new Vector3(-diff.x * panSpeed, -diff.y * panSpeed, 0);
 
             transform.Translate(move, Space.World);
-
             dragOrigin = Input.mousePosition;
         }
 #elif UNITY_ANDROID || UNITY_IOS
-        // 手指单指拖动
+        // 手指单指拖动（用delta更稳）
         if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
@@ -107,10 +111,12 @@ public class CameraController : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 diff = Camera.main.ScreenToViewportPoint(touch.position - (Vector3)dragOrigin);
+                // 用 deltaPosition 转换为视口比例，避免依赖起点
+                Vector2 delta = touch.deltaPosition;
+                Vector3 diff = new Vector3(delta.x / Screen.width, delta.y / Screen.height, 0f);
                 diff.x *= cam.aspect;
-                Vector3 move = new Vector3(-diff.x * panSpeed, -diff.y * panSpeed, 0);
 
+                Vector3 move = new Vector3(-diff.x * panSpeed, -diff.y * panSpeed, 0);
                 transform.Translate(move, Space.World);
 
                 dragOrigin = touch.position;
