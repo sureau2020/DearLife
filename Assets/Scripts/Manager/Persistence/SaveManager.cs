@@ -10,9 +10,10 @@ public static class SaveManager
 {
     private const string EventsFolder = "Assets/GameData/Events";
     private const string ItemsFolder = "Assets/GameData/Items";
-    private const string SaveDataFolder = "Assets/GameData/SaveData";
     private const string StateManagerFileName = "StateManager.json";
-    private const string TaskDataFolder = "Assets/GameData/TaskData";
+    private static readonly string SaveDataFolder = Path.Combine(Application.persistentDataPath, "SaveData");
+    private static readonly string TaskDataFolder = Path.Combine(Application.persistentDataPath, "TaskData");
+
     private static readonly SemaphoreSlim stateSaveSemaphore = new SemaphoreSlim(1, 1);
 
 

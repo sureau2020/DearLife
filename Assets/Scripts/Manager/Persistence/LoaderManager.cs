@@ -1,15 +1,19 @@
-
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public static class LoaderManager 
+public static class LoaderManager
 {
-    public const string EventsFolderPath = "Assets/GameData/Events";
-    public const string ItemsFolderPath = "Assets/GameData/Items";
-    
-    // 与 SaveManager 相同的设置
+    private const string EventsIndexFile = "GameData/events_index.json";
+    private const string ItemsIndexFile = "GameData/items_index.json";
+
+    private const string EventsFolder = "GameData/Events";
+    private const string ItemsFolder = "GameData/Items";
+
     private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
     {
         TypeNameHandling = TypeNameHandling.Auto,
@@ -18,7 +22,6 @@ public static class LoaderManager
         SerializationBinder = new SimpleTypeBinder()
     };
 
-    // 自定义类型绑定器（与 SaveManager 相同）
     public class SimpleTypeBinder : ISerializationBinder
     {
         public void BindToName(System.Type serializedType, out string assemblyName, out string typeName)
@@ -31,98 +34,91 @@ public static class LoaderManager
         {
             switch (typeName)
             {
-                case "DialogueNode":
-                    return typeof(DialogueNode);
-                case "ChoiceNode":
-                    return typeof(ChoiceNode);
-                case "ConditionNode":
-                    return typeof(ConditionNode);
-                case "EffectNode":
-                    return typeof(EffectNode);
-                case "NavigateNode":
-                    return typeof(NavigateNode);
-                default:
-                    return null;
+                case "DialogueNode": return typeof(DialogueNode);
+                case "ChoiceNode": return typeof(ChoiceNode);
+                case "ConditionNode": return typeof(ConditionNode);
+                case "EffectNode": return typeof(EffectNode);
+                case "NavigateNode": return typeof(NavigateNode);
+                default: return null;
             }
         }
     }
 
-    // 加载所有事件
-    public static void LoadEventsFromFolder()
+    [System.Serializable]
+    private class FileIndex
     {
-        if (!Directory.Exists(EventsFolderPath))
+        public List<string> files;
+    }
+
+    public static IEnumerator LoadAllData()
+    {
+        yield return LoadEvents();
+        yield return LoadItems();
+    }
+
+    private static IEnumerator LoadEvents()
+    {
+        yield return LoadByIndex(EventsIndexFile, EventsFolder, (json) =>
         {
-            Debug.LogWarning($"事件文件夹不存在：{EventsFolderPath}");
-            return;
+            EventData data = JsonConvert.DeserializeObject<EventData>(json, JsonSettings);
+            if (data != null) EventDataBase.AddEvent(data);
+        });
+        Debug.Log("事件加载完成");
+    }
+
+    private static IEnumerator LoadItems()
+    {
+        yield return LoadByIndex(ItemsIndexFile, ItemsFolder, (json) =>
+        {
+            ItemData data = JsonConvert.DeserializeObject<ItemData>(json, JsonSettings);
+            if (data != null) ItemDataBase.AddItem(data);
+        });
+        Debug.Log("物品加载完成");
+    }
+
+    private static IEnumerator LoadByIndex(string indexFile, string folder, System.Action<string> onJsonLoaded)
+    {
+        string indexPath = Path.Combine(Application.streamingAssetsPath, indexFile);
+        string indexJson = null;
+
+#if UNITY_ANDROID
+        using (UnityWebRequest www = UnityWebRequest.Get(indexPath))
+        {
+            yield return www.SendWebRequest();
+            if (www.result == UnityWebRequest.Result.Success)
+                indexJson = www.downloadHandler.text;
+            else
+                Debug.LogError($"加载索引文件失败: {indexPath}");
         }
-        
-        string[] files = Directory.GetFiles(EventsFolderPath, "*.json", SearchOption.TopDirectoryOnly);
-        Debug.Log($"找到 {files.Length} 个事件文件");
-        
-        foreach (var file in files)
+#else
+        indexJson = File.ReadAllText(indexPath);
+#endif
+
+        if (string.IsNullOrEmpty(indexJson)) yield break;
+
+        FileIndex index = JsonConvert.DeserializeObject<FileIndex>(indexJson);
+        foreach (var file in index.files)
         {
-            try
+            string fullPath = Path.Combine(Application.streamingAssetsPath, folder, file);
+
+#if UNITY_ANDROID
+            using (UnityWebRequest www = UnityWebRequest.Get(fullPath))
             {
-                string json = File.ReadAllText(file);
-                EventData eventData = JsonConvert.DeserializeObject<EventData>(json, JsonSettings);
-                
-                if (eventData != null && !string.IsNullOrEmpty(eventData.EventId))
+                yield return www.SendWebRequest();
+                if (www.result == UnityWebRequest.Result.Success)
                 {
-                    EventDataBase.AddEvent(eventData);
-                    
+                    string json = www.downloadHandler.text;
+                    onJsonLoaded?.Invoke(json);
                 }
                 else
                 {
-                    Debug.LogWarning($"文件 {file} 解析失败或EventId为空。");
+                    Debug.LogError($"加载文件失败: {fullPath}");
                 }
             }
-            catch (System.Exception ex)
-            {
-                Debug.LogError($"读取或解析事件文件 {file} 时出错: {ex.Message}");
-            }
+#else
+            string json = File.ReadAllText(fullPath);
+            onJsonLoaded?.Invoke(json);
+#endif
         }
-    }
-    
-    // 加载所有物品
-    public static void LoadItemsFromFolder()
-    {
-        if (!Directory.Exists(ItemsFolderPath))
-        {
-            Debug.LogWarning($"物品文件夹不存在：{ItemsFolderPath}");
-            return;
-        }
-        
-        string[] files = Directory.GetFiles(ItemsFolderPath, "*.json", SearchOption.TopDirectoryOnly);
-        Debug.Log($"找到 {files.Length} 个物品文件");
-        
-        foreach (var file in files)
-        {
-            try
-            {
-                string json = File.ReadAllText(file);
-                ItemData itemData = JsonConvert.DeserializeObject<ItemData>(json, JsonSettings);
-                
-                if (itemData != null && !string.IsNullOrEmpty(itemData.Id))
-                {
-                    ItemDataBase.AddItem(itemData);
-                    
-                }
-                else
-                {
-                    Debug.LogWarning($"文件 {file} 解析失败或ItemId为空。");
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError($"读取或解析物品文件 {file} 时出错: {ex.Message}");
-            }
-        }
-    }
-    
-    // 加载所有数据
-    public static void LoadAllData()
-    {
-        LoadEventsFromFolder();
-        LoadItemsFromFolder();
     }
 }
