@@ -163,3 +163,17 @@ InitTestScene*.unity*
 /Assets/Arts/BGM
 /Assets/Arts/BGM.meta
 /Assets/Arts/ui
+/Assets/Lana Studio
+/Assets/Arts
+/Assets/Font
+/Assets/Plugins
+
+
+# iOS / Apple build outputs
+Apple/
+apple/
+*.xcodeproj
+*.xcworkspace
+*.xcassets
+*.plist
+/apple.zip
