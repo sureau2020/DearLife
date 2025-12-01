@@ -1,0 +1,37 @@
+{
+  "EventId": "yinxing_item_general_002",
+  "Type": "Item",
+  "Tags": [
+    "lively"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "谢谢{appellation}呀"
+    },
+    "node_2": {
+      "$type": "ConditionNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 2000
+        }
+      },
+      "TrueNodeId": "node_3",
+      "FalseNodeId": ""
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "你怎么对我这么好啊"
+    }
+  }
+}

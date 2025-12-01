@@ -1,0 +1,18 @@
+{
+  "Id": "12345_rice",
+  "Name": "米饭",
+  "Description": "一碗热乎米饭\n饱食度+5",
+  "ImagePath": "rice",
+  "Author": "12345",
+  "Price": 3,
+  "Type": "Food",
+  "Effect": {
+    "Full": 5
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_icecream_003",
+    "12345_item_rice_001"
+  ],
+  "FilteredEventIds": []
+}

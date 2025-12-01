@@ -1,0 +1,21 @@
+{
+  "Id": "yinxing_milktea",
+  "Name": "奶茶/果茶",
+  "Description": "每次购买都会随机获得一杯茶饮。\n饱腹值+5\n好感度+10",
+  "ImagePath": "milktea",
+  "Author": "yinxing",
+  "Price": 16,
+  "Type": "Food",
+  "Effect": {
+    "Full": 5,
+    "Love":10
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_milktea_003",
+    "yinxing_item_milktea_001",
+    "yinxing_item_milktea_002"
+  ],
+  "FilteredEventIds": []
+}

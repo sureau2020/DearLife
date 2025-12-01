@@ -1,0 +1,17 @@
+{
+  "EventId": "Kage_daily_C01",
+  "Type": "Daily",
+  "Tags": [
+    "calm"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "计划是切碎一切疑难的求生刀。我想你一定能理解。"
+    }
+  }
+}

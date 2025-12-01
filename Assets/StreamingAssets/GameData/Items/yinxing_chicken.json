@@ -1,0 +1,17 @@
+{
+  "Id": "yinxing_chicken",
+  "Name": "烤全鸡",
+  "Description": "新鲜出炉的五香大烤鸡！\n饱腹度+30",
+  "ImagePath": "chicken",
+  "Author": "yinxing",
+  "Price": 20,
+  "Type": "Food",
+  "Effect": {
+    "Full": 30
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002"
+  ],
+  "FilteredEventIds": []
+}

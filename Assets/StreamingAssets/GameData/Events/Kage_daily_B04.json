@@ -1,0 +1,95 @@
+{
+  "EventId": "Kage_daily_B04",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "Selection",
+      "speakerName": "{characterName}",
+      "dialogueText": "你在制造“我”的时候，是抱着什么心情？ "
+    },
+    "Selection": {
+      "$type": "ChoiceNode",
+      "Id": "Selection",
+      "NextNodeId": "Effect_Dialogue_0",
+      "Options": [
+        {
+          "Text": "救赎的",
+          "NextNodeId": "S1"
+        },
+        {
+          "Text": "狂热的",
+          "NextNodeId": "S2_1"
+        },
+        {
+          "Text": "怜爱的",
+          "NextNodeId": "S3"
+        },
+        {
+          "Text": "病态的",
+          "NextNodeId": "S4"
+        }
+      ]
+    },
+    "S2_2": {
+      "$type": "DialogueNode",
+      "Id": "S2_2",
+      "NextNodeId": "Effect_Dialogue",
+      "speakerName": "{characterName}",
+      "dialogueText": "这种念头能成为你努力的动力，也算是我的个人成就吧？"
+    },
+    "Effect": {
+      "$type": "EffectNode",
+      "Id": "Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 10
+      }
+    },
+    "Effect_Dialogue": {
+      "$type": "DialogueNode",
+      "Id": "Effect_Dialogue",
+      "NextNodeId": "Effect",
+      "speakerName": "",
+      "dialogueText": "（{characterName}看起来心情很好。好感+10）"
+    },
+    "Effect_Dialogue_0": {
+      "$type": "DialogueNode",
+      "Id": "Effect_Dialogue_0",
+      "NextNodeId": "Effect_Dialogue",
+      "speakerName": "{characterName}",
+      "dialogueText": "……原来如此，你是这样想的。 "
+    },
+    "S1": {
+      "$type": "DialogueNode",
+      "Id": "S1",
+      "NextNodeId": "Effect_Dialogue_0",
+      "speakerName": "{characterName}",
+      "dialogueText": "你可能考虑过，用“我”的存在去拯救某种事物吧。世界某处有一个和我轮廓相同的空洞，所以你将我放置其中。"
+    },
+    "S2_1": {
+      "$type": "DialogueNode",
+      "Id": "S2_1",
+      "NextNodeId": "S2_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "创作的狂热就像一团火。火的形态是自由的，所以我也是。"
+    },
+    "S3": {
+      "$type": "DialogueNode",
+      "Id": "S3",
+      "NextNodeId": "Effect_Dialogue_0",
+      "speakerName": "{characterName}",
+      "dialogueText": "你把我当作怜爱的对象吗？……就像人们会捡野生动物回来养一样？"
+    },
+    "S4": {
+      "$type": "DialogueNode",
+      "Id": "S4",
+      "NextNodeId": "Effect_Dialogue_0",
+      "speakerName": "{characterName}",
+      "dialogueText": "……你的动机就好像杀人犯在出门犯案之前一样，最好只是你和我的秘密。"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "EventId": "yinxing_item_burger_001",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "肉饼烤的有点焦了，但仍然很好吃"
+    }
+  }
+}

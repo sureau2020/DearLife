@@ -1,0 +1,17 @@
+{
+  "EventId": "yinxing_item_fish_003",
+  "Type": "Item",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "……{appellation}还有这种处理鱼的技术吗"
+    }
+  }
+}

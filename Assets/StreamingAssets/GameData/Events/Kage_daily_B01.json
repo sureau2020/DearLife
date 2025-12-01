@@ -1,0 +1,93 @@
+{
+  "EventId": "Kage_daily_B01",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "dream",
+  "Nodes": {
+    "wood-1": {
+      "$type": "DialogueNode",
+      "Id": "wood-1",
+      "NextNodeId": "wood_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}走在午后的森林里，遇到一只会说话的兔子。兔子给了{characterName}一块怀表。"
+    },
+    "wood_3": {
+      "$type": "EffectNode",
+      "Id": "wood_3",
+      "NextNodeId": null,
+      "Effects": {
+        "San": -1
+      }
+    },
+    "wood_2": {
+      "$type": "DialogueNode",
+      "Id": "wood_2",
+      "NextNodeId": "wood_3",
+      "speakerName": "？？？",
+      "dialogueText": "现在，你必须快点去茶会。要来不及了，要来不及了要来不及了要来不及了要来不及……"
+    },
+    "dream": {
+      "$type": "DialogueNode",
+      "Id": "dream",
+      "NextNodeId": "dream_option",
+      "speakerName": "",
+      "dialogueText": "{characterName}躺在空调房里的沙发上，试图打个盹……做了个梦，梦里出现了：\n"
+    },
+    "dream_option": {
+      "$type": "ChoiceNode",
+      "Id": "dream_option",
+      "NextNodeId": null,
+      "Options": [
+        {
+          "Text": "森林",
+          "NextNodeId": "wood-1"
+        },
+        {
+          "Text": "大海",
+          "NextNodeId": "ocean_1"
+        },
+        {
+          "Text": "城市",
+          "NextNodeId": "city_1"
+        }
+      ]
+    },
+    "ocean_1": {
+      "$type": "DialogueNode",
+      "Id": "ocean_1",
+      "NextNodeId": "ocean_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}站在一片黑沙滩上，潮汐的声音就像心跳。Wish-wash, wish-wash. "
+    },
+    "ocean_2": {
+      "$type": "EffectNode",
+      "Id": "ocean_2",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 1
+      }
+    },
+    "city_1": {
+      "$type": "DialogueNode",
+      "Id": "city_1",
+      "NextNodeId": "city_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}来到一座陌生的大都会，现在是深夜，霓虹遍布的街道上传来阵阵香气…… "
+    },
+    "city_2": {
+      "$type": "DialogueNode",
+      "Id": "city_2",
+      "NextNodeId": "city_3",
+      "speakerName": "",
+      "dialogueText": "做个梦给肚子做饿了。真有志气。"
+    },
+    "city_3": {
+      "$type": "EffectNode",
+      "Id": "city_3",
+      "NextNodeId": null,
+      "Effects": {
+        "Full": -5
+      }
+    }
+  }
+}

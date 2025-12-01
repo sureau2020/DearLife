@@ -1,0 +1,55 @@
+{
+  "EventId": "yinxing_item_general_001",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "谢谢"
+    },
+    "node_2": {
+      "$type": "ConditionNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 2000
+        }
+      },
+      "TrueNodeId": "node_3",
+      "FalseNodeId": ""
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "如果你需要什么，也请告诉我。"
+    },
+    "node_4": {
+      "$type": "ConditionNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 5000
+        }
+      },
+      "TrueNodeId": "node_5",
+      "FalseNodeId": ""
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "我会一直在这里的"
+    }
+  }
+}

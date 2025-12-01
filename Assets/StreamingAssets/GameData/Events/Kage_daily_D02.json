@@ -1,0 +1,83 @@
+{
+  "EventId": "Kage_daily_D02",
+  "Type": "Daily",
+  "Tags": [
+    "innocent"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "如果事情实在做不完，我们就去商店偷东西吧。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "Action_Choice",
+      "speakerName": "{characterName}",
+      "dialogueText": "只要不会被管理员发现就可以了嘛。"
+    },
+    "Action_Choice": {
+      "$type": "ChoiceNode",
+      "Id": "Action_Choice",
+      "NextNodeId": "Steal_1",
+      "Options": [
+        {
+          "Text": "不行哦",
+          "NextNodeId": "Refuse"
+        },
+        {
+          "Text": "好啊",
+          "NextNodeId": "Steal_1"
+        }
+      ]
+    },
+    "Refuse": {
+      "$type": "DialogueNode",
+      "Id": "Refuse",
+      "NextNodeId": "Refuse_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "诶，不行啊……"
+    },
+    "Refuse_Effect": {
+      "$type": "EffectNode",
+      "Id": "Refuse_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": -3
+      }
+    },
+    "Steal_1": {
+      "$type": "DialogueNode",
+      "Id": "Steal_1",
+      "NextNodeId": "Steal_2",
+      "speakerName": "",
+      "dialogueText": "你和{characterName}一起偷偷摸到商店门口，还没进屋就被倒三角身材的保安抓住了。"
+    },
+    "Steal_2": {
+      "$type": "DialogueNode",
+      "Id": "Steal_2",
+      "NextNodeId": "Steal_Effect",
+      "speakerName": "",
+      "dialogueText": "虽然只是被批评教育，但果然还得想办法赚工资…… 好感+3"
+    },
+    "Steal_Effect": {
+      "$type": "EffectNode",
+      "Id": "Steal_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 3
+      }
+    },
+    "Refuse_2": {
+      "$type": "DialogueNode",
+      "Id": "Refuse_2",
+      "NextNodeId": "Refuse_Effect",
+      "speakerName": "",
+      "dialogueText": "{characterName}撇撇嘴，好感-3"
+    }
+  }
+}

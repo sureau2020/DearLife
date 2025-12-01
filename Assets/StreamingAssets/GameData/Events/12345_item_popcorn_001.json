@@ -1,0 +1,17 @@
+{
+  "EventId": "12345_item_popcorn_001",
+  "Type": "Item",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "这爆米花有点像玉米"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "12345_orange",
+  "Name": "橘子",
+  "Description": "橘色的圆形水果，挺甜的\n饱食度+2",
+  "ImagePath": "orange",
+  "Author": "12345",
+  "Price": 3,
+  "Type": "Food",
+  "Effect": {
+    "Full": 2
+  },
+  "Events": [
+    "12345_item_orange_001",
+    "12345_item_orange_002",
+    "12345_item_orange_003"
+  ],
+  "FilteredEventIds": []
+}

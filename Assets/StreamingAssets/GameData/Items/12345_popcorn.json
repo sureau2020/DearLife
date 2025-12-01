@@ -1,0 +1,19 @@
+{
+  "Id": "12345_popcorn",
+  "Name": "爆米花",
+  "Description": "一大桶爆米花\n饱食度+5\n好感度+2",
+  "ImagePath": "popcorn",
+  "Author": "12345",
+  "Price": 8,
+  "Type": "Food",
+  "Effect": {
+    "Full": 5,
+    "Love": 2
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_pizza_001",
+    "12345_item_popcorn_001"
+  ],
+  "FilteredEventIds": []
+}

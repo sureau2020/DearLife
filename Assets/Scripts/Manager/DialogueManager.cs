@@ -1,15 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-
     private DialogueRunner runner;
     [SerializeField] private DialoguePanelUI dailyDialoguePanel;
     [SerializeField] private DialoguePanelUI characterDialoguePanel;
     [SerializeField] private ChoicesUI choicePanelUI;
     [SerializeField] private BottomButton randomDailyEventGenerator;
+
+    private int dailyEventShownCount = 0;
+    private DateTime lastDailyEventDate = DateTime.MinValue;
+    private const int MaxDailyEvents = 999;
+    private const string DailyEventCountKey = "DailyEventShownCount";
+    private const string DailyEventDateKey = "DailyEventDate";
+    private const string DefaultDailyEventId = "Kage_daily_normal_default_1";
 
     void Awake()
     {
@@ -22,6 +29,8 @@ public class DialogueManager : MonoBehaviour
         characterDialoguePanel.OnNextClicked += HandleAdvance;
         choicePanelUI.OnChoiceClicked += HandleAdvance;
         randomDailyEventGenerator.randomDailyEvent += StartRandomDailyDialogue;
+
+        LoadDailyEventState();
     }
 
     void OnDestroy()
@@ -36,6 +45,27 @@ public class DialogueManager : MonoBehaviour
         randomDailyEventGenerator.randomDailyEvent -= StartRandomDailyDialogue;
     }
 
+    private void LoadDailyEventState()
+    {
+        dailyEventShownCount = PlayerPrefs.GetInt(DailyEventCountKey, 0);
+        string dateStr = PlayerPrefs.GetString(DailyEventDateKey, "");
+        if (!string.IsNullOrEmpty(dateStr))
+        {
+            DateTime.TryParse(dateStr, out lastDailyEventDate);
+        }
+        else
+        {
+            lastDailyEventDate = DateTime.Today;
+        }
+    }
+
+
+    private void SaveDailyEventState()
+    {
+        PlayerPrefs.SetInt(DailyEventCountKey, dailyEventShownCount);
+        PlayerPrefs.SetString(DailyEventDateKey, lastDailyEventDate.ToString("yyyy-MM-dd"));
+        PlayerPrefs.Save();
+    }
 
     public OperationResult StartDialogue(string eventId) {
         if (eventId == null)
@@ -50,16 +80,53 @@ public class DialogueManager : MonoBehaviour
         return OperationResult.Complete();
     }
 
-    public void StartRandomDailyDialogue() {
-        string eventId = Calculators.RandomEvent(EventDataBase.GetCandidateDailyEventIds());
+    public void StartRandomDailyDialogue()
+    {
+        // 检查日期是否变更，变更则重置
+        if (lastDailyEventDate.Date != DateTime.Today)
+        {
+            dailyEventShownCount = 0;
+            lastDailyEventDate = DateTime.Today;
+        }
+
+        string eventId;
+        if (dailyEventShownCount < MaxDailyEvents)
+        {
+            eventId = Calculators.RandomEvent(EventDataBase.GetCandidateDailyEventIds());
+            dailyEventShownCount++;
+        }
+        else
+        {
+            switch (GameManager.Instance.StateManager.Character.HealthState) { 
+                case HealthState.Normal:
+                    eventId = "Kage_daily_normal_default_1";
+                    break;
+                case HealthState.Crazy:
+                    eventId = "Kage_daily_crazy_default_1";
+                    break;
+                case HealthState.Dirty:
+                    eventId = "Kage_daily_dirty_default_1";
+                    break;
+                case HealthState.Weak:
+                    eventId = "Kage_daily_weak_default_1";
+                    break;
+                default:
+                    eventId = DefaultDailyEventId;
+                    break;
+            }
+        }
+
+        SaveDailyEventState();
+
         OperationResult result = StartDialogue(eventId);
-        if (!result.Success) {
+        if (!result.Success)
+        {
             ErrorNotifier.NotifyError(result.Message);
         }
     }
 
 
-    // REQUIRE: itemID对应的item不等于null，这点在GameManager中已经验证过了，0<=p<=5
+    // REQUIRE: itemID对应的item不等于null，这点在GameManager中已经验证过了，1<=p<=5
     // 使用物品时，先使用物品,根据setting里的概率随机决定是否有对话，有对话的话随机对话，返回结果
     public OperationResult ShowRandomItemDialogue(int p, string itemId) {
         if (p <= 1 || !Calculators.RandomChance(p))
@@ -130,3 +197,5 @@ public class DialogueManager : MonoBehaviour
     }
 
 }
+
+

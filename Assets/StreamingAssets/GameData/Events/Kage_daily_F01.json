@@ -1,0 +1,58 @@
+{
+  "EventId": "Kage_daily_F01",
+  "Type": "Daily",
+  "Tags": [
+    "realistic"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "LOVE",
+      "speakerName": "",
+      "dialogueText": "晴天晒太阳会感到温暖，阴雨令人心生倦怠。人类会因温度与湿度产生情绪性幻觉。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "至少现在，{characterName}凝视着你，你可以暂时将天气放在一旁。"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "node_2",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 1000
+        }
+      },
+      "TrueNodeId": "node_4",
+      "FalseNodeId": "node_2"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "{characterName}",
+      "dialogueText": "你出门的时候也会带着我吗？"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "{characterName}",
+      "dialogueText": "当然，我不是为了催促你做事才跟出去的。"
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "“为了听风过耳，也值得出世为人”，应该是这么说才对吧。"
+    }
+  }
+}

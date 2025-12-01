@@ -1,0 +1,25 @@
+{
+  "EventId": "yinxing_item_miqingji_002",
+  "Type": "Item",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "我觉得不对，拿走（好感度-5）"
+    },
+    "node_2": {
+      "$type": "EffectNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": -5
+      }
+    }
+  }
+}

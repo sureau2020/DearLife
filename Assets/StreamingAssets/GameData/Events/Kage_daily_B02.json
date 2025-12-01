@@ -1,0 +1,60 @@
+{
+  "EventId": "Kage_daily_B02",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "Effect_1",
+      "speakerName": "",
+      "dialogueText": "{characterName}在厨房的柜角狠狠踢到了大脚趾，痛得蹲了下来。生活中也是会有这种让人心梗的意外的…… 理智-1"
+    },
+    "Effect_1": {
+      "$type": "EffectNode",
+      "Id": "Effect_1",
+      "NextNodeId": "Action_Choice",
+      "Effects": {
+        "San": -1
+      }
+    },
+    "Action_Choice": {
+      "$type": "ChoiceNode",
+      "Id": "Action_Choice",
+      "NextNodeId": "Ignore",
+      "Options": [
+        {
+          "Text": "给柜子包上儿童防护贴",
+          "NextNodeId": "Tape"
+        },
+        {
+          "Text": "假装没有看到",
+          "NextNodeId": "Ignore"
+        }
+      ]
+    },
+    "Tape": {
+      "$type": "DialogueNode",
+      "Id": "Tape",
+      "NextNodeId": "Tape_Effect",
+      "speakerName": "",
+      "dialogueText": "{characterName}看起来有点羞耻，但还是接受了你的好意。好感+5"
+    },
+    "Ignore": {
+      "$type": "DialogueNode",
+      "Id": "Ignore",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterName}默契地假装什么都没发生，背手离开。"
+    },
+    "Tape_Effect": {
+      "$type": "EffectNode",
+      "Id": "Tape_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 5
+      }
+    }
+  }
+}

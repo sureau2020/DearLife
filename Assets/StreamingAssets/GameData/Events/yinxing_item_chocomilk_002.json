@@ -1,0 +1,64 @@
+{
+  "EventId": "yinxing_item_chocomilk_002",
+  "Type": "Item",
+  "Tags": [
+    "lively"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "哎呀这么甜……但话说到巧克力奶"
+    },
+    "node_2": {
+      "$type": "ChoiceNode",
+      "Id": "node_2",
+      "NextNodeId": "e",
+      "Options": [
+        {
+          "Text": "你",
+          "NextNodeId": "you"
+        },
+        {
+          "Text": "巧克力奶",
+          "NextNodeId": "milk"
+        },
+        {
+          "Text": "呃……",
+          "NextNodeId": "e"
+        }
+      ]
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "{appellation}觉得我和巧克力奶谁更甜？"
+    },
+    "e": {
+      "$type": "DialogueNode",
+      "Id": "e",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "逗你玩的"
+    },
+    "you": {
+      "$type": "DialogueNode",
+      "Id": "you",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "是嘛！"
+    },
+    "milk": {
+      "$type": "DialogueNode",
+      "Id": "milk",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "好吧！"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "Id": "12345_icecream",
+  "Name": "冰激凌",
+  "Description": "好吃的冰激凌\n饱食度+2\n好感度+4",
+  "ImagePath": "icecream",
+  "Author": "12345",
+  "Price": 7,
+  "Type": "Food",
+  "Effect": {
+    "Full": 2,
+    "Love": 4
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_icecream_002",
+    "12345_item_icecream_003",
+    "12345_item_icecream_004",
+    "12345_item_icecream_005"
+  ],
+  "FilteredEventIds": []
+}

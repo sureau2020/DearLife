@@ -1,0 +1,63 @@
+{
+  "EventId": "Kage_daily_G03",
+  "Type": "Daily",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "……"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "Question",
+      "speakerName": "{characterName}",
+      "dialogueText": "…………"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "有一个问题我在意很久了。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "{characterName}",
+      "dialogueText": "商场卖的米饭……为什么有两根筷子插在上面？"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "",
+      "dialogueText": "{characterName}陷入了沉思。"
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "但你很快就意识到，{characterPronoun}其实只是想吃点好的而已。"
+    },
+    "Question": {
+      "$type": "ChoiceNode",
+      "Id": "Question",
+      "NextNodeId": "node_3",
+      "Options": [
+        {
+          "Text": "怎么了？",
+          "NextNodeId": "node_3"
+        }
+      ]
+    }
+  }
+}

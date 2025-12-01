@@ -1,0 +1,18 @@
+{
+  "Id": "12345_ramen",
+  "Name": "牛肉拉面",
+  "Description": "正宗牛肉拉面\n饱食度+15",
+  "ImagePath": "ramen",
+  "Author": "12345",
+  "Price": 15,
+  "Type": "Food",
+  "Effect": {
+    "Full": 15
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_pizza_001",
+    "12345_item_ramen_001"
+  ],
+  "FilteredEventIds": []
+}

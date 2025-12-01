@@ -7,7 +7,11 @@ public class AppearanceLoader : MonoBehaviour
     public SpriteRenderer backHairRenderer;
     public SpriteRenderer sideHairRenderer;
     public SpriteRenderer bodyRenderer;
-    public SpriteRenderer eyeRenderer;
+    //public SpriteRenderer eyeRenderer;
+    public SpriteRenderer leftEyeRenderer;
+    public SpriteRenderer rightEyeRenderer;
+    public SpriteRenderer leftEyeBlancRenderer;
+    public SpriteRenderer rightEyeBlancRenderer;
     public SpriteRenderer clothesRenderer;
     public SpriteRenderer headDeco1Renderer;
     public SpriteRenderer headDeco2Renderer;
@@ -46,8 +50,16 @@ public class AppearanceLoader : MonoBehaviour
         SetPart(bodyRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Body", app.BodyId),
                 app.BodyColor);
 
-        SetPart(eyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Eye", app.EyeId),
-                app.EyeColor);
+        //SetPart(eyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Eye", app.EyeId),
+                //app.EyeColor);
+        SetPart(leftEyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("LeftEye", app.LeftEyeId),
+                app.LeftEyeColor);
+        SetPart(rightEyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("RightEye", app.RightEyeId),
+                app.RightEyeColor);
+        SetPart(leftEyeBlancRenderer, AppearanceAtlasManager.Instance.GetPartSprite("LeftEyeBlanc", app.LeftEyeBlancId),
+                app.LeftEyeBlancColor);
+        SetPart(rightEyeBlancRenderer, AppearanceAtlasManager.Instance.GetPartSprite("RightEyeBlanc", app.RightEyeBlancId),
+                app.RightEyeBlancColor);
 
         SetPart(clothesRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Clothes", app.ClothesId),
                 app.ClothesColor);

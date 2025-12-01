@@ -46,7 +46,10 @@ public class MissionData
         }
         if (HasDeadline && DateTime.Now > Deadline)
         {
-            return OperationResult.Fail("任务已过期，无法完成。");
+            Title = "[迟]" + Title;
+            IsCompleted = true;
+            _ = TaskManagerModel.Instance.SaveMonthAsync(BelongsToDate.ToString("yyyy-MM"));
+            return OperationResult.Fail("任务已过期。");
         }
         IsCompleted = true;
         _ = TaskManagerModel.Instance.SaveMonthAsync(BelongsToDate.ToString("yyyy-MM"));

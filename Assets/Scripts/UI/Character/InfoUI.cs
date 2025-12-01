@@ -12,6 +12,9 @@ public class InfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI relationText;
     [SerializeField] private TextMeshProUGUI deathTimeText;
     [SerializeField] private TextMeshProUGUI meetTimeText;
+    [SerializeField] private TextMeshProUGUI fullText;
+    [SerializeField] private TextMeshProUGUI cleanText;
+    [SerializeField] private TextMeshProUGUI sanText;
 
 
     void OnEnable()
@@ -36,6 +39,9 @@ public class InfoUI : MonoBehaviour
         CharacterData character = GameManager.Instance.StateManager.Character;
         nameText.text = "姓名：" + character.Name;
         statusText.text = "当前状态：" + character.GetHealthStateDescription();
+        fullText.text = "饱食度：" + character.Full+"/100";
+        cleanText.text = "清洁度：" + character.Clean+"/100";
+        sanText.text = "理智值：" + character.San+"/100";
         personalitiesText.text = "特点：" + character.GetPersonalityDescription();
         appelationText.text = "对你的称呼：" + character.PlayerAppellation;
         relationText.text = $"目前与你的关系：{character.Relationship}";

@@ -1,0 +1,88 @@
+{
+  "EventId": "Kage_daily_H03",
+  "Type": "Daily",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "Juice_1",
+  "Nodes": {
+    "Juice_Option": {
+      "$type": "ChoiceNode",
+      "Id": "Juice_Option",
+      "NextNodeId": null,
+      "Options": [
+        {
+          "Text": "是甜味的{characterName}汁 ",
+          "NextNodeId": "Sweet"
+        },
+        {
+          "Text": "是苦涩的{characterName}汁",
+          "NextNodeId": "Bitter"
+        },
+        {
+          "Text": "坟前有点心",
+          "NextNodeId": "Chaos"
+        }
+      ]
+    },
+    "Sweet": {
+      "$type": "DialogueNode",
+      "Id": "Sweet",
+      "NextNodeId": "Sweet_Effect",
+      "speakerName": "{characterName}",
+      "dialogueText": "是吗……这是你品尝我的感想，有点高兴。"
+    },
+    "Bitter": {
+      "$type": "DialogueNode",
+      "Id": "Bitter",
+      "NextNodeId": "Bitter_Effect",
+      "speakerName": "{characterName}",
+      "dialogueText": "也对啊。毕竟是你榨取出的“我”。"
+    },
+    "Chaos": {
+      "$type": "DialogueNode",
+      "Id": "Chaos",
+      "NextNodeId": "Chaos_Effect",
+      "speakerName": "{characterName}",
+      "dialogueText": "烫烫烫烫烫烫烫烫烫烫烫烫……"
+    },
+    "Sweet_Effect": {
+      "$type": "EffectNode",
+      "Id": "Sweet_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 20
+      }
+    },
+    "Bitter_Effect": {
+      "$type": "EffectNode",
+      "Id": "Bitter_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 20
+      }
+    },
+    "Chaos_Effect": {
+      "$type": "EffectNode",
+      "Id": "Chaos_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "San": -5
+      }
+    },
+    "Juice_1": {
+      "$type": "DialogueNode",
+      "Id": "Juice_1",
+      "NextNodeId": "Juice_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "说起来，橘子汁就是橘子做的汁对吧。"
+    },
+    "Juice_2": {
+      "$type": "DialogueNode",
+      "Id": "Juice_2",
+      "NextNodeId": "Juice_Option",
+      "speakerName": "{characterName}",
+      "dialogueText": "那如果用我做的汁，应该是……？"
+    }
+  }
+}

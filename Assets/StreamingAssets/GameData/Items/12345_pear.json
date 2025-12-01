@@ -1,0 +1,19 @@
+{
+  "Id": "12345_pear",
+  "Name": "梨",
+  "Description": "甜的水果\n饱食度+2",
+  "ImagePath": "pear",
+  "Author": "12345",
+  "Price": 3,
+  "Type": "Food",
+  "Effect": {
+    "Full": 2
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_pear_001",
+    "12345_item_orange_001",
+    "12345_item_icecream_003"
+  ],
+  "FilteredEventIds": []
+}

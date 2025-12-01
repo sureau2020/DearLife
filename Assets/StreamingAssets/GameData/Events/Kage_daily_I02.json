@@ -1,0 +1,52 @@
+{
+  "EventId": "Kage_daily_I02",
+  "Type": "Daily",
+  "Tags": [
+    "lively"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "理智对人来说很重要啊。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "我是不知道如果疯了会怎么样……说不定会问你一些很奇怪的问题。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "也会变得不像我自己吧？"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "{characterName}",
+      "dialogueText": "不过{playerAppellation}肯定储备了足量的应对药物吧。"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "{characterName}",
+      "dialogueText": "我相信你应该不会买那种让人反倒更加疯狂的药……"
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "……不会的对吧？"
+    }
+  }
+}

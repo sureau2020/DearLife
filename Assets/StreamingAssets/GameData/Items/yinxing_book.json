@@ -1,0 +1,19 @@
+{
+  "Id": "yinxing_book",
+  "Name": "书",
+  "Description": "一本会根据使用者变换内容的书，谁都能看得进去。\n理智值+10\n好感度+3",
+  "ImagePath": "book",
+  "Author": "yinxing",
+  "Price": 15,
+  "Type": "Gift",
+  "Effect": {
+    "San": 10,
+    "Love": 3
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_book_001"
+  ],
+  "FilteredEventIds": []
+}

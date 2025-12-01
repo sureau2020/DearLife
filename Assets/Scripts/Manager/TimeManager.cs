@@ -12,6 +12,7 @@ public class TimeManager : MonoBehaviour
     private DateTime lastTime;
     private DateTime nextMinuteTick;           // 下一次“分钟事件”触发时间
     private const int MinuteInterval = 12;     // 每12分钟触发一次
+    //private float secondTimer = 0f;
 
     private void Awake()
     {
@@ -30,13 +31,19 @@ public class TimeManager : MonoBehaviour
     {
         DateTime now = DateTime.Now;
 
-        // 每14分钟触发一次“分钟变化”事件
         while (now >= nextMinuteTick)
         {
             // 按你的要求传入 now
             OnMinuteChanged?.Invoke(now);
             nextMinuteTick = nextMinuteTick.AddMinutes(MinuteInterval);
         }
+
+        //secondTimer += Time.deltaTime;
+        //if (secondTimer >= 0.1f)
+        //{
+        //    OnMinuteChanged?.Invoke(now);
+        //    secondTimer = 0f;
+        //}
 
         //// 小时变化
         //if (now.Hour != lastTime.Hour)

@@ -1,0 +1,95 @@
+{
+  "EventId": "Kage_daily_E03",
+  "Type": "Daily",
+  "Tags": [
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "Action_Choice",
+      "speakerName": "",
+      "dialogueText": "每个人都会有那么一两件不愿提起的过去。{characterName}时不时眺望着窗外，或许在想{characterPronoun}自己的心事。"
+    },
+    "Action_Choice": {
+      "$type": "ChoiceNode",
+      "Id": "Action_Choice",
+      "NextNodeId": "Ask_LOVE",
+      "Options": [
+        {
+          "Text": "拍拍{characterPronoun}的肩膀",
+          "NextNodeId": "Pat_1"
+        },
+        {
+          "Text": "询问{characterPronoun}在想什么",
+          "NextNodeId": "Ask_LOVE"
+        }
+      ]
+    },
+    "Pat_1": {
+      "$type": "DialogueNode",
+      "Id": "Pat_1",
+      "NextNodeId": "Pat_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}回过头看到你。"
+    },
+    "Pat_2": {
+      "$type": "DialogueNode",
+      "Id": "Pat_2",
+      "NextNodeId": "Pat_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "{playerAppellation}，怎么了？今天的事情已经做完了吗？"
+    },
+    "Pat_3": {
+      "$type": "DialogueNode",
+      "Id": "Pat_3",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "一种渺远的错觉从你们之间溜走了。"
+    },
+    "Ask_LOVE": {
+      "$type": "ConditionNode",
+      "Id": "Ask_LOVE",
+      "NextNodeId": "Asked_not_passed",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "Ask_passed_1",
+      "FalseNodeId": "Asked_not_passed"
+    },
+    "Ask_passed_1": {
+      "$type": "DialogueNode",
+      "Id": "Ask_passed_1",
+      "NextNodeId": "Ask_passed_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "……我在想的事情吗？我想你的猜测应该大差不差。"
+    },
+    "Ask_passed_2": {
+      "$type": "DialogueNode",
+      "Id": "Ask_passed_2",
+      "NextNodeId": "Ask_passed_Effect",
+      "speakerName": "{characterName}",
+      "dialogueText": "毕竟，应该你比我自己还了解我。总之……谢谢你的关心。 好感+5"
+    },
+    "Asked_not_passed": {
+      "$type": "DialogueNode",
+      "Id": "Asked_not_passed",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterPronoun}沉默地看着你。看来，在你们建立信任之前，很难聊这个话题。"
+    },
+    "Ask_passed_Effect": {
+      "$type": "EffectNode",
+      "Id": "Ask_passed_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 5
+      }
+    }
+  }
+}

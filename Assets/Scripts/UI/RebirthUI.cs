@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,11 +26,11 @@ public class RebirthUI : MonoBehaviour
         if (character.HealthState == HealthState.Dead)
         {
             ShowRebirthUI();
-            
+
         }
     }
 
-    private void ShowRebirthUI()
+    public void ShowRebirthUI()
     {
 
         rebirthCostText.text = $"{character.Name}已经死亡\n这是{character.Pronoun}的\n第{character.DeathNum}次死亡\n在死亡时，\n你们的关系是{character.DetermineRelation()}\n你可以随时点击按钮复活{character.Name}\n但{character.Pronoun}不会忘记这次死亡。\n（好感度-200）";

@@ -1,0 +1,32 @@
+{
+  "EventId": "Kage_daily_F02",
+  "Type": "Daily",
+  "Tags": [
+    "realistic"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}注意到了商店橱窗里挂着的画。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "{characterPronoun}对着画凝视许久，然后移开了视线。不知道那上面有什么让{characterPronoun}在意的东西。 理智 -2"
+    },
+    "node_3": {
+      "$type": "EffectNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "Effects": {
+        "San": -2
+      }
+    }
+  }
+}

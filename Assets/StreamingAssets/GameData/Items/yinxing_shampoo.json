@@ -1,0 +1,16 @@
+{
+  "Id": "yinxing_shampoo",
+  "Name": "洗发水",
+  "Description": "薄荷味洗发水，去油效果蛮好\n清洁度+15",
+  "ImagePath": "shampoo",
+  "Author": "yinxing",
+  "Price": 15,
+  "Type": "PersonalCare",
+  "Effect": {
+    "Clean": 15
+  },
+  "Events": [
+    "yinxing_item_general_001"
+  ],
+  "FilteredEventIds": []
+}

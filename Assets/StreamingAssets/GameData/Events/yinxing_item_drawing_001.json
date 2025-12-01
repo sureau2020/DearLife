@@ -1,0 +1,25 @@
+{
+  "EventId": "yinxing_item_drawing_001",
+  "Type": "Item",
+  "Tags": [
+    "realistic"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "嗯……（好感度-5）"
+    },
+    "node_2": {
+      "$type": "EffectNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": -5
+      }
+    }
+  }
+}

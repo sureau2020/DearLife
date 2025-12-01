@@ -1,0 +1,49 @@
+{
+  "EventId": "Kage_daily_B11",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "LOVE",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "我当然也会好奇{playerAppellation}每天都在忙什么。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "就像你总是试图挖掘更多关于我的事一样。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "今天要往待办板子上写点什么？"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "less_than_0",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "node_1",
+      "FalseNodeId": "less_than_0"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "……你打算做点什么？"
+    }
+  }
+}

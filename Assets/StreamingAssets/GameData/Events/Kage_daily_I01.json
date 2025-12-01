@@ -1,0 +1,58 @@
+{
+  "EventId": "Kage_daily_I01",
+  "Type": "Daily",
+  "Tags": [
+    "lively"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "祝你早安、午安、晚安！"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "……并不是说我要逃走再也不见的意思啦。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "LOVE",
+      "speakerName": "{characterName}",
+      "dialogueText": "只是觉得这么说很酷而已。"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "less_than_0",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 200
+        }
+      },
+      "TrueNodeId": "more_than_0",
+      "FalseNodeId": "less_than_0"
+    },
+    "more_than_0": {
+      "$type": "DialogueNode",
+      "Id": "more_than_0",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "你构造出的这个世界我很喜欢，所以不会逃走的。"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "不过如果{playerAppellation}起得太晚或者睡得太晚，明天可就不会这么打招呼了。"
+    }
+  }
+}

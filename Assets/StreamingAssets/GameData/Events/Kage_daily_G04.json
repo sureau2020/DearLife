@@ -1,0 +1,38 @@
+{
+  "EventId": "Kage_daily_G04",
+  "Type": "Daily",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "书中自有黄金屋。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "{characterName}注视着你，但是{characterPronoun}的嘴并没有动。你分明听到这句话字字清晰地在房间里回荡……真是见鬼了。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "其实你也大概知道{characterPronoun}喜欢看什么样的内容，对吧？以你们的关系，想必不用{characterName}直说，也能挑中最合意的那一本……"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "但是到底为什么不说话啊？！"
+    }
+  }
+}

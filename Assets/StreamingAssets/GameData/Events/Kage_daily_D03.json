@@ -1,0 +1,46 @@
+{
+  "EventId": "Kage_daily_D03",
+  "Type": "Daily",
+  "Tags": [
+    "innocent",
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "{playerAppellation}每天只能完成特定数量的事情吗？"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "{characterName}直勾勾地盯着你，好像盯着一件新鲜玩意。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "就不能无限制地做下去吗？这样你可以得到很多……很多……很多…… "
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "{characterName}",
+      "dialogueText": "然后就可以一直和我一起玩了。一劳永逸就是这么回事吧？"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "即使把我关掉……我也会这样期待喔？"
+    }
+  }
+}

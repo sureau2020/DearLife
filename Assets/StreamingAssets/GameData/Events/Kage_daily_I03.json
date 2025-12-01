@@ -1,0 +1,54 @@
+{
+  "EventId": "Kage_daily_I03",
+  "Type": "Daily",
+  "Tags": [
+    "innocent",
+    "lively"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "Selection",
+      "speakerName": "{characterName}",
+      "dialogueText": "如果精力不足以完成想做的事，就喝巧克力奶吧！"
+    },
+    "Answer2": {
+      "$type": "DialogueNode",
+      "Id": "Answer2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "咕，真尖锐啊……你就没有突然想喝一大盒巧克力奶的时候吗？！"
+    },
+    "Answer1_1": {
+      "$type": "DialogueNode",
+      "Id": "Answer1_1",
+      "NextNodeId": "Answer1_2",
+      "speakerName": "",
+      "dialogueText": "咖啡也是褐色的，巧克力奶也是褐色的。你怎么能质疑{characterName}的直觉？{characterName}用这样的眼神看着你。"
+    },
+    "Answer1_2": {
+      "$type": "DialogueNode",
+      "Id": "Answer1_2",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "好了，现在，去把它买回来吧。"
+    },
+    "Selection": {
+      "$type": "ChoiceNode",
+      "Id": "Selection",
+      "NextNodeId": "Answer1_1",
+      "Options": [
+        {
+          "Text": "不会更困吗……？",
+          "NextNodeId": "Answer1_1"
+        },
+        {
+          "Text": "是你自己想喝吧 ",
+          "NextNodeId": "Answer2"
+        }
+      ]
+    }
+  }
+}

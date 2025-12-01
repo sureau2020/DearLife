@@ -1,0 +1,18 @@
+{
+  "Id": "yinxing_apple",
+  "Name": "苹果",
+  "Description": "脆甜的水果。\n饱腹值+2",
+  "ImagePath": "apple",
+  "Author": "yinxing",
+  "Price": 1,
+  "Type": "Food",
+  "Effect": {
+    "Full": 2
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_apple_001"
+  ],
+  "FilteredEventIds": []
+}

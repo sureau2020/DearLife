@@ -1,0 +1,46 @@
+{
+  "EventId": "12345_item_orangejuice_002",
+  "Type": "Item",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "这是什么？？"
+    },
+    "node_2": {
+      "$type": "ChoiceNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Options": [
+        {
+          "Text": "水",
+          "NextNodeId": "node_3"
+        },
+        {
+          "Text": "橘子汁",
+          "NextNodeId": "node_4"
+        }
+      ]
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "我就知道"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "不可能！这一看就是水。"
+    }
+  }
+}

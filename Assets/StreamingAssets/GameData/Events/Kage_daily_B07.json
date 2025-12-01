@@ -1,0 +1,57 @@
+{
+  "EventId": "Kage_daily_B07",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "世界上第一顶民用安全帽是作家卡夫卡发明的。 "
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "即使是名垂千古的作家，也有不得不工作养活自己的时候。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "……不，这和我们的日常有什么关系啊。 "
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "",
+      "dialogueText": "没什么关系。"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "",
+      "dialogueText": "不过，如果你也在打造你的安全帽，那你也和卡夫卡一样很棒。 "
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": "node_7",
+      "speakerName": "",
+      "dialogueText": "赞美行动，赞美安全帽。"
+    },
+    "node_7": {
+      "$type": "DialogueNode",
+      "Id": "node_7",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "……别再讲安全帽的事了。"
+    }
+  }
+}

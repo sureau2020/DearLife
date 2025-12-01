@@ -9,6 +9,8 @@ public class PlayerData
 {
     public const int MaxBagCapacity = 8; // 背包最大容量8项不同物品
 
+    public const int MaxMoney = 99999999; 
+
     public int Money { get; private set; } = 0;//金钱
 
     public event Action<int> OnMoneyChanged;
@@ -52,10 +54,42 @@ public class PlayerData
         return OperationResult.Complete();
     }
 
+    // 购买衣服，没钱返回失败OperationResult，成功扣钱返回成功OperationResult
+    //TODO: 衣服购买后要保存
+    public OperationResult BuyCloth(int cost, WardrobeSlot cloth)
+    {
+        if (!IsMoneyEnough(cost))
+        {
+            return OperationResult.Fail("金币不足。");
+        }
+        if (cloth.State == "AddButton")
+        {
+            cloth.State = "Empty";
+        }
+        else {
+            cloth.State = "Own";
+        }
+        SpendMoney(cost);
+        return OperationResult.Complete();
+    }
+
 
     //完成任务后玩家收到金币
     public OperationResult EarnMoney(int salary)
     {
+        long tmp = (long)Money + salary;
+        if (tmp > MaxMoney)
+        {
+            Money = MaxMoney;
+            OnMoneyChanged?.Invoke(Money);
+            return OperationResult.Fail("金币已达上限，无法继续获得金币。");
+        }
+        if (salary < 0 || Money < 0 || tmp < 0)
+        {
+            Money = 0;
+            OnMoneyChanged?.Invoke(Money);
+            return OperationResult.Fail("非法的金币数，已归零。");
+        }
         Money += salary;
         OnMoneyChanged?.Invoke(Money);
         _ = GameManager.Instance.StateManager.SaveStateAsync();

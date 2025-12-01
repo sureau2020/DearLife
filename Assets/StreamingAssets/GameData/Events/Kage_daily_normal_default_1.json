@@ -1,0 +1,15 @@
+{
+  "EventId": "Kage_daily_normal_default_1",
+  "Type": "Daily",
+  "Tags": ["impossible"],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "（今天没什么想说的了……）"
+    }
+  }
+}

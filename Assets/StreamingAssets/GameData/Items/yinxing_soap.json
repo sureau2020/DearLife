@@ -1,0 +1,16 @@
+{
+  "Id": "yinxing_soap",
+  "Name": "香皂",
+  "Description": "青苹果味的香皂。等等其实清洁度没有细分，一直用洗发水和一直用香皂是一样的吧！？\n清洁度+10",
+  "ImagePath": "soap",
+  "Author": "yinxing",
+  "Price": 10,
+  "Type": "PersonalCare",
+  "Effect": {
+    "Clean": 10
+  },
+  "Events": [
+    "yinxing_item_general_001"
+  ],
+  "FilteredEventIds": []
+}

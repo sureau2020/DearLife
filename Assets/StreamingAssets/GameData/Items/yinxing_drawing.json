@@ -1,0 +1,19 @@
+{
+  "Id": "yinxing_drawing",
+  "Name": "一幅画",
+  "Description": "一幅画，呃，品味这种东西实在各不相同，对方或许有可能不喜欢？\n好感度+5",
+  "ImagePath": "drawing",
+  "Author": "yinxing",
+  "Price": 15,
+  "Type": "Gift",
+  "Effect": {
+    "Love": 5
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_drawing_001",
+    "yinxing_item_drawing_002"
+  ],
+  "FilteredEventIds": []
+}

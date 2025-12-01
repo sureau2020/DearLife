@@ -1,0 +1,38 @@
+{
+  "EventId": "Kage_daily_C03",
+  "Type": "Daily",
+  "Tags": [
+    "calm"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "有一句著名的电影台词：“如果我们不再见面，祝你早安、午安、晚安。”"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "这也是一种提前做完待办事项的行为吧。 "
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "——这里并没有能打开一扇门的虚假蓝天，所以我不会这样对你说。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "我可以说：现在这一刻，祝你顺利。"
+    }
+  }
+}

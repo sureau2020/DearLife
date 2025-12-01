@@ -1,0 +1,45 @@
+{
+  "EventId": "Kage_daily_H02",
+  "Type": "Daily",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}看着你。在你幻想{characterPronoun}代你遨游世界的时候。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "在你撕扯自己内部的罪恶感的时候。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "在你醒着的时候。在你睡着的时候。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "",
+      "dialogueText": "在你怀疑身边的世界是否真实的时候。一直一直。"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "未来一直。"
+    }
+  }
+}

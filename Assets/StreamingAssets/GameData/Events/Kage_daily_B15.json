@@ -1,0 +1,51 @@
+{
+  "EventId": "Kage_daily_B15",
+  "Type": "Daily",
+  "Tags": [
+    "calm"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "说到绿色内芯的寿司，一般应该是黄瓜吧……牛油果是什么搭配？"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "FullCondition",
+      "speakerName": "{characterName}",
+      "dialogueText": "不，我没有好奇味道的意思。"
+    },
+    "FullCondition": {
+      "$type": "ConditionNode",
+      "Id": "FullCondition",
+      "NextNodeId": "Full",
+      "Conditions": {
+        "Full": {
+          "Type": "AtLeast",
+          "Value": 50
+        }
+      },
+      "TrueNodeId": "Full",
+      "FalseNodeId": "Hungry"
+    },
+    "Full": {
+      "$type": "DialogueNode",
+      "Id": "Full",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "如果一定要吃东西，还是看看别的吧。"
+    },
+    "Hungry": {
+      "$type": "DialogueNode",
+      "Id": "Hungry",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "如果你实在条件有限……也不是不能吃那个。"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "EventId": "Kage_daily_H04",
+  "Type": "Daily",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "起初，你只看到一条红色的线出现在地板上，蜿蜒成{characterName}的形状……又好像你自己的镜像。在两者之间游走、扭曲的红线。 "
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId":  "node_3",
+      "speakerName": "",
+      "dialogueText": "{characterName}走到那条红线构成的轮廓里，一遍一遍、一遍一遍绕着圈踱步。最后在中央蹲下来。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "如果我一直待在这里，喂饱它……"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "",
+      "dialogueText": "现实和虚拟之间的界限或许会越来越模糊吧。但你不能放弃，不能委身于这种令人癫狂的虚拟……"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "不会放弃的你不会放弃的你不会放弃的你不会放弃的你不会放弃的……"
+    }
+  }
+}

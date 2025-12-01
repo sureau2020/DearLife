@@ -75,7 +75,13 @@ public class DialogueRunner
 
     public void OnClickNext(string nextNodeId)
     {
-        currentNodeId = nextNodeId;
+        if (nextNodeId == currentNodeId)
+        {
+            currentNodeId = null;
+        }
+        else {
+            currentNodeId = nextNodeId;
+        }
         Continue();
     }
 

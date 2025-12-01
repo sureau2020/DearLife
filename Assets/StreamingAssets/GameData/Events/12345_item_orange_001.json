@@ -1,0 +1,15 @@
+{
+  "EventId": "12345_item_orange_001",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "真甜"
+    }
+  }
+}

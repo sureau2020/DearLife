@@ -1,0 +1,64 @@
+{
+  "EventId": "Kage_daily_C02",
+  "Type": "Daily",
+  "Tags": [
+    "calm"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "如果定了太多很难的目标，不妨试试拆成连续几天完成。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "LOVE_more",
+      "speakerName": "{characterName}",
+      "dialogueText": "无论如何，好好生活才是我们的根本目的。"
+    },
+    "more_than_500": {
+      "$type": "DialogueNode",
+      "Id": "more_than_500",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "当然……这也是为了我能在你身边走得更远。"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "没什么，我也是不想忽然饿死罢了。"
+    },
+    "LOVE_more": {
+      "$type": "ConditionNode",
+      "Id": "LOVE_more",
+      "NextNodeId": "node_2",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 500
+        }
+      },
+      "TrueNodeId": "more_than_500",
+      "FalseNodeId": "LOVE_less"
+    },
+    "LOVE_less": {
+      "$type": "ConditionNode",
+      "Id": "LOVE_less",
+      "NextNodeId": "node_2",
+      "Conditions": {
+        "Love": {
+          "Type": "AtMost",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "less_than_0",
+      "FalseNodeId": null
+    }
+  }
+}

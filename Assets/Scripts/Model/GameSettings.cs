@@ -2,21 +2,21 @@
 
 public class GameSettings 
 {
-    public float MaxSalaryFactor { get; private set; } = 1.2f; //任务薪水的最大随机因子
+    public float MaxSalaryFactor { get; set; } = 1.2f; //任务薪水的最大随机因子
 
-    public int HourlyWage { get; private set; } = 10;//小时工资
+    public int HourlyWage { get; set; } = 10;//小时工资
 
-    public int DifficultyBonus { get; private set; } = 2; //任务难度每1，薪水增加多少
+    public int DifficultyBonus { get; set; } = 2; //任务难度每1，薪水增加多少
 
-    public int CountdownWagePerHour { get; private set; } = 3; //倒计时模式的每小时低保
+    public int CountdownWagePerHour { get; set; } = 3; //倒计时模式的每小时低保
     //TODO：还没检测这个wage是否valid，代价和任务数和下面都没测
 
-    public int DelayCost { get; private set; } = 5; //倒计时加时所花钱数
+    public int DelayCost { get; set; } = 5; //倒计时加时所花钱数
 
-    public int DelayMissionNum { get; private set; } = 3; //倒计时模式加时任务数
+    public int DelayMissionNum { get; set; } = 3; //倒计时模式加时任务数
 
     //0-5的数字，数字越大回复概率越高，0不回复，5肯定回复
-    public int ReplyChance { get; private set; } = 2;
+    public int ReplyChance { get; set; } = 2;
 
 
     public OperationResult Validate()

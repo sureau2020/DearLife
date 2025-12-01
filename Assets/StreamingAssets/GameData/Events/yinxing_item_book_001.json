@@ -1,0 +1,17 @@
+{
+  "EventId": "yinxing_item_book_001",
+  "Type": "Item",
+  "Tags": [
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "很有意思的书"
+    }
+  }
+}

@@ -9,12 +9,15 @@ public class TypeButton : MonoBehaviour
     [SerializeField] private Transform componentList;
     [SerializeField] private ApparenceComponent componentPrefab;
     [SerializeField] private GameObject Slider;
+    [SerializeField] private GameObject SyncEyeButton; 
 
 
-    public void OnClick()
-    {
+    public void OnClick() { 
+        
+
         SoundManager.Instance.PlaySfx("LittleType");
         Slider.SetActive(false);
+        SyncEyeButton.SetActive(false);
         foreach (Transform child in componentList)
         {
             Destroy(child.gameObject);

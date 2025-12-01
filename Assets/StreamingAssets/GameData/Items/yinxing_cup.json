@@ -1,0 +1,18 @@
+{
+  "Id": "yinxing_cup",
+  "Name": "马克杯",
+  "Description": "一个小巧精致漂亮的马克杯\n好感度+3\n清洁度+3",
+  "ImagePath": "cup",
+  "Author": "yinxing",
+  "Price": 10,
+  "Type": "Gift",
+  "Effect": {
+    "Clean": 3,
+    "Love": 3
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002"
+  ],
+  "FilteredEventIds": []
+}

@@ -1,0 +1,15 @@
+{
+  "EventId": "yinxing_item_news_001",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "真是太感谢你了，我真的需要这些消息"
+    }
+  }
+}

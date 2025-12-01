@@ -5,7 +5,7 @@ using Newtonsoft.Json.Serialization;
 using UnityEngine;
 using System.Threading;
 using ThreadingTask = System.Threading.Tasks.Task;
-
+ 
 public static class SaveManager
 {
     private const string EventsFolder = "Assets/GameData/Events";
@@ -13,6 +13,9 @@ public static class SaveManager
     private const string StateManagerFileName = "StateManager.json";
     private static readonly string SaveDataFolder = Path.Combine(Application.persistentDataPath, "SaveData");
     private static readonly string TaskDataFolder = Path.Combine(Application.persistentDataPath, "TaskData");
+    private static readonly string CustomClothesFilePath = Path.Combine(Application.persistentDataPath, "CustomClothes");
+    private static readonly string WardrobeFilePath = Path.Combine(SaveDataFolder, "Wardrobe.json");
+
 
     private static readonly SemaphoreSlim stateSaveSemaphore = new SemaphoreSlim(1, 1);
 
@@ -65,7 +68,7 @@ public static class SaveManager
         string filePath = Path.Combine(EventsFolder, $"{eventData.EventId}.json");
         string json = JsonConvert.SerializeObject(eventData, JsonSettings);
         File.WriteAllText(filePath, json);
-        Debug.Log($"保存事件：{eventData.EventId} 到 {filePath}");
+        
     }
     
     // 保存单个物品
@@ -177,7 +180,8 @@ public static class SaveManager
             
             // 重命名临时文件
             File.Move(tempFilePath, filePath);
-            
+            //Debug.Log("文件存在: " + File.Exists(filePath));
+            //Debug.Log("文件内容: " + File.ReadAllText(filePath));
             Debug.Log($"StateManager 已异步保存到：{filePath}");
             return OperationResult.Complete();
         }
@@ -209,8 +213,12 @@ public static class SaveManager
             
             if (saveData == null)
             {
+                //Debug.Log("文件存在: " + File.Exists(filePath));
+                //Debug.Log("文件内容: " + File.ReadAllText(filePath));
                 return OperationResult<StateManagerSaveData>.Fail("存档文件格式错误或损坏");
             }
+            //Debug.Log("文件存在: " + File.Exists(filePath));
+            //Debug.Log("文件内容: " + File.ReadAllText(filePath));
 
             Debug.Log($"StateManager 数据已从 {filePath} 加载");
             return OperationResult<StateManagerSaveData>.Complete(saveData);
@@ -222,7 +230,38 @@ public static class SaveManager
         }
     }
 
-    
+    public static Sprite LoadCustomClothSprite(string name)
+    {
+        // 路径和保存时保持一致
+        string folder = Path.Combine(Application.persistentDataPath, "CustomClothes");
+        string filePath = Path.Combine(folder, name + ".png");
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogWarning($"未找到自定义衣服图片: {filePath}");
+            return null;
+        }
+
+        byte[] bytes = File.ReadAllBytes(filePath);
+        Texture2D tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        if (tex.LoadImage(bytes))
+        {
+            tex.filterMode = FilterMode.Point;
+            // 创建Sprite
+            return Sprite.Create(
+                tex,
+                new Rect(0, 0, tex.width, tex.height),
+                new Vector2(0.5f, 0.5f),
+                9
+            );
+        }
+        else
+        {
+            Debug.LogError("图片加载失败");
+            return null;
+        }
+    }
+
 
     // Task 系统保存/加载方法
     private static string GetMonthTaskFilePath(string month)
@@ -353,6 +392,97 @@ public static class SaveManager
             return OperationResult.Fail($"保存失败：{ex.Message}");
         }
     }
+
+    public static void SaveCustomClothSprite(Sprite cloth, string name)
+    {
+        if (cloth == null || cloth.texture == null)
+        {
+            Debug.LogError("Sprite或Texture为null，无法保存");
+            return;
+        }
+
+        string folder = CustomClothesFilePath;
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+
+        string filePath = Path.Combine(folder, name + ".png");
+
+        Texture2D srcTex = cloth.texture;
+        Rect rect = cloth.rect;
+        Texture2D newTex = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
+        newTex.SetPixels(srcTex.GetPixels((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height));
+        newTex.Apply();
+
+        byte[] pngData = newTex.EncodeToPNG();
+        Object.Destroy(newTex);
+
+        File.WriteAllBytes(filePath, pngData);
+        Debug.Log($"自定义衣服已保存到: {filePath}");
+    }
+
+
+
+    public static OperationResult SaveWardrobe(Dictionary<string, WardrobeSlot> slots)
+    {
+        try
+        {
+            if (!Directory.Exists(SaveDataFolder))
+                Directory.CreateDirectory(SaveDataFolder);
+
+            string json = JsonConvert.SerializeObject(slots, JsonSettings);
+            File.WriteAllText(WardrobeFilePath, json);
+
+            Debug.Log($"衣柜数据已保存到：{WardrobeFilePath}");
+            return OperationResult.Complete();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"保存衣柜失败：{ex.Message}");
+            return OperationResult.Fail($"保存失败：{ex.Message}");
+        }
+    }
+
+    //todo: default wardrobe
+    public static OperationResult<WardrobeData> LoadWardrobe()
+    {
+        try
+        {
+            if (!File.Exists(WardrobeFilePath))
+            {
+                Debug.Log("未找到衣柜存档，返回默认数据");
+                //return OperationResult<WardrobeData>.Complete(CreateDefaultWardrobe());
+            }
+
+            string json = File.ReadAllText(WardrobeFilePath);
+            WardrobeData data = JsonConvert.DeserializeObject<WardrobeData>(json, JsonSettings);
+
+            if (data == null)
+                return OperationResult<WardrobeData>.Fail("衣柜存档格式错误");
+
+            Debug.Log($"成功加载衣柜数据：{WardrobeFilePath}");
+            return OperationResult<WardrobeData>.Complete(data);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"加载衣柜失败：{ex.Message}");
+            return OperationResult<WardrobeData>.Fail($"加载失败：{ex.Message}");
+        }
+
+    }
+
+    //private static WardrobeData CreateDefaultWardrobe()
+    //{
+    //    var data = new WardrobeData();
+    //    data.Money = 500;
+
+    //    data.Slots.Add(new WardrobeSlot { State = "BuiltIn", Id = "shirt_1", Owned = true });
+    //    data.Slots.Add(new WardrobeSlot { State = "BuiltIn", Id = "pants_1", Owned = true });
+    //    data.Slots.Add(new WardrobeSlot { State = "Locked", Owned = false });
+    //    data.Slots.Add(new WardrobeSlot { State = "Locked", Owned = false });
+
+    //    return data;
+    //}
+
 }
 
 // 简单的序列化包装类

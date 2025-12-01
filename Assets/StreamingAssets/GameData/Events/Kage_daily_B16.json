@@ -1,0 +1,138 @@
+{
+  "EventId": "Kage_daily_B16",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "那里有一面镜子。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "就像所有影视作品中的那样，当{characterName}靠近镜面，凝视着其中映射的自己，有些平时难以察觉的东西就会在这一刻被“暗示”出来。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "……"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "If_greater_than_0",
+      "speakerName": "",
+      "dialogueText": "你突发奇想……扮成鬼站到{characterPronoun}身后，会怎么样呢?说干就干，你没有发出一丁点脚步声。"
+    },
+    "If_greater_than_0": {
+      "$type": "ConditionNode",
+      "Id": "If_greater_than_0",
+      "NextNodeId": "If_greater_than_5000",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "If_greater_than_5000",
+      "FalseNodeId": "less_than_0"
+    },
+    "If_greater_than_5000": {
+      "$type": "ConditionNode",
+      "Id": "If_greater_than_5000",
+      "NextNodeId": "if_greater_than_10000",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 5000
+        }
+      },
+      "TrueNodeId": "if_greater_than_10000",
+      "FalseNodeId": "normal_1"
+    },
+    "if_greater_than_10000": {
+      "$type": "ConditionNode",
+      "Id": "if_greater_than_10000",
+      "NextNodeId": "partner_1",
+      "Conditions": {
+        "Full": {
+          "Type": "AtLeast",
+          "Value": 10000
+        }
+      },
+      "TrueNodeId": "partner_1",
+      "FalseNodeId": "friend_1"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterName}猛然回头，瞪了你一眼就离开了房间…… "
+    },
+    "normal_1": {
+      "$type": "DialogueNode",
+      "Id": "normal_1",
+      "NextNodeId": "normal_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}僵硬了一下，回过头无语地看了你一眼。"
+    },
+    "normal_2": {
+      "$type": "DialogueNode",
+      "Id": "normal_2",
+      "NextNodeId": "normal_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "你的事情都忙完了吗？"
+    },
+    "normal_3": {
+      "$type": "DialogueNode",
+      "Id": "normal_3",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterPronoun}应该是想说你真有闲心思，但还是给你留了一些体面。"
+    },
+    "friend_1": {
+      "$type": "DialogueNode",
+      "Id": "friend_1",
+      "NextNodeId": "friend_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}对镜子里突然出现的鬼影视若无睹，好像你不存在一样。"
+    },
+    "friend_2": {
+      "$type": "DialogueNode",
+      "Id": "friend_2",
+      "NextNodeId": "friend_3",
+      "speakerName": "",
+      "dialogueText": "过了一会，{characterName}似乎终于看够了，{characterPronoun}转身过来，揭掉了你的伪装。"
+    },
+    "friend_3": {
+      "$type": "DialogueNode",
+      "Id": "friend_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "在镜子里同框，是不是不如一起拍个合影更好？不过，我还是比较喜欢你原本的造型。"
+    },
+    "partner_1": {
+      "$type": "DialogueNode",
+      "Id": "partner_1",
+      "NextNodeId": "partner_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "我知道是你。"
+    },
+    "partner_2": {
+      "$type": "DialogueNode",
+      "Id": "partner_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "即使你不站在我身后，似乎我也能从里面看到你的样子。或许因为“我”之中就存在着{playerAppellation}的要素吧。这就好像……透过自己，我也能了解一部分的你。"
+    }
+  }
+}

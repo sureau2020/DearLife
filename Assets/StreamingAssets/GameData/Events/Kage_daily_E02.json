@@ -1,0 +1,65 @@
+{
+  "EventId": "Kage_daily_E02",
+  "Type": "Daily",
+  "Tags": [
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "可能有人会问，为什么商店没有酒精饮料。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "不健康？ "
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "应该说，与“认真生活”背道而驰的东西都不会在这里吧。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "LOVE",
+      "speakerName": "",
+      "dialogueText": "{characterName}思索着什么，然后看向你。"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "more_than_0",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "more_than_0",
+      "FalseNodeId": "less_than_0"
+    },
+    "more_than_0": {
+      "$type": "DialogueNode",
+      "Id": "more_than_0",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "我会约束自己，相应地，你也要做到啊。"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "你不知道{characterName}在想什么，但{characterPronoun}看向你的眼神有些怀疑。"
+    }
+  }
+}

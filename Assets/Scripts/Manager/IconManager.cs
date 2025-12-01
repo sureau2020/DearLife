@@ -8,13 +8,13 @@ public class IconManager : MonoBehaviour
     [SerializeField] private SpriteAtlas medicineAtlas;
     [SerializeField] private SpriteAtlas giftAtlas;
     [SerializeField] private SpriteAtlas specialAtlas;
+    [SerializeField] private SpriteAtlas clothAtlas;
 
     private static IconManager instance;
     void Awake() => instance = this;
 
     public static Sprite GetIcon(ItemType type, string iconName)
     {
-        Debug.Log($"Getting icon: Type={type}, Name={iconName}");
         switch (type)
         {
             case ItemType.Food: return instance.foodAtlas.GetSprite(iconName);
@@ -23,6 +23,12 @@ public class IconManager : MonoBehaviour
             case ItemType.Gift: return instance.giftAtlas.GetSprite(iconName);
             case ItemType.Special: return instance.specialAtlas.GetSprite(iconName);
             default: return null;
-        }
+        }    }
+
+    public static Sprite GetClothIcon(string iconID)
+    {
+        return instance.clothAtlas.GetSprite(iconID);
     }
+
+
 }

@@ -47,6 +47,12 @@ public class TaskManager : MonoBehaviour
         weekCalendar.AutoClickSpecificDay(selectedDate);
     }
 
+    public MissionData GetNextMission()
+    {
+       DayMissionData day = TaskManagerModel.Instance.GetMonth(DateTime.Now.ToString("yyyy-MM")).GetDayMissionData(DateTime.Now.ToString("yyyy-MM-dd"));
+       return day.GetFirstUncompletedMission();
+    }
+
 
     public void ActiveMonthCalendar()
     {

@@ -42,7 +42,6 @@ public class Task : MonoBehaviour
         {
             ddlText.text = missionData.Deadline.ToString("HH:mm");
         }
-
         if (missionData.Duration <= 0 || missionData.Difficulty <= 0)
         {
             estimatedMinSalaryText.text = "?";
@@ -61,6 +60,7 @@ public class Task : MonoBehaviour
 
     private void SetupButtons()
     {
+        
         if (completeButton != null)
         {
             // 如果任务已完成，禁用完成按钮

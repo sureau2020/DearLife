@@ -1,0 +1,24 @@
+{
+  "EventId": "Kage_daily_D01",
+  "Type": "Daily",
+  "Tags": [
+    "innocent"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "在完成待办以后理所当然的事情就是——奖励！"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "不只是你的，当然更重要的是我的。"
+    }
+  }
+}

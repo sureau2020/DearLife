@@ -19,7 +19,7 @@ public class InfoItem : MonoBehaviour
         editButton.onClick.AddListener(OnEditButtonClicked);
     }
 
-    void OnEditButtonClicked()
+    public void OnEditButtonClicked()
     {
         SoundManager.Instance.PlaySfx("Click");
         if (!isEditing)

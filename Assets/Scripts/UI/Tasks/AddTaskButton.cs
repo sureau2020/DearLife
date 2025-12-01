@@ -8,7 +8,7 @@ public class AddTaskButton : MonoBehaviour
     public void OnClick()
     {
         DateTime selectedDate = TaskManager.Instance.SelectedDate;
-        Debug.Log("Start");
+        
         addTaskPanel.Show(selectedDate);
     }
 }

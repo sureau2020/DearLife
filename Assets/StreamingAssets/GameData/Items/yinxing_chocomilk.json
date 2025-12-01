@@ -1,0 +1,20 @@
+{
+  "Id": "yinxing_chocomilk",
+  "Name": "巧克力奶",
+  "Description": "巧克力味的牛奶，甜甜的，喝多了有点腻\n饱肚腹+5\n理智值+1",
+  "ImagePath": "chocomilk",
+  "Author": "yinxing",
+  "Price": 5,
+  "Type": "Food",
+  "Effect": {
+    "Full": 5,
+    "San": 1
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_chocomilk_001",
+    "yinxing_item_chocomilk_002"
+  ],
+  "FilteredEventIds": []
+}

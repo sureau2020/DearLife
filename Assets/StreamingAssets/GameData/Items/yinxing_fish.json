@@ -1,0 +1,20 @@
+{
+  "Id": "yinxing_fish",
+  "Name": "烤鱼",
+  "Description": "特殊手段处理后的无刺香酥烤鱼，谁都会吃出这份用心\n饱腹度+7\n好感度+7",
+  "ImagePath": "fish",
+  "Author": "yinxing",
+  "Price": 17,
+  "Type": "Food",
+  "Effect": {
+    "Full": 7,
+    "Love": 7
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_fish_001",
+    "yinxing_item_fish_002",
+    "yinxing_item_fish_003"
+  ],
+  "FilteredEventIds": []
+}

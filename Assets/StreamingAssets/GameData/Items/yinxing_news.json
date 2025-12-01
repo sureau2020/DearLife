@@ -1,0 +1,20 @@
+{
+  "Id": "yinxing_news",
+  "Name": "新闻",
+  "Description": "几条角色原世界的新闻，很难弄来。\n理智值+12\n好感度+10",
+  "ImagePath": "news",
+  "Author": "yinxing",
+  "Price": 30,
+  "Type": "Gift",
+  "Effect": {
+    "San": 12,
+    "Love": 10
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_news_001",
+    "yinxing_item_news_002"
+  ],
+  "FilteredEventIds": []
+}

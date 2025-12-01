@@ -1,0 +1,45 @@
+{
+  "EventId": "Kage_daily_G01",
+  "Type": "Daily",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "……"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "{characterName}一动不动地盯着你。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "就好像……看到番茄的猫。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "",
+      "dialogueText": "说实话吧，你也不知道猫看到番茄是什么反应。"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "但你可以试着……在{characterPronoun}背后放一根黄瓜，对吗？你绝对这么想了。"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "EventId": "Kage_daily_B14",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}翻看着你的待办事项板。"
+    },
+    "node_2": {
+      "$type": "ConditionNode",
+      "Id": "node_2",
+      "NextNodeId": "Full_1",
+      "Conditions": {
+        "Full": {
+          "Type": "AtLeast",
+          "Value": 50
+        }
+      },
+      "TrueNodeId": "Full_1",
+      "FalseNodeId": "Hungry_1"
+    },
+    "Full_1": {
+      "$type": "DialogueNode",
+      "Id": "Full_1",
+      "NextNodeId": "Full_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "你忙碌的事情也算是……我的粮食？"
+    },
+    "Full_2": {
+      "$type": "DialogueNode",
+      "Id": "Full_2",
+      "NextNodeId": "Full_Effect",
+      "speakerName": "",
+      "dialogueText": "（{characterName}看起来很好奇。好感+10）"
+    },
+    "Hungry_1": {
+      "$type": "DialogueNode",
+      "Id": "Hungry_1",
+      "NextNodeId": "Hungry_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "这里面好像没有我帮得上忙的事……"
+    },
+    "Hungry_2": {
+      "$type": "DialogueNode",
+      "Id": "Hungry_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "不，我没有觉得不安。你按自己的节奏来就好了。"
+    },
+    "Full_Effect": {
+      "$type": "EffectNode",
+      "Id": "Full_Effect",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 10
+      }
+    }
+  }
+}

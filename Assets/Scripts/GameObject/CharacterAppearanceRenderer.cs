@@ -7,7 +7,11 @@ public class CharacterAppearanceRenderer : MonoBehaviour
     public SpriteRenderer backHairRenderer;
     public SpriteRenderer sideHairRenderer;
     public SpriteRenderer bodyRenderer;
-    public SpriteRenderer eyeRenderer;
+    //public SpriteRenderer eyeRenderer;
+    public SpriteRenderer leftEyeRenderer;
+    public SpriteRenderer rightEyeRenderer;
+    public SpriteRenderer leftEyeBlancRenderer;
+    public SpriteRenderer rightEyeBlancRenderer;
     public SpriteRenderer clothesRenderer;
     public SpriteRenderer headDeco1Renderer;
     public SpriteRenderer headDeco2Renderer;
@@ -30,7 +34,7 @@ public class CharacterAppearanceRenderer : MonoBehaviour
         if (appearance != null)
         {
             ApplyAppearance(appearance);
-        }
+        } 
     }
 
 
@@ -43,7 +47,6 @@ public class CharacterAppearanceRenderer : MonoBehaviour
         }
         else if (GameManager.Instance != null && GameManager.Instance.StateManager != null)
         {
-            // 如果是游戏场景，使用 StateManager 的角色数据
             return GameManager.Instance.StateManager.Character?.Appearance;
         }
         else
@@ -63,8 +66,45 @@ public class CharacterAppearanceRenderer : MonoBehaviour
         SetPart(backHairRenderer, AppearanceAtlasManager.Instance.GetPartSprite("BackHair", app.BackHairId), app.BackHairColor);
         SetPart(sideHairRenderer, AppearanceAtlasManager.Instance.GetPartSprite("SideHair", app.SideHairId), app.SideHairColor);
         SetPart(bodyRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Body", app.BodyId), app.BodyColor);
-        SetPart(eyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Eye", app.EyeId), app.EyeColor);
-        SetPart(clothesRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Clothes", app.ClothesId), app.ClothesColor);
+        //SetPart(eyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Eye", app.EyeId), app.EyeColor);
+        SetPart(leftEyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("LeftEye", app.LeftEyeId), app.LeftEyeColor);
+        SetPart(rightEyeRenderer, AppearanceAtlasManager.Instance.GetPartSprite("RightEye", app.RightEyeId), app.RightEyeColor);
+        SetPart(leftEyeBlancRenderer, AppearanceAtlasManager.Instance.GetPartSprite("LeftEyeBlanc", app.LeftEyeBlancId), app.LeftEyeBlancColor);
+        SetPart(rightEyeBlancRenderer, AppearanceAtlasManager.Instance.GetPartSprite("RightEyeBlanc", app.RightEyeBlancId), app.RightEyeBlancColor);
+        WardrobeSlot slot = GameManager.Instance.StateManager.Character.Cloth;
+        //Debug.Log("Applying Clothes: " + (slot?.Id != "0" ? slot.Id.ToString() : app.ClothesId.ToString()));
+        if (slot != null)
+        {
+            string clothId = slot?.Id != "0" ? slot.Id.ToString() : app.ClothesId.ToString();
+            if (slot.IsBuiltIn)
+            {
+                Debug.Log("Getting cloth icon for ID: " + clothId);
+                
+                Sprite a = IconManager.GetClothIcon(clothId);
+                Debug.Log("Built-in Cloth Sprite: " + (a != null ? a.name : "null"));
+                
+                if (a == null)
+                {
+                    Debug.Log("Failed to get cloth icon for ID: " + slot.Id);
+                    a = IconManager.GetClothIcon("-1");
+                }
+                
+                SetPart(clothesRenderer, a, app.ClothesColor);
+            }
+            else
+            {
+                Sprite a = SaveManager.LoadCustomClothSprite(slot.Id);
+                Debug.Log("Custom Cloth Sprite: " + (a != null ? a.name : "null"));
+                if (a == null)
+                {
+                    a = IconManager.GetClothIcon("-1");
+                }
+                SetPart(clothesRenderer, a, app.ClothesColor);
+            }
+        }
+        else {
+            SetPart(clothesRenderer, AppearanceAtlasManager.Instance.GetPartSprite("Clothes", app.ClothesId), app.ClothesColor);
+        }
         SetPart(headDeco1Renderer, AppearanceAtlasManager.Instance.GetPartSprite("HeadDeco1", app.HeadDeco1Id), app.HeadDeco1Color);
         SetPart(headDeco2Renderer, AppearanceAtlasManager.Instance.GetPartSprite("HeadDeco2", app.HeadDeco2Id), app.HeadDeco2Color);
     }

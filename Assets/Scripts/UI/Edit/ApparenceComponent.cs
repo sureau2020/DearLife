@@ -25,6 +25,21 @@ public class ApparenceComponent : MonoBehaviour
             {
                 hslObj.SetActive(true);
             }
+            if (type == "LeftEye" || type == "RightEye")
+            {
+                var eyeHslObj = GameObject.Find("UI").transform.Find("ApparencePanel").transform.Find("SyncEye").gameObject;
+                if (eyeHslObj != null)
+                {
+                    eyeHslObj.SetActive(true);
+                }
+            }
+            else {
+                var eyeHslObj = GameObject.Find("UI").transform.Find("ApparencePanel").transform.Find("SyncEye").gameObject;
+                if (eyeHslObj != null)
+                {
+                    eyeHslObj.SetActive(false);
+                }
+            }
         }
         ApplyToAppearance();
     }

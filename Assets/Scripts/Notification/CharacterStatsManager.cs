@@ -1,4 +1,5 @@
 // CharacterStatsManager.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,38 +10,38 @@ public class CharacterStatsManager : MonoBehaviour
 
     void Start()
     {
-        // 启动时先取消之前的通知
-        NotificationManager.CancelAll();
-
-        // 初始化 CharacterStat 的值和健康状态
+        // 启动：初始化并清理所有遗留（已排程+已显示），再重排
+        NotificationManager.Initialize(resetOnLaunch: true);
         SyncStatsWithCharacterData();
-
-        // 根据当前状态调度新的通知
         ScheduleAllNotifications();
     }
 
-
-    // 当应用进入后台或退出时
+    // 进入后台：按最新数据重排（先清“已排程”，避免重复）
     void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            // 重新计算并调度通知
-            RecalculateAndScheduleNotifications();
+            RecalculateAndScheduleNotifications(cancelScheduled: true);
         }
     }
 
+    // 退出：不再重排，避免与已存在的排程重复/覆盖
     void OnApplicationQuit()
     {
-        RecalculateAndScheduleNotifications();
+        // 留空：让后台的已排程保持生效
     }
 
-    private void RecalculateAndScheduleNotifications()
+    private void RecalculateAndScheduleNotifications(bool cancelScheduled)
     {
-        // 确保数据是最新
         SyncStatsWithCharacterData();
-        // 重新调度
+
+        if (cancelScheduled)
+        {
+            NotificationManager.CancelAllScheduled();
+        }
+
         ScheduleAllNotifications();
+        NotificationManager.ScheduleNotification("通知成功", "在离线期间，仍会收到角色状态变化的提醒。", 0, "StatusUpdateNotification");
     }
 
     /// <summary>
@@ -48,102 +49,59 @@ public class CharacterStatsManager : MonoBehaviour
     /// </summary>
     public void ScheduleAllNotifications()
     {
-        NotificationManager.CancelAll();
-
         string characterName = GameManager.Instance?.StateManager?.Character?.Name ?? "你的角色";
 
-        // --- 模拟环境初始化 ---
         var simulatedStats = Stats.ToDictionary(s => s.Name, s => s.Value);
         HealthState currentSimulatedState = GameManager.Instance.StateManager.Character.HealthState;
         float timeOffsetHours = 0f;
-        int maxIterations = 10; // 增加安全锁，以防无限循环
+        int maxIterations = 10;
 
         Debug.Log($"--- 开始离线通知模拟 ---");
         Debug.Log($"初始状态: {currentSimulatedState}, Full: {simulatedStats["Full"]}, San: {simulatedStats["San"]}, Clean: {simulatedStats["Clean"]}");
 
-        // --- 模拟循环 ---
         for (int i = 0; i < maxIterations; i++)
         {
             float timeToNextStateChange = float.MaxValue;
             HealthState nextState = currentSimulatedState;
-            string drivingStatName = null;
 
-            // 实时获取各个数值的衰减率
             var currentDecayRates = new Dictionary<string, float>();
             foreach (var stat in Stats)
             {
                 float rate = stat.DecayRatePerHour;
-                if (currentSimulatedState == HealthState.Crazy && stat.Name == "Full")
-                {
-                    rate *= 4f;
-                }
-                if (currentSimulatedState == HealthState.Dirty && stat.Name == "San")
-                {
-                    rate *= 4f;
-                }
+                if (currentSimulatedState == HealthState.Crazy && stat.Name == "Full") rate *= 4f;
+                if (currentSimulatedState == HealthState.Dirty && stat.Name == "San") rate *= 4f;
                 currentDecayRates[stat.Name] = rate;
             }
 
-            // 根据当前模拟的状态，决定需要监控哪些数值
+            string driving = null;
+
             switch (currentSimulatedState)
             {
                 case HealthState.Normal:
-                    // Normal 状态下，Full, San, Clean 任何一个先归零都会导致状态变化
-                    float timeToFullZero = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
-                    float timeToSanZero = CalculateTimeToDepletion(simulatedStats["San"], currentDecayRates["San"]);
-                    float timeToCleanZero = CalculateTimeToDepletion(simulatedStats["Clean"], currentDecayRates["Clean"]);
-
-                    timeToNextStateChange = Mathf.Min(timeToFullZero, timeToSanZero, timeToCleanZero);
-
-                    if (timeToNextStateChange == timeToFullZero)
-                    {
-                        nextState = HealthState.Weak;
-                        drivingStatName = "Full";
-                    }
-                    else if (timeToNextStateChange == timeToSanZero)
-                    {
-                        nextState = HealthState.Crazy;
-                        drivingStatName = "San";
-                    }
-                    else
-                    {
-                        nextState = HealthState.Dirty;
-                        drivingStatName = "Clean";
-                    }
+                    float tFull = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
+                    float tSan = CalculateTimeToDepletion(simulatedStats["San"], currentDecayRates["San"]);
+                    float tClean = CalculateTimeToDepletion(simulatedStats["Clean"], currentDecayRates["Clean"]);
+                    timeToNextStateChange = Mathf.Min(tFull, tSan, tClean);
+                    if (timeToNextStateChange == tFull) { nextState = HealthState.Weak; driving = "Full"; }
+                    else if (timeToNextStateChange == tSan) { nextState = HealthState.Crazy; driving = "San"; }
+                    else { nextState = HealthState.Dirty; driving = "Clean"; }
                     break;
 
                 case HealthState.Weak:
                     timeToNextStateChange = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
-                    nextState = HealthState.Dead;
-                    drivingStatName = "Full";
+                    nextState = HealthState.Dead; driving = "Full";
                     break;
 
                 case HealthState.Crazy:
                     timeToNextStateChange = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
-                    nextState = HealthState.Weak;
-                    drivingStatName = "Full";
+                    nextState = HealthState.Weak; driving = "Full";
                     break;
 
                 case HealthState.Dirty:
-                    // Dirty 状态下，San 衰减加快，但 Full 和 San 归零都可能导致状态变化
-                    float dirty_timeToFullZero = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
-                    float dirty_timeToSanZero = CalculateTimeToDepletion(simulatedStats["San"], currentDecayRates["San"]);
-
-                    // 根据优先级规则进行判断
-                    if (dirty_timeToFullZero <= dirty_timeToSanZero)
-                    {
-                        // Full 先归零或同时归零，进入 Weak 状态
-                        timeToNextStateChange = dirty_timeToFullZero;
-                        nextState = HealthState.Weak;
-                        drivingStatName = "Full";
-                    }
-                    else
-                    {
-                        // San 先归零，进入 Crazy 状态
-                        timeToNextStateChange = dirty_timeToSanZero;
-                        nextState = HealthState.Crazy;
-                        drivingStatName = "San";
-                    }
+                    float dtFull = CalculateTimeToDepletion(simulatedStats["Full"], currentDecayRates["Full"]);
+                    float dtSan = CalculateTimeToDepletion(simulatedStats["San"], currentDecayRates["San"]);
+                    if (dtFull <= dtSan) { timeToNextStateChange = dtFull; nextState = HealthState.Weak; driving = "Full"; }
+                    else { timeToNextStateChange = dtSan; nextState = HealthState.Crazy; driving = "San"; }
                     break;
 
                 case HealthState.Dead:
@@ -151,134 +109,117 @@ public class CharacterStatsManager : MonoBehaviour
                     break;
             }
 
-            if (timeToNextStateChange == float.MaxValue)
-            {
-                Debug.Log($"状态 {currentSimulatedState} 没有后续负向衰减，模拟结束。");
-                break;
-            }
+            if (timeToNextStateChange == float.MaxValue) break;
 
-            Debug.Log($"第 {i + 1} 轮模拟: 状态 '{currentSimulatedState}' 将在 {timeToNextStateChange:F2} 小时后因 '{drivingStatName}' 归零而结束。");
-
-            // 在当前时间窗口内调度通知
+            // 在当前窗口内安排通知（发送前按ID取消，幂等）
             foreach (var stat in Stats)
             {
                 foreach (var rule in stat.NotificationRules)
                 {
-                    if (rule.TargetHealthState == currentSimulatedState)
-                    {
-                        float timeToNotify = GetTimeToReachThreshold(stat, simulatedStats[stat.Name], rule.TriggerValue, currentDecayRates[stat.Name]);
+                    //Debug.Log($"stat={stat.Name}, rule.TargetHealthState={rule.TargetHealthState}, currentSimulatedState={currentSimulatedState}, rule.TriggerValue={rule.TriggerValue}, statValue={simulatedStats[stat.Name]}");
+                    if (rule.TargetHealthState != currentSimulatedState) continue;
 
-                        if (timeToNotify > 0 && timeToNotify < timeToNextStateChange)
-                        {
-                            string identifier = $"{stat.Name}_{rule.TargetHealthState}_{rule.TriggerValue}_{i}";
-                            string formattedMessage = rule.GetFormattedMessage(characterName);
-                            float finalFireTime = timeOffsetHours + timeToNotify;
+                    float timeToNotify = GetTimeToReachThreshold(simulatedStats[stat.Name], rule.TriggerValue, currentDecayRates[stat.Name]);
+                    //Debug.Log($"  计算通知时间: timeToNotify={timeToNotify}");
+                    if (timeToNotify <= 0 || timeToNotify >= timeToNextStateChange) continue;
 
-                            NotificationManager.ScheduleNotification("状态提醒!", formattedMessage, finalFireTime, identifier);
-                            Debug.Log($"[调度成功] 规则: {identifier} | 消息: '{formattedMessage}' | 将在 {finalFireTime:F2} 小时后触发。");
-                        }
-                    }
+                    string identifier = $"{stat.Name}_{rule.TargetHealthState}_{rule.TriggerValue}_{i}";
+                    string formattedMessage = rule.GetFormattedMessage(characterName);
+                    float finalFireTime = timeOffsetHours + timeToNotify;
+
+                    // 防重复：先按ID取消（或覆盖）
+                    NotificationManager.CancelByIdentifier(identifier);
+                    NotificationManager.ScheduleNotification("注意", formattedMessage, finalFireTime, identifier);
+
+                    //Debug.Log($"安排通知: [ID={identifier}] [属性={stat.Name}] [触发值={rule.TriggerValue}]");
+                    //Debug.Log($"消息内容: \"{formattedMessage}\"");
+                    //Debug.Log($"触发时间: {finalFireTime} 小时后 (总偏移时间: {timeOffsetHours})");
+                    //Debug.Log($"当前状态: {currentSimulatedState}, 下一状态: {nextState}\n");
+                    
                 }
             }
 
-            // 为下一次模拟更新数据
             timeOffsetHours += timeToNextStateChange;
 
-            // 模拟所有数值的衰减
             foreach (var stat in Stats)
             {
                 simulatedStats[stat.Name] -= currentDecayRates[stat.Name] * timeToNextStateChange;
                 if (simulatedStats[stat.Name] < 0) simulatedStats[stat.Name] = 0;
             }
 
-            // 状态转换与数值重置
-            if (drivingStatName == "Full" && nextState == HealthState.Weak)
+            if (driving == "Full" && nextState == HealthState.Weak)
             {
                 simulatedStats["Full"] = 100f;
-                Debug.Log($"状态转换! 新状态: {nextState}, 'Full' 已重置为100。总耗时: {timeOffsetHours:F2}h");
-            }
-            else
-            {
-                Debug.Log($"状态转换! 新状态: {nextState}, 无数值重置。总耗时: {timeOffsetHours:F2}h");
             }
 
             currentSimulatedState = nextState;
-
-            if (currentSimulatedState == HealthState.Dead)
-            {
-                Debug.Log("进入死亡状态，模拟结束。");
-                break;
-            }
+            if (currentSimulatedState == HealthState.Dead) break;
         }
         Debug.Log($"--- 离线通知模拟结束 ---");
+        GetNextTaskTenLastMinutes();
+        NotificationManager.ScheduleNotification("提醒", $"开始任务了咩？{characterName}需要你。", 0.1f, "MissionStartCheckNotification");
     }
 
-    // 辅助方法：计算数值从当前值衰减到0需要的时间
+    private void GetNextTaskTenLastMinutes()
+    {
+        MissionData a = TaskManager.Instance.GetNextMission();
+        if (a == null) return;
+        if (!a.HasDeadline) return;
+
+        DateTime ddl = a.Deadline;
+        DateTime now = DateTime.Now;
+
+        // 计算在 deadline 前 10 分钟发通知的时间点（相对现在的时长）
+        TimeSpan timeUntilNotify = ddl - now - TimeSpan.FromMinutes(10);
+
+        // 唯一标识，便于幂等（先取消再安排）
+        string identifier = $"Mission_DeadlineNotify_{a.Title}_{ddl.Ticks}";
+        NotificationManager.CancelByIdentifier(identifier);
+
+        // 如果已经到了或不足 10 分钟，立即（短延迟）提醒；否则按小时数排程
+        if (timeUntilNotify <= TimeSpan.Zero)
+        {
+            string message = $"任务「{a.Title}」即将结束，请尽快完成。";
+            NotificationManager.ScheduleNotification("任务快结束了", message, 0.01f, identifier);
+            Debug.Log($"[通知] 立即发送截止前十分钟提醒: {a.Title}");
+        }
+        else
+        {
+            float hours = (float)timeUntilNotify.TotalHours;
+            string message = $"任务「{a.Title}」将在 10 分钟后截止。";
+            NotificationManager.ScheduleNotification("任务提醒", message, hours, identifier);
+            Debug.Log($"[通知] 已安排在 {timeUntilNotify} 后（{hours} 小时）发送截止前十分钟提醒: {a.Title}");
+        }
+    }
+
     private float CalculateTimeToDepletion(float currentValue, float decayRate)
     {
         if (decayRate <= 0) return float.MaxValue;
         return currentValue / decayRate;
     }
 
-    // 辅助方法：计算从当前值到阈值的时间
-    private float GetTimeToReachThreshold(CharacterStat stat, float currentValue, float threshold, float decayRate)
+    private float GetTimeToReachThreshold(float currentValue, float threshold, float decayRate)
     {
-        if (decayRate <= 0 || currentValue <= threshold)
-            return -1f;
+        if (decayRate <= 0 || currentValue <= threshold) return -1f;
         return (currentValue - threshold) / decayRate;
     }
-    #region 数据同步和事件订阅 (根据你的项目结构)
-
-    //private void OnCharacterStateChanged(string stateName, int newValue)
-    //{
-    //    // 数据变化后，需要完全重新同步和重新调度
-    //    RecalculateAndScheduleNotifications();
-    //    Debug.Log($"角色状态 '{stateName}' 已改变，重新调度所有通知。");
-    //}
 
     private void SyncStatsWithCharacterData()
     {
         if (GameManager.Instance?.StateManager?.Character == null) return;
 
         var character = GameManager.Instance.StateManager.Character;
-        HealthState generalHealthState = character.HealthState;
+        var hs = character.HealthState;
 
         foreach (var stat in Stats)
         {
-            // 同步健康状态
-            stat.SyncHealthState(generalHealthState);
-
-            // 同步具体数值
+            stat.SyncHealthState(hs);
             switch (stat.Name)
             {
-                case "Full":
-                    stat.SyncValue(character.Full);
-                    break;
-                case "San":
-                    stat.SyncValue(character.San);
-                    break;
-                case "Clean":
-                    stat.SyncValue(character.Clean);
-                    break;
+                case "Full":  stat.SyncValue(character.Full);  break;
+                case "San":   stat.SyncValue(character.San);   break;
+                case "Clean": stat.SyncValue(character.Clean); break;
             }
         }
     }
-
-    //private void SubscribeToCharacterEvents()
-    //{
-    //    if (GameManager.Instance?.StateManager?.Character != null)
-    //    {
-    //        GameManager.Instance.StateManager.Character.OnCharacterStateChanged += OnCharacterStateChanged;
-    //    }
-    //}
-
-    //private void UnsubscribeFromCharacterEvents()
-    //{
-    //    if (GameManager.Instance?.StateManager?.Character != null)
-    //    {
-    //        GameManager.Instance.StateManager.Character.OnCharacterStateChanged -= OnCharacterStateChanged;
-    //    }
-    //}
-
-    #endregion
 }

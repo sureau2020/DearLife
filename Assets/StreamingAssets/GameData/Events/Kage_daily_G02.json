@@ -1,0 +1,31 @@
+{
+  "EventId": "Kage_daily_G02",
+  "Type": "Daily",
+  "Tags": [
+    "denpa"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "{characterName}舒服地靠在沙发上，读着一份来自原世界的新闻。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "等等……你不记得有买过这个。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterPronoun}是从哪里弄来的？！"
+    }
+  }
+}

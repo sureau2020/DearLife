@@ -1,0 +1,18 @@
+{
+  "Id": "12345_pizza",
+  "Name": "披萨",
+  "Description": "美味多米诺披萨\n饱食度+10\n好感度+6",
+  "ImagePath": "pizza",
+  "Author": "12345",
+  "Price": 13,
+  "Type": "Food",
+  "Effect": {
+    "Full": 10,
+    "Love": 6
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_pizza_001"
+  ],
+  "FilteredEventIds": []
+}

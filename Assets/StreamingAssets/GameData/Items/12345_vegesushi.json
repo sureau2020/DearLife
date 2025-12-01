@@ -1,0 +1,19 @@
+{
+  "Id": "12345_vegesushi",
+  "Name": "素食寿司",
+  "Description": "牛油果寿司\n饱食度+1\n好感度+1",
+  "ImagePath": "vegesushi",
+  "Author": "12345",
+  "Price": 9,
+  "Type": "Food",
+  "Effect": {
+    "Full": 1,
+    "Love": 1
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_icecream_003",
+    "12345_item_vegesushi_001"
+  ],
+  "FilteredEventIds": []
+}

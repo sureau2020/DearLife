@@ -1,0 +1,18 @@
+{
+  "Id": "yinxing_burger",
+  "Name": "汉堡",
+  "Description": "牛肉汉堡杠杠顶饿\n饱腹度+20",
+  "ImagePath": "burger",
+  "Author": "yinxing",
+  "Price": 15,
+  "Type": "Food",
+  "Effect": {
+    "Full": 20
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002",
+    "yinxing_item_burger_001"
+  ],
+  "FilteredEventIds": []
+}

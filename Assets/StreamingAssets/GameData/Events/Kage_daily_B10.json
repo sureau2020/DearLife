@@ -1,0 +1,49 @@
+{
+  "EventId": "Kage_daily_B10",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "LOVE",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "如果今天要面对无法入睡的夜晚，希望你不用惦记太多麻烦事。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "太阳会升起来，我们也还有时间。"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "less_than_200_1",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 200
+        }
+      },
+      "TrueNodeId": "node_1",
+      "FalseNodeId": "less_than_200_1"
+    },
+    "less_than_200_1": {
+      "$type": "DialogueNode",
+      "Id": "less_than_200_1",
+      "NextNodeId": "less_than_200_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "{playerAppellation}会因为待办太多而焦虑吗？"
+    },
+    "less_than_200_2": {
+      "$type": "DialogueNode",
+      "Id": "less_than_200_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "没什么，只是问问。"
+    }
+  }
+}

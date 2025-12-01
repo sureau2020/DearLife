@@ -125,4 +125,17 @@ public class CharacterMoveAI : MonoBehaviour
             ChooseNextDestination();
         }
     }
+
+    public void MoveToIfValid(Vector3 targetPos)
+    {
+        if (!isAlive || isFocused) return;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetPos, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            agent.isStopped = false;
+            agent.SetDestination(hit.position);
+            //isWaiting = false; 
+        }
+    }
 }

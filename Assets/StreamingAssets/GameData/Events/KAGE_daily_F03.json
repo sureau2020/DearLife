@@ -1,0 +1,59 @@
+{
+  "EventId": "KAGE_daily_F03",
+  "Type": "Daily",
+  "Tags": [
+    "realistic"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "不知道你有没有注意过，这个房间里除了你和{characterName}以外，没有任何生物。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "当然，这个小小的公寓暂时还容不下猫猫狗狗、鱼儿鸟儿……"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "但如果是一盆不会攻击任何人、不会抓沙发也不会掉毛的绿色植物，总还是可以的。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "node_5",
+      "speakerName": "",
+      "dialogueText": "{characterName}就这样看着你，不过什么也没有说。"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "",
+      "dialogueText": "嗯，只能增添好心情的东西就被称之为奢侈品，对吧……"
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": "node_7",
+      "speakerName": "",
+      "dialogueText": "所以……你不用勉强也没事。真的。"
+    },
+    "node_7": {
+      "$type": "DialogueNode",
+      "Id": "node_7",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "真的……"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Id": "yinxing_bodylotion",
+  "Name": "润肤露",
+  "Description": "普通的擦脸保湿的护肤品\n清洁度+8",
+  "ImagePath": "bodylotion",
+  "Author": "yinxing",
+  "Price": 10,
+  "Type": "PersonalCare",
+  "Effect": {
+    "Clean": 8
+  },
+  "Events": [
+    "yinxing_item_general_001"
+  ],
+  "FilteredEventIds": []
+}

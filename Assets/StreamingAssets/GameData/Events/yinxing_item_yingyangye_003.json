@@ -1,0 +1,25 @@
+{
+  "EventId": "yinxing_item_yingyangye_003",
+  "Type": "Item",
+  "Tags": [
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "（沉默地喝下）好感度-5"
+    },
+    "node_2": {
+      "$type": "EffectNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": -5
+      }
+    }
+  }
+}

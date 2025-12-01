@@ -1,5 +1,5 @@
-
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,13 +12,21 @@ public class ChoiceUI : MonoBehaviour
     public void SetChoice(ChoiceOption choiceOption)
     {
         nextNodeId = choiceOption.NextNodeId;
-        if (choiceOption.Text.Contains("{characterName}"))
+        var character = GameManager.Instance.StateManager.Character;
+        var replacements = new Dictionary<string, string>
         {
-            choiceText.text = choiceOption.Text.Replace("{characterName}", GameManager.Instance.StateManager.Character.Name);
+            { "{characterName}", character.Name },
+            { "{appellation}", character.PlayerAppellation },
+            { "{playerAppellation}", character.PlayerAppellation },
+            { "{characterPronoun}", character.Pronoun }
+        };
+
+        string text = choiceOption.Text;
+        foreach (var pair in replacements)
+        {
+            text = text.Replace(pair.Key, pair.Value);
         }
-        else {
-            choiceText.text = choiceOption.Text;
-        }
+        choiceText.text = text;
     }
 
     public void OnClickChoice()

@@ -1,0 +1,24 @@
+{
+  "EventId": "Kage_daily_E01",
+  "Type": "Daily",
+  "Tags": [
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "你应该……会对每件安排好的事情做好最差结果预案吧？ "
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "生活在这种现实里，为自己搭建避难所是理所当然的。每个人都这么做。"
+    }
+  }
+}

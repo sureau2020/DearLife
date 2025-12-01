@@ -1,0 +1,20 @@
+{
+  "Id": "yinxing_miqingji",
+  "Name": "迷情剂",
+  "Description": "别的世界薅过来的小药水，角色无论怎样都会中招。不过好像对大脑有损伤。\n好感度+50\n理智值-20",
+  "ImagePath": "miqingji",
+  "Author": "yinxing",
+  "Price": 20,
+  "Type": "Medicine",
+  "Effect": {
+    "San": -20,
+    "Love": 50
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_miqingji_002",
+    "yinxing_item_miqingji_001",
+    "yinxing_item_miqingji_003"
+  ],
+  "FilteredEventIds": []
+}

@@ -73,13 +73,14 @@ public class ItemInfoPanel : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySfx("BuyItem");
             HidePanel();
         }
     }
 
     public void HidePanel()
     {
-        SoundManager.Instance.PlaySfx("BuyItem");
+        
         gameObject.SetActive(false);
     }
 }

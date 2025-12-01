@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class StateManager 
 {
@@ -9,6 +9,9 @@ public class StateManager
     public CharacterData Character { get; }
     public GameSettings Settings { get; }
     public Dictionary<string, int> CustomStates { get; }
+    
+
+    public DateTime SaveTime { get; set; } = DateTime.Now;
 
     private const int DelayTime = 10;
 
@@ -16,12 +19,13 @@ public class StateManager
     private int sanDecayCounter = 0;
 
 
-    public StateManager(PlayerData player, CharacterData character, GameSettings settings, Dictionary<string,int> customStates)
+    public StateManager(PlayerData player, CharacterData character, GameSettings settings, Dictionary<string,int> customStates, DateTime savetime)
     {
         Player = player;
         Character = character;
         Settings = settings;
         CustomStates = customStates;
+        SaveTime = savetime;
     }
 
 
@@ -48,10 +52,10 @@ public class StateManager
     }
 
 
-    // 每分钟调用一次，衰减角色状态
-    public void DecayStates() { 
+    //衰减角色状态
+    public void DecayStates() {
         if (Character.HealthState == HealthState.Dead){
-            return;
+                return;
         }
         if (Character.HealthState == HealthState.Crazy)
         {
@@ -80,11 +84,50 @@ public class StateManager
         }
     }
 
+    public void DecayStatesWithoutNotify()
+    {
+        if (Character.HealthState == HealthState.Dead)
+        {
+            return;
+        }
+        if (Character.HealthState == HealthState.Crazy)
+        {
+            Character.ChangeFull(-3,false);
+            Character.ChangeLove(-2, false);
+        }
+        else
+        {
+            Character.ChangeFull(-1, false);
+        }
+        cleanDecayCounter++;
+        if (cleanDecayCounter >= 2)
+        {
+            Character.ChangeClean(-1, false);
+            cleanDecayCounter = 0;
+        }
+        sanDecayCounter++;
+        if (sanDecayCounter >= 4)
+        {
+            if (Character.HealthState == HealthState.Dirty)
+            {
+                Character.ChangeSan(-3, false);
+            }
+            else
+                Character.ChangeSan(-1, false);
+            sanDecayCounter = 0;
+        }
+    }
+
 
     // 购买物品，扣除金钱，添加物品到背包，返回操作结果
     public OperationResult BuyItem(int singlePrice, ItemData item, int quantity)
     {
         return Player.BuyItem(singlePrice, item, quantity);
+    }
+
+    public OperationResult BuyCloth(int price, WardrobeSlot cloth)
+    {
+        return Player.BuyCloth(price, cloth);
     }
 
 
@@ -117,11 +160,23 @@ public class StateManager
             return isOKSetting;
         }
         OperationResult isNormallyComplete = mission.CompleteMission();
+        bool wasExpired = false;
         if (!isNormallyComplete.Success)
         {
-            return isNormallyComplete;
+            if (isNormallyComplete.Message.Contains("任务已过期。"))
+            {
+                wasExpired = true;
+            }
+            else
+            {
+                return isNormallyComplete;
+            }
         }
         int salary = Calculators.RandomSalary(mission.Duration,mission.Difficulty,Settings.MaxSalaryFactor,Settings.HourlyWage,Settings.DifficultyBonus);
+        if(wasExpired)
+        {
+            salary /= 2; // 过期任务只给一半报酬
+        }   
         return Player.EarnMoney(salary);
     }
 
@@ -181,7 +236,8 @@ public class StateManager
                 saveData.Player, 
                 characterData,
                 saveData.Settings, 
-                saveData.CustomStates
+                saveData.CustomStates,
+                saveData.SaveTime
             );
             
             return OperationResult<StateManager>.Complete(stateManager);

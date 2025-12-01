@@ -1,0 +1,24 @@
+{
+  "EventId": "yinxing_item_fish_001",
+  "Type": "Item",
+  "Tags": [
+    "calm"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "（察觉出烤鱼的特殊）"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "谢谢你。"
+    }
+  }
+}

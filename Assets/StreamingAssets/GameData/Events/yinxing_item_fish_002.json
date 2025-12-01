@@ -1,0 +1,17 @@
+{
+  "EventId": "yinxing_item_fish_002",
+  "Type": "Item",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "真有意思，下次也让我看看{appellation}怎么处理鱼吧"
+    }
+  }
+}

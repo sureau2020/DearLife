@@ -1,0 +1,17 @@
+{
+  "Id": "yinxing_plante",
+  "Name": "盆栽",
+  "Description": "随机一盆植物，无论是否喜欢，看了心情都会稍微变好一些？\n理智值+5",
+  "ImagePath": "plante",
+  "Author": "yinxing",
+  "Price": 5,
+  "Type": "Gift",
+  "Effect": {
+    "San": 5,
+  },
+  "Events": [
+    "yinxing_item_general_001",
+    "yinxing_item_general_002"
+  ],
+  "FilteredEventIds": []
+}

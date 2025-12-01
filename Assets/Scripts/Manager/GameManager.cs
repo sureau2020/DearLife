@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +9,10 @@ public class GameManager : MonoBehaviour
 
     public StateManager StateManager { get; private set; }
     public DialogueManager DialogueManager {get; private set; }
+
+    [SerializeField]private RebirthUI rebirthUI;
+    [SerializeField] private GameObject loadingUI;
+    [SerializeField] private CharacterAppearanceRenderer appearanceRenderer;
 
     private void Awake()
     {
@@ -25,6 +28,9 @@ public class GameManager : MonoBehaviour
         if (loadResult.Success)
         {
             StateManager = loadResult.Data;
+            BootSceneManager.Instance.Appearance = StateManager.Character.Appearance;
+            
+            CalculatePassTime();
             Debug.Log("存档加载成功");
         }
         else
@@ -43,10 +49,37 @@ public class GameManager : MonoBehaviour
         }
 
         DialogueManager = GetComponent<DialogueManager>();
-        LoaderManager.LoadAllData();
+        StartCoroutine(LoadAndCloseUI());
     }
 
- 
+    IEnumerator LoadAndCloseUI()
+    {
+        yield return StartCoroutine(LoaderManager.LoadAllData());
+        loadingUI.SetActive(false);
+        appearanceRenderer.LoadAndApplyAppearance();
+    }
+
+
+    public void CalculatePassTime()
+    {
+        DateTime now = DateTime.Now;
+        TimeSpan timePassed = now - StateManager.SaveTime;
+        int totalMinutes = (int)timePassed.TotalMinutes;
+        totalMinutes = totalMinutes / 12;
+        for (int i = 0; i < (totalMinutes-1); i++)
+        {
+            StateManager.DecayStatesWithoutNotify();
+            if (StateManager.Character.HealthState == HealthState.Dead)
+            {
+                break;
+            }
+        }
+        StateManager.DecayStates();
+        
+        StateManager.SaveTime = now;
+    }
+
+
     private void InitializeDefaultState()
     {
         CharacterData characterData;
@@ -63,12 +96,16 @@ public class GameManager : MonoBehaviour
         PlayerData playerData = new PlayerData(10); // 初始金钱10
         GameSettings settings = new GameSettings();
         Dictionary<string, int> customStates = new Dictionary<string, int>();
-
-        StateManager = new StateManager(playerData, characterData, settings, customStates);
+        StateManager = new StateManager(playerData, characterData, settings, customStates, DateTime.Now);
     }
 
     private void Start()
     {
+
+        if (StateManager.Character.HealthState == HealthState.Dead && rebirthUI != null)
+        {
+            rebirthUI.ShowRebirthUI();
+        }
         TimeManager.Instance.OnMinuteChanged += OnMinuteChanged;
         TimeManager.Instance.OnHourChanged += OnHourChanged;
         TimeManager.Instance.OnDayChanged += OnDayChanged;

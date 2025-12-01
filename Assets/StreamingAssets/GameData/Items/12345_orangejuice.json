@@ -1,0 +1,18 @@
+{
+  "Id": "12345_orangejuice",
+  "Name": "橘子汁",
+  "Description": "橘子做的汁！\n饱食度+1\n好感度+1",
+  "ImagePath": "orangejuice",
+  "Author": "12345",
+  "Price": 3,
+  "Type": "Food",
+  "Effect": {
+    "Full": 1,
+    "Love": 1
+  },
+  "Events": [
+    "12345_item_orangejuice_001",
+    "12345_item_orangejuice_002"
+  ],
+  "FilteredEventIds": []
+}

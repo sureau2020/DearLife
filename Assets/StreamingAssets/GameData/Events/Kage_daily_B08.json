@@ -1,0 +1,36 @@
+{
+  "EventId": "Kage_daily_B08",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "在我原本的世界，即使{playerAppellation}不在，也会随着时间流逝发生一些不痛不痒的新鲜事。 "
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "商店里的“新闻”就是记载这些东西的。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "{characterName}",
+      "dialogueText": "不，没有一定要你购买的意思……只是有点在意。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "说到底，这究竟是怎么弄来的啊？"
+    }
+  }
+}

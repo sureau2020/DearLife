@@ -1,0 +1,61 @@
+{
+  "EventId": "yinxing_item_news_002",
+  "Type": "Item",
+  "Tags": [
+    "realistic"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "我可以每天都看到这些吗"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "这对我真的很重要"
+    },
+    "node_3": {
+      "$type": "ChoiceNode",
+      "Id": "node_3",
+      "NextNodeId": "node_5",
+      "Options": [
+        {
+          "Text": "我尽力",
+          "NextNodeId": "ok"
+        },
+        {
+          "Text": "抱歉……",
+          "NextNodeId": "node_5"
+        }
+      ]
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "没关系"
+    },
+    "ok": {
+      "$type": "DialogueNode",
+      "Id": "ok",
+      "NextNodeId": "node_6",
+      "speakerName": "{characterName}",
+      "dialogueText": "谢谢（好感度+3）"
+    },
+    "node_6": {
+      "$type": "EffectNode",
+      "Id": "node_6",
+      "NextNodeId": null,
+      "Effects": {
+        "Love": 3
+      }
+    }
+  }
+}

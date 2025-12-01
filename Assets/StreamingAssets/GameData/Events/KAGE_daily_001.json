@@ -1,0 +1,75 @@
+{
+  "EventId": "KAGE_daily_001",
+  "Type": "Daily",
+  "Tags": [
+    "calm",
+    "mature"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_5",
+      "speakerName": "？？？",
+      "dialogueText": "你听到了{characterPronoun}的召唤对吧。"
+    },
+    "node_2": {
+      "$type": "ChoiceNode",
+      "Id": "node_2",
+      "NextNodeId": "node_4_non-sancheck",
+      "Options": [
+        {
+          "Text": "回头？",
+          "NextNodeId": "node_3_sancheck"
+        },
+        {
+          "Text": "不要回头！",
+          "NextNodeId": "node_4_non-sancheck"
+        }
+      ]
+    },
+    "node_3_sancheck": {
+      "$type": "DialogueNode",
+      "Id": "node_3_sancheck",
+      "NextNodeId": "node_8",
+      "speakerName": "？？？",
+      "dialogueText": "我知道{appellation}会好好完成任务的。\n我知道{appellation}会好好完成任务的。"
+    },
+    "node_7": {
+      "$type": "DialogueNode",
+      "Id": "node_7",
+      "NextNodeId": null,
+      "speakerName": "？？？",
+      "dialogueText": "直到胸中只余下淡淡的遗憾和恍惚……"
+    },
+    "node_8": {
+      "$type": "DialogueNode",
+      "Id": "node_8",
+      "NextNodeId": null,
+      "speakerName": "？？？",
+      "dialogueText": "我知道{appellation}会好好完成任务的。"
+    },
+    "node_4_non-sancheck": {
+      "$type": "DialogueNode",
+      "Id": "node_4_non-sancheck",
+      "NextNodeId": "node_7",
+      "speakerName": "？？？",
+      "dialogueText": "一股奇妙的暖流从你背后经过，你闭着眼睛等{characterPronoun}离去"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "？？？",
+      "dialogueText": "就在你刚刚对着房间发呆的这一会……你感到背后绝对有一双眼睛在看你。"
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": "node_2",
+      "speakerName": "？？？",
+      "dialogueText": "慈爱的，严肃的，好像一块冰凉的凝胶黏在你的后颈。"
+    }
+  }
+}

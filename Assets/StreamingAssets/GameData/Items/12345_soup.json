@@ -1,0 +1,19 @@
+{
+  "Id": "12345_soup",
+  "Name": "紫菜汤",
+  "Description": "热乎的紫菜汤\n饱食度+2\n好感度+1",
+  "ImagePath": "soup",
+  "Author": "12345",
+  "Price": 5,
+  "Type": "Food",
+  "Effect": {
+    "Full": 2,
+    "Love": 1
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_icecream_003",
+    "12345_item_orangejuice_001"
+  ],
+  "FilteredEventIds": []
+}

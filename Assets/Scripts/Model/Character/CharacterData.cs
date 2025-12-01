@@ -19,6 +19,8 @@ public class CharacterData
     public int San { get; set; } = MaxVar;
     public int Clean { get; set; } = MaxVar;
 
+    public WardrobeSlot Cloth { get; set; }
+
     public CharacterAppearance Appearance { get; set; }
     public HealthState HealthState { get; set; } = HealthState.Normal;
     public int Love { get; set; } = 0;
@@ -38,7 +40,7 @@ public class CharacterData
     public CharacterData()
     {
         FirstStartTime = DateTime.Now; 
-        PersonalityTags = new HashSet<string> { "mature", "calm" }; 
+        PersonalityTags = new HashSet<string>(); 
     }
 
     public CharacterData(string name, string pronoun, CharacterAppearance appearance, HashSet<string> personalityTags, string playerAppellation)
@@ -217,58 +219,103 @@ public class CharacterData
     }
 
     // true represents promoted
-    void UpdateStatus()
+    void UpdateStatus(bool notify = true)
     {
-        if (HealthState == HealthState.Normal && Full <= 0)
+        if ((HealthState == HealthState.Normal && Full <= 0) || (HealthState == HealthState.Crazy && Full <= 0) || (HealthState == HealthState.Dirty && Full <= 0))
         {
-            SwitchState(HealthState.Weak, false);
+            if (notify)
+            {
+                SwitchState(HealthState.Weak, false);
+            }
+            else
+            {
+                SwitchState(HealthState.Weak, false, notify);
+            }
         }
         else if (HealthState == HealthState.Weak && Full <= 0)
         {
-            SwitchState(HealthState.Dead, false);
+            if (notify)
+            {
+                SwitchState(HealthState.Dead, false);
+            }
+            else
+            {
+                SwitchState(HealthState.Dead, false, notify);
+            }
         }
         else if (HealthState == HealthState.Normal && San <= 0)
         {
-            SwitchState(HealthState.Crazy, false);
+            if (notify)
+            {
+                SwitchState(HealthState.Crazy, false);
+            }
+            else
+            {
+                SwitchState(HealthState.Crazy, false, notify);
+            }
         }
         else if (HealthState == HealthState.Normal && Clean <= 0)
-        {
-            SwitchState(HealthState.Dirty, false);
+        {   if(notify)
+                {
+                    SwitchState(HealthState.Dirty, false);
+                }
+                else
+                {
+                    SwitchState(HealthState.Dirty, false, notify);
+            }
         }
-        else if ((HealthState == HealthState.Weak && Full >= 100) 
+        else if ((HealthState == HealthState.Weak && Full >= 70)
             || (HealthState == HealthState.Crazy && San >= 70)
             || (HealthState == HealthState.Dirty && Clean >= 70))
         {
-            SwitchState(HealthState.Normal, true);
+            if (notify) { 
+                SwitchState(HealthState.Normal, true);
+            }
+            else
+            {
+                SwitchState(HealthState.Normal, true, notify);
+            }
         }
     }
 
-    void SwitchState(HealthState newState, bool isPromoted)
+    void SwitchState(HealthState newState, bool isPromoted, bool notify = true)
     {
         HealthState = newState;
         if (isPromoted) {
-            ZeroStateValue(newState);
+            //暂时取消了 恢复正常状态时数值重置到20的设定
+            //ZeroStateValue(newState);
         }
         else
         {
             FillStateValue(newState);
         }
-        OnHealthChanged?.Invoke();
+        if (notify)
+            OnHealthChanged?.Invoke();
     }
 
     private void FillStateValue(HealthState state)
     {
-        if (state == HealthState.Weak) Full = 99; 
-        if (state == HealthState.Dead) DeathNum++;;
+        if (state == HealthState.Weak) 
+        { 
+            Full = 99; 
+            OnCharacterStateChanged?.Invoke("Full", 99); 
+        }
+        if (state == HealthState.Dead) DeathNum++;
     }
 
     private void ZeroStateValue(HealthState state) {
         if (state == HealthState.Normal) { 
             Full = 20;
+            OnCharacterStateChanged?.Invoke("Full", 20);
             Clean = 20;
+            OnCharacterStateChanged?.Invoke("Clean", 20);
             San = 20;
+            OnCharacterStateChanged?.Invoke("San", 20);
         } 
     }
+
+    
+    
 
     public void Rebirth()
     {
@@ -276,48 +323,62 @@ public class CharacterData
             return;
         ChangeLove(-200);
         Full = MaxVar;
+        ChangeFull(0);
         San = MaxVar;
+        ChangeSan(0);
         Clean = MaxVar;
+        ChangeClean(0);
         HealthState = HealthState.Normal;
         OnHealthChanged?.Invoke();
     }
 
+    public void ShowRebirth() { 
+        OnHealthChanged?.Invoke();
+    }
 
 
-    public void ChangeFull(int delta)
+    public void ChangeFull(int delta, bool notify = true)
     {
         Full = Mathf.Clamp(Full + delta, 0, 100);
-        OnCharacterStateChanged?.Invoke("Full", Full);
-        UpdateStatus();
-        
-        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        if (notify)
+        {
+            OnCharacterStateChanged?.Invoke("Full", Full);
+            _ = GameManager.Instance.StateManager.SaveStateAsync();
+        }
+        UpdateStatus(notify);
     }
 
-    public void ChangeClean(int delta)
+    public void ChangeClean(int delta, bool notify = true)
     {
         Clean = Mathf.Clamp(Clean + delta, 0, 100);
-        OnCharacterStateChanged?.Invoke("Clean", Clean);
-        UpdateStatus();
-        
-        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        if (notify)
+        {
+            OnCharacterStateChanged?.Invoke("Clean", Clean);
+            _ = GameManager.Instance.StateManager.SaveStateAsync();
+        }
+            UpdateStatus(notify);
     }
 
-    public void ChangeSan(int delta)
+    public void ChangeSan(int delta, bool notify = true)
     {
         San = Mathf.Clamp(San + delta, 0, 100);
-        OnCharacterStateChanged?.Invoke("San", San);
-        UpdateStatus();
-        
-        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        if (notify)
+        {
+            OnCharacterStateChanged?.Invoke("San", San);
+            _ = GameManager.Instance.StateManager.SaveStateAsync();
+        }
+            UpdateStatus(notify);
     }
 
-    public void ChangeLove(int delta)
+    public void ChangeLove(int delta, bool notify = true)
     {
         Love = Love + delta;
         Relationship = DetermineRelation();
-        OnCharacterStateChanged?.Invoke("Love", Love);
-        
-        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        if (notify)
+        {
+            OnCharacterStateChanged?.Invoke("Love", Love);
+            _ = GameManager.Instance.StateManager.SaveStateAsync();
+        }
     }
 
 
@@ -343,8 +404,20 @@ public class CharacterAppearance
     public int BackHairId;
     public HSV BackHairColor;
 
-    public int EyeId;
-    public HSV EyeColor;
+    public int EyeId = 0;
+    public HSV EyeColor = new HSV { h = 0, s = 1, v = 1 };
+
+    public int LeftEyeId = 0;
+    public HSV LeftEyeColor = new HSV { h = 0, s = 1, v = 1 };
+
+    public int RightEyeId = 0;
+    public HSV RightEyeColor = new HSV { h = 0, s = 1, v = 1 };
+
+    public int LeftEyeBlancId = 0;
+    public HSV LeftEyeBlancColor = new HSV { h = 0, s = 1, v = 1 };
+
+    public int RightEyeBlancId = 0;
+    public HSV RightEyeBlancColor = new HSV { h = 0, s = 1, v = 1 };
 
     public int ClothesId;
     public HSV ClothesColor;
@@ -366,8 +439,16 @@ public class CharacterAppearance
         BodyColor = new HSV { h = 0, s = 1, v = 1 };
         BackHairId = 0;
         BackHairColor = new HSV { h = 0, s = 1, v = 1 };
-        EyeId = 0;
-        EyeColor = new HSV { h = 0, s = 1, v = 1 };
+        //EyeId = 0;
+        //EyeColor = new HSV { h = 0, s = 1, v = 1 };
+        LeftEyeId = 0;
+        LeftEyeColor = new HSV { h = 0, s = 1, v = 1 };
+        RightEyeId = 0;
+        RightEyeColor = new HSV { h = 0, s = 1, v = 1 };
+        LeftEyeBlancId = 0;
+        LeftEyeBlancColor = new HSV { h = 0, s = 1, v = 1 };
+        RightEyeBlancId = 0;
+        RightEyeBlancColor = new HSV { h = 0, s = 1, v = 1 };
         ClothesId = 0;
         ClothesColor = new HSV { h = 0, s = 1, v = 1 };
         SideHairId = 0;

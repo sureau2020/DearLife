@@ -1,0 +1,17 @@
+{
+  "EventId": "Kage_daily_H01",
+  "Type": "Daily",
+  "Tags": [
+    "crazy"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "To-do List的本质是什么？是土豆！所以人类只要多食用长芽的土豆，就会抛却一切烦恼。"
+    }
+  }
+}

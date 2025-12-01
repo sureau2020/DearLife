@@ -1,0 +1,20 @@
+{
+  "Id": "12345_watermelon",
+  "Name": "西瓜",
+  "Description": "一片甜西瓜\n饱食度+4\n好感度+1",
+  "ImagePath": "watermelon",
+  "Author": "12345",
+  "Price": 6,
+  "Type": "Food",
+  "Effect": {
+    "Full": 4,
+    "Love": 1
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_orange_001",
+    "12345_item_watermelon_001",
+    "12345_item_icecream_003"
+  ],
+  "FilteredEventIds": []
+}

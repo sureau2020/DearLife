@@ -1,0 +1,18 @@
+{
+  "Id": "12345_salad",
+  "Name": "沙拉",
+  "Description": "蔬菜拌水果\n饱食度+3\n好感度+3",
+  "ImagePath": "salad",
+  "Author": "12345",
+  "Price": 9,
+  "Type": "Food",
+  "Effect": {
+    "Full": 3,
+    "Love": 3
+  },
+  "Events": [
+    "12345_item_icecream_001",
+    "12345_item_icecream_003"
+  ],
+  "FilteredEventIds": []
+}

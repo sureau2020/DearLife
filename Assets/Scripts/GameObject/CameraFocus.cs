@@ -38,6 +38,18 @@ public class CameraFocus : MonoBehaviour
         currentRoutine = StartCoroutine(MoveCamera(endPos, targetSize));
     }
 
+    public void FocusOnTarget(Vector3 worldPosition)
+    {
+        if (cam == null) return;
+
+        if (currentRoutine != null)
+            StopCoroutine(currentRoutine);
+
+        characterMoveAI.SetFocus(true);
+        Vector3 endPos = worldPosition + offset;
+        currentRoutine = StartCoroutine(MoveCamera(endPos, targetSize));
+    }
+
     public void ResetCamera()
     {
         if (cam == null) return;

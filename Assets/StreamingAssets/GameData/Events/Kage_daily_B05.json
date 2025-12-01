@@ -1,0 +1,36 @@
+{
+  "EventId": "Kage_daily_B05",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "门缝里被塞进来一张传单，上面是不同口味的披萨和促销信息。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "……这种促销，一般来说看似划算，实际上都会让你花费比平时更多的价钱。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "可是，就算你想这么说，{characterName}正拿着这张传单看向你。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "{characterPronoun}什么都没说，但……你知道该做什么的，对吧？"
+    }
+  }
+}

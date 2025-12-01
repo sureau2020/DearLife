@@ -10,7 +10,11 @@ public class AppearanceAtlasManager : MonoBehaviour
     [SerializeField] private SpriteAtlas sideHairAtlas;
     [SerializeField] private SpriteAtlas backHairAtlas;
     [SerializeField] private SpriteAtlas bodyAtlas;
-    [SerializeField] private SpriteAtlas eyeAtlas;
+    [SerializeField] private SpriteAtlas leftEyeAtlas;
+    [SerializeField] private SpriteAtlas rightEyeAtlas;
+    [SerializeField] private SpriteAtlas leftEyeBlancAtlas;
+    [SerializeField] private SpriteAtlas rightEyeBlancAtlas;
+    //[SerializeField] private SpriteAtlas eyeAtlas;
     [SerializeField] private SpriteAtlas clothesAtlas;
     [SerializeField] private SpriteAtlas headDeco1Atlas;
     [SerializeField] private SpriteAtlas headDeco2Atlas;
@@ -28,7 +32,11 @@ public class AppearanceAtlasManager : MonoBehaviour
             { "SideHair", sideHairAtlas },
             { "BackHair", backHairAtlas },
             { "Body", bodyAtlas },
-            { "Eye", eyeAtlas },
+            //{ "Eye", eyeAtlas },
+            { "LeftEye", leftEyeAtlas},
+            { "RightEye", rightEyeAtlas},
+            { "LeftEyeBlanc", leftEyeBlancAtlas},
+            { "RightEyeBlanc", rightEyeBlancAtlas},
             { "Clothes", clothesAtlas },
             { "HeadDeco1", headDeco1Atlas },
             { "HeadDeco2", headDeco2Atlas }

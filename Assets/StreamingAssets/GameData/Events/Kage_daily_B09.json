@@ -1,0 +1,29 @@
+{
+  "EventId": "Kage_daily_B09",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "{playerAppellation}没在这个房间的时候，我也会做点自己的事。"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "{characterName}",
+      "dialogueText": "托你的福，我的生命也算十分充实。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "当然，右边那些待办是你的事情，我是不会替你做的。"
+    }
+  }
+}

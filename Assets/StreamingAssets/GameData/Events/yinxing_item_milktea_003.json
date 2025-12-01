@@ -1,0 +1,15 @@
+{
+  "EventId": "yinxing_item_milktea_003",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "（尝不出来具体是什么，只觉得很好喝）"
+    }
+  }
+}

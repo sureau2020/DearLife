@@ -1,0 +1,15 @@
+{
+  "EventId": "yinxing_item_milktea_002",
+  "Type": "Item",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "经典款的奶茶。每次你给我的甜度都是刚刚好的，谢谢你。"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "EventId": "yinxing_item_yingyangye_002",
+  "Type": "Item",
+  "Tags": [
+    "innocent"
+  ],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "这是什么，我不想喝这个"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "拜托了，我不想再喝这个"
+    }
+  }
+}

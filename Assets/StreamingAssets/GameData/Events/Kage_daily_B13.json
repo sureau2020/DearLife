@@ -1,0 +1,77 @@
+{
+  "EventId": "Kage_daily_B13",
+  "Type": "Daily",
+  "Tags": [],
+  "StartNodeId": "node_1",
+  "Nodes": {
+    "node_1": {
+      "$type": "DialogueNode",
+      "Id": "node_1",
+      "NextNodeId": "node_2",
+      "speakerName": "",
+      "dialogueText": "你知道电子僵尸吗？"
+    },
+    "node_2": {
+      "$type": "DialogueNode",
+      "Id": "node_2",
+      "NextNodeId": "node_3",
+      "speakerName": "",
+      "dialogueText": "在信息世界无比宽广的如今，它们总是活跃着。"
+    },
+    "node_3": {
+      "$type": "DialogueNode",
+      "Id": "node_3",
+      "NextNodeId": "node_4",
+      "speakerName": "",
+      "dialogueText": "你肯定见过那些无处不在的垃圾广告。算法的洪流。"
+    },
+    "node_4": {
+      "$type": "DialogueNode",
+      "Id": "node_4",
+      "NextNodeId": "LOVE",
+      "speakerName": "",
+      "dialogueText": "它们真讨厌，不是吗？"
+    },
+    "node_5": {
+      "$type": "DialogueNode",
+      "Id": "node_5",
+      "NextNodeId": "node_6",
+      "speakerName": "",
+      "dialogueText": "你的生活和思想都无比珍贵，明明不该容许这些东西入侵。 "
+    },
+    "node_6": {
+      "$type": "DialogueNode",
+      "Id": "node_6",
+      "NextNodeId": null,
+      "speakerName": "{characterName}",
+      "dialogueText": "（……默默捂住了你的眼睛。）"
+    },
+    "LOVE": {
+      "$type": "ConditionNode",
+      "Id": "LOVE",
+      "NextNodeId": "less_than_0",
+      "Conditions": {
+        "Love": {
+          "Type": "AtLeast",
+          "Value": 0
+        }
+      },
+      "TrueNodeId": "node_5",
+      "FalseNodeId": "less_than_0"
+    },
+    "less_than_0": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0",
+      "NextNodeId": "less_than_0_2",
+      "speakerName": "{characterName}",
+      "dialogueText": "……（站得远远地看着你。）"
+    },
+    "less_than_0_2": {
+      "$type": "DialogueNode",
+      "Id": "less_than_0_2",
+      "NextNodeId": null,
+      "speakerName": "",
+      "dialogueText": "如果{characterName}更信任你一些，或许会为此做些什么。"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Id": "yinxing_zhendingji",
+  "Name": "镇定剂",
+  "Description": "能让人暂时冷静……或麻木下来的药剂。\n理智值+40\n好感度-5",
+  "ImagePath": "zhendingji",
+  "Author": "yinxing",
+  "Price": 30,
+  "Type": "Medicine",
+  "Effect": {
+    "San": 40,
+    "Love": -5
+  },
+  "Events": [
+    "yinxing_item_generalsilence_001"
+  ],
+  "FilteredEventIds": []
+}

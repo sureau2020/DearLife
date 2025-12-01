@@ -1,0 +1,20 @@
+{
+  "Id": "yinxing_yingyangye",
+  "Name": "营养液",
+  "Description": "一大桶难喝且诡异的液体，从██████得来，主要用?于████\n█饱█度+30\n理██值-5\n好感度-10",
+  "ImagePath": "yingyangye",
+  "Author": "yinxing",
+  "Price": 15,
+  "Type": "Food",
+  "Effect": {
+    "Full": 30,
+    "San": -5,
+    "Love": -10
+  },
+  "Events": [
+    "yinxing_item_yingyangye_001",
+    "yinxing_item_yingyangye_002",
+    "yinxing_item_yingyangye_003"
+  ],
+  "FilteredEventIds": []
+}

@@ -35,6 +35,9 @@ public class ComfirmInfo : MonoBehaviour {
             {
                 BootSceneManager.Instance.PersonalityTags.Add(toggle.name);
             }
+            else { 
+                BootSceneManager.Instance.PersonalityTags.Remove(toggle.name);
+            }
         }
         InputInfoPanel.SetActive(false);
     }

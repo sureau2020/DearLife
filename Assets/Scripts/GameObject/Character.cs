@@ -7,6 +7,11 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject characterUI;
     [SerializeField] private CameraFocus cameraFocus;
+    [SerializeField] private CharacterMoveAI characterMoveAI;
+    [SerializeField] private Closet closet;
+    [SerializeField] private GameObject clickEffectPrefab;
+
+    private float z=0.3f; 
 
     private bool touchHandled = false; 
     private float lastToggleTime = -999f;
@@ -32,15 +37,20 @@ public class Character : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    void Update() {
+
 #if UNITY_ANDROID || UNITY_IOS
-        // 移动端：只处理触摸
-        CheckTouch();
+        if (!closet.isActiveAndEnabled)
+        {
+            CheckTouch();
+        }
 #else
-        // 桌面端：处理鼠标与触摸
-        CheckClick();
-        CheckTouch();
+        //桌面端：处理鼠标与触摸
+        if (!closet.isActiveAndEnabled) {
+            CheckClick();
+            //        CheckTouch();
+        }
+
 #endif
     }
 
@@ -57,12 +67,33 @@ public class Character : MonoBehaviour
                 return;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // 1. 先检测角色本身
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.transform == transform)
                 {
                     ChangeShowingOfCharacterUI();
+                    return; // 已处理点击角色，直接返回
                 }
+            }
+
+            // 2. 再检测地面
+            if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
+            {
+                Vector3 pos = Input.mousePosition;
+                pos.z = this.z; // 相机到角色的距离
+                
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+
+                // 生成特效
+                GameObject effect = Instantiate(clickEffectPrefab, worldPos,Quaternion.identity);
+
+                // 自动销毁（粒子播放完就消失）
+                Destroy(effect, 1f);
+                // 点击到地面，尝试让角色移动
+                if (characterMoveAI != null)
+                    characterMoveAI.MoveToIfValid(hit.point);
             }
         }
     }
@@ -120,7 +151,22 @@ public class Character : MonoBehaviour
                         if (hit.transform == transform)
                         {
                             ChangeShowingOfCharacterUI();
+                            return; // 已处理点击角色，直接返回
                         }
+                    }
+
+                    // 2. 再检测地面
+                    if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
+                    {
+                        Vector3 pos = Input.mousePosition;
+                        pos.z = this.z; 
+                        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+                        GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
+                        Destroy(effect, 1f);
+
+                        // 点击到地面，尝试让角色移动
+                        if (characterMoveAI != null)
+                            characterMoveAI.MoveToIfValid(hit.point);
                     }
 
                     activeFingerId = -1;
@@ -150,7 +196,7 @@ public class Character : MonoBehaviour
         return results.Count > 0;
     }
 
-    private void ChangeShowingOfCharacterUI()
+    public void ChangeShowingOfCharacterUI()
     {
         // 去抖，避免极短时间内重复触发
         if (Time.unscaledTime - lastToggleTime < ToggleCooldown)
@@ -169,4 +215,6 @@ public class Character : MonoBehaviour
             cameraFocus.ResetCamera();
         }
     }
+
+
 }

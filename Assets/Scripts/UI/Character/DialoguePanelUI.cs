@@ -20,6 +20,7 @@ public class DialoguePanelUI : MonoBehaviour
         {
             { "{characterName}", character.Name },
             { "{appellation}", character.PlayerAppellation },
+            { "{playerAppellation}",character.PlayerAppellation},
             { "{characterPronoun}", character.Pronoun }
         };
 

@@ -22,6 +22,8 @@ public class BootSceneManager : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 30;
+        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         if (Instance != null) 
         { 
             Destroy(gameObject); 
@@ -151,7 +153,11 @@ public class BootSceneManager : MonoBehaviour
             case "SideHair": appearance.SideHairId = id; break;
             case "BackHair": appearance.BackHairId = id; break;
             case "Body": appearance.BodyId = id; break;
-            case "Eye": appearance.EyeId = id; break;
+            //case "Eye": appearance.EyeId = id; break;
+            case "LeftEye": appearance.LeftEyeId = id; break;
+            case "RightEye": appearance.RightEyeId = id; break;
+            case "LeftEyeBlanc": appearance.LeftEyeBlancId = id; break;
+            case "RightEyeBlanc": appearance.RightEyeBlancId = id; break;
             case "Clothes": appearance.ClothesId = id; break;
             case "HeadDeco1": appearance.HeadDeco1Id = id; break;
             case "HeadDeco2": appearance.HeadDeco2Id = id; break;
