@@ -264,9 +264,9 @@ public class CharacterData
                     SwitchState(HealthState.Dirty, false, notify);
             }
         }
-        else if ((HealthState == HealthState.Weak && Full >= 70)
-            || (HealthState == HealthState.Crazy && San >= 70)
-            || (HealthState == HealthState.Dirty && Clean >= 70))
+        else if ((HealthState == HealthState.Weak && Full >= 100)
+            || (HealthState == HealthState.Crazy && San >= 100)
+            || (HealthState == HealthState.Dirty && Clean >= 100))
         {
             if (notify) { 
                 SwitchState(HealthState.Normal, true);

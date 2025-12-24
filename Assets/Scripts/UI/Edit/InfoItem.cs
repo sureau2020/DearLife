@@ -10,6 +10,8 @@ public class InfoItem : MonoBehaviour
     [SerializeField] private Button editButton;
     [SerializeField] private string infoKey;
 
+    public event Action<string> EditCompleted;
+
     private bool isEditing = false;
 
     void Start()
@@ -38,6 +40,7 @@ public class InfoItem : MonoBehaviour
             {
                 BootSceneManager.Instance.SetInfo(infoKey, newValue);
                 valueText.text = newValue;
+                EditCompleted?.Invoke(valueText.text);
             }
             valueText.gameObject.SetActive(true);
             inputField.gameObject.SetActive(false);
