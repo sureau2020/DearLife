@@ -1,0 +1,576 @@
+[
+  {
+    "Id": "12345_fries",
+    "Name": "薯条",
+    "Description": "好吃的薯条\n饱食度+6\n好感度+3",
+    "ImagePath": "fries",
+    "Author": "12345",
+    "Price": 5,
+    "Type": "Food",
+    "Effect": {
+      "Full": 6,
+      "Love": 3
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003",
+      "12345_item_pizza_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_icecream",
+    "Name": "冰激凌",
+    "Description": "好吃的冰激凌\n饱食度+2\n好感度+4",
+    "ImagePath": "icecream",
+    "Author": "12345",
+    "Price": 7,
+    "Type": "Food",
+    "Effect": {
+      "Full": 2,
+      "Love": 4
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_002",
+      "12345_item_icecream_003",
+      "12345_item_icecream_004",
+      "12345_item_icecream_005"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_orange",
+    "Name": "橘子",
+    "Description": "橘色的圆形水果，挺甜的\n饱食度+2",
+    "ImagePath": "orange",
+    "Author": "12345",
+    "Price": 3,
+    "Type": "Food",
+    "Effect": {
+      "Full": 2
+    },
+    "Events": [
+      "12345_item_orange_001",
+      "12345_item_orange_002",
+      "12345_item_orange_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_orangejuice",
+    "Name": "橘子汁",
+    "Description": "橘子做的汁！\n饱食度+1\n好感度+1",
+    "ImagePath": "orangejuice",
+    "Author": "12345",
+    "Price": 3,
+    "Type": "Food",
+    "Effect": {
+      "Full": 1,
+      "Love": 1
+    },
+    "Events": [
+      "12345_item_orangejuice_001",
+      "12345_item_orangejuice_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_pear",
+    "Name": "梨",
+    "Description": "甜的水果\n饱食度+2",
+    "ImagePath": "pear",
+    "Author": "12345",
+    "Price": 3,
+    "Type": "Food",
+    "Effect": {
+      "Full": 2
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_pear_001",
+      "12345_item_orange_001",
+      "12345_item_icecream_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_pizza",
+    "Name": "披萨",
+    "Description": "美味多米诺披萨\n饱食度+10\n好感度+6",
+    "ImagePath": "pizza",
+    "Author": "12345",
+    "Price": 13,
+    "Type": "Food",
+    "Effect": {
+      "Full": 10,
+      "Love": 6
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_pizza_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_popcorn",
+    "Name": "爆米花",
+    "Description": "一大桶爆米花\n饱食度+5\n好感度+2",
+    "ImagePath": "popcorn",
+    "Author": "12345",
+    "Price": 8,
+    "Type": "Food",
+    "Effect": {
+      "Full": 5,
+      "Love": 2
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_pizza_001",
+      "12345_item_popcorn_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_ramen",
+    "Name": "牛肉拉面",
+    "Description": "正宗牛肉拉面\n饱食度+15",
+    "ImagePath": "ramen",
+    "Author": "12345",
+    "Price": 15,
+    "Type": "Food",
+    "Effect": {
+      "Full": 15
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_pizza_001",
+      "12345_item_ramen_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_rice",
+    "Name": "米饭",
+    "Description": "一碗热乎米饭\n饱食度+5",
+    "ImagePath": "rice",
+    "Author": "12345",
+    "Price": 3,
+    "Type": "Food",
+    "Effect": {
+      "Full": 5
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003",
+      "12345_item_rice_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_salad",
+    "Name": "沙拉",
+    "Description": "蔬菜拌水果\n饱食度+3\n好感度+3",
+    "ImagePath": "salad",
+    "Author": "12345",
+    "Price": 9,
+    "Type": "Food",
+    "Effect": {
+      "Full": 3,
+      "Love": 3
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_sandwitch",
+    "Name": "三明治",
+    "Description": "面包加牛肉和蔬菜\n饱食度+5",
+    "ImagePath": "sandwitch",
+    "Author": "12345",
+    "Price": 7,
+    "Type": "Food",
+    "Effect": {
+      "Full": 5
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003",
+      "12345_item_ramen_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_soup",
+    "Name": "紫菜汤",
+    "Description": "热乎的紫菜汤\n饱食度+2\n好感度+1",
+    "ImagePath": "soup",
+    "Author": "12345",
+    "Price": 5,
+    "Type": "Food",
+    "Effect": {
+      "Full": 2,
+      "Love": 1
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003",
+      "12345_item_orangejuice_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_vegesushi",
+    "Name": "素食寿司",
+    "Description": "牛油果寿司\n饱食度+1\n好感度+1",
+    "ImagePath": "vegesushi",
+    "Author": "12345",
+    "Price": 9,
+    "Type": "Food",
+    "Effect": {
+      "Full": 1,
+      "Love": 1
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_icecream_003",
+      "12345_item_vegesushi_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "12345_watermelon",
+    "Name": "西瓜",
+    "Description": "一片甜西瓜\n饱食度+4\n好感度+1",
+    "ImagePath": "watermelon",
+    "Author": "12345",
+    "Price": 6,
+    "Type": "Food",
+    "Effect": {
+      "Full": 4,
+      "Love": 1
+    },
+    "Events": [
+      "12345_item_icecream_001",
+      "12345_item_orange_001",
+      "12345_item_watermelon_001",
+      "12345_item_icecream_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_apple",
+    "Name": "苹果",
+    "Description": "脆甜的水果。\n饱腹值+2",
+    "ImagePath": "apple",
+    "Author": "yinxing",
+    "Price": 1,
+    "Type": "Food",
+    "Effect": {
+      "Full": 2
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_apple_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_bodylotion",
+    "Name": "润肤露",
+    "Description": "普通的擦脸保湿的护肤品\n清洁度+8",
+    "ImagePath": "bodylotion",
+    "Author": "yinxing",
+    "Price": 10,
+    "Type": "PersonalCare",
+    "Effect": {
+      "Clean": 8
+    },
+    "Events": [
+      "yinxing_item_general_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_book",
+    "Name": "书",
+    "Description": "一本会根据使用者变换内容的书，谁都能看得进去。\n理智值+10\n好感度+3",
+    "ImagePath": "book",
+    "Author": "yinxing",
+    "Price": 15,
+    "Type": "Gift",
+    "Effect": {
+      "San": 10,
+      "Love": 3
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_book_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_burger",
+    "Name": "汉堡",
+    "Description": "牛肉汉堡杠杠顶饿\n饱腹度+20",
+    "ImagePath": "burger",
+    "Author": "yinxing",
+    "Price": 15,
+    "Type": "Food",
+    "Effect": {
+      "Full": 20
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_burger_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_chicken",
+    "Name": "烤全鸡",
+    "Description": "新鲜出炉的五香大烤鸡！\n饱腹度+30",
+    "ImagePath": "chicken",
+    "Author": "yinxing",
+    "Price": 20,
+    "Type": "Food",
+    "Effect": {
+      "Full": 30
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_chocomilk",
+    "Name": "巧克力奶",
+    "Description": "巧克力味的牛奶，甜甜的，喝多了有点腻\n饱肚腹+5\n理智值+1",
+    "ImagePath": "chocomilk",
+    "Author": "yinxing",
+    "Price": 5,
+    "Type": "Food",
+    "Effect": {
+      "Full": 5,
+      "San": 1
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_chocomilk_001",
+      "yinxing_item_chocomilk_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_cup",
+    "Name": "马克杯",
+    "Description": "一个小巧精致漂亮的马克杯\n好感度+3\n清洁度+3",
+    "ImagePath": "cup",
+    "Author": "yinxing",
+    "Price": 10,
+    "Type": "Gift",
+    "Effect": {
+      "Clean": 3,
+      "Love": 3
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_drawing",
+    "Name": "一幅画",
+    "Description": "一幅画，呃，品味这种东西实在各不相同，对方或许有可能不喜欢？\n好感度+5",
+    "ImagePath": "drawing",
+    "Author": "yinxing",
+    "Price": 15,
+    "Type": "Gift",
+    "Effect": {
+      "Love": 5
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_drawing_001",
+      "yinxing_item_drawing_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_fish",
+    "Name": "烤鱼",
+    "Description": "特殊手段处理后的无刺香酥烤鱼，谁都会吃出这份用心\n饱腹度+7\n好感度+7",
+    "ImagePath": "fish",
+    "Author": "yinxing",
+    "Price": 17,
+    "Type": "Food",
+    "Effect": {
+      "Full": 7,
+      "Love": 7
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_fish_001",
+      "yinxing_item_fish_002",
+      "yinxing_item_fish_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_milktea",
+    "Name": "奶茶/果茶",
+    "Description": "每次购买都会随机获得一杯茶饮。\n饱腹值+5\n好感度+10",
+    "ImagePath": "milktea",
+    "Author": "yinxing",
+    "Price": 16,
+    "Type": "Food",
+    "Effect": {
+      "Full": 5,
+      "Love": 10
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_milktea_003",
+      "yinxing_item_milktea_001",
+      "yinxing_item_milktea_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_miqingji",
+    "Name": "迷情剂",
+    "Description": "别的世界薅过来的小药水，角色无论怎样都会中招。不过好像对大脑有损伤。\n好感度+50\n理智值-20",
+    "ImagePath": "miqingji",
+    "Author": "yinxing",
+    "Price": 20,
+    "Type": "Medicine",
+    "Effect": {
+      "San": -20,
+      "Love": 50
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_miqingji_002",
+      "yinxing_item_miqingji_001",
+      "yinxing_item_miqingji_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_news",
+    "Name": "新闻",
+    "Description": "几条角色原世界的新闻，很难弄来。\n理智值+12\n好感度+10",
+    "ImagePath": "news",
+    "Author": "yinxing",
+    "Price": 30,
+    "Type": "Gift",
+    "Effect": {
+      "San": 12,
+      "Love": 10
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002",
+      "yinxing_item_news_001",
+      "yinxing_item_news_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_plante",
+    "Name": "盆栽",
+    "Description": "随机一盆植物，无论是否喜欢，看了心情都会稍微变好一些？\n理智值+5",
+    "ImagePath": "plante",
+    "Author": "yinxing",
+    "Price": 5,
+    "Type": "Gift",
+    "Effect": {
+      "San": 5
+    },
+    "Events": [
+      "yinxing_item_general_001",
+      "yinxing_item_general_002"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_shampoo",
+    "Name": "洗发水",
+    "Description": "薄荷味洗发水，去油效果蛮好\n清洁度+20",
+    "ImagePath": "shampoo",
+    "Author": "yinxing",
+    "Price": 17,
+    "Type": "PersonalCare",
+    "Effect": {
+      "Clean": 20
+    },
+    "Events": [
+      "yinxing_item_general_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_soap",
+    "Name": "香皂",
+    "Description": "青苹果味的香皂。等等其实清洁度没有细分，一直用洗发水和一直用香皂是一样的吧！？\n清洁度+10",
+    "ImagePath": "soap",
+    "Author": "yinxing",
+    "Price": 10,
+    "Type": "PersonalCare",
+    "Effect": {
+      "Clean": 10
+    },
+    "Events": [
+      "yinxing_item_general_001"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_yingyangye",
+    "Name": "营养液",
+    "Description": "一大桶难喝且诡异的液体，从██████得来，主要用?于████\n█饱█度+30\n理██值-5\n好感度-10",
+    "ImagePath": "yingyangye",
+    "Author": "yinxing",
+    "Price": 15,
+    "Type": "Food",
+    "Effect": {
+      "Full": 30,
+      "San": -5,
+      "Love": -10
+    },
+    "Events": [
+      "yinxing_item_yingyangye_001",
+      "yinxing_item_yingyangye_002",
+      "yinxing_item_yingyangye_003"
+    ],
+    "FilteredEventIds": []
+  },
+  {
+    "Id": "yinxing_zhendingji",
+    "Name": "镇定剂",
+    "Description": "能让人暂时冷静……或麻木下来的药剂。\n理智值+40\n好感度-5",
+    "ImagePath": "zhendingji",
+    "Author": "yinxing",
+    "Price": 30,
+    "Type": "Medicine",
+    "Effect": {
+      "San": 40,
+      "Love": -5
+    },
+    "Events": [
+      "yinxing_item_generalsilence_001"
+    ],
+    "FilteredEventIds": []
+  }
+]

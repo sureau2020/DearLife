@@ -14,7 +14,13 @@ public class BottomButton : MonoBehaviour
 
     public void Toggle()
     {
-        objectToShow.SetActive(!objectToShow.activeSelf);
+        if (objectToShow.activeSelf)
+        {
+            objectToShow.GetComponent<AnimationWhenDisable>()?.HideAndDisable();
+        }
+        else {
+            objectToShow.SetActive(true);
+        }
     }
 
     public void HideOther() { 

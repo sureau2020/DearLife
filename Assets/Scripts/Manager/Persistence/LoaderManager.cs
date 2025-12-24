@@ -1,17 +1,16 @@
-using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public static class LoaderManager
 {
-    private const string EventsIndexFile = "GameData/events_index.json";
-    private const string ItemsIndexFile = "GameData/items_index.json";
-    private const string EventsFolder = "GameData/Events";
-    private const string ItemsFolder = "GameData/Items";
+    private const string EventsListFile = "GameData/all_events_list.json";
+    private const string ItemsListFile = "GameData/all_items_list.json";
 
     private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
     {
@@ -59,25 +58,135 @@ public static class LoaderManager
         yield return LoadItems();
     }
 
+
     private static IEnumerator LoadEvents()
     {
-        yield return LoadByIndex(EventsIndexFile, EventsFolder, (json) =>
+        string relativePath = EventsListFile;
+        string fullPath = Path.Combine(Application.streamingAssetsPath, relativePath);
+        string json = null;
+
+#if UNITY_ANDROID || UNITY_IOS
+        using (UnityWebRequest www = UnityWebRequest.Get(fullPath))
         {
-            EventData data = JsonConvert.DeserializeObject<EventData>(json, JsonSettings);
-            if (data != null) EventDataBase.AddEvent(data);
-        });
-        Debug.Log("事件加载完成");
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                json = www.downloadHandler.text;
+            }
+            else
+            {
+                Debug.LogError($"加载事件文件失败: {fullPath}  错误: {www.error}");
+                yield break;
+            }
+        }
+#else
+        if (!File.Exists(fullPath))
+        {
+            Debug.LogError($"找不到事件文件: {fullPath}");
+            yield break;
+        }
+
+        try
+        {
+            json = File.ReadAllText(fullPath);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"读取事件文件失败: {ex.Message}");
+            yield break;
+        }
+#endif
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            Debug.LogError("all_events_list.json 内容为空");
+            yield break;
+        }
+        try
+        {
+            var events = JsonConvert.DeserializeObject<List<EventData>>(json, JsonSettings);
+            foreach (var ev in events)
+            {
+                if (ev != null) EventDataBase.AddEvent(ev);
+            }
+
+            Debug.Log($"事件加载完成，共 {events.Count} 条");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"解析 all_events_list.json 失败: {ex.Message}");
+        }
+
+        yield break;
     }
 
     private static IEnumerator LoadItems()
     {
-        yield return LoadByIndex(ItemsIndexFile, ItemsFolder, (json) =>
-        {
-            ItemData data = JsonConvert.DeserializeObject<ItemData>(json, JsonSettings);
-            if (data != null) ItemDataBase.AddItem(data);
-        });
-        Debug.Log("物品加载完成");
+        string relativePath = ItemsListFile;
+        string fullPath = Path.Combine(Application.streamingAssetsPath, relativePath);
+        string json = null;
 
+#if UNITY_ANDROID || UNITY_IOS
+        using (UnityWebRequest www = UnityWebRequest.Get(fullPath))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                json = www.downloadHandler.text;
+            }
+            else
+            {
+                Debug.LogError($"加载物品文件失败: {fullPath}  错误: {www.error}");
+                yield break;
+            }
+        }
+#else
+        if (!File.Exists(fullPath))
+        {
+            Debug.LogError($"找不到物品文件: {fullPath}");
+            yield break;
+        }
+
+        try
+        {
+            json = File.ReadAllText(fullPath);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"读取物品文件失败: {ex.Message}");
+            yield break;
+        }
+#endif
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            Debug.LogError("all_items_list.json 内容为空");
+            yield break;
+        }
+
+        try
+        {
+            var items = JsonConvert.DeserializeObject<List<ItemData>>(json, JsonSettings);
+            if (items == null)
+            {
+                Debug.LogError("解析 all_items_list.json 失败：不是 ItemData 数组格式");
+                yield break;
+            }
+
+            foreach (var item in items)
+            {
+                if (item != null) ItemDataBase.AddItem(item);
+            }
+
+            Debug.Log($"物品加载完成，共 {items.Count} 件");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"解析 all_items_list.json 失败: {ex.Message}");
+        }
+
+        yield break;
     }
 
     private static IEnumerator LoadByIndex(string indexFile, string folder, System.Action<string> onJsonLoaded)

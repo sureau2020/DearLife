@@ -7,7 +7,7 @@
   "Price": 5,
   "Type": "Gift",
   "Effect": {
-    "San": 5,
+    "San": 5
   },
   "Events": [
     "yinxing_item_general_001",

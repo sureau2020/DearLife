@@ -9,9 +9,9 @@
     "node_1": {
       "$type": "DialogueNode",
       "Id": "node_1",
-      "NextNodeId": "null",
+      "NextNodeId": null,
       "speakerName": "{characterName}",
       "dialogueText": "吃起来像烧焦的木炭"
-    },
+    }
   }
 }

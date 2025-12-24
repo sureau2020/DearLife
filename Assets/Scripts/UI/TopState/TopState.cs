@@ -1,6 +1,7 @@
 
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class TopState : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class TopState : MonoBehaviour
     [SerializeField] private StatusBar san;
     [SerializeField] private TextMeshProUGUI money;
     [SerializeField] private StatusBar love;
+    private int yOffset = 610;
+    private float slideInDuration = 0.5f;
     private StateManager stateManager;
+    private RectTransform rectTransform;
 
     // Start is called before the first frame update
     void Start()
     {
+        rectTransform = GetComponent<RectTransform>();
         stateManager = GameManager.Instance.StateManager;
         stateManager.Character.OnCharacterStateChanged += OnCharacterStateChangedHandler;
         stateManager.Player.OnMoneyChanged += OnMoneyChangedHandler;
@@ -27,7 +32,13 @@ public class TopState : MonoBehaviour
         clean.UpdateBar(stateManager.Character.Clean);
         san.UpdateBar(stateManager.Character.San);
         money.text = stateManager.Player.Money.ToString();
-        love.UpdateLoveBar(stateManager.Character.Love); 
+        love.UpdateLoveBar(stateManager.Character.Love);
+        if (rectTransform != null)
+        {
+            Vector2 cur = rectTransform.anchoredPosition;
+            rectTransform.anchoredPosition = new Vector2(cur.x, yOffset);
+            rectTransform.DOAnchorPosY(30f, slideInDuration).SetEase(Ease.OutCubic);
+        }
     }
 
     void OnDestroy()
