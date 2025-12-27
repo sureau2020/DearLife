@@ -78,7 +78,7 @@
     <Compile Include="Assets\Scripts\GameObject\CharacterBreatheComponent.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\ApparenceComponent.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
-    <Compile Include="Assets\Scripts\Manager\ErrorUIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Setting\ResetMoney.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
     <Compile Include="Assets\CoroutineRunner.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\FinalConfirmEditButton.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\DialogueNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraController.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\InfoInputAnimator.cs" />
+    <Compile Include="Assets\Scripts\UI\ConfirmPanel.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ConditionNode.cs" />
     <Compile Include="Assets\Scripts\Manager\TaskManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Assets\Scripts\Notification\CharacterStat.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
+    <Compile Include="Assets\Scripts\Manager\PromptPanelUIManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\StatusBar.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow1.cs" />
     <Compile Include="Assets\Scripts\UI\Character\ItemUI.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Manager\ConfirmRequestManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\NodeExecResult.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
     <Compile Include="Assets\Scripts\Manager\DialogueManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
+    <Compile Include="Assets\Scripts\GameObject\CharacterTouchAnimation.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterMoveAI.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenDisable.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputTaskPanel.cs" />

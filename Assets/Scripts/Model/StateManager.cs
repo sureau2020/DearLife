@@ -203,6 +203,11 @@ public class StateManager
         return Player.Items;
     }
 
+    public void Resetmoney()
+    {
+        Player.ResetMoney();
+    }
+
     // ±£´æµ±Ç°×´Ì¬
     public OperationResult SaveState()
     {

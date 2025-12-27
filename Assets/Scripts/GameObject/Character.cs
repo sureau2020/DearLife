@@ -1,104 +1,106 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-// ´ú±íÆÁÄ»ÉÏÏÔÊ¾µÄ½ÇÉ«£¬´¦ÀíÏÔÊ¾µÄÏà¹ØÂß¼­
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ä½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject characterUI;
     [SerializeField] private CameraFocus cameraFocus;
     [SerializeField] private CharacterMoveAI characterMoveAI;
+    [SerializeField] private CharacterTouchAnimation touchAnimation;
     [SerializeField] private Closet closet;
     [SerializeField] private GameObject clickEffectPrefab;
 
-    private float z=0.3f; 
+    private float z = 0.3f;
 
-    private bool touchHandled = false; 
+    private bool touchHandled = false;
     private float lastToggleTime = -999f;
     private const float ToggleCooldown = 0.2f;
 
-    // ÊÖÊÆÅÐ¶¨
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
     private Vector2 touchStartPos;
     private float touchStartTime;
     private int activeFingerId = -1;
     private bool isDragging = false;
-    private float dragThresholdPixels = 20f;   // ¸ù¾ÝdpiÔÚAwakeÀï×ÔÊÊÓ¦
-    private const float TapMaxDuration = 0.3f; // ×î³¤µã»÷Ê±³¤
+    private float dragThresholdPixels = 20f;   // ï¿½ï¿½ï¿½ï¿½dpiï¿½ï¿½Awakeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
+    private const float TapMaxDuration = 0.3f; // ï¿½î³¤ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
     void Awake()
     {
-        // ½ûÖ¹´¥ÃþÄ£ÄâÊó±ê£¬±ÜÃâÊÖ»úÒ»´Î´¥Ãþ´¥·¢Êó±êÊÂ¼þ
+        // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ò»ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
         Input.simulateMouseWithTouches = false;
 
-        // ×ÔÊÊÓ¦ÏñËØãÐÖµ£¨Ô¼0.15Ó¢´ç£©£¬µÍdpiÊ±ÖÁÉÙ20px
+        // ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ô¼0.15Ó¢ï¿½ç£©ï¿½ï¿½ï¿½ï¿½dpiÊ±ï¿½ï¿½ï¿½ï¿½20px
         if (Screen.dpi > 0)
         {
             dragThresholdPixels = Mathf.Max(20f, Screen.dpi * 0.15f);
         }
     }
 
-    void Update() {
+    void Update()
+    {
 
-#if UNITY_ANDROID || UNITY_IOS
-        if (!closet.isActiveAndEnabled)
-        {
-            CheckTouch();
-        }
-#else
-        //×ÀÃæ¶Ë£º´¦ÀíÊó±êÓë´¥Ãþ
+//#if UNITY_ANDROID || UNITY_IOS
+//        if (!closet.isActiveAndEnabled)
+//        {
+//            CheckTouch();
+//        }
+//#else
+        //ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë´¥ï¿½ï¿½
         if (!closet.isActiveAndEnabled) {
             CheckClick();
             //        CheckTouch();
         }
 
-#endif
+//#endif
     }
 
     private void CheckClick()
     {
-        // Èç¹ûµ±Ç°Éè±¸Ö§³Ö´¥Ãþ£¬Ôò²»×ßÊó±êÂ·¾¶£¬·ÀÖ¹ÖØ¸´
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½è±¸Ö§ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Ø¸ï¿½
         if (Application.isMobilePlatform || Input.touchSupported)
             return;
 
         if (Input.GetMouseButtonUp(0))
         {
-            // ÑÏ¸ñµÄ UI ÃüÖÐ¼ì²â£ºÓÐÈÎºÎ UI ÃüÖÐ¾Í·µ»Ø
+            // ï¿½Ï¸ï¿½ï¿½ UI ï¿½ï¿½ï¿½Ð¼ï¿½â£ºï¿½ï¿½ï¿½Îºï¿½ UI ï¿½ï¿½ï¿½Ð¾Í·ï¿½ï¿½ï¿½
             if (IsPointerOverUIStrict(Input.mousePosition))
                 return;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // 1. ÏÈ¼ì²â½ÇÉ«±¾Éí
+            // 1. ï¿½È¼ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.transform == transform)
                 {
                     ChangeShowingOfCharacterUI();
-                    return; // ÒÑ´¦Àíµã»÷½ÇÉ«£¬Ö±½Ó·µ»Ø
+                    return; // ï¿½Ñ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
                 }
             }
 
-            // 2. ÔÙ¼ì²âµØÃæ
+            // 2. ï¿½Ù¼ï¿½ï¿½ï¿½ï¿½ï¿½
             if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
             {
                 Vector3 pos = Input.mousePosition;
-                pos.z = this.z; // Ïà»úµ½½ÇÉ«µÄ¾àÀë
-                
+                pos.z = this.z; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½Ä¾ï¿½ï¿½ï¿½
+
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
 
-                // Éú³ÉÌØÐ§
-                GameObject effect = Instantiate(clickEffectPrefab, worldPos,Quaternion.identity);
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+                GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
 
-                // ×Ô¶¯Ïú»Ù£¨Á£×Ó²¥·ÅÍê¾ÍÏûÊ§£©
+                // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ù£ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
                 Destroy(effect, 1f);
-                // µã»÷µ½µØÃæ£¬³¢ÊÔÈÃ½ÇÉ«ÒÆ¶¯
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½É«ï¿½Æ¶ï¿½
                 if (characterMoveAI != null)
                     characterMoveAI.MoveToIfValid(hit.point);
             }
         }
     }
 
-    // ´¥ÆÁµ¥»÷£¨´øÊÖÊÆÇø·Ö£©
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½
     private void CheckTouch()
     {
         if (Input.touchCount == 1)
@@ -117,24 +119,24 @@ public class Character : MonoBehaviour
             {
                 if (touch.phase == TouchPhase.Moved && !isDragging)
                 {
-                    // ³¬¹ýãÐÖµÅÐ¶¨ÎªÍÏ¶¯
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ð¶ï¿½Îªï¿½Ï¶ï¿½
                     if (Vector2.Distance(touchStartPos, touch.position) > dragThresholdPixels)
                     {
-                        isDragging = true; // ±ê¼ÇÎª»¬¶¯£¬½»¸øÏà»úÈ¥´¦Àí
+                        isDragging = true; // ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½
                     }
                 }
                 else if (touch.phase == TouchPhase.Ended && !touchHandled)
                 {
                     touchHandled = true;
 
-                    // ÑÏ¸ñµÄ UI ÃüÖÐ¼ì²â£ºÓÐÈÎºÎ UI ÃüÖÐ¾Í·µ»Ø£¨²»ÔÊÐí´©Í¸£©
+                    // ï¿½Ï¸ï¿½ï¿½ UI ï¿½ï¿½ï¿½Ð¼ï¿½â£ºï¿½ï¿½ï¿½Îºï¿½ UI ï¿½ï¿½ï¿½Ð¾Í·ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½
                     if (IsPointerOverUIStrict(touch.position))
                     {
                         activeFingerId = -1;
                         return;
                     }
 
-                    // Ö»ÓÐ¶ÌÊ±ÇÒÎ»ÒÆÐ¡²ÅËãµã»÷
+                    // Ö»ï¿½Ð¶ï¿½Ê±ï¿½ï¿½Î»ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     bool isTap = !isDragging &&
                                  (Time.unscaledTime - touchStartTime <= TapMaxDuration) &&
                                  (Vector2.Distance(touchStartPos, touch.position) <= dragThresholdPixels);
@@ -142,7 +144,7 @@ public class Character : MonoBehaviour
                     if (!isTap)
                     {
                         activeFingerId = -1;
-                        return; // »¬¶¯/³¤°´Ò»ÂÉ²»´¥·¢µã»÷
+                        return; // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ò»ï¿½É²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     }
 
                     Ray ray = Camera.main.ScreenPointToRay(touch.position);
@@ -151,20 +153,20 @@ public class Character : MonoBehaviour
                         if (hit.transform == transform)
                         {
                             ChangeShowingOfCharacterUI();
-                            return; // ÒÑ´¦Àíµã»÷½ÇÉ«£¬Ö±½Ó·µ»Ø
+                            return; // ï¿½Ñ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
                         }
                     }
 
-                    // 2. ÔÙ¼ì²âµØÃæ
+                    // 2. ï¿½Ù¼ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
                     {
                         Vector3 pos = Input.mousePosition;
-                        pos.z = this.z; 
+                        pos.z = this.z;
                         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
                         GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
                         Destroy(effect, 1f);
 
-                        // µã»÷µ½µØÃæ£¬³¢ÊÔÈÃ½ÇÉ«ÒÆ¶¯
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½É«ï¿½Æ¶ï¿½
                         if (characterMoveAI != null)
                             characterMoveAI.MoveToIfValid(hit.point);
                     }
@@ -175,14 +177,14 @@ public class Character : MonoBehaviour
         }
         else
         {
-            // ·Çµ¥Ö¸£¬ÖØÖÃ×´Ì¬
+            // ï¿½Çµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             activeFingerId = -1;
             touchHandled = false;
             isDragging = false;
         }
     }
 
-    // Ê¹ÓÃ UI Í¼ÐÎÉäÏß£¬ÑÏ¸ñÅÐ¶¨¡°ÊÇ·ñ±»ÈÎÒâUIÕÚµ²"
+    // Ê¹ï¿½ï¿½ UI Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½Ï¸ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½Úµï¿½"
     private bool IsPointerOverUIStrict(Vector2 screenPosition)
     {
         if (EventSystem.current == null) return false;
@@ -198,7 +200,6 @@ public class Character : MonoBehaviour
 
     public void ChangeShowingOfCharacterUI()
     {
-        // È¥¶¶£¬±ÜÃâ¼«¶ÌÊ±¼äÄÚÖØ¸´´¥·¢
         if (Time.unscaledTime - lastToggleTime < ToggleCooldown)
             return;
         lastToggleTime = Time.unscaledTime;
@@ -211,10 +212,17 @@ public class Character : MonoBehaviour
         }
         else
         {
-            characterUI.SetActive(false);
-            cameraFocus.ResetCamera();
+            TouchCharacter();
         }
     }
 
+    public void TouchCharacter() { 
+        touchAnimation.ShowTouchAnimation();
+    }
 
+    public void CloseCharacterUI()
+    {
+        characterUI.SetActive(false);
+        cameraFocus.ResetCamera();
+    }
 }

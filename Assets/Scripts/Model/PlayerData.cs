@@ -106,6 +106,14 @@ public class PlayerData
         OnMoneyChanged?.Invoke(Money);
     }
 
+    // 钱归零,通知更新状态
+    public void ResetMoney()
+    {
+        Money = 0;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        OnMoneyChanged?.Invoke(Money);
+    }
+
 
     // 拿去玩家背包里的物品，扣除数量，返回操作结果
     public OperationResult UseItem(string itemId, int quantity)
