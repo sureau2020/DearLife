@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System;
 
-// ������Ļ����ʾ�Ľ�ɫ��������ʾ������߼�
+
 public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject characterUI;
@@ -11,6 +12,7 @@ public class Character : MonoBehaviour
     [SerializeField] private CharacterTouchAnimation touchAnimation;
     [SerializeField] private Closet closet;
     [SerializeField] private GameObject clickEffectPrefab;
+    public static Action recordOpenEyes;
 
     private float z = 0.3f;
 
@@ -18,20 +20,18 @@ public class Character : MonoBehaviour
     private float lastToggleTime = -999f;
     private const float ToggleCooldown = 0.2f;
 
-    // �����ж�
     private Vector2 touchStartPos;
     private float touchStartTime;
     private int activeFingerId = -1;
     private bool isDragging = false;
-    private float dragThresholdPixels = 20f;   // ����dpi��Awake������Ӧ
-    private const float TapMaxDuration = 0.3f; // ����ʱ��
+    private float dragThresholdPixels = 20f;  
+    private const float TapMaxDuration = 0.3f;
+
 
     void Awake()
     {
-        // ��ֹ����ģ����꣬�����ֻ�һ�δ�����������¼�
         Input.simulateMouseWithTouches = false;
 
-        // ����Ӧ������ֵ��Լ0.15Ӣ�磩����dpiʱ����20px
         if (Screen.dpi > 0)
         {
             dragThresholdPixels = Mathf.Max(20f, Screen.dpi * 0.15f);
@@ -47,7 +47,6 @@ public class Character : MonoBehaviour
 //            CheckTouch();
 //        }
 //#else
-        //����ˣ���������봥��
         if (!closet.isActiveAndEnabled) {
             CheckClick();
             //        CheckTouch();
@@ -58,49 +57,41 @@ public class Character : MonoBehaviour
 
     private void CheckClick()
     {
-        // �����ǰ�豸֧�ִ������������·������ֹ�ظ�
         if (Application.isMobilePlatform || Input.touchSupported)
             return;
 
         if (Input.GetMouseButtonUp(0))
         {
-            // �ϸ�� UI ���м�⣺���κ� UI ���оͷ���
             if (IsPointerOverUIStrict(Input.mousePosition))
                 return;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // 1. �ȼ���ɫ����
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.transform == transform)
                 {
                     ChangeShowingOfCharacterUI();
-                    return; // �Ѵ��������ɫ��ֱ�ӷ���
+                    return;
                 }
             }
 
-            // 2. �ټ�����
             if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
             {
                 Vector3 pos = Input.mousePosition;
-                pos.z = this.z; // �������ɫ�ľ���
+                pos.z = this.z; 
 
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
 
-                // ������Ч
                 GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
 
-                // �Զ����٣����Ӳ��������ʧ��
                 Destroy(effect, 1f);
-                // ��������棬�����ý�ɫ�ƶ�
                 if (characterMoveAI != null)
                     characterMoveAI.MoveToIfValid(hit.point);
             }
         }
     }
 
-    // �������������������֣�
     private void CheckTouch()
     {
         if (Input.touchCount == 1)
@@ -119,24 +110,21 @@ public class Character : MonoBehaviour
             {
                 if (touch.phase == TouchPhase.Moved && !isDragging)
                 {
-                    // ������ֵ�ж�Ϊ�϶�
                     if (Vector2.Distance(touchStartPos, touch.position) > dragThresholdPixels)
                     {
-                        isDragging = true; // ���Ϊ�������������ȥ����
+                        isDragging = true; 
                     }
                 }
                 else if (touch.phase == TouchPhase.Ended && !touchHandled)
                 {
                     touchHandled = true;
 
-                    // �ϸ�� UI ���м�⣺���κ� UI ���оͷ��أ���������͸��
                     if (IsPointerOverUIStrict(touch.position))
                     {
                         activeFingerId = -1;
                         return;
                     }
 
-                    // ֻ�ж�ʱ��λ��С������
                     bool isTap = !isDragging &&
                                  (Time.unscaledTime - touchStartTime <= TapMaxDuration) &&
                                  (Vector2.Distance(touchStartPos, touch.position) <= dragThresholdPixels);
@@ -144,7 +132,7 @@ public class Character : MonoBehaviour
                     if (!isTap)
                     {
                         activeFingerId = -1;
-                        return; // ����/����һ�ɲ��������
+                        return;
                     }
 
                     Ray ray = Camera.main.ScreenPointToRay(touch.position);
@@ -153,11 +141,10 @@ public class Character : MonoBehaviour
                         if (hit.transform == transform)
                         {
                             ChangeShowingOfCharacterUI();
-                            return; // �Ѵ��������ɫ��ֱ�ӷ���
+                            return; 
                         }
                     }
 
-                    // 2. �ټ�����
                     if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
                     {
                         Vector3 pos = Input.mousePosition;
@@ -166,7 +153,6 @@ public class Character : MonoBehaviour
                         GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
                         Destroy(effect, 1f);
 
-                        // ��������棬�����ý�ɫ�ƶ�
                         if (characterMoveAI != null)
                             characterMoveAI.MoveToIfValid(hit.point);
                     }
@@ -177,14 +163,12 @@ public class Character : MonoBehaviour
         }
         else
         {
-            // �ǵ�ָ������״̬
             activeFingerId = -1;
             touchHandled = false;
             isDragging = false;
         }
     }
 
-    // ʹ�� UI ͼ�����ߣ��ϸ��ж����Ƿ�����UI�ڵ�"
     private bool IsPointerOverUIStrict(Vector2 screenPosition)
     {
         if (EventSystem.current == null) return false;
@@ -207,13 +191,19 @@ public class Character : MonoBehaviour
         SoundManager.Instance.PlaySfx("Type");
         if (!characterUI.activeSelf)
         {
-            characterUI.SetActive(true);
-            cameraFocus.FocusOnTarget();
+            OpenCharacterUI();
         }
         else
         {
             TouchCharacter();
         }
+    }
+
+    private void OpenCharacterUI()
+    {
+        recordOpenEyes?.Invoke();
+        characterUI.SetActive(true);
+        cameraFocus.FocusOnTarget();
     }
 
     public void TouchCharacter() { 

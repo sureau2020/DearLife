@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class CharacterTouchAnimation : MonoBehaviour
 {
     [SerializeField] private CharacterBreatheComponent breatheComponent;
+    [SerializeField] private SpriteRenderer leftEyeRenderer;
+    [SerializeField] private SpriteRenderer rightEyeRenderer;
+    [SerializeField] private SpriteRenderer leftEyeBlancRenderer;
+    [SerializeField] private SpriteRenderer rightEyeBlancRenderer;
+
+    private Sprite leftCloseEye;
+    private Sprite rightCloseEye;
+    private Sprite leftOpenEye;
+    private Sprite rightOpenEye;
 
     private float squashYScale = 0.8f;   
     private float stretchXScale = 1.1f; 
@@ -19,16 +29,39 @@ public class CharacterTouchAnimation : MonoBehaviour
     private Vector3 originScale;
     private Quaternion originRotation;
 
-    private void Awake()
+    void Awake()
     {
         originScale = transform.localScale;
         originRotation = transform.localRotation;
+        Character.recordOpenEyes += RecordEye;
     }
+
+    void OnDestroy()
+    {
+        Character.recordOpenEyes -= RecordEye;
+    }
+
+    void Start()
+    {
+        leftCloseEye = AppearanceAtlasManager.Instance.GetPartSprite("LeftEye", 5);
+        rightCloseEye = AppearanceAtlasManager.Instance.GetPartSprite("RightEye", 5);
+    }
+
+    public void RecordEye()
+    {
+        if (leftEyeRenderer != null)
+            leftOpenEye = leftEyeRenderer.sprite;
+        if (rightEyeRenderer != null)
+            rightOpenEye = rightEyeRenderer.sprite;
+    }
+
 
     public void ShowTouchAnimation()
     {
         transform.DOKill();
 
+        SoundManager.Instance.PlaySfx("ShortShake");
+        CloseEye();
 
         if (transform.localScale.x > 0)
         {
@@ -81,8 +114,34 @@ public class CharacterTouchAnimation : MonoBehaviour
 
         seq.OnComplete(() =>
         {
+            OpenEye();
             if (breatheComponent != null)
                 breatheComponent.SetBreathing(true);
         });
+    }
+
+    private void CloseEye()
+    {
+        if (leftEyeRenderer != null)
+            leftEyeRenderer.sprite = leftCloseEye;
+        if (rightEyeRenderer != null)
+            rightEyeRenderer.sprite = rightCloseEye;
+        if (leftEyeBlancRenderer != null)
+            leftEyeBlancRenderer.enabled = false;
+        if (rightEyeBlancRenderer != null)
+            rightEyeBlancRenderer.enabled = false;
+    }
+
+    private void OpenEye()
+    {
+        if (leftEyeRenderer != null)
+            leftEyeRenderer.sprite = leftOpenEye;
+        if (rightEyeRenderer != null)
+            rightEyeRenderer.sprite = rightOpenEye;
+        if (leftEyeBlancRenderer != null)
+            leftEyeBlancRenderer.enabled = true;
+        if (rightEyeBlancRenderer != null)
+            rightEyeBlancRenderer.enabled = true;
+
     }
 }

@@ -111,6 +111,7 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Character\PanelChanger.cs" />
     <Compile Include="Assets\Scripts\UI\Store\UISlider.cs" />
     <Compile Include="Assets\Scripts\UI\Choice\ChoicesUI.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\DialogueRunner.cs" />

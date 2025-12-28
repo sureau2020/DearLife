@@ -25,6 +25,7 @@ public class CharacterAppearanceRenderer : MonoBehaviour
         LoadAndApplyAppearance();
     }
 
+
     /// <summary>
     /// 加载并应用外观
     /// </summary>
