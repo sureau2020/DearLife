@@ -67,8 +67,8 @@
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenEnable.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterTrack.cs" />
     <Compile Include="Assets\Scripts\UI\Character\InfoUI.cs" />
-    <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TextTrack.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
     <Compile Include="Assets\Scripts\Notification\CharacterStatsManager.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\TypeButton.cs" />
@@ -144,8 +144,8 @@
     <Compile Include="Assets\Scripts\UI\TopState\StatusBar.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Clock.cs" />
-    <Compile Include="Assets\Scripts\UI\Edit\ApparenceNameUpdater.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\Edit\ApparenceNameUpdater.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterBehaviour.cs" />
     <Compile Include="Assets\Scripts\UI\Closet\ClothList.cs" />
@@ -169,9 +169,9 @@
     <Compile Include="Assets\Scripts\GameObject\CharacterAppearanceRenderer.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Special\Rainbow.cs" />
+    <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\InfoItem.cs" />
-    <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Character.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraFocus.cs" />

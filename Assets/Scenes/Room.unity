@@ -37353,7 +37353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7248\u672C\uFF1A0.7.3"
+  m_text: "\u7248\u672C\uFF1A0.7.9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fd456a17277d1c42a549978ca4cbffb, type: 2}
   m_sharedMaterial: {fileID: -1379051198562277387, guid: 8fd456a17277d1c42a549978ca4cbffb,
