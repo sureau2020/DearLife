@@ -18,9 +18,12 @@ public class TaskManagerModel
     private Dictionary<string, MonthMissionData> monthMap = new();
 
     private List<RecurringMissionData> recurringMissionDatas = new();
-    private List<RecurringMissionData> archivedRecurringMissionDatas = new();
-    //TODO 刚加archived
 
+    public void DeleteRecurringMissionData(RecurringMissionData mission)
+    {
+        recurringMissionDatas.Remove(mission);
+        _ = SaveRecurringMissionDatas();
+    }
 
     public List<RecurringMissionData> GetRecurringMissionDatas()
     {
@@ -41,10 +44,6 @@ public class TaskManagerModel
         }
     }
 
-    public OperationResult SaveRecurringMissionDatas()
-    {
-        return SaveManager.SaveRecurringMissions(recurringMissionDatas);
-    }
 
     // 加载月份
     public MonthMissionData GetMonth(string month)
@@ -71,6 +70,20 @@ public class TaskManagerModel
             
             monthMap[month] = newMonth;
             return newMonth;
+        }
+    }
+
+
+    public async System.Threading.Tasks.Task<OperationResult> SaveRecurringMissionDatas()
+    {
+        try
+        {
+            var result = await SaveManager.SaveRecurringMissionsAsync(recurringMissionDatas);
+            return result ?? OperationResult.Fail("保存返回了空结果。");
+        }
+        catch (Exception ex)
+        {
+            return OperationResult.Fail($"保存例行任务失败: {ex.Message}");
         }
     }
 

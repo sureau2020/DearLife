@@ -289,6 +289,23 @@ public static class SaveManager
         }
     }
 
+    public static async System.Threading.Tasks.Task<OperationResult> SaveRecurringMissionsAsync(List<RecurringMissionData> missions)
+    {
+        try
+        {
+            string json = await ThreadingTask.Run(() => JsonConvert.SerializeObject(missions, JsonSettings));
+            string filePath = Path.Combine(TaskDataFolder, "recurring_missions.json");
+            await File.WriteAllTextAsync(filePath, json);
+            Debug.Log($"异步保存循环任务数据到 {filePath}");
+            return OperationResult.Complete();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"异步保存循环任务失败：{ex.Message}");
+            return OperationResult.Fail($"保存失败：{ex.Message}");
+        }
+    }
+
     // 异步保存单个月份数据
     public static async System.Threading.Tasks.Task<OperationResult> SaveMonthTasksAsync(MonthMissionData monthData)
     {
@@ -311,6 +328,8 @@ public static class SaveManager
     {
         try
         {
+            if (!Directory.Exists(TaskDataFolder))
+                Directory.CreateDirectory(TaskDataFolder);
             string filePath = Path.Combine(TaskDataFolder, "recurring_missions.json");
             if (!File.Exists(filePath))
             {
@@ -385,6 +404,7 @@ public static class SaveManager
             return OperationResult.Fail($"保存失败：{ex.Message}");
         }
     }
+
 
     // 异步保存所有已加载的月份数据
     public static async System.Threading.Tasks.Task<OperationResult> SaveAllMonthTasksAsync(Dictionary<string, MonthMissionData> monthMap)

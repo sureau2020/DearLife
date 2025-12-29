@@ -13,6 +13,9 @@ public class MissionData
     public bool IsCompleted { get; set; }
     public bool HasDeadline { get; set; }
 
+    public string SourceRecurringId { get; set; } // nullable，如果是从重复任务生成的任务，这里存储源任务的ID
+
+
     // REQUIRE: 0 <= duration,dificulty <= 4; 若有deadline > DateTime.Now;若没有deadline就传入DateTime.MinValue； title != null
     // 修改构造函数
     public MissionData(string title, DateTime deadline, float duration, float difficulty, DateTime belongsToDate)
@@ -33,6 +36,13 @@ public class MissionData
         Duration = duration;
         Difficulty = difficulty;
         IsCompleted = false;
+    }
+
+    public MissionData(string title, DateTime deadline, float duration, float difficulty, DateTime belongsToDate, string sourceRecurringId)
+        : this(title, deadline, duration, difficulty, belongsToDate)
+    {
+        IsCompleted = true;
+        SourceRecurringId = sourceRecurringId;
     }
 
 
