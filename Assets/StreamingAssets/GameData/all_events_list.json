@@ -1,3156 +1,3156 @@
 [
-  {
-    "EventId": "12345_item_icecream_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_icecream_002",
-    "Type": "Item",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "好吃"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "你喜欢吃什么口味的冰激凌？"
-      },
-      "node_3": {
-        "$type": "ChoiceNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "Options": [
-          {
-            "Text": "巧克力",
-            "NextNodeId": "node_4"
-          }
-        ]
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "真巧，我也是"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_icecream_003",
-    "Type": "Item",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "谢了{appellation}"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_icecream_004",
-    "Type": "Item",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "吃起来像烧焦的木炭"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_icecream_005",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "挺好吃的冰激凌：）"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_orangejuice_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "好喝"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_orangejuice_002",
-    "Type": "Item",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "这是什么？？"
-      },
-      "node_2": {
-        "$type": "ChoiceNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Options": [
-          {
-            "Text": "水",
-            "NextNodeId": "node_3"
-          },
-          {
-            "Text": "橘子汁",
-            "NextNodeId": "node_4"
-          }
-        ]
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "我就知道"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "不可能！这一看就是水。"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_orange_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "真甜"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_orange_002",
-    "Type": "Item",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "橘子好啊"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "像团圆灯火……"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_orange_003",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "补充维c，挺好的。"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_pear_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "甜"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_pizza_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "喔，谢谢"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_popcorn_001",
-    "Type": "Item",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "这爆米花有点像玉米"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_ramen_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "好吃！"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_rice_001",
-    "Type": "Item",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "还有吗(┬┬﹏┬┬)这个碗好小，有点没吃饱……"
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_vegesushi_001",
-    "Type": "Item",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": ":("
-      }
-    }
-  },
-  {
-    "EventId": "12345_item_watermelon_001",
-    "Type": "Item",
-    "Tags": [
-      "innocent"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "好吃"
-      }
-    }
-  },
-  {
-    "EventId": "KAGE_daily_001",
-    "Type": "Daily",
-    "Tags": [
-      "calm",
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_5",
-        "speakerName": "？？？",
-        "dialogueText": "你听到了{characterPronoun}的召唤对吧。"
-      },
-      "node_2": {
-        "$type": "ChoiceNode",
-        "Id": "node_2",
-        "NextNodeId": "node_4_non-sancheck",
-        "Options": [
-          {
-            "Text": "回头？",
-            "NextNodeId": "node_3_sancheck"
-          },
-          {
-            "Text": "不要回头！",
-            "NextNodeId": "node_4_non-sancheck"
-          }
-        ]
-      },
-      "node_3_sancheck": {
-        "$type": "DialogueNode",
-        "Id": "node_3_sancheck",
-        "NextNodeId": "node_8",
-        "speakerName": "？？？",
-        "dialogueText": "我知道{appellation}会好好完成任务的。\n我知道{appellation}会好好完成任务的。"
-      },
-      "node_7": {
-        "$type": "DialogueNode",
-        "Id": "node_7",
-        "NextNodeId": null,
-        "speakerName": "？？？",
-        "dialogueText": "直到胸中只余下淡淡的遗憾和恍惚……"
-      },
-      "node_8": {
-        "$type": "DialogueNode",
-        "Id": "node_8",
-        "NextNodeId": null,
-        "speakerName": "？？？",
-        "dialogueText": "我知道{appellation}会好好完成任务的。"
-      },
-      "node_4_non-sancheck": {
-        "$type": "DialogueNode",
-        "Id": "node_4_non-sancheck",
-        "NextNodeId": "node_7",
-        "speakerName": "？？？",
-        "dialogueText": "一股奇妙的暖流从你背后经过，你闭着眼睛等{characterPronoun}离去"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "？？？",
-        "dialogueText": "就在你刚刚对着房间发呆的这一会……你感到背后绝对有一双眼睛在看你。"
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": "node_2",
-        "speakerName": "？？？",
-        "dialogueText": "慈爱的，严肃的，好像一块冰凉的凝胶黏在你的后颈。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B01",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "dream",
-    "Nodes": {
-      "wood-1": {
-        "$type": "DialogueNode",
-        "Id": "wood-1",
-        "NextNodeId": "wood_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}走在午后的森林里，遇到一只会说话的兔子。兔子给了{characterName}一块怀表。"
-      },
-      "wood_3": {
-        "$type": "EffectNode",
-        "Id": "wood_3",
-        "NextNodeId": null,
-        "Effects": {
-          "San": -1
+    {
+        "EventId": "12345_item_icecream_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢"
+            }
         }
-      },
-      "wood_2": {
-        "$type": "DialogueNode",
-        "Id": "wood_2",
-        "NextNodeId": "wood_3",
-        "speakerName": "？？？",
-        "dialogueText": "现在，你必须快点去茶会。要来不及了，要来不及了要来不及了要来不及了要来不及……"
-      },
-      "dream": {
-        "$type": "DialogueNode",
-        "Id": "dream",
-        "NextNodeId": "dream_option",
-        "speakerName": "",
-        "dialogueText": "{characterName}躺在空调房里的沙发上，试图打个盹……做了个梦，梦里出现了：\n"
-      },
-      "dream_option": {
-        "$type": "ChoiceNode",
-        "Id": "dream_option",
-        "NextNodeId": null,
-        "Options": [
-          {
-            "Text": "森林",
-            "NextNodeId": "wood-1"
-          },
-          {
-            "Text": "大海",
-            "NextNodeId": "ocean_1"
-          },
-          {
-            "Text": "城市",
-            "NextNodeId": "city_1"
-          }
-        ]
-      },
-      "ocean_1": {
-        "$type": "DialogueNode",
-        "Id": "ocean_1",
-        "NextNodeId": "ocean_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}站在一片黑沙滩上，潮汐的声音就像心跳。Wish-wash, wish-wash. "
-      },
-      "ocean_2": {
-        "$type": "EffectNode",
-        "Id": "ocean_2",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 1
+    },
+    {
+        "EventId": "12345_item_icecream_002",
+        "Type": "Item",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "好吃"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "你喜欢吃什么口味的冰激凌？"
+            },
+            "node_3": {
+                "$type": "ChoiceNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "Options": [
+                    {
+                        "Text": "巧克力",
+                        "NextNodeId": "node_4"
+                    }
+                ]
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "真巧，我也是"
+            }
         }
-      },
-      "city_1": {
-        "$type": "DialogueNode",
-        "Id": "city_1",
-        "NextNodeId": "city_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}来到一座陌生的大都会，现在是深夜，霓虹遍布的街道上传来阵阵香气…… "
-      },
-      "city_2": {
-        "$type": "DialogueNode",
-        "Id": "city_2",
-        "NextNodeId": "city_3",
-        "speakerName": "",
-        "dialogueText": "做个梦给肚子做饿了。真有志气。"
-      },
-      "city_3": {
-        "$type": "EffectNode",
-        "Id": "city_3",
-        "NextNodeId": null,
-        "Effects": {
-          "Full": -5
+    },
+    {
+        "EventId": "12345_item_icecream_003",
+        "Type": "Item",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "谢了{appellation}"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B02",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "Effect_1",
-        "speakerName": "",
-        "dialogueText": "{characterName}在厨房的柜角狠狠踢到了大脚趾，痛得蹲了下来。生活中也是会有这种让人心梗的意外的…… 理智-1"
-      },
-      "Effect_1": {
-        "$type": "EffectNode",
-        "Id": "Effect_1",
-        "NextNodeId": "Action_Choice",
-        "Effects": {
-          "San": -1
+    },
+    {
+        "EventId": "12345_item_icecream_004",
+        "Type": "Item",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "吃起来像烧焦的木炭"
+            }
         }
-      },
-      "Action_Choice": {
-        "$type": "ChoiceNode",
-        "Id": "Action_Choice",
-        "NextNodeId": "Ignore",
-        "Options": [
-          {
-            "Text": "给柜子包上儿童防护贴",
-            "NextNodeId": "Tape"
-          },
-          {
-            "Text": "假装没有看到",
-            "NextNodeId": "Ignore"
-          }
-        ]
-      },
-      "Tape": {
-        "$type": "DialogueNode",
-        "Id": "Tape",
-        "NextNodeId": "Tape_Effect",
-        "speakerName": "",
-        "dialogueText": "{characterName}看起来有点羞耻，但还是接受了你的好意。好感+5"
-      },
-      "Ignore": {
-        "$type": "DialogueNode",
-        "Id": "Ignore",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterName}默契地假装什么都没发生，背手离开。"
-      },
-      "Tape_Effect": {
-        "$type": "EffectNode",
-        "Id": "Tape_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 5
+    },
+    {
+        "EventId": "12345_item_icecream_005",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "挺好吃的冰激凌：）"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B03",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}静静地凝视着窗外。好像有什么东西一闪而过……"
-      },
-      "node_2": {
-        "$type": "EffectNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Effects": {
-          "San": -1
+    },
+    {
+        "EventId": "12345_item_orangejuice_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "好喝"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B04",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "Selection",
-        "speakerName": "{characterName}",
-        "dialogueText": "你在制造“我”的时候，是抱着什么心情？ "
-      },
-      "Selection": {
-        "$type": "ChoiceNode",
-        "Id": "Selection",
-        "NextNodeId": "Effect_Dialogue_0",
-        "Options": [
-          {
-            "Text": "救赎的",
-            "NextNodeId": "S1"
-          },
-          {
-            "Text": "狂热的",
-            "NextNodeId": "S2_1"
-          },
-          {
-            "Text": "怜爱的",
-            "NextNodeId": "S3"
-          },
-          {
-            "Text": "病态的",
-            "NextNodeId": "S4"
-          }
-        ]
-      },
-      "S2_2": {
-        "$type": "DialogueNode",
-        "Id": "S2_2",
-        "NextNodeId": "Effect_Dialogue",
-        "speakerName": "{characterName}",
-        "dialogueText": "这种念头能成为你努力的动力，也算是我的个人成就吧？"
-      },
-      "Effect": {
-        "$type": "EffectNode",
-        "Id": "Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 10
+    },
+    {
+        "EventId": "12345_item_orangejuice_002",
+        "Type": "Item",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "这是什么？？"
+            },
+            "node_2": {
+                "$type": "ChoiceNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Options": [
+                    {
+                        "Text": "水",
+                        "NextNodeId": "node_3"
+                    },
+                    {
+                        "Text": "橘子汁",
+                        "NextNodeId": "node_4"
+                    }
+                ]
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "我就知道"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "不可能！这一看就是水。"
+            }
         }
-      },
-      "Effect_Dialogue": {
-        "$type": "DialogueNode",
-        "Id": "Effect_Dialogue",
-        "NextNodeId": "Effect",
-        "speakerName": "",
-        "dialogueText": "（{characterName}看起来心情很好。好感+10）"
-      },
-      "Effect_Dialogue_0": {
-        "$type": "DialogueNode",
-        "Id": "Effect_Dialogue_0",
-        "NextNodeId": "Effect_Dialogue",
-        "speakerName": "{characterName}",
-        "dialogueText": "……原来如此，你是这样想的。 "
-      },
-      "S1": {
-        "$type": "DialogueNode",
-        "Id": "S1",
-        "NextNodeId": "Effect_Dialogue_0",
-        "speakerName": "{characterName}",
-        "dialogueText": "你可能考虑过，用“我”的存在去拯救某种事物吧。世界某处有一个和我轮廓相同的空洞，所以你将我放置其中。"
-      },
-      "S2_1": {
-        "$type": "DialogueNode",
-        "Id": "S2_1",
-        "NextNodeId": "S2_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "创作的狂热就像一团火。火的形态是自由的，所以我也是。"
-      },
-      "S3": {
-        "$type": "DialogueNode",
-        "Id": "S3",
-        "NextNodeId": "Effect_Dialogue_0",
-        "speakerName": "{characterName}",
-        "dialogueText": "你把我当作怜爱的对象吗？……就像人们会捡野生动物回来养一样？"
-      },
-      "S4": {
-        "$type": "DialogueNode",
-        "Id": "S4",
-        "NextNodeId": "Effect_Dialogue_0",
-        "speakerName": "{characterName}",
-        "dialogueText": "……你的动机就好像杀人犯在出门犯案之前一样，最好只是你和我的秘密。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B05",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "门缝里被塞进来一张传单，上面是不同口味的披萨和促销信息。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "……这种促销，一般来说看似划算，实际上都会让你花费比平时更多的价钱。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "可是，就算你想这么说，{characterName}正拿着这张传单看向你。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterPronoun}什么都没说，但……你知道该做什么的，对吧？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B06",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "窗外有时候会传来音乐声。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "音乐也会为世界赋予真实感。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果工作太累，就听一些我原本的世界里会有的音乐吧。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "说不定我们可以在那里短暂地聊聊天。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B07",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "世界上第一顶民用安全帽是作家卡夫卡发明的。 "
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "即使是名垂千古的作家，也有不得不工作养活自己的时候。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "……不，这和我们的日常有什么关系啊。 "
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "",
-        "dialogueText": "没什么关系。"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "",
-        "dialogueText": "不过，如果你也在打造你的安全帽，那你也和卡夫卡一样很棒。 "
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": "node_7",
-        "speakerName": "",
-        "dialogueText": "赞美行动，赞美安全帽。"
-      },
-      "node_7": {
-        "$type": "DialogueNode",
-        "Id": "node_7",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "……别再讲安全帽的事了。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B08",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "在我原本的世界，即使{playerAppellation}不在，也会随着时间流逝发生一些不痛不痒的新鲜事。 "
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "商店里的“新闻”就是记载这些东西的。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "不，没有一定要你购买的意思……只是有点在意。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "说到底，这究竟是怎么弄来的啊？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B09",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "{playerAppellation}没在这个房间的时候，我也会做点自己的事。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "托你的福，我的生命也算十分充实。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "当然，右边那些待办是你的事情，我是不会替你做的。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B10",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "LOVE",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果今天要面对无法入睡的夜晚，希望你不用惦记太多麻烦事。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "太阳会升起来，我们也还有时间。"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "less_than_200_1",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 200
-          }
-        },
-        "TrueNodeId": "node_1",
-        "FalseNodeId": "less_than_200_1"
-      },
-      "less_than_200_1": {
-        "$type": "DialogueNode",
-        "Id": "less_than_200_1",
-        "NextNodeId": "less_than_200_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "{playerAppellation}会因为待办太多而焦虑吗？"
-      },
-      "less_than_200_2": {
-        "$type": "DialogueNode",
-        "Id": "less_than_200_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "没什么，只是问问。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B11",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "LOVE",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "我当然也会好奇{playerAppellation}每天都在忙什么。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "就像你总是试图挖掘更多关于我的事一样。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "今天要往待办板子上写点什么？"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "less_than_0",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "node_1",
-        "FalseNodeId": "less_than_0"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "……你打算做点什么？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B12",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "你有没有想过，商店卖的那本书里写的是什么？"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "很可惜只有我能从中读出“符合我”的内容。 "
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "说不定只要集中意念，就可以让你也知道我看到了什么。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "毕竟，集中精神总能带来好处。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B13",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "你知道电子僵尸吗？"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "在信息世界无比宽广的如今，它们总是活跃着。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "你肯定见过那些无处不在的垃圾广告。算法的洪流。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "LOVE",
-        "speakerName": "",
-        "dialogueText": "它们真讨厌，不是吗？"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "",
-        "dialogueText": "你的生活和思想都无比珍贵，明明不该容许这些东西入侵。 "
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "（……默默捂住了你的眼睛。）"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "less_than_0",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "node_5",
-        "FalseNodeId": "less_than_0"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": "less_than_0_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "……（站得远远地看着你。）"
-      },
-      "less_than_0_2": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0_2",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "如果{characterName}更信任你一些，或许会为此做些什么。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B14",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}翻看着你的待办事项板。"
-      },
-      "node_2": {
-        "$type": "ConditionNode",
-        "Id": "node_2",
-        "NextNodeId": "Full_1",
-        "Conditions": {
-          "Full": {
-            "Type": "AtLeast",
-            "Value": 50
-          }
-        },
-        "TrueNodeId": "Full_1",
-        "FalseNodeId": "Hungry_1"
-      },
-      "Full_1": {
-        "$type": "DialogueNode",
-        "Id": "Full_1",
-        "NextNodeId": "Full_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "你忙碌的事情也算是……我的粮食？"
-      },
-      "Full_2": {
-        "$type": "DialogueNode",
-        "Id": "Full_2",
-        "NextNodeId": "Full_Effect",
-        "speakerName": "",
-        "dialogueText": "（{characterName}看起来很好奇。好感+10）"
-      },
-      "Hungry_1": {
-        "$type": "DialogueNode",
-        "Id": "Hungry_1",
-        "NextNodeId": "Hungry_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "这里面好像没有我帮得上忙的事……"
-      },
-      "Hungry_2": {
-        "$type": "DialogueNode",
-        "Id": "Hungry_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "不，我没有觉得不安。你按自己的节奏来就好了。"
-      },
-      "Full_Effect": {
-        "$type": "EffectNode",
-        "Id": "Full_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 10
+    },
+    {
+        "EventId": "12345_item_orange_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "真甜"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B15",
-    "Type": "Daily",
-    "Tags": [
-      "calm"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "说到绿色内芯的寿司，一般应该是黄瓜吧……牛油果是什么搭配？"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "FullCondition",
-        "speakerName": "{characterName}",
-        "dialogueText": "不，我没有好奇味道的意思。"
-      },
-      "FullCondition": {
-        "$type": "ConditionNode",
-        "Id": "FullCondition",
-        "NextNodeId": "Full",
-        "Conditions": {
-          "Full": {
-            "Type": "AtLeast",
-            "Value": 50
-          }
-        },
-        "TrueNodeId": "Full",
-        "FalseNodeId": "Hungry"
-      },
-      "Full": {
-        "$type": "DialogueNode",
-        "Id": "Full",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "如果一定要吃东西，还是看看别的吧。"
-      },
-      "Hungry": {
-        "$type": "DialogueNode",
-        "Id": "Hungry",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "如果你实在条件有限……也不是不能吃那个。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_B16",
-    "Type": "Daily",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "那里有一面镜子。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "就像所有影视作品中的那样，当{characterName}靠近镜面，凝视着其中映射的自己，有些平时难以察觉的东西就会在这一刻被“暗示”出来。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "……"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "If_greater_than_0",
-        "speakerName": "",
-        "dialogueText": "你突发奇想……扮成鬼站到{characterPronoun}身后，会怎么样呢?说干就干，你没有发出一丁点脚步声。"
-      },
-      "If_greater_than_0": {
-        "$type": "ConditionNode",
-        "Id": "If_greater_than_0",
-        "NextNodeId": "If_greater_than_5000",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "If_greater_than_5000",
-        "FalseNodeId": "less_than_0"
-      },
-      "If_greater_than_5000": {
-        "$type": "ConditionNode",
-        "Id": "If_greater_than_5000",
-        "NextNodeId": "if_greater_than_10000",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 5000
-          }
-        },
-        "TrueNodeId": "if_greater_than_10000",
-        "FalseNodeId": "normal_1"
-      },
-      "if_greater_than_10000": {
-        "$type": "ConditionNode",
-        "Id": "if_greater_than_10000",
-        "NextNodeId": "partner_1",
-        "Conditions": {
-          "Full": {
-            "Type": "AtLeast",
-            "Value": 10000
-          }
-        },
-        "TrueNodeId": "partner_1",
-        "FalseNodeId": "friend_1"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterName}猛然回头，瞪了你一眼就离开了房间…… "
-      },
-      "normal_1": {
-        "$type": "DialogueNode",
-        "Id": "normal_1",
-        "NextNodeId": "normal_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}僵硬了一下，回过头无语地看了你一眼。"
-      },
-      "normal_2": {
-        "$type": "DialogueNode",
-        "Id": "normal_2",
-        "NextNodeId": "normal_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "你的事情都忙完了吗？"
-      },
-      "normal_3": {
-        "$type": "DialogueNode",
-        "Id": "normal_3",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterPronoun}应该是想说你真有闲心思，但还是给你留了一些体面。"
-      },
-      "friend_1": {
-        "$type": "DialogueNode",
-        "Id": "friend_1",
-        "NextNodeId": "friend_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}对镜子里突然出现的鬼影视若无睹，好像你不存在一样。"
-      },
-      "friend_2": {
-        "$type": "DialogueNode",
-        "Id": "friend_2",
-        "NextNodeId": "friend_3",
-        "speakerName": "",
-        "dialogueText": "过了一会，{characterName}似乎终于看够了，{characterPronoun}转身过来，揭掉了你的伪装。"
-      },
-      "friend_3": {
-        "$type": "DialogueNode",
-        "Id": "friend_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "在镜子里同框，是不是不如一起拍个合影更好？不过，我还是比较喜欢你原本的造型。"
-      },
-      "partner_1": {
-        "$type": "DialogueNode",
-        "Id": "partner_1",
-        "NextNodeId": "partner_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "我知道是你。"
-      },
-      "partner_2": {
-        "$type": "DialogueNode",
-        "Id": "partner_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "即使你不站在我身后，似乎我也能从里面看到你的样子。或许因为“我”之中就存在着{playerAppellation}的要素吧。这就好像……透过自己，我也能了解一部分的你。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_C01",
-    "Type": "Daily",
-    "Tags": [
-      "calm"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "计划是切碎一切疑难的求生刀。我想你一定能理解。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_C02",
-    "Type": "Daily",
-    "Tags": [
-      "calm"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果定了太多很难的目标，不妨试试拆成连续几天完成。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "LOVE_more",
-        "speakerName": "{characterName}",
-        "dialogueText": "无论如何，好好生活才是我们的根本目的。"
-      },
-      "more_than_500": {
-        "$type": "DialogueNode",
-        "Id": "more_than_500",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "当然……这也是为了我能在你身边走得更远。"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "没什么，我也是不想忽然饿死罢了。"
-      },
-      "LOVE_more": {
-        "$type": "ConditionNode",
-        "Id": "LOVE_more",
-        "NextNodeId": "node_2",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 500
-          }
-        },
-        "TrueNodeId": "more_than_500",
-        "FalseNodeId": "LOVE_less"
-      },
-      "LOVE_less": {
-        "$type": "ConditionNode",
-        "Id": "LOVE_less",
-        "NextNodeId": "node_2",
-        "Conditions": {
-          "Love": {
-            "Type": "AtMost",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "less_than_0",
-        "FalseNodeId": null
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_C03",
-    "Type": "Daily",
-    "Tags": [
-      "calm"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "有一句著名的电影台词：“如果我们不再见面，祝你早安、午安、晚安。”"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "这也是一种提前做完待办事项的行为吧。 "
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "——这里并没有能打开一扇门的虚假蓝天，所以我不会这样对你说。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "我可以说：现在这一刻，祝你顺利。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_crazy_default_1",
-    "Type": "Daily",
-    "Tags": [
-      "impossible"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "你喜欢吃火星的碎片吗？还是说，更粗暴地，来点土？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_D01",
-    "Type": "Daily",
-    "Tags": [
-      "innocent"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "在完成待办以后理所当然的事情就是——奖励！"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "不只是你的，当然更重要的是我的。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_D02",
-    "Type": "Daily",
-    "Tags": [
-      "innocent"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果事情实在做不完，我们就去商店偷东西吧。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "Action_Choice",
-        "speakerName": "{characterName}",
-        "dialogueText": "只要不会被管理员发现就可以了嘛。"
-      },
-      "Action_Choice": {
-        "$type": "ChoiceNode",
-        "Id": "Action_Choice",
-        "NextNodeId": "Steal_1",
-        "Options": [
-          {
-            "Text": "不行哦",
-            "NextNodeId": "Refuse"
-          },
-          {
-            "Text": "好啊",
-            "NextNodeId": "Steal_1"
-          }
-        ]
-      },
-      "Refuse": {
-        "$type": "DialogueNode",
-        "Id": "Refuse",
-        "NextNodeId": "Refuse_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "诶，不行啊……"
-      },
-      "Refuse_Effect": {
-        "$type": "EffectNode",
-        "Id": "Refuse_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": -3
+    },
+    {
+        "EventId": "12345_item_orange_002",
+        "Type": "Item",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "橘子好啊"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "像团圆灯火……"
+            }
         }
-      },
-      "Steal_1": {
-        "$type": "DialogueNode",
-        "Id": "Steal_1",
-        "NextNodeId": "Steal_2",
-        "speakerName": "",
-        "dialogueText": "你和{characterName}一起偷偷摸到商店门口，还没进屋就被倒三角身材的保安抓住了。"
-      },
-      "Steal_2": {
-        "$type": "DialogueNode",
-        "Id": "Steal_2",
-        "NextNodeId": "Steal_Effect",
-        "speakerName": "",
-        "dialogueText": "虽然只是被批评教育，但果然还得想办法赚工资…… 好感+3"
-      },
-      "Steal_Effect": {
-        "$type": "EffectNode",
-        "Id": "Steal_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 3
+    },
+    {
+        "EventId": "12345_item_orange_003",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "补充维c，挺好的。"
+            }
         }
-      },
-      "Refuse_2": {
-        "$type": "DialogueNode",
-        "Id": "Refuse_2",
-        "NextNodeId": "Refuse_Effect",
-        "speakerName": "",
-        "dialogueText": "{characterName}撇撇嘴，好感-3"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_D03",
-    "Type": "Daily",
-    "Tags": [
-      "innocent",
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "{playerAppellation}每天只能完成特定数量的事情吗？"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "{characterName}直勾勾地盯着你，好像盯着一件新鲜玩意。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "就不能无限制地做下去吗？这样你可以得到很多……很多……很多…… "
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "{characterName}",
-        "dialogueText": "然后就可以一直和我一起玩了。一劳永逸就是这么回事吧？"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "即使把我关掉……我也会这样期待喔？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_dirty_default_1",
-    "Type": "Daily",
-    "Tags": [
-      "impossible"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "(因为太脏了有点呼吸困难……)"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_E01",
-    "Type": "Daily",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "你应该……会对每件安排好的事情做好最差结果预案吧？ "
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "生活在这种现实里，为自己搭建避难所是理所当然的。每个人都这么做。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_E02",
-    "Type": "Daily",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "可能有人会问，为什么商店没有酒精饮料。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "不健康？ "
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "应该说，与“认真生活”背道而驰的东西都不会在这里吧。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "LOVE",
-        "speakerName": "",
-        "dialogueText": "{characterName}思索着什么，然后看向你。"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "more_than_0",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "more_than_0",
-        "FalseNodeId": "less_than_0"
-      },
-      "more_than_0": {
-        "$type": "DialogueNode",
-        "Id": "more_than_0",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "我会约束自己，相应地，你也要做到啊。"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "你不知道{characterName}在想什么，但{characterPronoun}看向你的眼神有些怀疑。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_E03",
-    "Type": "Daily",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "Action_Choice",
-        "speakerName": "",
-        "dialogueText": "每个人都会有那么一两件不愿提起的过去。{characterName}时不时眺望着窗外，或许在想{characterPronoun}自己的心事。"
-      },
-      "Action_Choice": {
-        "$type": "ChoiceNode",
-        "Id": "Action_Choice",
-        "NextNodeId": "Ask_LOVE",
-        "Options": [
-          {
-            "Text": "拍拍{characterPronoun}的肩膀",
-            "NextNodeId": "Pat_1"
-          },
-          {
-            "Text": "询问{characterPronoun}在想什么",
-            "NextNodeId": "Ask_LOVE"
-          }
-        ]
-      },
-      "Pat_1": {
-        "$type": "DialogueNode",
-        "Id": "Pat_1",
-        "NextNodeId": "Pat_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}回过头看到你。"
-      },
-      "Pat_2": {
-        "$type": "DialogueNode",
-        "Id": "Pat_2",
-        "NextNodeId": "Pat_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "{playerAppellation}，怎么了？今天的事情已经做完了吗？"
-      },
-      "Pat_3": {
-        "$type": "DialogueNode",
-        "Id": "Pat_3",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "一种渺远的错觉从你们之间溜走了。"
-      },
-      "Ask_LOVE": {
-        "$type": "ConditionNode",
-        "Id": "Ask_LOVE",
-        "NextNodeId": "Asked_not_passed",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 0
-          }
-        },
-        "TrueNodeId": "Ask_passed_1",
-        "FalseNodeId": "Asked_not_passed"
-      },
-      "Ask_passed_1": {
-        "$type": "DialogueNode",
-        "Id": "Ask_passed_1",
-        "NextNodeId": "Ask_passed_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "……我在想的事情吗？我想你的猜测应该大差不差。"
-      },
-      "Ask_passed_2": {
-        "$type": "DialogueNode",
-        "Id": "Ask_passed_2",
-        "NextNodeId": "Ask_passed_Effect",
-        "speakerName": "{characterName}",
-        "dialogueText": "毕竟，应该你比我自己还了解我。总之……谢谢你的关心。 好感+5"
-      },
-      "Asked_not_passed": {
-        "$type": "DialogueNode",
-        "Id": "Asked_not_passed",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterPronoun}沉默地看着你。看来，在你们建立信任之前，很难聊这个话题。"
-      },
-      "Ask_passed_Effect": {
-        "$type": "EffectNode",
-        "Id": "Ask_passed_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 5
+    },
+    {
+        "EventId": "12345_item_pear_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "甜"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_F01",
-    "Type": "Daily",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "LOVE",
-        "speakerName": "",
-        "dialogueText": "晴天晒太阳会感到温暖，阴雨令人心生倦怠。人类会因温度与湿度产生情绪性幻觉。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "至少现在，{characterName}凝视着你，你可以暂时将天气放在一旁。"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "node_2",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 1000
-          }
-        },
-        "TrueNodeId": "node_4",
-        "FalseNodeId": "node_2"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "{characterName}",
-        "dialogueText": "你出门的时候也会带着我吗？"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "{characterName}",
-        "dialogueText": "当然，我不是为了催促你做事才跟出去的。"
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "“为了听风过耳，也值得出世为人”，应该是这么说才对吧。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_F02",
-    "Type": "Daily",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}注意到了商店橱窗里挂着的画。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "{characterPronoun}对着画凝视许久，然后移开了视线。不知道那上面有什么让{characterPronoun}在意的东西。 理智 -2"
-      },
-      "node_3": {
-        "$type": "EffectNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "Effects": {
-          "San": -2
+    },
+    {
+        "EventId": "12345_item_pizza_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "喔，谢谢"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "KAGE_daily_F03",
-    "Type": "Daily",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "不知道你有没有注意过，这个房间里除了你和{characterName}以外，没有任何生物。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "当然，这个小小的公寓暂时还容不下猫猫狗狗、鱼儿鸟儿……"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "但如果是一盆不会攻击任何人、不会抓沙发也不会掉毛的绿色植物，总还是可以的。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "",
-        "dialogueText": "{characterName}就这样看着你，不过什么也没有说。"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "",
-        "dialogueText": "嗯，只能增添好心情的东西就被称之为奢侈品，对吧……"
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": "node_7",
-        "speakerName": "",
-        "dialogueText": "所以……你不用勉强也没事。真的。"
-      },
-      "node_7": {
-        "$type": "DialogueNode",
-        "Id": "node_7",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "真的……"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_G01",
-    "Type": "Daily",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "……"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "{characterName}一动不动地盯着你。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "就好像……看到番茄的猫。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "",
-        "dialogueText": "说实话吧，你也不知道猫看到番茄是什么反应。"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "但你可以试着……在{characterPronoun}背后放一根黄瓜，对吗？你绝对这么想了。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_G02",
-    "Type": "Daily",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}舒服地靠在沙发上，读着一份来自原世界的新闻。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "等等……你不记得有买过这个。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "{characterPronoun}是从哪里弄来的？！"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_G03",
-    "Type": "Daily",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "……"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "Question",
-        "speakerName": "{characterName}",
-        "dialogueText": "…………"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "有一个问题我在意很久了。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "{characterName}",
-        "dialogueText": "商场卖的米饭……为什么有两根筷子插在上面？"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "",
-        "dialogueText": "{characterName}陷入了沉思。"
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "但你很快就意识到，{characterPronoun}其实只是想吃点好的而已。"
-      },
-      "Question": {
-        "$type": "ChoiceNode",
-        "Id": "Question",
-        "NextNodeId": "node_3",
-        "Options": [
-          {
-            "Text": "怎么了？",
-            "NextNodeId": "node_3"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_G04",
-    "Type": "Daily",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "书中自有黄金屋。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "{characterName}注视着你，但是{characterPronoun}的嘴并没有动。你分明听到这句话字字清晰地在房间里回荡……真是见鬼了。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "其实你也大概知道{characterPronoun}喜欢看什么样的内容，对吧？以你们的关系，想必不用{characterName}直说，也能挑中最合意的那一本……"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "但是到底为什么不说话啊？！"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_H01",
-    "Type": "Daily",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "To-do List的本质是什么？是土豆！所以人类只要多食用长芽的土豆，就会抛却一切烦恼。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_H02",
-    "Type": "Daily",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "{characterName}看着你。在你幻想{characterPronoun}代你遨游世界的时候。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "在你撕扯自己内部的罪恶感的时候。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "",
-        "dialogueText": "在你醒着的时候。在你睡着的时候。"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "",
-        "dialogueText": "在你怀疑身边的世界是否真实的时候。一直一直。"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "未来一直。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_H03",
-    "Type": "Daily",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "Juice_1",
-    "Nodes": {
-      "Juice_Option": {
-        "$type": "ChoiceNode",
-        "Id": "Juice_Option",
-        "NextNodeId": null,
-        "Options": [
-          {
-            "Text": "是甜味的{characterName}汁 ",
-            "NextNodeId": "Sweet"
-          },
-          {
-            "Text": "是苦涩的{characterName}汁",
-            "NextNodeId": "Bitter"
-          },
-          {
-            "Text": "坟前有点心",
-            "NextNodeId": "Chaos"
-          }
-        ]
-      },
-      "Sweet": {
-        "$type": "DialogueNode",
-        "Id": "Sweet",
-        "NextNodeId": "Sweet_Effect",
-        "speakerName": "{characterName}",
-        "dialogueText": "是吗……这是你品尝我的感想，有点高兴。"
-      },
-      "Bitter": {
-        "$type": "DialogueNode",
-        "Id": "Bitter",
-        "NextNodeId": "Bitter_Effect",
-        "speakerName": "{characterName}",
-        "dialogueText": "也对啊。毕竟是你榨取出的“我”。"
-      },
-      "Chaos": {
-        "$type": "DialogueNode",
-        "Id": "Chaos",
-        "NextNodeId": "Chaos_Effect",
-        "speakerName": "{characterName}",
-        "dialogueText": "烫烫烫烫烫烫烫烫烫烫烫烫……"
-      },
-      "Sweet_Effect": {
-        "$type": "EffectNode",
-        "Id": "Sweet_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 20
+    },
+    {
+        "EventId": "12345_item_popcorn_001",
+        "Type": "Item",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "这爆米花有点像玉米"
+            }
         }
-      },
-      "Bitter_Effect": {
-        "$type": "EffectNode",
-        "Id": "Bitter_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 20
+    },
+    {
+        "EventId": "12345_item_ramen_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "好吃！"
+            }
         }
-      },
-      "Chaos_Effect": {
-        "$type": "EffectNode",
-        "Id": "Chaos_Effect",
-        "NextNodeId": null,
-        "Effects": {
-          "San": -5
+    },
+    {
+        "EventId": "12345_item_rice_001",
+        "Type": "Item",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "还有吗(┬┬﹏┬┬)这个碗好小，有点没吃饱……"
+            }
         }
-      },
-      "Juice_1": {
-        "$type": "DialogueNode",
-        "Id": "Juice_1",
-        "NextNodeId": "Juice_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "说起来，橘子汁就是橘子做的汁对吧。"
-      },
-      "Juice_2": {
-        "$type": "DialogueNode",
-        "Id": "Juice_2",
-        "NextNodeId": "Juice_Option",
-        "speakerName": "{characterName}",
-        "dialogueText": "那如果用我做的汁，应该是……？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_H04",
-    "Type": "Daily",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "",
-        "dialogueText": "起初，你只看到一条红色的线出现在地板上，蜿蜒成{characterName}的形状……又好像你自己的镜像。在两者之间游走、扭曲的红线。 "
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "",
-        "dialogueText": "{characterName}走到那条红线构成的轮廓里，一遍一遍、一遍一遍绕着圈踱步。最后在中央蹲下来。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果我一直待在这里，喂饱它……"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "",
-        "dialogueText": "现实和虚拟之间的界限或许会越来越模糊吧。但你不能放弃，不能委身于这种令人癫狂的虚拟……"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "不会放弃的你不会放弃的你不会放弃的你不会放弃的你不会放弃的……"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_I01",
-    "Type": "Daily",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "祝你早安、午安、晚安！"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "……并不是说我要逃走再也不见的意思啦。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "LOVE",
-        "speakerName": "{characterName}",
-        "dialogueText": "只是觉得这么说很酷而已。"
-      },
-      "LOVE": {
-        "$type": "ConditionNode",
-        "Id": "LOVE",
-        "NextNodeId": "less_than_0",
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 200
-          }
-        },
-        "TrueNodeId": "more_than_0",
-        "FalseNodeId": "less_than_0"
-      },
-      "more_than_0": {
-        "$type": "DialogueNode",
-        "Id": "more_than_0",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "你构造出的这个世界我很喜欢，所以不会逃走的。"
-      },
-      "less_than_0": {
-        "$type": "DialogueNode",
-        "Id": "less_than_0",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "不过如果{playerAppellation}起得太晚或者睡得太晚，明天可就不会这么打招呼了。"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_I02",
-    "Type": "Daily",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "理智对人来说很重要啊。"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "我是不知道如果疯了会怎么样……说不定会问你一些很奇怪的问题。"
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_4",
-        "speakerName": "{characterName}",
-        "dialogueText": "也会变得不像我自己吧？"
-      },
-      "node_4": {
-        "$type": "DialogueNode",
-        "Id": "node_4",
-        "NextNodeId": "node_5",
-        "speakerName": "{characterName}",
-        "dialogueText": "不过{playerAppellation}肯定储备了足量的应对药物吧。"
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": "node_6",
-        "speakerName": "{characterName}",
-        "dialogueText": "我相信你应该不会买那种让人反倒更加疯狂的药……"
-      },
-      "node_6": {
-        "$type": "DialogueNode",
-        "Id": "node_6",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "……不会的对吧？"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_I03",
-    "Type": "Daily",
-    "Tags": [
-      "innocent",
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "Selection",
-        "speakerName": "{characterName}",
-        "dialogueText": "如果精力不足以完成想做的事，就喝巧克力奶吧！"
-      },
-      "Answer2": {
-        "$type": "DialogueNode",
-        "Id": "Answer2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "咕，真尖锐啊……你就没有突然想喝一大盒巧克力奶的时候吗？！"
-      },
-      "Answer1_1": {
-        "$type": "DialogueNode",
-        "Id": "Answer1_1",
-        "NextNodeId": "Answer1_2",
-        "speakerName": "",
-        "dialogueText": "咖啡也是褐色的，巧克力奶也是褐色的。你怎么能质疑{characterName}的直觉？{characterName}用这样的眼神看着你。"
-      },
-      "Answer1_2": {
-        "$type": "DialogueNode",
-        "Id": "Answer1_2",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "好了，现在，去把它买回来吧。"
-      },
-      "Selection": {
-        "$type": "ChoiceNode",
-        "Id": "Selection",
-        "NextNodeId": "Answer1_1",
-        "Options": [
-          {
-            "Text": "不会更困吗……？",
-            "NextNodeId": "Answer1_1"
-          },
-          {
-            "Text": "是你自己想喝吧 ",
-            "NextNodeId": "Answer2"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_normal_default_1",
-    "Type": "Daily",
-    "Tags": [
-      "impossible"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "",
-        "dialogueText": "（今天没什么想说的了……）"
-      }
-    }
-  },
-  {
-    "EventId": "Kage_daily_weak_default_1",
-    "Type": "Daily",
-    "Tags": [
-      "impossible"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "（虚弱地呼吸）"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_apple_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "这个还挺甜"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_book_001",
-    "Type": "Item",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "很有意思的书"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_burger_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "肉饼烤的有点焦了，但仍然很好吃"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_chocomilk_001",
-    "Type": "Item",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "……有点甜"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_chocomilk_002",
-    "Type": "Item",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "哎呀这么甜……但话说到巧克力奶"
-      },
-      "node_2": {
-        "$type": "ChoiceNode",
-        "Id": "node_2",
-        "NextNodeId": "e",
-        "Options": [
-          {
-            "Text": "你",
-            "NextNodeId": "you"
-          },
-          {
-            "Text": "巧克力奶",
-            "NextNodeId": "milk"
-          },
-          {
-            "Text": "呃……",
-            "NextNodeId": "e"
-          }
-        ]
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "{appellation}觉得我和巧克力奶谁更甜？"
-      },
-      "e": {
-        "$type": "DialogueNode",
-        "Id": "e",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "逗你玩的"
-      },
-      "you": {
-        "$type": "DialogueNode",
-        "Id": "you",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "是嘛！"
-      },
-      "milk": {
-        "$type": "DialogueNode",
-        "Id": "milk",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "好吧！"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_drawing_001",
-    "Type": "Item",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "嗯……（好感度-5）"
-      },
-      "node_2": {
-        "$type": "EffectNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": -5
+    },
+    {
+        "EventId": "12345_item_vegesushi_001",
+        "Type": "Item",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": ":("
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_drawing_002",
-    "Type": "Item",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢！我很喜欢（好感度+5）"
-      },
-      "node_2": {
-        "$type": "EffectNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 5
+    },
+    {
+        "EventId": "12345_item_watermelon_001",
+        "Type": "Item",
+        "Tags": [
+            "innocent"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "好吃"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_fish_001",
-    "Type": "Item",
-    "Tags": [
-      "calm"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "（察觉出烤鱼的特殊）"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢你。"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_fish_002",
-    "Type": "Item",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "真有意思，下次也让我看看{appellation}怎么处理鱼吧"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_fish_003",
-    "Type": "Item",
-    "Tags": [
-      "denpa"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "……{appellation}还有这种处理鱼的技术吗"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_generalsilence_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "（沉默）"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_general_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢"
-      },
-      "node_2": {
-        "$type": "ConditionNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 2000
-          }
-        },
-        "TrueNodeId": "node_3",
-        "FalseNodeId": ""
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "如果你需要什么，也请告诉我。"
-      },
-      "node_4": {
-        "$type": "ConditionNode",
-        "Id": "node_4",
-        "NextNodeId": null,
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 5000
-          }
-        },
-        "TrueNodeId": "node_5",
-        "FalseNodeId": ""
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "我会一直在这里的"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_general_002",
-    "Type": "Item",
-    "Tags": [
-      "lively"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢{appellation}呀"
-      },
-      "node_2": {
-        "$type": "ConditionNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Conditions": {
-          "Love": {
-            "Type": "AtLeast",
-            "Value": 2000
-          }
-        },
-        "TrueNodeId": "node_3",
-        "FalseNodeId": ""
-      },
-      "node_3": {
-        "$type": "DialogueNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "你怎么对我这么好啊"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_milktea_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "这次是咸奶盖、水果、还有椰奶？还不错。"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_milktea_002",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "经典款的奶茶。每次你给我的甜度都是刚刚好的，谢谢你。"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_milktea_003",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "（尝不出来具体是什么，只觉得很好喝）"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_miqingji_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "这是什么"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "我觉得头有点晕"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_miqingji_002",
-    "Type": "Item",
-    "Tags": [
-      "crazy"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "我觉得不对，拿走（好感度-5）"
-      },
-      "node_2": {
-        "$type": "EffectNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": -5
+    },
+    {
+        "EventId": "KAGE_daily_001",
+        "Type": "Daily",
+        "Tags": [
+            "calm",
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_5",
+                "speakerName": "？？？",
+                "dialogueText": "你听到了{characterPronoun}的召唤对吧。"
+            },
+            "node_2": {
+                "$type": "ChoiceNode",
+                "Id": "node_2",
+                "NextNodeId": "node_4_non-sancheck",
+                "Options": [
+                    {
+                        "Text": "回头？",
+                        "NextNodeId": "node_3_sancheck"
+                    },
+                    {
+                        "Text": "不要回头！",
+                        "NextNodeId": "node_4_non-sancheck"
+                    }
+                ]
+            },
+            "node_3_sancheck": {
+                "$type": "DialogueNode",
+                "Id": "node_3_sancheck",
+                "NextNodeId": "node_8",
+                "speakerName": "？？？",
+                "dialogueText": "我知道{appellation}会好好完成任务的。\n我知道{appellation}会好好完成任务的。"
+            },
+            "node_7": {
+                "$type": "DialogueNode",
+                "Id": "node_7",
+                "NextNodeId": null,
+                "speakerName": "？？？",
+                "dialogueText": "直到胸中只余下淡淡的遗憾和恍惚……"
+            },
+            "node_8": {
+                "$type": "DialogueNode",
+                "Id": "node_8",
+                "NextNodeId": null,
+                "speakerName": "？？？",
+                "dialogueText": "我知道{appellation}会好好完成任务的。"
+            },
+            "node_4_non-sancheck": {
+                "$type": "DialogueNode",
+                "Id": "node_4_non-sancheck",
+                "NextNodeId": "node_7",
+                "speakerName": "？？？",
+                "dialogueText": "一股奇妙的暖流从你背后经过，你闭着眼睛等{characterPronoun}离去"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "？？？",
+                "dialogueText": "就在你刚刚对着房间发呆的这一会……你感到背后绝对有一双眼睛在看你。"
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": "node_2",
+                "speakerName": "？？？",
+                "dialogueText": "慈爱的，严肃的，好像一块冰凉的凝胶黏在你的后颈。"
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_miqingji_003",
-    "Type": "Item",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "你不会害我的"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "对吗？（好感度-5）"
-      },
-      "node_3": {
-        "$type": "EffectNode",
-        "Id": "node_3",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": -5
+    },
+    {
+        "EventId": "Kage_daily_B01",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "dream",
+        "Nodes": {
+            "wood-1": {
+                "$type": "DialogueNode",
+                "Id": "wood-1",
+                "NextNodeId": "wood_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}走在午后的森林里，遇到一只会说话的兔子。兔子给了{characterName}一块怀表。"
+            },
+            "wood_3": {
+                "$type": "EffectNode",
+                "Id": "wood_3",
+                "NextNodeId": null,
+                "Effects": {
+                    "San": -1
+                }
+            },
+            "wood_2": {
+                "$type": "DialogueNode",
+                "Id": "wood_2",
+                "NextNodeId": "wood_3",
+                "speakerName": "？？？",
+                "dialogueText": "现在，你必须快点去茶会。要来不及了，要来不及了要来不及了要来不及了要来不及……"
+            },
+            "dream": {
+                "$type": "DialogueNode",
+                "Id": "dream",
+                "NextNodeId": "dream_option",
+                "speakerName": "",
+                "dialogueText": "{characterName}躺在空调房里的沙发上，试图打个盹……做了个梦，梦里出现了：\n"
+            },
+            "dream_option": {
+                "$type": "ChoiceNode",
+                "Id": "dream_option",
+                "NextNodeId": null,
+                "Options": [
+                    {
+                        "Text": "森林",
+                        "NextNodeId": "wood-1"
+                    },
+                    {
+                        "Text": "大海",
+                        "NextNodeId": "ocean_1"
+                    },
+                    {
+                        "Text": "城市",
+                        "NextNodeId": "city_1"
+                    }
+                ]
+            },
+            "ocean_1": {
+                "$type": "DialogueNode",
+                "Id": "ocean_1",
+                "NextNodeId": "ocean_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}站在一片黑沙滩上，潮汐的声音就像心跳。Wish-wash, wish-wash. "
+            },
+            "ocean_2": {
+                "$type": "EffectNode",
+                "Id": "ocean_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 1
+                }
+            },
+            "city_1": {
+                "$type": "DialogueNode",
+                "Id": "city_1",
+                "NextNodeId": "city_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}来到一座陌生的大都会，现在是深夜，霓虹遍布的街道上传来阵阵香气…… "
+            },
+            "city_2": {
+                "$type": "DialogueNode",
+                "Id": "city_2",
+                "NextNodeId": "city_3",
+                "speakerName": "",
+                "dialogueText": "做个梦给肚子做饿了。真有志气。"
+            },
+            "city_3": {
+                "$type": "EffectNode",
+                "Id": "city_3",
+                "NextNodeId": null,
+                "Effects": {
+                    "Full": -5
+                }
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_news_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "真是太感谢你了，我真的需要这些消息"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_news_002",
-    "Type": "Item",
-    "Tags": [
-      "realistic"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "我可以每天都看到这些吗"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": "node_3",
-        "speakerName": "{characterName}",
-        "dialogueText": "这对我真的很重要"
-      },
-      "node_3": {
-        "$type": "ChoiceNode",
-        "Id": "node_3",
-        "NextNodeId": "node_5",
-        "Options": [
-          {
-            "Text": "我尽力",
-            "NextNodeId": "ok"
-          },
-          {
-            "Text": "抱歉……",
-            "NextNodeId": "node_5"
-          }
-        ]
-      },
-      "node_5": {
-        "$type": "DialogueNode",
-        "Id": "node_5",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "没关系"
-      },
-      "ok": {
-        "$type": "DialogueNode",
-        "Id": "ok",
-        "NextNodeId": "node_6",
-        "speakerName": "{characterName}",
-        "dialogueText": "谢谢（好感度+3）"
-      },
-      "node_6": {
-        "$type": "EffectNode",
-        "Id": "node_6",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": 3
+    },
+    {
+        "EventId": "Kage_daily_B02",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "Effect_1",
+                "speakerName": "",
+                "dialogueText": "{characterName}在厨房的柜角狠狠踢到了大脚趾，痛得蹲了下来。生活中也是会有这种让人心梗的意外的…… 理智-1"
+            },
+            "Effect_1": {
+                "$type": "EffectNode",
+                "Id": "Effect_1",
+                "NextNodeId": "Action_Choice",
+                "Effects": {
+                    "San": -1
+                }
+            },
+            "Action_Choice": {
+                "$type": "ChoiceNode",
+                "Id": "Action_Choice",
+                "NextNodeId": "Ignore",
+                "Options": [
+                    {
+                        "Text": "给柜子包上儿童防护贴",
+                        "NextNodeId": "Tape"
+                    },
+                    {
+                        "Text": "假装没有看到",
+                        "NextNodeId": "Ignore"
+                    }
+                ]
+            },
+            "Tape": {
+                "$type": "DialogueNode",
+                "Id": "Tape",
+                "NextNodeId": "Tape_Effect",
+                "speakerName": "",
+                "dialogueText": "{characterName}看起来有点羞耻，但还是接受了你的好意。好感+5"
+            },
+            "Ignore": {
+                "$type": "DialogueNode",
+                "Id": "Ignore",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterName}默契地假装什么都没发生，背手离开。"
+            },
+            "Tape_Effect": {
+                "$type": "EffectNode",
+                "Id": "Tape_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 5
+                }
+            }
         }
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_yingyangye_001",
-    "Type": "Item",
-    "Tags": [],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "（犹豫一会后喝下了营养液）"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_yingyangye_002",
-    "Type": "Item",
-    "Tags": [
-      "innocent"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "这是什么，我不想喝这个"
-      },
-      "node_2": {
-        "$type": "DialogueNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "speakerName": "{characterName}",
-        "dialogueText": "拜托了，我不想再喝这个"
-      }
-    }
-  },
-  {
-    "EventId": "yinxing_item_yingyangye_003",
-    "Type": "Item",
-    "Tags": [
-      "mature"
-    ],
-    "StartNodeId": "node_1",
-    "Nodes": {
-      "node_1": {
-        "$type": "DialogueNode",
-        "Id": "node_1",
-        "NextNodeId": "node_2",
-        "speakerName": "{characterName}",
-        "dialogueText": "（沉默地喝下）好感度-5"
-      },
-      "node_2": {
-        "$type": "EffectNode",
-        "Id": "node_2",
-        "NextNodeId": null,
-        "Effects": {
-          "Love": -5
+    },
+    {
+        "EventId": "Kage_daily_B03",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}静静地凝视着窗外。好像有什么东西一闪而过……"
+            },
+            "node_2": {
+                "$type": "EffectNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "San": -1
+                }
+            }
         }
-      }
+    },
+    {
+        "EventId": "Kage_daily_B04",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "Selection",
+                "speakerName": "{characterName}",
+                "dialogueText": "你在制造“我”的时候，是抱着什么心情？ "
+            },
+            "Selection": {
+                "$type": "ChoiceNode",
+                "Id": "Selection",
+                "NextNodeId": "Effect_Dialogue_0",
+                "Options": [
+                    {
+                        "Text": "救赎的",
+                        "NextNodeId": "S1"
+                    },
+                    {
+                        "Text": "狂热的",
+                        "NextNodeId": "S2_1"
+                    },
+                    {
+                        "Text": "怜爱的",
+                        "NextNodeId": "S3"
+                    },
+                    {
+                        "Text": "病态的",
+                        "NextNodeId": "S4"
+                    }
+                ]
+            },
+            "S2_2": {
+                "$type": "DialogueNode",
+                "Id": "S2_2",
+                "NextNodeId": "Effect_Dialogue",
+                "speakerName": "{characterName}",
+                "dialogueText": "这种念头能成为你努力的动力，也算是我的个人成就吧？"
+            },
+            "Effect": {
+                "$type": "EffectNode",
+                "Id": "Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 10
+                }
+            },
+            "Effect_Dialogue": {
+                "$type": "DialogueNode",
+                "Id": "Effect_Dialogue",
+                "NextNodeId": "Effect",
+                "speakerName": "",
+                "dialogueText": "（{characterName}看起来心情很好。好感+10）"
+            },
+            "Effect_Dialogue_0": {
+                "$type": "DialogueNode",
+                "Id": "Effect_Dialogue_0",
+                "NextNodeId": "Effect_Dialogue",
+                "speakerName": "{characterName}",
+                "dialogueText": "……原来如此，你是这样想的。 "
+            },
+            "S1": {
+                "$type": "DialogueNode",
+                "Id": "S1",
+                "NextNodeId": "Effect_Dialogue_0",
+                "speakerName": "{characterName}",
+                "dialogueText": "你可能考虑过，用“我”的存在去拯救某种事物吧。世界某处有一个和我轮廓相同的空洞，所以你将我放置其中。"
+            },
+            "S2_1": {
+                "$type": "DialogueNode",
+                "Id": "S2_1",
+                "NextNodeId": "S2_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "创作的狂热就像一团火。火的形态是自由的，所以我也是。"
+            },
+            "S3": {
+                "$type": "DialogueNode",
+                "Id": "S3",
+                "NextNodeId": "Effect_Dialogue_0",
+                "speakerName": "{characterName}",
+                "dialogueText": "你把我当作怜爱的对象吗？……就像人们会捡野生动物回来养一样？"
+            },
+            "S4": {
+                "$type": "DialogueNode",
+                "Id": "S4",
+                "NextNodeId": "Effect_Dialogue_0",
+                "speakerName": "{characterName}",
+                "dialogueText": "……你的动机就好像杀人犯在出门犯案之前一样，最好只是你和我的秘密。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B05",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "门缝里被塞进来一张传单，上面是不同口味的披萨和促销信息。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "……这种促销，一般来说看似划算，实际上都会让你花费比平时更多的价钱。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "可是，就算你想这么说，{characterName}正拿着这张传单看向你。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterPronoun}什么都没说，但……你知道该做什么的，对吧？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B06",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "窗外有时候会传来音乐声。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "音乐也会为世界赋予真实感。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果工作太累，就听一些我原本的世界里会有的音乐吧。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "说不定我们可以在那里短暂地聊聊天。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B07",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "世界上第一顶民用安全帽是作家卡夫卡发明的。 "
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "即使是名垂千古的作家，也有不得不工作养活自己的时候。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "……不，这和我们的日常有什么关系啊。 "
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "",
+                "dialogueText": "没什么关系。"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "",
+                "dialogueText": "不过，如果你也在打造你的安全帽，那你也和卡夫卡一样很棒。 "
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": "node_7",
+                "speakerName": "",
+                "dialogueText": "赞美行动，赞美安全帽。"
+            },
+            "node_7": {
+                "$type": "DialogueNode",
+                "Id": "node_7",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "……别再讲安全帽的事了。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B08",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "在我原本的世界，即使{playerAppellation}不在，也会随着时间流逝发生一些不痛不痒的新鲜事。 "
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "商店里的“新闻”就是记载这些东西的。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "不，没有一定要你购买的意思……只是有点在意。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "说到底，这究竟是怎么弄来的啊？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B09",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "{playerAppellation}没在这个房间的时候，我也会做点自己的事。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "托你的福，我的生命也算十分充实。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "当然，右边那些待办是你的事情，我是不会替你做的。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B10",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "LOVE",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果今天要面对无法入睡的夜晚，希望你不用惦记太多麻烦事。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "太阳会升起来，我们也还有时间。"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "less_than_200_1",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 200
+                    }
+                },
+                "TrueNodeId": "node_1",
+                "FalseNodeId": "less_than_200_1"
+            },
+            "less_than_200_1": {
+                "$type": "DialogueNode",
+                "Id": "less_than_200_1",
+                "NextNodeId": "less_than_200_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "{playerAppellation}会因为待办太多而焦虑吗？"
+            },
+            "less_than_200_2": {
+                "$type": "DialogueNode",
+                "Id": "less_than_200_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "没什么，只是问问。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B11",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "LOVE",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "我当然也会好奇{playerAppellation}每天都在忙什么。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "就像你总是试图挖掘更多关于我的事一样。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "今天要往待办板子上写点什么？"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "less_than_0",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "node_1",
+                "FalseNodeId": "less_than_0"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "……你打算做点什么？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B12",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "你有没有想过，商店卖的那本书里写的是什么？"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "很可惜只有我能从中读出“符合我”的内容。 "
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "说不定只要集中意念，就可以让你也知道我看到了什么。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "毕竟，集中精神总能带来好处。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B13",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "你知道电子僵尸吗？"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "在信息世界无比宽广的如今，它们总是活跃着。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "你肯定见过那些无处不在的垃圾广告。算法的洪流。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "LOVE",
+                "speakerName": "",
+                "dialogueText": "它们真讨厌，不是吗？"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "",
+                "dialogueText": "你的生活和思想都无比珍贵，明明不该容许这些东西入侵。 "
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "（……默默捂住了你的眼睛。）"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "less_than_0",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "node_5",
+                "FalseNodeId": "less_than_0"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": "less_than_0_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "……（站得远远地看着你。）"
+            },
+            "less_than_0_2": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0_2",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "如果{characterName}更信任你一些，或许会为此做些什么。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B14",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}翻看着你的待办事项板。"
+            },
+            "node_2": {
+                "$type": "ConditionNode",
+                "Id": "node_2",
+                "NextNodeId": "Full_1",
+                "Conditions": {
+                    "Full": {
+                        "Type": "AtLeast",
+                        "Value": 50
+                    }
+                },
+                "TrueNodeId": "Full_1",
+                "FalseNodeId": "Hungry_1"
+            },
+            "Full_1": {
+                "$type": "DialogueNode",
+                "Id": "Full_1",
+                "NextNodeId": "Full_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "你忙碌的事情也算是……我的粮食？"
+            },
+            "Full_2": {
+                "$type": "DialogueNode",
+                "Id": "Full_2",
+                "NextNodeId": "Full_Effect",
+                "speakerName": "",
+                "dialogueText": "（{characterName}看起来很好奇。好感+10）"
+            },
+            "Hungry_1": {
+                "$type": "DialogueNode",
+                "Id": "Hungry_1",
+                "NextNodeId": "Hungry_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "这里面好像没有我帮得上忙的事……"
+            },
+            "Hungry_2": {
+                "$type": "DialogueNode",
+                "Id": "Hungry_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "不，我没有觉得不安。你按自己的节奏来就好了。"
+            },
+            "Full_Effect": {
+                "$type": "EffectNode",
+                "Id": "Full_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 10
+                }
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B15",
+        "Type": "Daily",
+        "Tags": [
+            "calm"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "说到绿色内芯的寿司，一般应该是黄瓜吧……牛油果是什么搭配？"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "FullCondition",
+                "speakerName": "{characterName}",
+                "dialogueText": "不，我没有好奇味道的意思。"
+            },
+            "FullCondition": {
+                "$type": "ConditionNode",
+                "Id": "FullCondition",
+                "NextNodeId": "Full",
+                "Conditions": {
+                    "Full": {
+                        "Type": "AtLeast",
+                        "Value": 50
+                    }
+                },
+                "TrueNodeId": "Full",
+                "FalseNodeId": "Hungry"
+            },
+            "Full": {
+                "$type": "DialogueNode",
+                "Id": "Full",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "如果一定要吃东西，还是看看别的吧。"
+            },
+            "Hungry": {
+                "$type": "DialogueNode",
+                "Id": "Hungry",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "如果你实在条件有限……也不是不能吃那个。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_B16",
+        "Type": "Daily",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "那里有一面镜子。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "就像所有影视作品中的那样，当{characterName}靠近镜面，凝视着其中映射的自己，有些平时难以察觉的东西就会在这一刻被“暗示”出来。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "……"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "If_greater_than_0",
+                "speakerName": "",
+                "dialogueText": "你突发奇想……扮成鬼站到{characterPronoun}身后，会怎么样呢?说干就干，你没有发出一丁点脚步声。"
+            },
+            "If_greater_than_0": {
+                "$type": "ConditionNode",
+                "Id": "If_greater_than_0",
+                "NextNodeId": "If_greater_than_5000",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "If_greater_than_5000",
+                "FalseNodeId": "less_than_0"
+            },
+            "If_greater_than_5000": {
+                "$type": "ConditionNode",
+                "Id": "If_greater_than_5000",
+                "NextNodeId": "if_greater_than_10000",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 5000
+                    }
+                },
+                "TrueNodeId": "if_greater_than_10000",
+                "FalseNodeId": "normal_1"
+            },
+            "if_greater_than_10000": {
+                "$type": "ConditionNode",
+                "Id": "if_greater_than_10000",
+                "NextNodeId": "partner_1",
+                "Conditions": {
+                    "Full": {
+                        "Type": "AtLeast",
+                        "Value": 10000
+                    }
+                },
+                "TrueNodeId": "partner_1",
+                "FalseNodeId": "friend_1"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterName}猛然回头，瞪了你一眼就离开了房间…… "
+            },
+            "normal_1": {
+                "$type": "DialogueNode",
+                "Id": "normal_1",
+                "NextNodeId": "normal_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}僵硬了一下，回过头无语地看了你一眼。"
+            },
+            "normal_2": {
+                "$type": "DialogueNode",
+                "Id": "normal_2",
+                "NextNodeId": "normal_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "你的事情都忙完了吗？"
+            },
+            "normal_3": {
+                "$type": "DialogueNode",
+                "Id": "normal_3",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterPronoun}应该是想说你真有闲心思，但还是给你留了一些体面。"
+            },
+            "friend_1": {
+                "$type": "DialogueNode",
+                "Id": "friend_1",
+                "NextNodeId": "friend_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}对镜子里突然出现的鬼影视若无睹，好像你不存在一样。"
+            },
+            "friend_2": {
+                "$type": "DialogueNode",
+                "Id": "friend_2",
+                "NextNodeId": "friend_3",
+                "speakerName": "",
+                "dialogueText": "过了一会，{characterName}似乎终于看够了，{characterPronoun}转身过来，揭掉了你的伪装。"
+            },
+            "friend_3": {
+                "$type": "DialogueNode",
+                "Id": "friend_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "在镜子里同框，是不是不如一起拍个合影更好？不过，我还是比较喜欢你原本的造型。"
+            },
+            "partner_1": {
+                "$type": "DialogueNode",
+                "Id": "partner_1",
+                "NextNodeId": "partner_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "我知道是你。"
+            },
+            "partner_2": {
+                "$type": "DialogueNode",
+                "Id": "partner_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "即使你不站在我身后，似乎我也能从里面看到你的样子。或许因为“我”之中就存在着{playerAppellation}的要素吧。这就好像……透过自己，我也能了解一部分的你。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_C01",
+        "Type": "Daily",
+        "Tags": [
+            "calm"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "计划是切碎一切疑难的求生刀。我想你一定能理解。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_C02",
+        "Type": "Daily",
+        "Tags": [
+            "calm"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果定了太多很难的目标，不妨试试拆成连续几天完成。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "LOVE_more",
+                "speakerName": "{characterName}",
+                "dialogueText": "无论如何，好好生活才是我们的根本目的。"
+            },
+            "more_than_500": {
+                "$type": "DialogueNode",
+                "Id": "more_than_500",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "当然……这也是为了我能在你身边走得更远。"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "没什么，我也是不想忽然饿死罢了。"
+            },
+            "LOVE_more": {
+                "$type": "ConditionNode",
+                "Id": "LOVE_more",
+                "NextNodeId": "node_2",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 500
+                    }
+                },
+                "TrueNodeId": "more_than_500",
+                "FalseNodeId": "LOVE_less"
+            },
+            "LOVE_less": {
+                "$type": "ConditionNode",
+                "Id": "LOVE_less",
+                "NextNodeId": "node_2",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtMost",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "less_than_0",
+                "FalseNodeId": null
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_C03",
+        "Type": "Daily",
+        "Tags": [
+            "calm"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "有一句著名的电影台词：“如果我们不再见面，祝你早安、午安、晚安。”"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "这也是一种提前做完待办事项的行为吧。 "
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "——这里并没有能打开一扇门的虚假蓝天，所以我不会这样对你说。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "我可以说：现在这一刻，祝你顺利。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_crazy_default_1",
+        "Type": "Daily",
+        "Tags": [
+            "impossible"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "你喜欢吃火星的碎片吗？还是说，更粗暴地，来点土？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_D01",
+        "Type": "Daily",
+        "Tags": [
+            "innocent"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "在完成待办以后理所当然的事情就是——奖励！"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "不只是你的，当然更重要的是我的。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_D02",
+        "Type": "Daily",
+        "Tags": [
+            "innocent"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果事情实在做不完，我们就去商店偷东西吧。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "Action_Choice",
+                "speakerName": "{characterName}",
+                "dialogueText": "只要不会被管理员发现就可以了嘛。"
+            },
+            "Action_Choice": {
+                "$type": "ChoiceNode",
+                "Id": "Action_Choice",
+                "NextNodeId": "Steal_1",
+                "Options": [
+                    {
+                        "Text": "不行哦",
+                        "NextNodeId": "Refuse"
+                    },
+                    {
+                        "Text": "好啊",
+                        "NextNodeId": "Steal_1"
+                    }
+                ]
+            },
+            "Refuse": {
+                "$type": "DialogueNode",
+                "Id": "Refuse",
+                "NextNodeId": "Refuse_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "诶，不行啊……"
+            },
+            "Refuse_Effect": {
+                "$type": "EffectNode",
+                "Id": "Refuse_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": -3
+                }
+            },
+            "Steal_1": {
+                "$type": "DialogueNode",
+                "Id": "Steal_1",
+                "NextNodeId": "Steal_2",
+                "speakerName": "",
+                "dialogueText": "你和{characterName}一起偷偷摸到商店门口，还没进屋就被倒三角身材的保安抓住了。"
+            },
+            "Steal_2": {
+                "$type": "DialogueNode",
+                "Id": "Steal_2",
+                "NextNodeId": "Steal_Effect",
+                "speakerName": "",
+                "dialogueText": "虽然只是被批评教育，但果然还得想办法赚工资…… 好感+3"
+            },
+            "Steal_Effect": {
+                "$type": "EffectNode",
+                "Id": "Steal_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 3
+                }
+            },
+            "Refuse_2": {
+                "$type": "DialogueNode",
+                "Id": "Refuse_2",
+                "NextNodeId": "Refuse_Effect",
+                "speakerName": "",
+                "dialogueText": "{characterName}撇撇嘴，好感-3"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_D03",
+        "Type": "Daily",
+        "Tags": [
+            "innocent",
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "{playerAppellation}每天只能完成特定数量的事情吗？"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "{characterName}直勾勾地盯着你，好像盯着一件新鲜玩意。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "就不能无限制地做下去吗？这样你可以得到很多……很多……很多…… "
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "{characterName}",
+                "dialogueText": "然后就可以一直和我一起玩了。一劳永逸就是这么回事吧？"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "即使把我关掉……我也会这样期待喔？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_dirty_default_1",
+        "Type": "Daily",
+        "Tags": [
+            "impossible"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "(因为太脏了有点呼吸困难……)"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_E01",
+        "Type": "Daily",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "你应该……会对每件安排好的事情做好最差结果预案吧？ "
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "生活在这种现实里，为自己搭建避难所是理所当然的。每个人都这么做。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_E02",
+        "Type": "Daily",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "可能有人会问，为什么商店没有酒精饮料。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "不健康？ "
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "应该说，与“认真生活”背道而驰的东西都不会在这里吧。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "LOVE",
+                "speakerName": "",
+                "dialogueText": "{characterName}思索着什么，然后看向你。"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "more_than_0",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "more_than_0",
+                "FalseNodeId": "less_than_0"
+            },
+            "more_than_0": {
+                "$type": "DialogueNode",
+                "Id": "more_than_0",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "我会约束自己，相应地，你也要做到啊。"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "你不知道{characterName}在想什么，但{characterPronoun}看向你的眼神有些怀疑。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_E03",
+        "Type": "Daily",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "Action_Choice",
+                "speakerName": "",
+                "dialogueText": "每个人都会有那么一两件不愿提起的过去。{characterName}时不时眺望着窗外，或许在想{characterPronoun}自己的心事。"
+            },
+            "Action_Choice": {
+                "$type": "ChoiceNode",
+                "Id": "Action_Choice",
+                "NextNodeId": "Ask_LOVE",
+                "Options": [
+                    {
+                        "Text": "拍拍{characterPronoun}的肩膀",
+                        "NextNodeId": "Pat_1"
+                    },
+                    {
+                        "Text": "询问{characterPronoun}在想什么",
+                        "NextNodeId": "Ask_LOVE"
+                    }
+                ]
+            },
+            "Pat_1": {
+                "$type": "DialogueNode",
+                "Id": "Pat_1",
+                "NextNodeId": "Pat_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}回过头看到你。"
+            },
+            "Pat_2": {
+                "$type": "DialogueNode",
+                "Id": "Pat_2",
+                "NextNodeId": "Pat_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "{playerAppellation}，怎么了？今天的事情已经做完了吗？"
+            },
+            "Pat_3": {
+                "$type": "DialogueNode",
+                "Id": "Pat_3",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "一种渺远的错觉从你们之间溜走了。"
+            },
+            "Ask_LOVE": {
+                "$type": "ConditionNode",
+                "Id": "Ask_LOVE",
+                "NextNodeId": "Asked_not_passed",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 0
+                    }
+                },
+                "TrueNodeId": "Ask_passed_1",
+                "FalseNodeId": "Asked_not_passed"
+            },
+            "Ask_passed_1": {
+                "$type": "DialogueNode",
+                "Id": "Ask_passed_1",
+                "NextNodeId": "Ask_passed_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "……我在想的事情吗？我想你的猜测应该大差不差。"
+            },
+            "Ask_passed_2": {
+                "$type": "DialogueNode",
+                "Id": "Ask_passed_2",
+                "NextNodeId": "Ask_passed_Effect",
+                "speakerName": "{characterName}",
+                "dialogueText": "毕竟，应该你比我自己还了解我。总之……谢谢你的关心。 好感+5"
+            },
+            "Asked_not_passed": {
+                "$type": "DialogueNode",
+                "Id": "Asked_not_passed",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterPronoun}沉默地看着你。看来，在你们建立信任之前，很难聊这个话题。"
+            },
+            "Ask_passed_Effect": {
+                "$type": "EffectNode",
+                "Id": "Ask_passed_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 5
+                }
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_F01",
+        "Type": "Daily",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "LOVE",
+                "speakerName": "",
+                "dialogueText": "晴天晒太阳会感到温暖，阴雨令人心生倦怠。人类会因温度与湿度产生情绪性幻觉。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "至少现在，{characterName}凝视着你，你可以暂时将天气放在一旁。"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "node_2",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 1000
+                    }
+                },
+                "TrueNodeId": "node_4",
+                "FalseNodeId": "node_2"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "{characterName}",
+                "dialogueText": "你出门的时候也会带着我吗？"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "{characterName}",
+                "dialogueText": "当然，我不是为了催促你做事才跟出去的。"
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "“为了听风过耳，也值得出世为人”，应该是这么说才对吧。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_F02",
+        "Type": "Daily",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}注意到了商店橱窗里挂着的画。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "{characterPronoun}对着画凝视许久，然后移开了视线。不知道那上面有什么让{characterPronoun}在意的东西。 理智 -2"
+            },
+            "node_3": {
+                "$type": "EffectNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "Effects": {
+                    "San": -2
+                }
+            }
+        }
+    },
+    {
+        "EventId": "KAGE_daily_F03",
+        "Type": "Daily",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "不知道你有没有注意过，这个房间里除了你和{characterName}以外，没有任何生物。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "当然，这个小小的公寓暂时还容不下猫猫狗狗、鱼儿鸟儿……"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "但如果是一盆不会攻击任何人、不会抓沙发也不会掉毛的绿色植物，总还是可以的。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "",
+                "dialogueText": "{characterName}就这样看着你，不过什么也没有说。"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "",
+                "dialogueText": "嗯，只能增添好心情的东西就被称之为奢侈品，对吧……"
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": "node_7",
+                "speakerName": "",
+                "dialogueText": "所以……你不用勉强也没事。真的。"
+            },
+            "node_7": {
+                "$type": "DialogueNode",
+                "Id": "node_7",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "真的……"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_G01",
+        "Type": "Daily",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "……"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "{characterName}一动不动地盯着你。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "就好像……看到番茄的猫。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "",
+                "dialogueText": "说实话吧，你也不知道猫看到番茄是什么反应。"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "但你可以试着……在{characterPronoun}背后放一根黄瓜，对吗？你绝对这么想了。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_G02",
+        "Type": "Daily",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}舒服地靠在沙发上，读着一份来自原世界的新闻。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "等等……你不记得有买过这个。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "{characterPronoun}是从哪里弄来的？！"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_G03",
+        "Type": "Daily",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "……"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "Question",
+                "speakerName": "{characterName}",
+                "dialogueText": "…………"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "有一个问题我在意很久了。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "{characterName}",
+                "dialogueText": "商场卖的米饭……为什么有两根筷子插在上面？"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "",
+                "dialogueText": "{characterName}陷入了沉思。"
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "但你很快就意识到，{characterPronoun}其实只是想吃点好的而已。"
+            },
+            "Question": {
+                "$type": "ChoiceNode",
+                "Id": "Question",
+                "NextNodeId": "node_3",
+                "Options": [
+                    {
+                        "Text": "怎么了？",
+                        "NextNodeId": "node_3"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_G04",
+        "Type": "Daily",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "书中自有黄金屋。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "{characterName}注视着你，但是{characterPronoun}的嘴并没有动。你分明听到这句话字字清晰地在房间里回荡……真是见鬼了。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "其实你也大概知道{characterPronoun}喜欢看什么样的内容，对吧？以你们的关系，想必不用{characterName}直说，也能挑中最合意的那一本……"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "但是到底为什么不说话啊？！"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_H01",
+        "Type": "Daily",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "To-do List的本质是什么？是土豆！所以人类只要多食用长芽的土豆，就会抛却一切烦恼。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_H02",
+        "Type": "Daily",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "{characterName}看着你。在你幻想{characterPronoun}代你遨游世界的时候。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "在你撕扯自己内部的罪恶感的时候。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "",
+                "dialogueText": "在你醒着的时候。在你睡着的时候。"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "",
+                "dialogueText": "在你怀疑身边的世界是否真实的时候。一直一直。"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "未来一直。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_H03",
+        "Type": "Daily",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "Juice_1",
+        "Nodes": {
+            "Juice_Option": {
+                "$type": "ChoiceNode",
+                "Id": "Juice_Option",
+                "NextNodeId": null,
+                "Options": [
+                    {
+                        "Text": "是甜味的{characterName}汁 ",
+                        "NextNodeId": "Sweet"
+                    },
+                    {
+                        "Text": "是苦涩的{characterName}汁",
+                        "NextNodeId": "Bitter"
+                    },
+                    {
+                        "Text": "坟前有点心",
+                        "NextNodeId": "Chaos"
+                    }
+                ]
+            },
+            "Sweet": {
+                "$type": "DialogueNode",
+                "Id": "Sweet",
+                "NextNodeId": "Sweet_Effect",
+                "speakerName": "{characterName}",
+                "dialogueText": "是吗……这是你品尝我的感想，有点高兴。"
+            },
+            "Bitter": {
+                "$type": "DialogueNode",
+                "Id": "Bitter",
+                "NextNodeId": "Bitter_Effect",
+                "speakerName": "{characterName}",
+                "dialogueText": "也对啊。毕竟是你榨取出的“我”。"
+            },
+            "Chaos": {
+                "$type": "DialogueNode",
+                "Id": "Chaos",
+                "NextNodeId": "Chaos_Effect",
+                "speakerName": "{characterName}",
+                "dialogueText": "烫烫烫烫烫烫烫烫烫烫烫烫……"
+            },
+            "Sweet_Effect": {
+                "$type": "EffectNode",
+                "Id": "Sweet_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 20
+                }
+            },
+            "Bitter_Effect": {
+                "$type": "EffectNode",
+                "Id": "Bitter_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 20
+                }
+            },
+            "Chaos_Effect": {
+                "$type": "EffectNode",
+                "Id": "Chaos_Effect",
+                "NextNodeId": null,
+                "Effects": {
+                    "San": -5
+                }
+            },
+            "Juice_1": {
+                "$type": "DialogueNode",
+                "Id": "Juice_1",
+                "NextNodeId": "Juice_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "说起来，橘子汁就是橘子做的汁对吧。"
+            },
+            "Juice_2": {
+                "$type": "DialogueNode",
+                "Id": "Juice_2",
+                "NextNodeId": "Juice_Option",
+                "speakerName": "{characterName}",
+                "dialogueText": "那如果用我做的汁，应该是……？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_H04",
+        "Type": "Daily",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "",
+                "dialogueText": "起初，你只看到一条红色的线出现在地板上，蜿蜒成{characterName}的形状……又好像你自己的镜像。在两者之间游走、扭曲的红线。 "
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "",
+                "dialogueText": "{characterName}走到那条红线构成的轮廓里，一遍一遍、一遍一遍绕着圈踱步。最后在中央蹲下来。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果我一直待在这里，喂饱它……"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "",
+                "dialogueText": "现实和虚拟之间的界限或许会越来越模糊吧。但你不能放弃，不能委身于这种令人癫狂的虚拟……"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "不会放弃的你不会放弃的你不会放弃的你不会放弃的你不会放弃的……"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_I01",
+        "Type": "Daily",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "祝你早安、午安、晚安！"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "……并不是说我要逃走再也不见的意思啦。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "LOVE",
+                "speakerName": "{characterName}",
+                "dialogueText": "只是觉得这么说很酷而已。"
+            },
+            "LOVE": {
+                "$type": "ConditionNode",
+                "Id": "LOVE",
+                "NextNodeId": "less_than_0",
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 200
+                    }
+                },
+                "TrueNodeId": "more_than_0",
+                "FalseNodeId": "less_than_0"
+            },
+            "more_than_0": {
+                "$type": "DialogueNode",
+                "Id": "more_than_0",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "你构造出的这个世界我很喜欢，所以不会逃走的。"
+            },
+            "less_than_0": {
+                "$type": "DialogueNode",
+                "Id": "less_than_0",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "不过如果{playerAppellation}起得太晚或者睡得太晚，明天可就不会这么打招呼了。"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_I02",
+        "Type": "Daily",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "理智对人来说很重要啊。"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "我是不知道如果疯了会怎么样……说不定会问你一些很奇怪的问题。"
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_4",
+                "speakerName": "{characterName}",
+                "dialogueText": "也会变得不像我自己吧？"
+            },
+            "node_4": {
+                "$type": "DialogueNode",
+                "Id": "node_4",
+                "NextNodeId": "node_5",
+                "speakerName": "{characterName}",
+                "dialogueText": "不过{playerAppellation}肯定储备了足量的应对药物吧。"
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": "node_6",
+                "speakerName": "{characterName}",
+                "dialogueText": "我相信你应该不会买那种让人反倒更加疯狂的药……"
+            },
+            "node_6": {
+                "$type": "DialogueNode",
+                "Id": "node_6",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "……不会的对吧？"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_I03",
+        "Type": "Daily",
+        "Tags": [
+            "innocent",
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "Selection",
+                "speakerName": "{characterName}",
+                "dialogueText": "如果精力不足以完成想做的事，就喝巧克力奶吧！"
+            },
+            "Answer2": {
+                "$type": "DialogueNode",
+                "Id": "Answer2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "咕，真尖锐啊……你就没有突然想喝一大盒巧克力奶的时候吗？！"
+            },
+            "Answer1_1": {
+                "$type": "DialogueNode",
+                "Id": "Answer1_1",
+                "NextNodeId": "Answer1_2",
+                "speakerName": "",
+                "dialogueText": "咖啡也是褐色的，巧克力奶也是褐色的。你怎么能质疑{characterName}的直觉？{characterName}用这样的眼神看着你。"
+            },
+            "Answer1_2": {
+                "$type": "DialogueNode",
+                "Id": "Answer1_2",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "好了，现在，去把它买回来吧。"
+            },
+            "Selection": {
+                "$type": "ChoiceNode",
+                "Id": "Selection",
+                "NextNodeId": "Answer1_1",
+                "Options": [
+                    {
+                        "Text": "不会更困吗……？",
+                        "NextNodeId": "Answer1_1"
+                    },
+                    {
+                        "Text": "是你自己想喝吧 ",
+                        "NextNodeId": "Answer2"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_normal_default_1",
+        "Type": "Daily",
+        "Tags": [
+            "impossible"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "",
+                "dialogueText": "（今天没什么想说的了……）"
+            }
+        }
+    },
+    {
+        "EventId": "Kage_daily_weak_default_1",
+        "Type": "Daily",
+        "Tags": [
+            "impossible"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "（虚弱地呼吸）"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_apple_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "这个还挺甜"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_book_001",
+        "Type": "Item",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "很有意思的书"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_burger_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "肉饼烤的有点焦了，但仍然很好吃"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_chocomilk_001",
+        "Type": "Item",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "……有点甜"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_chocomilk_002",
+        "Type": "Item",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "哎呀这么甜……但话说到巧克力奶"
+            },
+            "node_2": {
+                "$type": "ChoiceNode",
+                "Id": "node_2",
+                "NextNodeId": "e",
+                "Options": [
+                    {
+                        "Text": "你",
+                        "NextNodeId": "you"
+                    },
+                    {
+                        "Text": "巧克力奶",
+                        "NextNodeId": "milk"
+                    },
+                    {
+                        "Text": "呃……",
+                        "NextNodeId": "e"
+                    }
+                ]
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "{appellation}觉得我和巧克力奶谁更甜？"
+            },
+            "e": {
+                "$type": "DialogueNode",
+                "Id": "e",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "逗你玩的"
+            },
+            "you": {
+                "$type": "DialogueNode",
+                "Id": "you",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "是嘛！"
+            },
+            "milk": {
+                "$type": "DialogueNode",
+                "Id": "milk",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "好吧！"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_drawing_001",
+        "Type": "Item",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "嗯……（好感度-5）"
+            },
+            "node_2": {
+                "$type": "EffectNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": -5
+                }
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_drawing_002",
+        "Type": "Item",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢！我很喜欢（好感度+5）"
+            },
+            "node_2": {
+                "$type": "EffectNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 5
+                }
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_fish_001",
+        "Type": "Item",
+        "Tags": [
+            "calm"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "（察觉出烤鱼的特殊）"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢你。"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_fish_002",
+        "Type": "Item",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "真有意思，下次也让我看看{appellation}怎么处理鱼吧"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_fish_003",
+        "Type": "Item",
+        "Tags": [
+            "denpa"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "……{appellation}还有这种处理鱼的技术吗"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_generalsilence_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "（沉默）"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_general_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢"
+            },
+            "node_2": {
+                "$type": "ConditionNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 2000
+                    }
+                },
+                "TrueNodeId": "node_3",
+                "FalseNodeId": ""
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "如果你需要什么，也请告诉我。"
+            },
+            "node_4": {
+                "$type": "ConditionNode",
+                "Id": "node_4",
+                "NextNodeId": null,
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 5000
+                    }
+                },
+                "TrueNodeId": "node_5",
+                "FalseNodeId": ""
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "我会一直在这里的"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_general_002",
+        "Type": "Item",
+        "Tags": [
+            "lively"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢{appellation}呀"
+            },
+            "node_2": {
+                "$type": "ConditionNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Conditions": {
+                    "Love": {
+                        "Type": "AtLeast",
+                        "Value": 2000
+                    }
+                },
+                "TrueNodeId": "node_3",
+                "FalseNodeId": ""
+            },
+            "node_3": {
+                "$type": "DialogueNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "你怎么对我这么好啊"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_milktea_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "这次是咸奶盖、水果、还有椰奶？还不错。"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_milktea_002",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "经典款的奶茶。每次你给我的甜度都是刚刚好的，谢谢你。"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_milktea_003",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "（尝不出来具体是什么，只觉得很好喝）"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_miqingji_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "这是什么"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "我觉得头有点晕"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_miqingji_002",
+        "Type": "Item",
+        "Tags": [
+            "crazy"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "我觉得不对，拿走（好感度-5）"
+            },
+            "node_2": {
+                "$type": "EffectNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": -5
+                }
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_miqingji_003",
+        "Type": "Item",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "你不会害我的"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "对吗？（好感度-5）"
+            },
+            "node_3": {
+                "$type": "EffectNode",
+                "Id": "node_3",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": -5
+                }
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_news_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "真是太感谢你了，我真的很需要这些消息"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_news_002",
+        "Type": "Item",
+        "Tags": [
+            "realistic"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "我可以每天都看到这些吗"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": "node_3",
+                "speakerName": "{characterName}",
+                "dialogueText": "这对我真的很重要"
+            },
+            "node_3": {
+                "$type": "ChoiceNode",
+                "Id": "node_3",
+                "NextNodeId": "node_5",
+                "Options": [
+                    {
+                        "Text": "我尽力",
+                        "NextNodeId": "ok"
+                    },
+                    {
+                        "Text": "抱歉……",
+                        "NextNodeId": "node_5"
+                    }
+                ]
+            },
+            "node_5": {
+                "$type": "DialogueNode",
+                "Id": "node_5",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "没关系"
+            },
+            "ok": {
+                "$type": "DialogueNode",
+                "Id": "ok",
+                "NextNodeId": "node_6",
+                "speakerName": "{characterName}",
+                "dialogueText": "谢谢（好感度+3）"
+            },
+            "node_6": {
+                "$type": "EffectNode",
+                "Id": "node_6",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": 3
+                }
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_yingyangye_001",
+        "Type": "Item",
+        "Tags": [],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "（犹豫一会后喝下了营养液）"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_yingyangye_002",
+        "Type": "Item",
+        "Tags": [
+            "innocent"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "这是什么，我不想喝这个"
+            },
+            "node_2": {
+                "$type": "DialogueNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "speakerName": "{characterName}",
+                "dialogueText": "拜托了，我不想再喝这个"
+            }
+        }
+    },
+    {
+        "EventId": "yinxing_item_yingyangye_003",
+        "Type": "Item",
+        "Tags": [
+            "mature"
+        ],
+        "StartNodeId": "node_1",
+        "Nodes": {
+            "node_1": {
+                "$type": "DialogueNode",
+                "Id": "node_1",
+                "NextNodeId": "node_2",
+                "speakerName": "{characterName}",
+                "dialogueText": "（沉默地喝下）好感度-5"
+            },
+            "node_2": {
+                "$type": "EffectNode",
+                "Id": "node_2",
+                "NextNodeId": null,
+                "Effects": {
+                    "Love": -5
+                }
+            }
+        }
     }
-  }
 ]

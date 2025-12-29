@@ -297,8 +297,8 @@ public class CharacterData
     {
         if (state == HealthState.Weak) 
         { 
-            Full = 99; 
-            OnCharacterStateChanged?.Invoke("Full", 99); 
+            Full = 50; 
+            OnCharacterStateChanged?.Invoke("Full", 50); 
         }
         if (state == HealthState.Dead) DeathNum++;
     }

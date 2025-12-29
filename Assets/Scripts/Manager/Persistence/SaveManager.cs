@@ -307,6 +307,30 @@ public static class SaveManager
         }
     }
 
+    public static OperationResult<List<RecurringMissionData>> LoadRecurringMissions()
+    {
+        try
+        {
+            string filePath = Path.Combine(TaskDataFolder, "recurring_missions.json");
+            if (!File.Exists(filePath))
+            {
+                Debug.Log("未找到循环任务存档，返回空列表");
+                return OperationResult<List<RecurringMissionData>>.Complete(new List<RecurringMissionData>());
+            }
+            string json = File.ReadAllText(filePath);
+            var missions = JsonConvert.DeserializeObject<List<RecurringMissionData>>(json, JsonSettings);
+            if (missions == null)
+                return OperationResult<List<RecurringMissionData>>.Fail("循环任务存档格式错误");
+            Debug.Log($"成功加载循环任务数据，共 {missions.Count} 个任务");
+            return OperationResult<List<RecurringMissionData>>.Complete(missions);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"加载循环任务失败：{ex.Message}");
+            return OperationResult<List<RecurringMissionData>>.Fail($"加载失败：{ex.Message}");
+        }
+    }
+
     // 加载单个月份数据
     public static OperationResult<MonthMissionData> LoadMonthTasks(string month)
     {

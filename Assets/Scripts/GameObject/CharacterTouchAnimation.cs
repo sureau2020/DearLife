@@ -14,6 +14,8 @@ public class CharacterTouchAnimation : MonoBehaviour
     private Sprite rightCloseEye;
     private Sprite leftOpenEye;
     private Sprite rightOpenEye;
+    private bool leftEyeBlancVisible = false;
+    private bool rightEyeBlancVisible = false;
 
     private float squashYScale = 0.8f;   
     private float stretchXScale = 1.1f; 
@@ -53,6 +55,19 @@ public class CharacterTouchAnimation : MonoBehaviour
             leftOpenEye = leftEyeRenderer.sprite;
         if (rightEyeRenderer != null)
             rightOpenEye = rightEyeRenderer.sprite;
+        if (rightEyeBlancRenderer != null && rightEyeBlancRenderer.enabled) {
+            rightEyeBlancVisible = true;
+        }else {
+            rightEyeBlancVisible = false;
+        }
+        if (leftEyeBlancRenderer != null && leftEyeBlancRenderer.enabled)
+        {
+            leftEyeBlancVisible = true;
+        }
+        else
+        {
+            leftEyeBlancVisible = false;
+        }
     }
 
 
@@ -138,9 +153,9 @@ public class CharacterTouchAnimation : MonoBehaviour
             leftEyeRenderer.sprite = leftOpenEye;
         if (rightEyeRenderer != null)
             rightEyeRenderer.sprite = rightOpenEye;
-        if (leftEyeBlancRenderer != null)
+        if (leftEyeBlancVisible)
             leftEyeBlancRenderer.enabled = true;
-        if (rightEyeBlancRenderer != null)
+        if (rightEyeBlancVisible)
             rightEyeBlancRenderer.enabled = true;
 
     }

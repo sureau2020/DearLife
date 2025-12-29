@@ -17,6 +17,35 @@ public class TaskManagerModel
     //所有已加载的月份数据（键是 "2025-07"）
     private Dictionary<string, MonthMissionData> monthMap = new();
 
+    private List<RecurringMissionData> recurringMissionDatas = new();
+    private List<RecurringMissionData> archivedRecurringMissionDatas = new();
+    //TODO 刚加archived
+
+
+    public List<RecurringMissionData> GetRecurringMissionDatas()
+    {
+
+        if (recurringMissionDatas.Count != 0) {
+            return recurringMissionDatas;
+        }else{
+            var loadResult = SaveManager.LoadRecurringMissions();
+            if (loadResult.Success)
+            {
+                recurringMissionDatas = loadResult.Data;
+            }
+            else
+            {
+                recurringMissionDatas = new List<RecurringMissionData>();
+            }
+            return recurringMissionDatas;
+        }
+    }
+
+    public OperationResult SaveRecurringMissionDatas()
+    {
+        return SaveManager.SaveRecurringMissions(recurringMissionDatas);
+    }
+
     // 加载月份
     public MonthMissionData GetMonth(string month)
     {

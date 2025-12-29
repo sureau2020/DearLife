@@ -102,6 +102,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\TypewriterHandler.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\SettingItem.cs" />
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
+    <Compile Include="Assets\Scripts\Model\Mission\RecurringMissionData.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TextClip.cs" />
