@@ -11,6 +11,7 @@ public class InputTaskPanel : MonoBehaviour
     [SerializeField] private CartesianSelector cartesianSelector;
     [SerializeField] private GameObject inputTaskBackGround;
     [SerializeField] private Button confirmButton;
+    [SerializeField] private InputRecurringTaskPanel inputRecurringTaskPanel;
 
     private DateTime targetDate;
 
@@ -23,6 +24,19 @@ public class InputTaskPanel : MonoBehaviour
         cartesianSelector.SetPointByValue(2, 2);
         inputTaskBackGround.SetActive(true);
         gameObject.SetActive(true);
+    }
+
+    public void Show(string title, string hour, string min, float duration, float difficulty) { 
+        nameInput.text = string.IsNullOrEmpty(title) ? "" : title;
+        hourInput.text = string.IsNullOrEmpty(hour) ? "" : hour;
+        minuteInput.text = string.IsNullOrEmpty(min) ? "" : min;
+        float d = 2f;
+        float diff = 2f;
+        bool validDuration = !float.IsNaN(duration) && !float.IsInfinity(duration) && duration >= 0f && duration <= 4f;
+        bool validDifficulty = !float.IsNaN(difficulty) && !float.IsInfinity(difficulty) && difficulty >= 0f && difficulty <= 4f;
+        if (validDuration) d = duration;
+        if (validDifficulty) diff = difficulty;
+        cartesianSelector.SetPointByValue(d, diff);
     }
 
 
@@ -46,12 +60,27 @@ public class InputTaskPanel : MonoBehaviour
 
         TaskManager.Instance.OnDaySelected(targetDate);
 
-        ClosePanel();
+        Close();
     }
 
-    public void ClosePanel()
+    public void Close()
     {
         inputTaskBackGround.SetActive(false);
+        inputRecurringTaskPanel.CloseRPanel();
         gameObject.SetActive(false);
     }
+
+    public void OnToRecurringTaskButtonClicked()
+    {
+        SoundManager.Instance.PlaySfx("Click");
+        string title = nameInput.text;
+        string hour = hourInput.text;
+        string min = minuteInput.text;
+        float duration = cartesianSelector.Duration;
+        float difficulty = cartesianSelector.Difficulty;
+        inputRecurringTaskPanel.Show(targetDate,title,hour,min,duration,difficulty);
+    }
+
+
+
 }

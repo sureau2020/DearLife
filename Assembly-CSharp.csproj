@@ -119,6 +119,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TypeWriter.cs" />
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
+    <Compile Include="Assets\Scripts\UI\Tasks\InputRecurringTaskPanel.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceLoader.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />

@@ -25,6 +25,12 @@ public class TaskManagerModel
         _ = SaveRecurringMissionDatas();
     }
 
+    public void AddRecurringMissionData(RecurringMissionData mission)
+    {
+        recurringMissionDatas.Add(mission);
+        _ = SaveRecurringMissionDatas();
+    }
+
     public List<RecurringMissionData> GetRecurringMissionDatas()
     {
 

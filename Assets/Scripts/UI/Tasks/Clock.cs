@@ -12,7 +12,9 @@ public class TimeDial : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] private Image hourDial;
     [SerializeField] private Image minuteDial;
     [SerializeField] private TMP_InputField hourText;
+    [SerializeField] private TMP_InputField hourTextR;
     [SerializeField] private TMP_InputField minuteText;
+    [SerializeField] private TMP_InputField minuteTextR;
     [SerializeField] private TextMeshProUGUI pm;
 
     public float innerRadiusScale = 0.2f;
@@ -151,12 +153,19 @@ public class TimeDial : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             hourHand.rotation = Quaternion.Euler(0, 0, -currentAngle);
             if (isPM) {
                 hourText.text = Math.Min((hour+12),23).ToString("D2");
+                if(hourTextR != null)
+                    {
+                    hourTextR.text = Math.Min((hour+12),23).ToString("D2");
+                }
             }
             else
             {
                 hourText.text = hour.ToString("D2");
+                if(hourTextR != null)
+                    {
+                    hourTextR.text = hour.ToString("D2");
+                }
             }
-            Debug.Log("选中小时: " + hour);
         }
         else
         {
@@ -165,7 +174,10 @@ public class TimeDial : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             currentAngle = minute * 6f;
             minuteHand.rotation = Quaternion.Euler(0, 0, -currentAngle);
             minuteText.text = minute.ToString("D2");
-            Debug.Log("选中分钟: " + minute.ToString("D2"));
+            if(minuteTextR != null)
+                {
+                minuteTextR.text = minute.ToString("D2");
+            }
         }
     }
 
