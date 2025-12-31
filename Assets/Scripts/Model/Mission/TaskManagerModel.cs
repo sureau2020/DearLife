@@ -33,7 +33,6 @@ public class TaskManagerModel
 
     public List<RecurringMissionData> GetRecurringMissionDatas()
     {
-
         if (recurringMissionDatas.Count != 0) {
             return recurringMissionDatas;
         }else{

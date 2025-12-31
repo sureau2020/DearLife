@@ -112,6 +112,12 @@ public class Task : MonoBehaviour
 
     private DateTime GetTaskDate()
     {
+        // 如果任务是循环任务的实例，使用所属日期
+        if (missionData.SourceRecurringId != null)
+        {
+            return missionData.BelongsToDate;
+        }
+
         // 如果任务有截止时间，使用截止时间的日期
         if (missionData.HasDeadline)
         {

@@ -1,6 +1,7 @@
 // 表示一天的任务数据
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class DayMissionData 
 {
@@ -39,6 +40,11 @@ public class DayMissionData
         }
         Tasks.Add(mission);
         _ = TaskManagerModel.Instance.SaveMonthAsync(Day.Substring(0, 7));
+    }
+
+    public void TransferRecurringMissionsToNormalMissions(MissionData mission) {
+        if (mission == null) return;
+        Tasks.Add(mission);
     }
 
 

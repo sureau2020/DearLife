@@ -61,7 +61,7 @@ public class InputRecurringTaskPanel : MonoBehaviour
         {
             deadline = new DateTime(targetDate.Year, targetDate.Month, targetDate.Day, hour, minute, 0);
         }
-        List<Days> selectedDays = GetSelectedDays();
+        List<DayOfWeek> selectedDays = GetSelectedDays();
         if (selectedDays.Count == 0)
         {
             ErrorNotifier.NotifyError("请至少选择一个日子！");
@@ -126,26 +126,14 @@ public class InputRecurringTaskPanel : MonoBehaviour
         return result;
     }
 
-    // 返回被选中天的索引列表，索引按 Sunday..Saturday 的 0..6
-    public List<int> GetSelectedDayIndices()
-    {
-        var list = new List<int>();
-        if (!ValidateDaysList()) return list;
-        for (int i = 0; i < 7; i++)
-        {
-            if (days[i] != null && days[i].isOn) list.Add(i);
-        }
-        return list;
-    }
-
     // 返回被选中天的枚举列表，按 Sunday..Saturday
-    public List<Days> GetSelectedDays()
+    public List<DayOfWeek> GetSelectedDays()
     {
-        var list = new List<Days>();
+        var list = new List<DayOfWeek>();
         if (!ValidateDaysList()) return list;
         for (int i = 0; i < 7; i++)
         {
-            if (days[i] != null && days[i].isOn) list.Add((Days)i);
+            if (days[i] != null && days[i].isOn) list.Add((DayOfWeek)i);
         }
         return list;
     }

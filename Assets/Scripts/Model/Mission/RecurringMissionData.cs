@@ -12,17 +12,17 @@ public class RecurringMissionData
     public float Duration { get; set; }
     public float Difficulty { get; set; }
 
-    public List<Days> recurrenceDays;
+    public List<DayOfWeek> recurrenceDays;
 
     // REQUIRE：recurrenceDays 实际上不得为空
     // REQUIRE: 0 <= duration,dificulty <= 4; 若有deadline > DateTime.Now;若没有deadline就传入DateTime.MinValue； title != null
     // 修改构造函数,deadline的年月日作为起始时间，时和分作为默认ddl时间
-    public RecurringMissionData(string title, DateTime deadline, float duration, float difficulty, List<Days> recurrenceDays)
+    public RecurringMissionData(string title, DateTime deadline, float duration, float difficulty, List<DayOfWeek> recurrenceDays)
     {
         Id = Guid.NewGuid().ToString();
         Title = title;
         Deadline = deadline;
-        this.recurrenceDays = recurrenceDays ?? new List<Days>();
+        this.recurrenceDays = recurrenceDays ?? new List<DayOfWeek>();
         if (Deadline == DateTime.MinValue)
         {
             HasDeadline = false;
@@ -43,36 +43,45 @@ public class RecurringMissionData
 
     // 完成任务，返回操作结果
     // 修改完成任务的保存逻辑,date= 2025-07-04这样注意查这个
-    public OperationResult CompleteMission(string date)
+    //public OperationResult CompleteMission(string date)
+    //{
+    //    if (HasDeadline && IsPassedDeadline())
+    //    {
+    //        Title = "[迟]" + Title;
+    //        TransferToNormalMission(date);
+    //        _ = TaskManagerModel.Instance.SaveMonthAsync(DateTime.Parse(date).ToString("yyyy-MM"));
+    //        return OperationResult.Fail("任务已过期。");
+    //    }
+    //    TransferToNormalMission(date);
+    //    _ = TaskManagerModel.Instance.SaveMonthAsync(DateTime.Parse(date).ToString("yyyy-MM"));
+    //    return OperationResult.Complete();
+    //}
+
+    //private bool IsPassedDeadline()
+    //{
+    //    return (DateTime.Now.Hour > Deadline.Hour) || (DateTime.Now.Hour == Deadline.Hour && DateTime.Now.Minute > Deadline.Minute);
+    //}
+
+
+
+    //private void TransferToNormalMission(string date)
+    //{
+    //    MissionData mission = new MissionData(Title, Deadline, Duration, Difficulty, DateTime.Parse(date), Id);
+    //    DayMissionData dayMissionData = TaskManagerModel.Instance.GetMonth(DateTime.Parse(date).ToString("yyyy-MM"))
+    //        .GetDayMissionData(date);
+    //    dayMissionData.AddMission(mission);
+    //}
+
+
+    // 判断任务是否在指定日期发生
+    public bool IsOccurringOnDate(DateTime date)
     {
-        if (HasDeadline && IsPassedDeadline())
+        if (date.Date < StartDate.Date)
         {
-            Title = "[迟]" + Title;
-            TransferToNormalMission(date);
-            _ = TaskManagerModel.Instance.SaveMonthAsync(DateTime.Parse(date).ToString("yyyy-MM"));
-            return OperationResult.Fail("任务已过期。");
+            return false;
         }
-        TransferToNormalMission(date);
-        _ = TaskManagerModel.Instance.SaveMonthAsync(DateTime.Parse(date).ToString("yyyy-MM"));
-        return OperationResult.Complete();
+        return recurrenceDays.Contains(date.DayOfWeek);
     }
-
-    private bool IsPassedDeadline()
-    {
-        return (DateTime.Now.Hour > Deadline.Hour) || (DateTime.Now.Hour == Deadline.Hour && DateTime.Now.Minute > Deadline.Minute);
-    }
-
-
-
-    private void TransferToNormalMission(string date)
-    {
-        MissionData mission = new MissionData(Title, Deadline, Duration, Difficulty, DateTime.Parse(date), Id);
-        DayMissionData dayMissionData = TaskManagerModel.Instance.GetMonth(DateTime.Parse(date).ToString("yyyy-MM"))
-            .GetDayMissionData(date);
-        dayMissionData.AddMission(mission);
-    }
-
-
 
 
 }

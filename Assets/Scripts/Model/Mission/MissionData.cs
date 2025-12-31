@@ -38,13 +38,17 @@ public class MissionData
         IsCompleted = false;
     }
 
+
+    // 用于从重复任务生成的任务
     public MissionData(string title, DateTime deadline, float duration, float difficulty, DateTime belongsToDate, string sourceRecurringId)
         : this(title, deadline, duration, difficulty, belongsToDate)
     {
-        IsCompleted = true;
+        BelongsToDate = belongsToDate;
+        IsCompleted = false;
         SourceRecurringId = sourceRecurringId;
     }
 
+    public MissionData() { }
 
     // 完成任务，返回操作结果
     // 修改完成任务的保存逻辑
@@ -54,7 +58,7 @@ public class MissionData
         {
             return OperationResult.Fail("任务已完成，无法重复完成。");
         }
-        if (HasDeadline && DateTime.Now > Deadline)
+        if (HasDeadline && ((SourceRecurringId == null && DateTime.Now > Deadline) || (SourceRecurringId != null && IsPassedDeadline())))
         {
             Title = "[迟]" + Title;
             IsCompleted = true;
@@ -64,6 +68,19 @@ public class MissionData
         IsCompleted = true;
         _ = TaskManagerModel.Instance.SaveMonthAsync(BelongsToDate.ToString("yyyy-MM"));
         return OperationResult.Complete();
+    }
+
+
+    //private void TransferToNormalMission()
+    //{
+    //    DayMissionData dayMissionData = TaskManagerModel.Instance.GetMonth(BelongsToDate.ToString("yyyy-MM"))
+    //        .GetDayMissionData(BelongsToDate.ToString("yyyy-MM-dd"));
+    //    dayMissionData.TransferRecurringMissionsToNormalMissions(this);
+    //}
+
+    private bool IsPassedDeadline()
+    {
+        return (DateTime.Now >= BelongsToDate && DateTime.Now.Hour > Deadline.Hour) || (DateTime.Now >= BelongsToDate && DateTime.Now.Hour == Deadline.Hour && DateTime.Now.Minute > Deadline.Minute);
     }
 
     // 推迟任务的DDL，如果跨天了也更新，但返回false提醒
