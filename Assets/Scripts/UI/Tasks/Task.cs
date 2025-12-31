@@ -99,6 +99,20 @@ public class Task : MonoBehaviour
     {
         SoundManager.Instance.PlaySfx("Delete");
         var selectedDate = GetTaskDate();
+        // 如果任务是循环任务的实例，处理循环任务逻辑
+        if (!missionData.IsCompleted && missionData.SourceRecurringId != null) { 
+            //ConfirmRequestManager.Request(ToString(),
+            //    new ConfirmData
+            //    {
+            //        content = "这是一个循环任务！",
+            //        onConfirm = () =>
+            //        {
+            //            // 直接删除任务实例
+            //            DeleteMissionInstance(selectedDate);
+            //        },
+            //        onCancel = () => { }
+            //    });
+        }
         
         // 从 DayMissionData 中删除任务
         var dayMissionData = TaskManagerModel.Instance.GetMonth(selectedDate.ToString("yyyy-MM"))

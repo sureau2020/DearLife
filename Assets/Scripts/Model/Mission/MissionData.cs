@@ -58,6 +58,10 @@ public class MissionData
         {
             return OperationResult.Fail("任务已完成，无法重复完成。");
         }
+        if (SourceRecurringId != null)
+        {
+            TransferToNormalMission();
+        }
         if (HasDeadline && ((SourceRecurringId == null && DateTime.Now > Deadline) || (SourceRecurringId != null && IsPassedDeadline())))
         {
             Title = "[迟]" + Title;
@@ -71,12 +75,12 @@ public class MissionData
     }
 
 
-    //private void TransferToNormalMission()
-    //{
-    //    DayMissionData dayMissionData = TaskManagerModel.Instance.GetMonth(BelongsToDate.ToString("yyyy-MM"))
-    //        .GetDayMissionData(BelongsToDate.ToString("yyyy-MM-dd"));
-    //    dayMissionData.TransferRecurringMissionsToNormalMissions(this);
-    //}
+    private void TransferToNormalMission()
+    {
+        DayMissionData dayMissionData = TaskManagerModel.Instance.GetMonth(BelongsToDate.ToString("yyyy-MM"))
+            .GetDayMissionData(BelongsToDate.ToString("yyyy-MM-dd"));
+        dayMissionData.TransferRecurringMissionsToNormalMissions(this);
+    }
 
     private bool IsPassedDeadline()
     {
