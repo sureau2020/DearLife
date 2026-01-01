@@ -8,6 +8,7 @@ public class TypeButton : MonoBehaviour
     [SerializeField] private string type;
     [SerializeField] private Transform componentList;
     [SerializeField] private ApparenceComponent componentPrefab;
+    [SerializeField] private GameObject customComponent;
     [SerializeField] private GameObject Slider;
     [SerializeField] private GameObject SyncEyeButton; 
 
@@ -42,6 +43,17 @@ public class TypeButton : MonoBehaviour
                 instance = newComponent.GetComponent<ApparenceComponent>();
                 instance.Show(spriteId, sprite,type);
             }
+        }
+
+        GenerateCustomComponent();
+    }
+
+
+    private void GenerateCustomComponent()
+    {
+        if (customComponent != null)
+        {
+            Instantiate(customComponent, componentList);
         }
     }
 }

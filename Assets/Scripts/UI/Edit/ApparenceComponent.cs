@@ -44,6 +44,18 @@ public class ApparenceComponent : MonoBehaviour
         ApplyToAppearance();
     }
 
+    public void OnCustomComponentClick()
+    {
+        SoundManager.Instance.PlaySfx("Click");
+        Vector2 pos = button.transform.position;
+        var customObj = GameObject.Find("UI").transform.Find("Custom").gameObject;
+        if (customObj != null)
+        {
+            customObj.GetComponent<CustomPanel>().Show(pos);
+            customObj.SetActive(true);
+        }
+    }
+
     public void ApplyToAppearance()
     {
         BootSceneManager.Instance.ApplyAppearancePart(type, id);
