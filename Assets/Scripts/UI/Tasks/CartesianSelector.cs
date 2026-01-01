@@ -46,5 +46,8 @@ public class CartesianSelector : MonoBehaviour, IDragHandler, IPointerDownHandle
             (normalized.x - 0.5f) * size.x,
             (normalized.y - 0.5f) * size.y
         );
+        this.Duration = duration;
+        this.Difficulty = difficulty;
     }
+
 }

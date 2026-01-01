@@ -78,11 +78,12 @@ public class Character : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
             {
+                SoundManager.Instance.PlaySfx("Pop");
                 Vector3 pos = Input.mousePosition;
                 pos.z = this.z; 
 
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
-
+                
                 GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
 
                 Destroy(effect, 1f);
@@ -147,9 +148,11 @@ public class Character : MonoBehaviour
 
                     if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
                     {
+                        SoundManager.Instance.PlaySfx("Pop");
                         Vector3 pos = Input.mousePosition;
                         pos.z = this.z;
                         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+                        
                         GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
                         Destroy(effect, 1f);
 

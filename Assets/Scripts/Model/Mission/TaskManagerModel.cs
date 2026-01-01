@@ -25,10 +25,25 @@ public class TaskManagerModel
         _ = SaveRecurringMissionDatas();
     }
 
+    public void DeleteRecurringMissionDataById(string id)
+    {
+        var mission = recurringMissionDatas.Find(m => m.Id == id);
+        if (mission != null)
+        {
+            recurringMissionDatas.Remove(mission);
+            _ = SaveRecurringMissionDatas();
+        }
+    }
+
     public void AddRecurringMissionData(RecurringMissionData mission)
     {
         recurringMissionDatas.Add(mission);
         _ = SaveRecurringMissionDatas();
+    }
+
+    public RecurringMissionData GetRecurringMissionDataById(string id)
+    {
+        return recurringMissionDatas.Find(m => m.Id == id);
     }
 
     public List<RecurringMissionData> GetRecurringMissionDatas()

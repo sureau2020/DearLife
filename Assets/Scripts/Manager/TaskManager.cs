@@ -43,25 +43,9 @@ public class TaskManager : MonoBehaviour
 
         HashSet<string> recurringTasksId = GetArchievedTasksIDMap(currentTasks);
 
-        Debug.Log($"已归档的循环任务ID数量: {recurringTasksId.Count}" );
-        foreach (var id in recurringTasksId)
-        {
-            Debug.Log($"归档的循环任务ID: {id}");
-        }
-
         List<MissionData> generatedRecurringTasks = GenerateRecurringTasksOnSpecificDate(selectedDate, recurringTasksId);
         
-        foreach (var task in currentTasks)
-        {
-            Debug.Log($"先生成的普通任务: {task.Title} ");
-        }
-        
         currentTasks.AddRange(generatedRecurringTasks);
-        
-        foreach (var task in currentTasks)
-        {
-            Debug.Log($"加上生成的循环任务: {task.Title} ");
-        }
         
         SortTasksByDeadlineTime(currentTasks);
         
@@ -75,6 +59,8 @@ public class TaskManager : MonoBehaviour
     {
         return currentTasks.Where(t => t.SourceRecurringId != null).Select(t => t.SourceRecurringId).ToHashSet();
     }
+
+
 
 
     public List<MissionData> GenerateRecurringTasksOnSpecificDate(DateTime date, HashSet<string> archievedId)

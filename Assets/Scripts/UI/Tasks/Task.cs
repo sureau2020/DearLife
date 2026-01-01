@@ -98,30 +98,36 @@ public class Task : MonoBehaviour
     public void OnDeleteTask()
     {
         SoundManager.Instance.PlaySfx("Delete");
-        var selectedDate = GetTaskDate();
+        DateTime selectedDate = GetTaskDate();
         // 如果任务是循环任务的实例，处理循环任务逻辑
-        if (!missionData.IsCompleted && missionData.SourceRecurringId != null) { 
-            //ConfirmRequestManager.Request(ToString(),
-            //    new ConfirmData
-            //    {
-            //        content = "这是一个循环任务！",
-            //        onConfirm = () =>
-            //        {
-            //            // 直接删除任务实例
-            //            DeleteMissionInstance(selectedDate);
-            //        },
-            //        onCancel = () => { }
-            //    });
+        string id = missionData.SourceRecurringId;
+        if (!missionData.IsCompleted && id != null) {
+            ConfirmRequestManager.Request(
+                    content: "这是一个重复性任务，会在每周" + GetRecurringMissionRecurredDaysChinese(id) + "重复，要删除这个重复性任务吗？（已完成的任务记录不会被删除）",
+                    onConfirm: () => DeleteRecurringMission(id, selectedDate));
         }
-        
         // 从 DayMissionData 中删除任务
         var dayMissionData = TaskManagerModel.Instance.GetMonth(selectedDate.ToString("yyyy-MM"))
             .GetDayMissionData(selectedDate.ToString("yyyy-MM-dd"));
         dayMissionData.DeleteSpecificMission(missionData);
 
         // 刷新任务列表
-        TaskManager.Instance.OnDaySelected(GetTaskDate());
+        TaskManager.Instance.OnDaySelected(selectedDate);
     }
+
+    public void DeleteRecurringMission(string id, DateTime date)
+    {
+        TaskManagerModel.Instance.DeleteRecurringMissionDataById(id);
+        TaskManager.Instance.OnDaySelected(date);
+    }
+
+    private string GetRecurringMissionRecurredDaysChinese(string id)
+    {
+        RecurringMissionData cur = TaskManagerModel.Instance.GetRecurringMissionDataById(id);
+        return cur.GetRecurrenceDaysStringInChinese();
+    }
+
+
 
 
     private DateTime GetTaskDate()
@@ -141,7 +147,12 @@ public class Task : MonoBehaviour
         return TaskManager.Instance.SelectedDate;
     }
 
-    private void OnDestroy()
+    public void ClearTaskData()
+    {
+        missionData = null;
+    }
+
+    void OnDestroy()
     {
         if (completeButton != null)
         {
@@ -151,5 +162,6 @@ public class Task : MonoBehaviour
         {
             deleteButton.onClick.RemoveAllListeners();
         }
+        ClearTaskData();
     }
 }

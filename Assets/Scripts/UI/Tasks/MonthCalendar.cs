@@ -61,7 +61,10 @@ public class MonthCalendar : MonoBehaviour
                 // 有效日期格子
                 int day = i - firstDayOfWeek + 1;
                 DateTime date = new DateTime(targetDate.Year, targetDate.Month, day);
-                dayCell.Initialize(date);
+                dayCell.Initialize(date, i);
+                if (date.Day == targetDate.Day) { 
+                    dayCell.SetSelected(true);
+                }
             }
         }
     }
@@ -69,7 +72,6 @@ public class MonthCalendar : MonoBehaviour
     public void OnPrevMonth()
     {
         currentMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1).AddMonths(-1);
-        Debug.Log($"切换到上个月: {currentMonth.ToString("yyyy-MM")}");
         GenerateMonthGrid(currentMonth);
     }
 

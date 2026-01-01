@@ -19885,7 +19885,7 @@ MonoBehaviour:
   characterMoveAI: {fileID: 1963743849}
   touchAnimation: {fileID: 949115807}
   closet: {fileID: 1016362597}
-  clickEffectPrefab: {fileID: 2020661361868494885, guid: 895c6d094b6b213418cddcfb520298e9,
+  clickEffectPrefab: {fileID: 1967835574231978638, guid: 3e196c9e632c76841a71cb6e2dc6d010,
     type: 3}
 --- !u!65 &949115806
 BoxCollider:
@@ -22655,6 +22655,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d892fac5a92f4104dae440fd0e69a0e5, type: 3}
   - {fileID: 8300000, guid: 3218e9158266eff4cbdfb69629636a78, type: 3}
   - {fileID: 8300000, guid: cbd8302170c047b48a4fe925b07fa40c, type: 3}
+  - {fileID: 8300000, guid: 4c32e385681a835448d64acbf5b78e35, type: 3}
 --- !u!4 &1071706212
 Transform:
   m_ObjectHideFlags: 0
@@ -37842,7 +37843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7248\u672C\uFF1A0.7.9"
+  m_text: "\u7248\u672C\uFF1A0.8.0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fd456a17277d1c42a549978ca4cbffb, type: 2}
   m_sharedMaterial: {fileID: -1379051198562277387, guid: 8fd456a17277d1c42a549978ca4cbffb,
