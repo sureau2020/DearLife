@@ -16,6 +16,17 @@ public class ApparenceComponent : MonoBehaviour
         this.type = type;
     }
 
+    // For custom components
+    public void Show(string type)
+    {
+       Sprite component = SaveManager.LoadCustomClothSprite(type);
+       if (component != null)
+       {
+            id = -6; // Indicate custom component
+            button.image.sprite = component;
+       }
+    }
+
     public void OnClick()
     {
         SoundManager.Instance.PlaySfx("Click");
@@ -51,7 +62,11 @@ public class ApparenceComponent : MonoBehaviour
         var customObj = GameObject.Find("UI").transform.Find("Custom").gameObject;
         if (customObj != null)
         {
-            customObj.GetComponent<CustomPanel>().Show(pos);
+            bool isWearable = false;
+            if (button.image.sprite != null) { 
+                isWearable = true;
+            }
+            customObj.GetComponent<CustomPanel>().Show(pos,isWearable);
             customObj.SetActive(true);
         }
     }

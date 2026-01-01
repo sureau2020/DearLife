@@ -37,15 +37,16 @@ public class TypeButton : MonoBehaviour
         {
             if (sprite == null) continue;
             string cleanName = sprite.name.Replace("(Clone)", "").Trim();
-            if (int.TryParse(cleanName, out int spriteId))
+            if (int.TryParse(cleanName, out int spriteId) && spriteId > 0)//这个有没有问题看一眼
             {
                 newComponent = Instantiate(componentPrefab.gameObject, componentList);
                 instance = newComponent.GetComponent<ApparenceComponent>();
                 instance.Show(spriteId, sprite,type);
             }
         }
-
-        GenerateCustomComponent();
+        if (type != "Clothes") {
+            GenerateCustomComponent();
+        }
     }
 
 
@@ -53,7 +54,11 @@ public class TypeButton : MonoBehaviour
     {
         if (customComponent != null)
         {
-            Instantiate(customComponent, componentList);
+            GameObject newComponent = Instantiate(customComponent, componentList);
+            ApparenceComponent instance = newComponent.GetComponent<ApparenceComponent>();
+            instance.Show(type);
         }
     }
 }
+
+
