@@ -41,18 +41,18 @@ public class Character : MonoBehaviour
     void Update()
     {
 
-#if UNITY_ANDROID || UNITY_IOS
-        if (!closet.isActiveAndEnabled)
-        {
-            CheckTouch();
-        }
-#else
+//#if UNITY_ANDROID || UNITY_IOS
+//        if (!closet.isActiveAndEnabled)
+//        {
+//            CheckTouch();
+//        }
+//#else
         if (!closet.isActiveAndEnabled) {
             CheckClick();
             //        CheckTouch();
         }
 
-#endif
+//#endif
     }
 
     private void CheckClick()

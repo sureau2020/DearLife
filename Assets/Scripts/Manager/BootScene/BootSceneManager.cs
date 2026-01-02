@@ -61,10 +61,8 @@ public class BootSceneManager : MonoBehaviour
     // 从主场景进入编辑模式
     public void EnterEditModeFromMain()
     {   
-        if (CreatedCharacter == null)
-        {
-            CreatedCharacter = GameManager.Instance.StateManager.Character;
-        }
+        CreatedCharacter = GameManager.Instance.StateManager.Character;
+        LoadCharacterDataToEditor();
 
         SceneManager.LoadScene("EditCharacter");
     }
