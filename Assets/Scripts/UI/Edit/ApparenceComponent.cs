@@ -19,10 +19,11 @@ public class ApparenceComponent : MonoBehaviour
     // For custom components
     public void Show(string type)
     {
-       Sprite component = SaveManager.LoadCustomClothSprite(type);
+        id = -6;
+        this.type = type;
+        Sprite component = SaveManager.LoadCustomClothSprite(type);
        if (component != null)
        {
-            id = -6; // Indicate custom component
             button.image.sprite = component;
        }
     }
@@ -66,9 +67,15 @@ public class ApparenceComponent : MonoBehaviour
             if (button.image.sprite != null) { 
                 isWearable = true;
             }
-            customObj.GetComponent<CustomPanel>().Show(pos,isWearable);
+            customObj.GetComponent<CustomPanel>().Show(pos,isWearable,gameObject);
             customObj.SetActive(true);
         }
+    }
+
+    public void UploadComponent(Sprite sprite) { 
+        button.image.sprite = sprite;
+        SaveManager.SaveCustomClothSprite(sprite, type);
+        
     }
 
     public void ApplyToAppearance()

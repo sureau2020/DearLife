@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static NativeGallery;
 
 public class LoadHint : MonoBehaviour
@@ -63,6 +64,7 @@ public class LoadHint : MonoBehaviour
                     );
 
                     clothSlot.GetComponent<ClothUI>().UploadCloth(sprite);
+                    
                 }
                 else
                 {
@@ -71,6 +73,45 @@ public class LoadHint : MonoBehaviour
             }
         }, "选择一张 28x24 的图片png", "image/png");
 
+    }
+
+    public void PickComponent(string name) {
+        NativeGallery.GetImageFromGallery((path) =>
+        {
+            if (path != null)
+            {
+                Texture2D texture = NativeGallery.LoadImageAtPath(path, -1, false);
+                if (texture == null)
+                {
+                    ErrorNotifier.NotifyError("无法加载图片");
+                    return;
+                }
+
+                if (texture.width == 28 && texture.height == 24)
+                {
+                    texture.filterMode = FilterMode.Point;
+                    Sprite sprite = Sprite.Create(
+                        texture,
+                        new Rect(0, 0, texture.width, texture.height),
+                        new Vector2(0.5f, 0.5f),
+                        9
+                    );
+
+                    clothSlot.GetComponent<ApparenceComponent>().UploadComponent(sprite);
+                    gameObject.SetActive(false);
+                }
+                else
+                {
+                    ErrorNotifier.NotifyError($"尺寸不符，要求 28x24，实际 {texture.width}x{texture.height}");
+                }
+            }
+        }, "选择一张 28x24 的图片png", "image/png");
+    }
+
+
+    public void OpenPanel(GameObject component) { 
+        gameObject.SetActive(true);
+        clothSlot = component;
     }
 }
 

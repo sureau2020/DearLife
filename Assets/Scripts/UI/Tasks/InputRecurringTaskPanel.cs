@@ -70,7 +70,7 @@ public class InputRecurringTaskPanel : MonoBehaviour
         SetSelectedDays(new bool[7]); // ÷ÿ÷√—°‘Ò
         RecurringMissionData recurringMission = new RecurringMissionData(title,deadline,duration,difficulty,selectedDays);
         TaskManagerModel.Instance.AddRecurringMissionData(recurringMission);
-        //TaskManager.Instance.OnDaySelected(targetDate);
+        TaskManager.Instance.OnDaySelected(targetDate);
         inputTaskPanel.Close();
     }
 

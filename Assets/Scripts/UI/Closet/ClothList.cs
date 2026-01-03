@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ClothList : MonoBehaviour
 {
     [SerializeField] GameObject clothPrefab;
+    [SerializeField] GameObject customClothPrefab;
     [SerializeField] Transform content;
     [SerializeField] Button buyButton;
     [SerializeField] SpriteRenderer clothRenderer;
@@ -85,7 +86,7 @@ public class ClothList : MonoBehaviour
     }
 
     private void SetAddCloth() {
-        GameObject addClothItem = Instantiate(clothPrefab, content);
+        GameObject addClothItem = Instantiate(customClothPrefab, content);
         ClothUI clothUI = addClothItem.GetComponent<ClothUI>();
         if (clothUI != null)
             clothUI.CreateAddButton(OnClothItemClicked);

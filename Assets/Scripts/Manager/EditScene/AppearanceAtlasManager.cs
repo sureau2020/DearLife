@@ -46,6 +46,11 @@ public class AppearanceAtlasManager : MonoBehaviour
     public Sprite GetPartSprite(string partName, int id)
     {
         if (id == 0) return null;
+        if (id == -6)
+        {
+            // Custom component
+            return SaveManager.LoadCustomClothSprite(partName);
+        }
         if (atlasDict != null && atlasDict.TryGetValue(partName, out var atlas) && atlas != null)
         {
             return atlas.GetSprite(id.ToString());

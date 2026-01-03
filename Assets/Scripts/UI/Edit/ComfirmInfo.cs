@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ComfirmInfo : MonoBehaviour { 
 
     [SerializeField] private List<Toggle> toggles;
+    [SerializeField] private TextMeshProUGUI nameLabel;
     [SerializeField] private GameObject InputInfoPanel;
 
     // Start is called before the first frame update
@@ -29,6 +31,7 @@ public class ComfirmInfo : MonoBehaviour {
     public void OnComfirmButtonClicked()
     {
         SoundManager.Instance.PlaySfx("Click");
+        nameLabel.text = BootSceneManager.Instance.CharacterName;
         foreach (var toggle in toggles)
         {
             if (toggle.isOn)
