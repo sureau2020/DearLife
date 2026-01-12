@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public StateManager StateManager { get; private set; }
     public DialogueManager DialogueManager {get; private set; }
 
+    public TileTypeManager TileTypeManager { get; private set; }
+
     [SerializeField]private RebirthUI rebirthUI;
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private CharacterAppearanceRenderer appearanceRenderer;
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
         }
 
         DialogueManager = GetComponent<DialogueManager>();
+        TileTypeManager = GetComponent<TileTypeManager>();
         StartCoroutine(LoadAndCloseUI());
     }
 

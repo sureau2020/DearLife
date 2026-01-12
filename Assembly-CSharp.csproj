@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventData.cs" />
+    <Compile Include="Assets\Scripts\GameObject\CharacterTileMoveAI.cs" />
+    <Compile Include="Assets\Scripts\GameObject\TileMapLab.cs" />
     <Compile Include="Assets\Scripts\Manager\IconManager.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterClip.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Scenes\Quitgame.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\LiteMotion.cs" />
     <Compile Include="Assets\Scripts\UI\Closet\LoadHint.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\GridMap.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor1.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\CustomPanel.cs" />
     <Compile Include="Assets\Scripts\Model\Character\PersonalityType.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputRecurringTaskPanel.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\GridCell.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceLoader.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
@@ -178,8 +182,8 @@
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraFocus.cs" />
-    <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectList.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
+    <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectList.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\Persistence\SaveManager.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\State.cs" />
@@ -198,11 +202,13 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\X Axis\Drawer_Pull_X.cs" />
     <Compile Include="Assets\Scripts\Model\Item\WardrobeData.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
+    <Compile Include="Assets\Scripts\Manager\TileMapManager.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\HSVSliderController.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
     <Compile Include="Assets\Scripts\Manager\DialogueManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\TileData.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterTouchAnimation.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterMoveAI.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenDisable.cs" />
@@ -1132,6 +1138,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -1176,6 +1186,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
       <Private>False</Private>
@@ -1212,16 +1226,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Searcher.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
@@ -1242,6 +1256,10 @@
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
