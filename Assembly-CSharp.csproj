@@ -197,12 +197,12 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
     <Compile Include="Assets\Scripts\Model\Character\CharacterData.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\LiteMotionBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Manager\RoomManager.cs" />
     <Compile Include="Assets\Scripts\UI\Choice\ChoiceUI.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\DayCell.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\X Axis\Drawer_Pull_X.cs" />
     <Compile Include="Assets\Scripts\Model\Item\WardrobeData.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
-    <Compile Include="Assets\Scripts\Manager\TileMapManager.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\HSVSliderController.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
@@ -210,6 +210,7 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\TileData.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterTouchAnimation.cs" />
+    <Compile Include="Assets\Scripts\GameObject\RoomView.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterMoveAI.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenDisable.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputTaskPanel.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
     <Compile Include="Assets\Scripts\UI\Character\DialoguePanelUI.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\TileDataBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -12,8 +12,8 @@ public class CharacterTileMoveAI : MonoBehaviour
 
     void Start()
     {
-        // 从 GameManager 或 TileManager 获取引用
-        gridMap = GameManager.Instance.TileTypeManager.gridMap;
+        // 从 GameManager 或 TileManager 获取引用TODO
+        //gridMap = GameManager.Instance.TileTypeManager.gridMap;
 
         // 初始化角色所在格子，如果不在逻辑格子上
         curGridPos = GridToCell(transform.position);

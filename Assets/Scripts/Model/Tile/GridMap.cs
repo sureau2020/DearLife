@@ -1,15 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GridMap
 {
+    
     public Dictionary<Vector2Int, GridCell> cells = new();
     public List<Vector2Int> walkableCells;
 
     // 初始化地图数据，从Tilemap中读取,build walkablecells TODO
     public void Initialize() { 
-    
+        
     }
 
     public Vector2Int GetRandomWalkablePos()

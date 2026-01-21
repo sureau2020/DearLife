@@ -6,11 +6,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
     public StateManager StateManager { get; private set; }
     public DialogueManager DialogueManager {get; private set; }
+    public RoomManager RoomManager { get; private set; }
 
-    public TileTypeManager TileTypeManager { get; private set; }
 
     [SerializeField]private RebirthUI rebirthUI;
     [SerializeField] private GameObject loadingUI;
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
         }
 
         DialogueManager = GetComponent<DialogueManager>();
-        TileTypeManager = GetComponent<TileTypeManager>();
+        RoomManager = GetComponent<RoomManager>();//TODO暂时不用管加载，弄完后加载得放在LoadAndCloseUI里
         StartCoroutine(LoadAndCloseUI());
     }
 
