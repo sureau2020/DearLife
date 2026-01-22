@@ -1,39 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#nullable enable
 
 public class GridCell
 {
-    public Vector2Int pos;
+    public Vector2Int Pos { get; set; }
 
-    public FloorLayer floor;        // 地面
-    public FurnitureLayer furniture; // 家具
-    public DecorLayer decor;
+    public GroundLayer? Floor { get; private set; }
+    public FurnitureLayer? Furniture { get; private set; }
+    public DecorLayer? Decor { get; private set; }
 
+    public GridCell(Vector2Int pos,GroundLayer? ground = null,FurnitureLayer? furniture = null,DecorLayer? decor = null)
+    {
+        Pos = pos;
+        Floor = ground;
+        Furniture = furniture;
+        Decor = decor;
+    }
 
     public bool CanWalk()
     {
-        if (floor == null)
+        if (Floor == null)
             return false;
-        if (!floor.walkable)
+        if (!Floor.walkable)
             return false;
-        if (furniture != null && furniture.blocked)
+        if (Furniture != null && Furniture.blocked)
             return false;
         return true;
     }
 
     public void SetOccupied(bool occupied)
     {
-        if (furniture != null)
-            furniture.blocked = occupied;
+        if (Furniture != null)
+            Furniture.blocked = occupied;
+    }
+
+    public void SetFloor(GroundLayer ground)
+    {
+        Floor = ground;
+    }
+
+    public void SetFurniture(FurnitureLayer furniture)
+    {
+        Furniture = furniture;
+    }
+
+    public void SetDecor(DecorLayer decor)
+    {
+        Decor = decor;
     }
 }
+#nullable restore
 
-
-public class FloorLayer
+public class GroundLayer
 {
     public string floorTileId;
     public bool walkable;
+
 }
 
 public class FurnitureLayer
@@ -46,3 +70,4 @@ public class DecorLayer
 {
     public string decorTileId; 
 }
+
