@@ -206,6 +206,7 @@
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\HSVSliderController.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\AddTaskButton.cs" />
+    <Compile Include="Assets\Scripts\Manager\Persistence\TileLoader.cs" />
     <Compile Include="Assets\Scripts\Manager\DialogueManager.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\TileData.cs" />
