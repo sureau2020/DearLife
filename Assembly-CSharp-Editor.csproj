@@ -64,6 +64,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Editor\AnimationProcessDrawer.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Editor\TextLifeCustomEditor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\Editor\SerializedObjectListDrawer.cs" />
+    <Compile Include="Assets\Editor\CollectUsedTiles.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

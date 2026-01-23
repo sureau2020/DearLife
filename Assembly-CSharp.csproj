@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\UI\Edit\TypeButton.cs" />
     <Compile Include="Assets\Scripts\UI\Closet\Closet.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\BRGlassDoor.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\RoomData.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\StateMachine.cs" />
     <Compile Include="Assets\Scripts\GameObject\Character.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\LiteMotion.cs" />

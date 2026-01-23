@@ -112,4 +112,42 @@ public class GridMap
         return cell.CanWalk();
     }
 
+    public RoomData ToSaveData()
+    {
+        var data = new RoomData
+        {
+            cells = new List<CellSaveData>()
+        };
+
+        foreach (var kv in cells)
+        {
+            var pos = kv.Key;
+            var cell = kv.Value;
+
+            data.cells.Add(new CellSaveData
+            {
+                x = pos.x,
+                y = pos.y,
+                floorTileId = cell.Floor?.floorTileId,
+                furnitureTileId = cell.Furniture?.furnitureTileId,
+                decorTileId = cell.Decor?.decorTileId
+            });
+        }
+        return data;
+    }
+
+    public static GridMap FromSaveData(RoomData data)
+    {
+        var map = new GridMap();
+        foreach (var c in data.cells)
+        {
+            map.AddCell(
+                c.x, c.y,
+                c.floorTileId,
+                c.furnitureTileId,
+                c.decorTileId
+            );
+        }
+        return map;
+    }
 }
