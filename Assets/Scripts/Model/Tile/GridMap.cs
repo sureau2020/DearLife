@@ -22,7 +22,7 @@ public class GridMap
         {
             for (int y = 0; y < 5; y++)
             {
-                AddCellInternal(x, y, "grass", "", "");
+                AddCellInternal(x, y, "grass", "light", "");
             }
         }
         
@@ -44,6 +44,7 @@ public class GridMap
         {
             PlaceFurnitureInternal(pos, furnitureId);
         }
+        Debug.Log($"Added cell at ({x},{y}) with ground '{groundTileId}', furniture '{furnitureId}', decor '{decorId}'");
     }
 
     // 公共方法：添加单个格子并更新walkableCells

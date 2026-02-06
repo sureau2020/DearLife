@@ -95,12 +95,14 @@ public class RoomView : MonoBehaviour
         
         // 设置位置（锚点位置 + 渲染偏移）
         furnitureObj.transform.position = anchorWorldPos + (Vector3)furnitureData.renderOffset;
-        
+        furnitureObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
         // 设置渲染层级（基于锚点的Y坐标）
         var spriteRenderer = furnitureObj.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
-            spriteRenderer.sortingOrder = furnitureData.sortingOrder - instance.anchorPos.y;
+            spriteRenderer.sortingOrder = 0;
+                //furnitureData.sortingOrder - instance.anchorPos.y;
         }
         
         furnitureObj.SetActive(true);
@@ -158,10 +160,6 @@ public class RoomView : MonoBehaviour
         // 添加SpriteRenderer
         var spriteRenderer = go.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
-        
-        // 可以添加其他组件（如Collider等）
-        // var collider = go.AddComponent<BoxCollider2D>();
-        // collider.isTrigger = true;
         
         return go;
     }
