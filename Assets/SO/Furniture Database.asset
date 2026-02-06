@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f12483399d63ff48aaf8c2e8eade59b, type: 3}
+  m_Name: Furniture Database
+  m_EditorClassIdentifier: 
+  builtinFurnitures:
+  - {fileID: 11400000, guid: 3974b964fc3fb804d904f713e0ff3755, type: 2}
+  - {fileID: 11400000, guid: 9747e7c0ee84c514586114a6866d14dd, type: 2}
+  - {fileID: 11400000, guid: 13770ab302d7ce842a028ccd0aecf397, type: 2}
+  - {fileID: 11400000, guid: 69ba3c999ae9c084f86c28db72e3f8cf, type: 2}
+  - {fileID: 11400000, guid: 02c068e518a0ca040810ba1215ed9ac8, type: 2}
+  - {fileID: 11400000, guid: 141589328ab6c0043909fe7c7448a09e, type: 2}
+  - {fileID: 11400000, guid: 081f6c0195bc7814b8ce786eb49e1f10, type: 2}
+  - {fileID: 11400000, guid: 48b4bc8e73d8f414082bf3f1e397b7c8, type: 2}
+  builtinDecors:
+  - {fileID: 11400000, guid: 29975b277aac910468e31f67c494b972, type: 2}
+  - {fileID: 11400000, guid: e104866d0637c5a47aa34a62974d5f81, type: 2}

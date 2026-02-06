@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public DialogueManager DialogueManager {get; private set; }
     public RoomManager RoomManager { get; private set; }
 
+    public FurnitureDatabase FurnitureDatabase { get; private set; } 
+    public TileDataBase TileDataBase { get; private set; }
+
 
     [SerializeField]private RebirthUI rebirthUI;
     [SerializeField] private GameObject loadingUI;
@@ -17,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        FurnitureDatabase = new FurnitureDatabase();
+        TileDataBase = new TileDataBase();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
         DialogueManager = GetComponent<DialogueManager>();
         RoomManager = GetComponent<RoomManager>();//TODO暂时不用管加载，弄完后加载得放在LoadAndCloseUI里
         StartCoroutine(LoadAndCloseUI());

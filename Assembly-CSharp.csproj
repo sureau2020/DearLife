@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenEnable.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterTrack.cs" />
     <Compile Include="Assets\Scripts\UI\Character\InfoUI.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\FurnitureDatabase.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TextTrack.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MonthMissionData.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ChoiceNode.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectDictionary.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\LoopEnable.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\DecorScriptableObject.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TypeWriter.cs" />
     <Compile Include="Assets\Scripts\UI\BottomButton.cs" />
     <Compile Include="Assets\Scripts\Model\Item\EffectType.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Assets\Scripts\UI\Tasks\TaskList.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\FurnitureData.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow.cs" />
     <Compile Include="Assets\Scripts\UI\Character\PanelChanger.cs" />
     <Compile Include="Assets\Scripts\UI\Store\UISlider.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Assets\Scripts\Notification\CharacterStat.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\FurnitureScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Manager\PromptPanelUIManager.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\StatusBar.cs" />
@@ -155,7 +159,9 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\ApparenceNameUpdater.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\FurnitureDataBaseScriptableObject.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Manager\Persistence\FurnitureLoader.cs" />
     <Compile Include="Assets\Scripts\UI\Closet\ClothList.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Event\AudioSourceEvent.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />

@@ -11,7 +11,7 @@ public class GridCell
     public FurnitureLayer? Furniture { get; private set; }
     public DecorLayer? Decor { get; private set; }
 
-    public GridCell(Vector2Int pos,GroundLayer? ground = null,FurnitureLayer? furniture = null,DecorLayer? decor = null)
+    public GridCell(Vector2Int pos, GroundLayer? ground = null, FurnitureLayer? furniture = null, DecorLayer? decor = null)
     {
         Pos = pos;
         Floor = ground;
@@ -57,17 +57,23 @@ public class GroundLayer
 {
     public string floorTileId;
     public bool walkable;
-
 }
 
+// 家具层 - 每个格子只记录它属于哪个家具实例
 public class FurnitureLayer
 {
+    public string furnitureInstanceId; // 家具实例ID，同一个家具的所有格子共享此ID
+    public string furnitureDataId; // 家具数据ID
     public bool blocked;
-    public string furnitureTileId; 
+    public Vector2Int anchorPos; // 该家具的锚点位置（左下角格子）
+    
+    // 只有锚点格子才有GameObject引用
+    public GameObject furnitureObject; // 运行时的GameObject引用，只在锚点格子设置
 }
 
 public class DecorLayer
 {
-    public string decorTileId; 
+    public string decorId;
+    public GameObject decorObject; // 运行时的GameObject引用
 }
 
