@@ -1,19 +1,30 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class TileDataBase
 {
-    private static readonly Dictionary<string, TileData> tileMap = new(){
-        { "grass", new TileData { id = "grass", belongsTo = "nature", walkable = true } },
-        { "water", new TileData { id = "water", belongsTo = "nature", walkable = false } },
-        { "sand", new TileData { id = "sand", belongsTo = "nature", walkable = true } },
-        { "stone", new TileData { id = "stone", belongsTo = "nature", walkable = false } },
-        { "road", new TileData { id = "road", belongsTo = "manmade", walkable = true } },
-        { "wall", new TileData { id = "wall", belongsTo = "manmade", walkable = false } }
-    };
+    private readonly Dictionary<string, TileData> tileMap = new();
+
+    public TileDataBase()
+    {
+        LoadBuiltinData();
+    }
+
+    private void LoadBuiltinData()
+    {
+        List<TileData> allTileData = Resources.Load<TileConfigSO>("TileConfig").tileProperties;
+
+        foreach (var tile in allTileData)
+        {
+            tileMap[tile.id] = tile;
+        }
+
+        Debug.Log($"已加载 {tileMap.Count} 个内置tile,");
+    }
 
 
-    public static TileData GetTileById(string id)
+    public TileData GetTileById(string id)
     {
         return tileMap[id];
     }

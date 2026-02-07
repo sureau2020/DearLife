@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a200ae1e06615b845b208cd4197cc647, type: 3}
+  m_Name: TileConfig
+  m_EditorClassIdentifier: 
+  tileProperties:
+  - id: TopDownHouse_FloorsAndWalls_82
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_64
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_18
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_144
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_145
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_161
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_78
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_35
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_60
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_0
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_1
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_17
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_127
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_109
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_117
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_110
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_111
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_92
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_93
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_136
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_137
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_99
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_118
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_119
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_81
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_63
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_114
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_100
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_101
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_96
+    walkable: 1

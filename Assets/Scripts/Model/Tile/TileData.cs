@@ -1,9 +1,16 @@
 
+using UnityEngine.Tilemaps;
 
+[System.Serializable]
 public class TileData 
 {
     public string id;
-    public string belongsTo;
     public bool walkable;
 }
- 
+
+[System.Serializable]
+public class TileEntry
+{
+    public string tileId;
+    public TileBase tile;
+}

@@ -17,17 +17,27 @@ public class GridMap
         cells = new Dictionary<Vector2Int, GridCell>();
         walkableCells = new List<Vector2Int>();
 
-        // 创建默认地板 - 批量添加，最后统一更新walkableCells
-        for (int x = 0; x < 5; x++)
+        var mapData = Resources.Load<MapDataSO>("MapData");
+        if (mapData != null)
         {
-            for (int y = 0; y < 5; y++)
-            {
-                AddCellInternal(x, y, "grass", "light", "");
-            }
+            InitializeFromMapData(mapData);
         }
-        
+
         // 批量添加完成后，统一更新可行走区域
         UpdateWalkableCells();
+    }
+
+    private void InitializeFromMapData(MapDataSO mapData)
+    {
+        foreach (var tileInstance in mapData.tileInstances)
+        {
+            // 将Vector3Int转换为Vector2Int（忽略Z轴）
+            Vector2Int pos = new Vector2Int(tileInstance.position.x, tileInstance.position.y);
+
+            // 使用MapDataSO中的tileId作为地板
+            AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "");
+        }
+
     }
 
     // 内部方法：添加格子但不更新walkableCells（用于批量操作）
@@ -56,7 +66,7 @@ public class GridMap
 
     private GroundLayer CreateGround(string tileId) 
     {
-        TileData tileData = TileDataBase.GetTileById(tileId);
+        TileData tileData = GameManager.Instance.TileDataBase.GetTileById(tileId);
         if (tileData == null) return null;
         
         return new GroundLayer

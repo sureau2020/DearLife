@@ -14,9 +14,6 @@ public class RoomView : MonoBehaviour
     [SerializeField] private Transform furnitureContainer;
     [SerializeField] private Transform decorContainer;
     
-    // 默认预制件（只用于没有Sprite的情况）
-    [SerializeField] private GameObject defaultFurniturePrefab;
-    [SerializeField] private GameObject defaultDecorPrefab;
     
     private Dictionary<string, GameObject> furnitureObjects = new();
     private Dictionary<Vector2Int, GameObject> decorObjects = new();

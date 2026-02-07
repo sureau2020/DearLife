@@ -152,6 +152,7 @@
     <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
     <Compile Include="Assets\Scripts\Model\Furniture\FurnitureScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Manager\PromptPanelUIManager.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\TileConfigSO.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\TaskManagerModel.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\StatusBar.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemList.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\MapDataSO.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Windows\opencloseWindowApt.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.MachineStateDesign.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\ComfirmInfo.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Assets\Scripts\UI\Edit\InfoItem.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\TileBaseLibrarySO.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraFocus.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectList.cs" />

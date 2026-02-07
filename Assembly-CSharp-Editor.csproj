@@ -60,10 +60,13 @@
     <Analyzer Include="D:\program\unity\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\TilemapDataScanner.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\Editor\LiteMotionBehaviourDrawer.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Editor\AnimationProcessDrawer.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Editor\TextLifeCustomEditor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\Editor\SerializedObjectListDrawer.cs" />
+    <Compile Include="Assets\Editor\TilemapCleaner.cs" />
+    <Compile Include="Assets\Editor\MapLayoutExporter.cs" />
     <Compile Include="Assets\Editor\CollectUsedTiles.cs" />
   </ItemGroup>
   <ItemGroup>

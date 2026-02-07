@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class TileLoader : MonoBehaviour
 {
-    // 内建 tile：Inspector 注入
-    [SerializeField] private List<TileEntry> builtinTiles;
 
     // 用户导入 tile 的磁盘索引 (tileId -> path)
     private Dictionary<string, string> userDiskIndex = new();
@@ -19,7 +17,8 @@ public class TileLoader : MonoBehaviour
     private void Awake()
     {
         // 初始化内建 tile 索引
-        foreach (var entry in builtinTiles)
+        List<TileEntry> tileEntries = Resources.Load<TileBaseLibrarySO>("TileLibrary").tileResources;
+        foreach (var entry in tileEntries)
         {
             builtinCache[entry.tileId] = entry.tile;
         }
@@ -69,10 +68,3 @@ public class TileLoader : MonoBehaviour
     }
 }
 
-
-[System.Serializable]
-public class TileEntry
-{
-    public string tileId;
-    public TileBase tile;
-}
