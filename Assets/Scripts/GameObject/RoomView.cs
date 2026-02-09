@@ -13,6 +13,7 @@ public class RoomView : MonoBehaviour
     // GameObject容器
     [SerializeField] private Transform furnitureContainer;
     [SerializeField] private Transform decorContainer;
+    [SerializeField] private Sprite cell; 
     
     
     private Dictionary<string, GameObject> furnitureObjects = new();
@@ -88,18 +89,17 @@ public class RoomView : MonoBehaviour
         
         // 计算锚点的世界位置
         Vector3Int tilemapPos = new Vector3Int(instance.anchorPos.x, instance.anchorPos.y, 0);
-        Vector3 anchorWorldPos = groundMap.CellToWorld(tilemapPos) + Vector3.one * 0.5f;
-        
+        Vector3 anchorWorldPos = groundMap.CellToWorld(tilemapPos);
+
         // 设置位置（锚点位置 + 渲染偏移）
-        furnitureObj.transform.position = anchorWorldPos + (Vector3)furnitureData.renderOffset;
+        furnitureObj.GetComponent<SpriteRenderer>().transform.position = anchorWorldPos + (Vector3)furnitureData.renderOffset;
         furnitureObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
-        // 设置渲染层级（基于锚点的Y坐标）
+        // 设置渲染层级（基于锚点的Y坐标）,Y越大越靠后，最多不能超过30000因为地板设的-30000。。。。。
         var spriteRenderer = furnitureObj.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
-            spriteRenderer.sortingOrder = 0;
-                //furnitureData.sortingOrder - instance.anchorPos.y;
+            spriteRenderer.sortingOrder =  -instance.anchorPos.y;
         }
         
         furnitureObj.SetActive(true);
@@ -130,7 +130,7 @@ public class RoomView : MonoBehaviour
         decorObj.transform.SetParent(decorContainer);
         
         Vector3Int tilemapPos = new Vector3Int(gridPos.x, gridPos.y, 0);
-        Vector3 worldPos = groundMap.CellToWorld(tilemapPos) + Vector3.one * 0.5f;
+        Vector3 worldPos = groundMap.CellToWorld(tilemapPos);
         
         decorObj.transform.position = worldPos + (Vector3)decorData.renderOffset;
         
@@ -153,11 +153,19 @@ public class RoomView : MonoBehaviour
         
         // 创建GameObject
         var go = new GameObject($"Furniture_{furnitureData.id}");
-        
-        // 添加SpriteRenderer
+
         var spriteRenderer = go.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
-        
+
+        var cellObj = new GameObject("CellSprite");
+        cellObj.transform.SetParent(go.transform);
+        cellObj.transform.localPosition = new Vector3(0, 0, -0.01f); // 稍微靠前一点
+        cellObj.transform.localScale = Vector3.one;
+
+        // 添加SpriteRenderer显示cell sprite
+        var cellSpriteRenderer = cellObj.AddComponent<SpriteRenderer>();
+        cellSpriteRenderer.sprite = cell;
+
         return go;
     }
     

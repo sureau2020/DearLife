@@ -34,11 +34,48 @@ public class GridMap
             // 将Vector3Int转换为Vector2Int（忽略Z轴）
             Vector2Int pos = new Vector2Int(tileInstance.position.x, tileInstance.position.y);
 
-            // 使用MapDataSO中的tileId作为地板
-            AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "");
+            if (pos.x == 1 && pos.y == 4)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "sofa", "");
+            }
+            else if (pos.x == 1 && pos.y == 3)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "light", "");
+            }
+            else if (pos.x == 7 && pos.y == 6)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "toilet", "");
+            }
+            else if (pos.x == 5 && pos.y == 7)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "bath", "");
+            }
+            else if (pos.x == 1 && pos.y == 7)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "bookcase", "");
+            }
+            else if (pos.x == 4 && pos.y == 3)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "shelf", "");
+            }
+            else if (pos.x == 1 && pos.y == 0)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "bed", "");
+            }
+            else if (pos.x == 4 && pos.y == 0)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "table", "");
+            }
+            else {
+
+                // 使用MapDataSO中的tileId作为地板
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "");
+            }
+
         }
 
     }
+
 
     // 内部方法：添加格子但不更新walkableCells（用于批量操作）
     private void AddCellInternal(int x, int y, string groundTileId, string furnitureId, string decorId) 
@@ -93,9 +130,12 @@ public class GridMap
         var furnitureData = db.GetFurnitureData(furnitureDataId);
         if (furnitureData == null) return false;
 
-        // 检查是否可以放置
-        if (!CanPlaceFurniture(anchorPos, furnitureData))
-            return false;
+        // 检查是否可以放置,built-in初始化时不检查
+        //if (!CanPlaceFurniture(anchorPos, furnitureData))
+        //{
+        //        Debug.LogWarning($"Cannot place furniture '{furnitureDataId}' at {anchorPos}. It may be out of bounds or overlapping with existing furniture.");
+        //        return false;
+        //}
 
         // 生成家具实例ID
         string instanceId = $"furniture_{nextFurnitureInstanceId++}";
@@ -126,7 +166,7 @@ public class GridMap
                 cell.SetFurniture(furnitureLayer);
             }
         }
-
+        
         furnitureInstances[instanceId] = instance;
         return true;
     }
