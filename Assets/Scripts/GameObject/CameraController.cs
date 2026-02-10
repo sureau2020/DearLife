@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,13 +6,14 @@ public class CameraController : MonoBehaviour
 {
     [Header("缩放设置")]
     public float zoomSpeed = 2f;        // 缩放速度
-    public float minZoom = 2f;          // 最小缩放
-    public float maxZoom = 7f;          // 最大缩放
+    public float minZoom = 4f;          // 最小缩放
+    public float maxZoom = 10f;          // 最大缩放
 
     [Header("拖动设置")]
     public float panSpeed = 10f;        // 拖动速度
-    public Vector2 panLimitMin = new Vector2(0, 6); // 相机可移动的最小范围
-    public Vector2 panLimitMax = new Vector2(3, 8); // 相机可移动的最大范围
+    public Vector2 panLimitMin = new Vector2(3, 7); // 相机可移动的最小范围
+    public Vector2 panLimitMax = new Vector2(3, 10); // 相机可移动的最大范围
+    public Vector2 maxOffset = new Vector2(-1, 7); // 从GridMap边界到相机边界的最大偏移
 
     [Header("行为")]
     [Tooltip("指针在UI上时是否仍允许拖动相机（移动端RaycastTarget全屏UI时很有用）")]
@@ -19,14 +21,62 @@ public class CameraController : MonoBehaviour
 
     private Camera cam;
     private Vector3 dragOrigin;
+    private GridMap gridMap;
+    private bool isGridMapReady = false;
+
+    void Awake()
+    {
+        cam = GetComponent<Camera>();
+        // 订阅GridMap初始化事件
+        RoomManager.OnGridMapInitialized += OnGridMapReady;
+    }
 
     void Start()
     {
-        cam = GetComponent<Camera>();
+        // 如果RoomManager已经初始化，直接获取GridMap
+        if (GameManager.Instance?.RoomManager?.IsInitialized == true)
+        {
+            OnGridMapReady(GameManager.Instance.RoomManager.gridMap);
+        }
+    }
+
+    private void OnGridMapReady(GridMap newGridMap)
+    {
+        if (isGridMapReady) return; // 避免重复初始化
+        
+        gridMap = newGridMap;
+        isGridMapReady = true;
+        
+        // 设置相机限制
+        panLimitMax = gridMap.CameraLimitMax + maxOffset;
+        
+        // 订阅后续的限制变化事件
+        gridMap.newCameraLimitMax += OnCameraLimitMaxChanged;
+        
+        Debug.Log($"Camera initialized with GridMap. Pan limit: {panLimitMax}");
+    }
+
+    private void OnCameraLimitMaxChanged(Vector2 newLimit)
+    {
+        panLimitMax = newLimit + panLimitMin;
+        Debug.Log($"Camera pan limit updated: {panLimitMax}");
+    }
+
+    private void OnDestroy()
+    {
+        // 取消事件订阅
+        RoomManager.OnGridMapInitialized -= OnGridMapReady;
+        
+        if (gridMap != null)
+        {
+            gridMap.newCameraLimitMax -= OnCameraLimitMaxChanged;
+        }
     }
 
     void Update()
     {
+        if (!isGridMapReady) return; // GridMap未准备好时不处理输入
+        
         HandleZoom();
         HandlePan();
     }

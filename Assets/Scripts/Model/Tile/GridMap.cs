@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class GridMap
 {
@@ -10,6 +11,8 @@ public class GridMap
     // 家具实例管理
     private Dictionary<string, FurnitureInstance> furnitureInstances = new();
     private int nextFurnitureInstanceId = 1;
+    public Vector2Int CameraLimitMax { get; private set; } = Vector2Int.zero;
+    public Action<Vector2> newCameraLimitMax;
 
     // 默认房间，目前是硬编码的
     public GridMap()
@@ -29,10 +32,13 @@ public class GridMap
 
     private void InitializeFromMapData(MapDataSO mapData)
     {
+        Vector2Int maxPos = Vector2Int.zero;
         foreach (var tileInstance in mapData.tileInstances)
         {
             // 将Vector3Int转换为Vector2Int（忽略Z轴）
             Vector2Int pos = new Vector2Int(tileInstance.position.x, tileInstance.position.y);
+            if (pos.x > maxPos.x) maxPos.x = pos.x;
+            if (pos.y > maxPos.y) maxPos.y = pos.y;
 
             if (pos.x == 1 && pos.y == 4)
             {
@@ -73,7 +79,8 @@ public class GridMap
             }
 
         }
-
+        CameraLimitMax = maxPos;
+        newCameraLimitMax?.Invoke(new Vector2(maxPos.x, maxPos.y));
     }
 
 
@@ -323,7 +330,7 @@ public class GridMap
     public Vector2Int GetRandomWalkablePos()
     {
         if (walkableCells.Count == 0) return Vector2Int.zero;
-        int index = Random.Range(0, walkableCells.Count);
+        int index = UnityEngine.Random.Range(0, walkableCells.Count);
         return walkableCells[index];
     }
 
