@@ -23,4 +23,9 @@ public class RoomManager : MonoBehaviour
         // 触发事件通知其他组件
         OnGridMapInitialized?.Invoke(gridMap);
     }
+
+
+    public void ShowCells() { 
+        roomView.RenderCells(gridMap);
+    }
 }

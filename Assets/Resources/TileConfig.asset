@@ -73,3 +73,9 @@ MonoBehaviour:
     walkable: 1
   - id: TopDownHouse_FloorsAndWalls_96
     walkable: 1
+  - id: White_DefaultCell
+    walkable: 1
+  - id: Red_DefaultCell
+    walkable: 0
+  - id: Green_DefaultCell
+    walkable: 1

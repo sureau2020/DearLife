@@ -77,3 +77,9 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: dde6e4de8b3fa274db09948f71835d77, type: 2}
   - tileId: TopDownHouse_FloorsAndWalls_17
     tile: {fileID: 11400000, guid: acbd685e00ca00c4e9e84e7627ed1e98, type: 2}
+  - tileId: White_DefaultCell
+    tile: {fileID: 11400000, guid: 1fc600c82aa014440b69dfe6deceef2a, type: 2}
+  - tileId: Red_DefaultCell
+    tile: {fileID: 11400000, guid: eba0946ae39d2f140a0a5cab539a79b7, type: 2}
+  - tileId: Green_DefaultCell
+    tile: {fileID: 11400000, guid: 0fa7b47e30398e64aa26d02ed4196d6c, type: 2}

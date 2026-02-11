@@ -8,6 +8,7 @@ public class RoomView : MonoBehaviour
     private FurnitureDatabase furnitureDatabase => GameManager.Instance.FurnitureDatabase;
 
     [SerializeField] private Tilemap groundMap;
+    [SerializeField] private Tilemap cellsMap;
     [SerializeField] private TileLoader tileLoader;
     
     // GameObjectÈÝÆ÷
@@ -107,6 +108,16 @@ public class RoomView : MonoBehaviour
         // »º´æGameObject²¢°ó¶¨µ½GridMap
         furnitureObjects[instance.instanceId] = furnitureObj;
         currentGridMap.BindFurnitureObject(instance.instanceId, furnitureObj);
+    }
+
+    public void RenderCells(GridMap map) { 
+        foreach (KeyValuePair<Vector2Int,GridCell> cellEntry in map.cells)
+        {
+            Vector2Int pos = cellEntry.Key;
+            Vector3Int tilemapPos = new Vector3Int(pos.x, pos.y, 0);
+            if (cellEntry.Value.CanWalk())
+                cellsMap.SetTile(tilemapPos, GetTileFromCache("White_DefaultCell"));else cellsMap.SetTile(tilemapPos, GetTileFromCache("Red_DefaultCell"));
+        }
     }
     
     private void RenderDecors(GridMap gridMap)
