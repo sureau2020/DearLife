@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         // 订阅GridMap初始化事件
-        RoomManager.OnGridMapInitialized += OnGridMapReady;
+        RoomManager.OnRoomManagerInitialized += OnGridMapReady;
     }
 
     void Start()
@@ -36,15 +36,15 @@ public class CameraController : MonoBehaviour
         // 如果RoomManager已经初始化，直接获取GridMap
         if (GameManager.Instance?.RoomManager?.IsInitialized == true)
         {
-            OnGridMapReady(GameManager.Instance.RoomManager.gridMap);
+            OnGridMapReady(GameManager.Instance.RoomManager);
         }
     }
 
-    private void OnGridMapReady(GridMap newGridMap)
+    private void OnGridMapReady(RoomManager room)
     {
         if (isGridMapReady) return; // 避免重复初始化
-        
-        gridMap = newGridMap;
+
+        gridMap = room.GridMap;
         isGridMapReady = true;
         
         // 设置相机限制
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
     private void OnDestroy()
     {
         // 取消事件订阅
-        RoomManager.OnGridMapInitialized -= OnGridMapReady;
+        RoomManager.OnRoomManagerInitialized -= OnGridMapReady;
         
         if (gridMap != null)
         {

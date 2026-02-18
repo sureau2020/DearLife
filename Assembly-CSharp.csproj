@@ -67,6 +67,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterClip.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Scenes\Quitgame.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenEnable.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\DecorInstance.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterTrack.cs" />
     <Compile Include="Assets\Scripts\UI\Character\InfoUI.cs" />
     <Compile Include="Assets\Scripts\Model\Furniture\FurnitureDatabase.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\NavigateNode.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\ResetMoney.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile\FurnitureInstance.cs" />
     <Compile Include="Assets\CoroutineRunner.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\FinalConfirmEditButton.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\CharacterInfoManager.cs" />
@@ -170,7 +172,9 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow1.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\PersistentScriptableObject.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Special\Typewriter.cs" />
+    <Compile Include="Assets\Scripts\Model\Navigation\MinHeap.cs" />
     <Compile Include="Assets\Scripts\UI\Character\ItemUI.cs" />
+    <Compile Include="Assets\Scripts\Tools\WalkRules.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\IScriptableObjectSaveable.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\Manager\ConfirmRequestManager.cs" />
@@ -202,6 +206,8 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Manager\BackgroundFXManager.cs" />
     <Compile Include="Assets\Scripts\Manager\BootScene\BootSceneManager.cs" />
+    <Compile Include="Assets\Scripts\Model\Navigation\ChunkWorld.cs" />
+    <Compile Include="Assets\Scripts\Model\Navigation\Pathfinder.cs" />
     <Compile Include="Assets\Scripts\GameObject\Name.cs" />
     <Compile Include="Assets\Scripts\Model\OperationResult.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\BaseNode.cs" />
@@ -224,6 +230,7 @@
     <Compile Include="Assets\Scripts\GameObject\RoomView.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterMoveAI.cs" />
     <Compile Include="Assets\Scripts\UI\Animation\AnimationWhenDisable.cs" />
+    <Compile Include="Assets\Scripts\Model\Navigation\Chunk.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\InputTaskPanel.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Match\MatchConfig.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\BgmButton.cs" />

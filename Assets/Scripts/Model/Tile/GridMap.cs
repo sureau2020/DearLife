@@ -1,37 +1,40 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class GridMap
 {
-    public Dictionary<Vector2Int, GridCell> cells = new();
-    public List<Vector2Int> walkableCells = new();
-    
-    // 家具实例管理
-    private Dictionary<string, FurnitureInstance> furnitureInstances = new();
-    private int nextFurnitureInstanceId = 1;
-    public Vector2Int CameraLimitMax { get; private set; } = Vector2Int.zero;
+    public Vector2 CameraLimitMax { get; private set; }
     public Action<Vector2> newCameraLimitMax;
 
-    // 默认房间，目前是硬编码的
+    private readonly ChunkWorld world = new();
+
+    // 家具实例
+    private readonly Dictionary<string, FurnitureInstance> furnitureInstances = new();
+    private int nextFurnitureInstanceId = 1;
+
+    private readonly Dictionary<string, DecorInstance> decorInstances = new();
+    private int nextDecorInstanceId = 1;
+
+    private TileDataBase tileDataBase;
+    private FurnitureDatabase furnitureDatabase;
+
+
     public GridMap()
     {
-        cells = new Dictionary<Vector2Int, GridCell>();
-        walkableCells = new List<Vector2Int>();
-
-        var mapData = Resources.Load<MapDataSO>("MapData");
-        if (mapData != null)
-        {
-            InitializeFromMapData(mapData);
-        }
-
-        // 批量添加完成后，统一更新可行走区域
-        UpdateWalkableCells();
+          InitializeMap();
     }
 
-    private void InitializeFromMapData(MapDataSO mapData)
+    private void InitializeMap()
     {
+        tileDataBase = GameManager.Instance.TileDataBase;
+        furnitureDatabase = GameManager.Instance.FurnitureDatabase;
+        var mapData = Resources.Load<MapDataSO>("MapData");
+        if (mapData == null) {
+            ErrorNotifier.NotifyError("Failed to load MapDataSO from Resources/MapData"); return;
+        }
+
         Vector2Int maxPos = Vector2Int.zero;
         foreach (var tileInstance in mapData.tileInstances)
         {
@@ -72,8 +75,8 @@ public class GridMap
             {
                 AddCellInternal(pos.x, pos.y, tileInstance.tileId, "table", "");
             }
-            else {
-
+            else
+            {
                 // 使用MapDataSO中的tileId作为地板
                 AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "");
             }
@@ -83,380 +86,207 @@ public class GridMap
         newCameraLimitMax?.Invoke(new Vector2(maxPos.x, maxPos.y));
     }
 
-
-    // 内部方法：添加格子但不更新walkableCells（用于批量操作）
-    private void AddCellInternal(int x, int y, string groundTileId, string furnitureId, string decorId) 
+    private void AddCellInternal(int x, int y, string floorTileId, string furnitureDataId, string decorId)
     {
-        Vector2Int pos = new Vector2Int(x, y);
-        GroundLayer ground = string.IsNullOrWhiteSpace(groundTileId) ? null : CreateGround(groundTileId);
-        DecorLayer decor = string.IsNullOrWhiteSpace(decorId) ? null : CreateDecor(decorId);
-
-        cells[pos] = new GridCell(pos, ground, null, decor);
-
-        // 如果有家具，稍后通过PlaceFurniture方法添加
-        if (!string.IsNullOrWhiteSpace(furnitureId))
-        {
-            PlaceFurnitureInternal(pos, furnitureId);
-        }
-        Debug.Log($"Added cell at ({x},{y}) with ground '{groundTileId}', furniture '{furnitureId}', decor '{decorId}'");
-    }
-
-    // 公共方法：添加单个格子并更新walkableCells
-    public void AddCell(int x, int y, string groundTileId, string furnitureId, string decorId) 
-    {
-        AddCellInternal(x, y, groundTileId, furnitureId, decorId);
-        UpdateWalkableCells();
-    }
-
-    private GroundLayer CreateGround(string tileId) 
-    {
-        TileData tileData = GameManager.Instance.TileDataBase.GetTileById(tileId);
-        if (tileData == null) return null;
         
-        return new GroundLayer
+        Vector2Int pos = new Vector2Int(x, y);
+        ref CellData cell = ref world.GetCellRef(pos);
+        if (!string.IsNullOrWhiteSpace(floorTileId))
         {
-            floorTileId = tileId,
-            walkable = tileData.walkable
-        };
+            SetFloor(pos, floorTileId, tileDataBase.IsWalkable(floorTileId));
+        }
+        if (!string.IsNullOrWhiteSpace(furnitureDataId))
+        {
+            if (furnitureDatabase.GetFurnitureData(furnitureDataId) == null) { 
+                Debug.LogError($"FurnitureData with id '{furnitureDataId}' not found in FurnitureDatabase"); return;
+            }
+            PlaceFurniture(pos, furnitureDatabase.GetFurnitureData(furnitureDataId));
+        }
+        if (!string.IsNullOrWhiteSpace(decorId))
+        {
+            SetDecor(pos, decorId);
+        }
     }
 
-    private DecorLayer CreateDecor(string decorId) 
+
+    // ==== 基础 Cell 操作 ====
+
+    public ref CellData GetCellRef(Vector2Int pos)
+        => ref world.GetCellRef(pos);
+
+    public CellData GetCell(Vector2Int pos)
+        => world.GetCell(pos);
+
+    // ==== Floor ====
+
+    public void SetFloor(Vector2Int pos, string floorTileId, bool walkable)
     {
-        return new DecorLayer
-        {
-            decorId = decorId,
-            decorObject = null//TODO
-        };
+        ref CellData cell = ref world.GetCellRef(pos);
+
+        cell.floorTileId = floorTileId;
+        cell.flags |= CellFlags.HasFloor;
+
+        if (walkable)
+            cell.flags |= CellFlags.FloorWalkable;
+        else
+            cell.flags &= ~CellFlags.FloorWalkable;
     }
 
-    // 内部方法：放置家具但不更新walkableCells（用于批量操作和初始化）
-    private bool PlaceFurnitureInternal(Vector2Int anchorPos, string furnitureDataId)
+    // ==== Walkable ====
+
+    public bool CanWalk(Vector2Int pos)
     {
-       FurnitureDatabase db = GameManager.Instance.FurnitureDatabase;
+        CellData cell = world.GetCell(pos);
 
-        var furnitureData = db.GetFurnitureData(furnitureDataId);
-        if (furnitureData == null) return false;
+        if (!cell.Has(CellFlags.HasFloor)) return false;
+        if (!cell.Has(CellFlags.FloorWalkable)) return false;
 
-        // 检查是否可以放置,built-in初始化时不检查
-        //if (!CanPlaceFurniture(anchorPos, furnitureData))
-        //{
-        //        Debug.LogWarning($"Cannot place furniture '{furnitureDataId}' at {anchorPos}. It may be out of bounds or overlapping with existing furniture.");
-        //        return false;
-        //}
+        if (cell.Has(CellFlags.HasFurniture) &&
+            cell.Has(CellFlags.FurnitureBlocked))
+            return false;
 
-        // 生成家具实例ID
+        return true;
+    }
+
+    // ==== Furniture ====
+
+
+    // 直接放置家具（不检查位置是否合法），仅供初始化使用
+    private void PlaceFurnitureInternal(Vector2Int anchorPos, FurnitureData data) {
         string instanceId = $"furniture_{nextFurnitureInstanceId++}";
 
-        // 创建家具实例
-        FurnitureInstance instance = new FurnitureInstance
-        {
+        FurnitureInstance instance = new FurnitureInstance {
             instanceId = instanceId,
-            furnitureDataId = furnitureDataId,
+            furnitureDataId = data.id,
             anchorPos = anchorPos,
             occupiedCells = new List<Vector2Int>()
         };
 
-        // 在所有占用的格子上放置家具层
-        foreach (var cellOffset in furnitureData.occupiedCells)
+        // 写入 cell
+        foreach (var offset in data.occupiedCells)
         {
-            Vector2Int cellPos = anchorPos + cellOffset;
-            instance.occupiedCells.Add(cellPos);
-            
-            if (cells.TryGetValue(cellPos, out var cell))
-            {
-                var furnitureLayer = new FurnitureLayer
-                {
-                    furnitureInstanceId = instanceId,
-                    blocked = furnitureData.blocksMovement,
-                };
-                
-                cell.SetFurniture(furnitureLayer);
-            }
+            Vector2Int pos = anchorPos + offset;
+            ref CellData cell = ref world.GetCellRef(pos);
+
+            cell.furnitureInstanceId = instanceId;
+            cell.flags |= CellFlags.HasFurniture;
+
+            if (data.blocksMovement)
+                cell.flags |= CellFlags.FurnitureBlocked;
+
+            instance.occupiedCells.Add(pos);
         }
-        
-        furnitureInstances[instanceId] = instance;
+
+        furnitureInstances.Add(instanceId, instance);
+    }
+
+    // 尝试放置家具，成功返回 true，失败（位置被占用）返回 false
+    public bool PlaceFurniture(Vector2Int anchorPos, FurnitureData data)
+    {
+        if (data == null) { Debug.LogError("FurnitureData is null"); return false; }
+        // 可放置检测
+        foreach (var offset in data.occupiedCells)
+        {
+            Vector2Int pos = anchorPos + offset;
+            CellData cell = world.GetCell(pos);
+
+            if (cell.Has(CellFlags.HasFurniture))
+                return false;
+        }
+
+        PlaceFurnitureInternal(anchorPos, data);
         return true;
     }
 
-    // 公共方法：放置家具并更新walkableCells
-    public bool PlaceFurniture(Vector2Int anchorPos, string furnitureDataId)
+    public bool RemoveFurniture(Vector2Int anyOccupiedPos)
     {
-        bool success = PlaceFurnitureInternal(anchorPos, furnitureDataId);
-        if (success)
-        {
-            UpdateWalkableCells();
-        }
-        return success;
-    }
+        CellData cell = world.GetCell(anyOccupiedPos);
+        if (!cell.Has(CellFlags.HasFurniture)) return false;
 
-    // 移除家具
-    public bool RemoveFurniture(Vector2Int position)
-    {
-        if (!cells.TryGetValue(position, out var cell) || cell.Furniture == null)
+        string instanceId = cell.furnitureInstanceId;
+        if (!furnitureInstances.TryGetValue(instanceId, out var inst))
             return false;
 
-        string instanceId = cell.Furniture.furnitureInstanceId;
-        
-        if (!furnitureInstances.TryGetValue(instanceId, out var instance))
-            return false;
-
-        // 清除所有占用格子的家具层
-        foreach (var cellPos in instance.occupiedCells)
+        foreach (var pos in inst.occupiedCells)
         {
-            if (cells.TryGetValue(cellPos, out var occupiedCell))
-            {
-                occupiedCell.SetFurniture(null);
-            }
+            ref CellData c = ref world.GetCellRef(pos);
+            c.flags &= ~(CellFlags.HasFurniture | CellFlags.FurnitureBlocked);
+            c.furnitureInstanceId = "";
         }
 
         furnitureInstances.Remove(instanceId);
-        UpdateWalkableCells();
         return true;
     }
 
-    // 检查是否可以放置家具，TODO应该考虑玩家看到的白色格子状态
-    private bool CanPlaceFurniture(Vector2Int anchorPos, FurnitureData furnitureData)
-    {
-        foreach (var cellOffset in furnitureData.occupiedCells)
-        {
-            Vector2Int checkPos = anchorPos + cellOffset;
-            
-            // 检查格子是否存在
-            if (!cells.TryGetValue(checkPos, out var cell))
-                return false;
-
-            // 检查是否已有家具
-            if (cell.Furniture != null)
-                return false;
-        }
-        return true;
-    }
-
-    // 放置装饰
-    public bool PlaceDecor(Vector2Int position, string decorId)
-    {
-        if (!cells.TryGetValue(position, out var cell))
-            return false;
-
-        var decor = new DecorLayer
-        {
-            decorId = decorId,
-            decorObject = null
-        };
-
-        cell.SetDecor(decor);
-        return true;
-    }
-
-    // 移除装饰
-    public bool RemoveDecor(Vector2Int position)
-    {
-        if (!cells.TryGetValue(position, out var cell))
-            return false;
-
-        cell.SetDecor(null);
-        return true;
-    }
-
-    // 获取家具实例
     public FurnitureInstance GetFurnitureInstance(string instanceId)
+        => furnitureInstances.GetValueOrDefault(instanceId);
+
+    public FurnitureInstance GetFurnitureAt(Vector2Int pos)
     {
-        return furnitureInstances.GetValueOrDefault(instanceId);
+        CellData cell = world.GetCell(pos);
+        if (!cell.Has(CellFlags.HasFurniture)) return null;
+
+        return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
     }
 
-    // 获取位置上的家具实例
-    public FurnitureInstance GetFurnitureInstanceAtPosition(Vector2Int position)
+    // ==== Decor ====
+
+    public void SetDecor(Vector2Int pos, string decorId)
     {
-        if (!cells.TryGetValue(position, out var cell) || cell.Furniture == null)
-            return null;
-
-        return furnitureInstances.GetValueOrDefault(cell.Furniture.furnitureInstanceId);
-    }
-
-    // 绑定GameObject到家具实例的锚点格子
-    public void BindFurnitureObject(string instanceId, GameObject furnitureObject)
-    {
-        if (!furnitureInstances.TryGetValue(instanceId, out var instance))
-            return;
-
-        if (cells.TryGetValue(instance.anchorPos, out var anchorCell) && anchorCell.Furniture != null)
+        ref CellData cell = ref world.GetCellRef(pos);
+        cell.decorInstanceId = $"decor_{nextDecorInstanceId++}";
+        decorInstances[cell.decorInstanceId] = new DecorInstance
         {
-            anchorCell.Furniture.furnitureObject = furnitureObject;
-        }
-    }
-
-    public void BindDecorObject(Vector2Int position, GameObject decorObject)
-    {
-        if (cells.TryGetValue(position, out var cell) && cell.Decor != null)
-        {
-            cell.Decor.decorObject = decorObject;
-        }
-    }
-
-    // 获取所有家具实例（用于渲染）
-    public IEnumerable<FurnitureInstance> GetAllFurnitureInstances()
-    {
-        return furnitureInstances.Values;
-    }
-
-    // 获取所有装饰（用于渲染）
-    public IEnumerable<(Vector2Int position, DecorLayer decor)> GetAllDecors()
-    {
-        foreach (var kv in cells)
-        {
-            if (kv.Value.Decor != null)
-                yield return (kv.Key, kv.Value.Decor);
-        }
-    }
-
-    // 更新可行走区域 - 只在需要时调用
-    private void UpdateWalkableCells()
-    {
-        walkableCells.Clear();
-        
-        foreach (var kv in cells)
-        {
-            if (kv.Value.CanWalk())
-                walkableCells.Add(kv.Key);
-        }
-    }
-
-    // 批量操作完成后手动调用
-    public void RefreshWalkableCells()
-    {
-        UpdateWalkableCells();
-    }
-
-    public Vector2Int GetRandomWalkablePos()
-    {
-        if (walkableCells.Count == 0) return Vector2Int.zero;
-        int index = UnityEngine.Random.Range(0, walkableCells.Count);
-        return walkableCells[index];
-    }
-
-    public void SetOccupied(Vector2Int pos, bool occupied)
-    {
-        if (!cells.TryGetValue(pos, out var cell)) return;
-        
-        cell.SetOccupied(occupied);
-
-        if (occupied)
-            walkableCells.Remove(pos);
-        else if (cell.CanWalk())
-            walkableCells.Add(pos);
-    }
-
-    public bool CanWalk(Vector2Int pos)
-    {
-        if (!cells.TryGetValue(pos, out var cell))
-            return false;
-
-        return cell.CanWalk();
-    }
-
-    public RoomData ToSaveData()
-    {
-        var data = new RoomData
-        {
-            cells = new List<CellSaveData>(),
-            furnitureInstances = new List<FurnitureInstanceSaveData>()
+            instanceId = cell.decorInstanceId,
+            decorId = decorId,
+            position = pos
         };
-
-        // 保存格子数据
-        foreach (var kv in cells)
-        {
-            var pos = kv.Key;
-            var cell = kv.Value;
-
-            data.cells.Add(new CellSaveData
-            {
-                x = pos.x,
-                y = pos.y,
-                floorTileId = cell.Floor?.floorTileId,
-                decorId = cell.Decor?.decorId,
-                furnitureInstanceId = cell.Furniture?.furnitureInstanceId
-            });
-        }
-
-        // 保存家具实例数据
-        foreach (var instance in furnitureInstances.Values)
-        {
-            data.furnitureInstances.Add(new FurnitureInstanceSaveData
-            {
-                instanceId = instance.instanceId,
-                furnitureDataId = instance.furnitureDataId,
-                anchorX = instance.anchorPos.x,
-                anchorY = instance.anchorPos.y
-            });
-        }
-
-        return data;
     }
 
-    public static GridMap FromSaveData(RoomData data)
+    public void RemoveDecor(Vector2Int pos)
     {
-        var map = new GridMap();
-        map.cells.Clear();
-        map.walkableCells.Clear();
-        map.furnitureInstances.Clear();
-
-        // 首先创建所有基础格子（不包含家具）
-        foreach (var c in data.cells)
-        {
-            Vector2Int pos = new Vector2Int(c.x, c.y);
-            GroundLayer ground = string.IsNullOrWhiteSpace(c.floorTileId) ? null : map.CreateGround(c.floorTileId);
-            DecorLayer decor = string.IsNullOrWhiteSpace(c.decorId) ? null : map.CreateDecor(c.decorId);
-
-            map.cells[pos] = new GridCell(pos, ground, null, decor);
-        }
-
-        // 然后恢复家具实例
-        if (data.furnitureInstances != null)
-        {
-            foreach (var instanceData in data.furnitureInstances)
-            {
-                Vector2Int anchorPos = new Vector2Int(instanceData.anchorX, instanceData.anchorY);
-                map.PlaceFurnitureInternal(anchorPos, instanceData.furnitureDataId); // 使用内部方法，不触发UpdateWalkableCells
-                
-                // 更新实例ID以匹配保存的数据
-                var newInstance = map.furnitureInstances.Values.Last();
-                map.furnitureInstances.Remove(newInstance.instanceId);
-                newInstance.instanceId = instanceData.instanceId;
-                map.furnitureInstances[instanceData.instanceId] = newInstance;
-                
-                // 更新所有相关格子的实例ID
-                foreach (var cellPos in newInstance.occupiedCells)
-                {
-                    if (map.cells.TryGetValue(cellPos, out var cell) && cell.Furniture != null)
-                    {
-                        cell.Furniture.furnitureInstanceId = instanceData.instanceId;
-                    }
-                }
-            }
-        }
-
-        // 找到下一个可用的实例ID
-        if (map.furnitureInstances.Count > 0)
-        {
-            var maxId = map.furnitureInstances.Keys
-                .Where(id => id.StartsWith("furniture_"))
-                .Select(id => int.Parse(id.Substring(10)))
-                .DefaultIfEmpty(0)
-                .Max();
-            map.nextFurnitureInstanceId = maxId + 1;
-        }
-
-        // 最后统一更新可行走区域
-        map.UpdateWalkableCells();
-        return map;
+        ref CellData cell = ref world.GetCellRef(pos);
+        cell.decorInstanceId = "";
     }
-}
 
-// 家具实例类
-public class FurnitureInstance
-{
-    public string instanceId;
-    public string furnitureDataId;
-    public Vector2Int anchorPos;
-    public List<Vector2Int> occupiedCells;
+    // ==== Query ====
+
+    public IEnumerable<Vector2Int> GetAllWalkableCells()
+    {
+        foreach (var chunkPair in world.DebugChunks())
+        {
+            var chunk = chunkPair.Value;
+            var basePos = chunk.chunkCoord * Chunk.CHUNK_SIZE;
+
+            for (int x = 0; x < Chunk.CHUNK_SIZE; x++)
+                for (int y = 0; y < Chunk.CHUNK_SIZE; y++)
+                {
+                    Vector2Int worldPos = basePos + new Vector2Int(x, y);
+                    if (CanWalk(worldPos))
+                        yield return worldPos;
+                }
+        }
+    }
+
+    // 所有 cell（仅用于渲染 / debug）
+    public IEnumerable<KeyValuePair<Vector2Int, CellData>> DebugAllCells()
+    {
+        foreach (var chunkPair in world.DebugChunks())
+        {
+            var chunk = chunkPair.Value;
+            Vector2Int basePos = chunk.chunkCoord * Chunk.CHUNK_SIZE;
+
+            for (int x = 0; x < Chunk.CHUNK_SIZE; x++)
+                for (int y = 0; y < Chunk.CHUNK_SIZE; y++)
+                {
+                    yield return new(
+                        basePos + new Vector2Int(x, y),
+                        chunk.cells[x, y]
+                    );
+                }
+        }
+    }
+
+    public IEnumerable<FurnitureInstance> GetAllFurnitureInstances()
+        => furnitureInstances.Values;
 }

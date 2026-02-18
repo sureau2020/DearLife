@@ -30,5 +30,16 @@ public class TileDataBase
     }
 
 
+    // REQUIRE:ID必须存在于tileMap中
+    public bool IsWalkable(string tileId)
+    {
+        if (tileMap.TryGetValue(tileId, out var tileData))
+        {
+            return tileData.walkable;
+        }
+        return false;
+    }
+
+
 }
 

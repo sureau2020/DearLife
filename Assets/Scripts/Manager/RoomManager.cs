@@ -1,31 +1,60 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public GridMap gridMap { get; private set; }
+    public GridMap GridMap { get; private set; }
+
+    private Pathfinder pathfinder;
+
     [SerializeField] private RoomView roomView;
 
-    // 添加初始化完成事件
-    public static event Action<GridMap> OnGridMapInitialized;
-    
-    // 标记是否已初始化
-    public bool IsInitialized { get; private set; } = false;
+    // GridMap 初始化完成事件（只通知世界状态）
+    //public static event Action<GridMap> OnGridMapInitialized;
+    public static event Action<RoomManager> OnRoomManagerInitialized;
 
-    void Awake()
+    public bool IsInitialized { get; private set; }
+
+    private void Awake()
     {
-        gridMap = new GridMap();// TODO 之后改成从存档里拿,现在先初始化一个默认房间，默认房间是无参数constructor
-        roomView.Initialize(gridMap);
-        
-        // 标记初始化完成
+        // 1. 构建世界
+        GridMap = new GridMap();
+
+        // 2. 构建算法工具
+        pathfinder = new Pathfinder(GridMap);
+
+        // 3. 初始化 View
+        roomView.Initialize(GridMap);
+
+        // 4. 标记完成
         IsInitialized = true;
-        
-        // 触发事件通知其他组件
-        OnGridMapInitialized?.Invoke(gridMap);
+
+        // 5. 广播
+        OnRoomManagerInitialized?.Invoke(this);
     }
 
+    // =====================
+    // 对外：寻路接口
+    // =====================
 
-    public void ShowCells() { 
-        roomView.RenderCells(gridMap);
+    public List<Vector2Int> FindPath(Vector2Int from, Vector2Int to)
+    {
+        if (!IsInitialized)
+            return null;
+
+        if (!GridMap.CanWalk(from) || !GridMap.CanWalk(to))
+            return null;
+
+        return pathfinder.FindPath(from, to);
+    }
+
+    // =====================
+    // Debug / View
+    // =====================
+
+    public void ShowCells()
+    {
+        roomView.RenderWalkableOverlay();
     }
 }

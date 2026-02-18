@@ -4,347 +4,289 @@ using UnityEngine.Tilemaps;
 
 public class RoomView : MonoBehaviour
 {
-    private Dictionary<string, TileBase> roomCache = new();
-    private FurnitureDatabase furnitureDatabase => GameManager.Instance.FurnitureDatabase;
+    private Dictionary<string, TileBase> tileCache = new();
 
+    private FurnitureDatabase furnitureDatabase
+        => GameManager.Instance.FurnitureDatabase;
+
+    [Header("Tilemaps")]
     [SerializeField] private Tilemap groundMap;
     [SerializeField] private Tilemap cellsMap;
     [SerializeField] private TileLoader tileLoader;
-    
-    // GameObject容器
+
+    [Header("Containers")]
     [SerializeField] private Transform furnitureContainer;
     [SerializeField] private Transform decorContainer;
-    [SerializeField] private Sprite cell; 
-    
-    
-    private Dictionary<string, GameObject> furnitureObjects = new();
-    private Dictionary<Vector2Int, GameObject> decorObjects = new();
-    private Dictionary<string, Sprite> userSpriteCache = new(); // 缓存用户自定义图片
-    private GridMap currentGridMap;
 
-    public void Initialize(GridMap gridMap)
+    [Header("Debug")]
+    [SerializeField] private Sprite cellSprite;
+
+    private GridMap gridMap;
+
+    private readonly Dictionary<string, GameObject> furnitureObjects = new();
+    private readonly Dictionary<string, GameObject> decorObjects = new();
+    private readonly Dictionary<string, Sprite> userSpriteCache = new();
+
+    // =========================
+    // Init
+    // =========================
+
+    public void Initialize(GridMap map)
     {
-        currentGridMap = gridMap;
-        roomCache.Clear();
-        ClearExistingObjects();
-        RenderRoom(gridMap);
+        gridMap = map;
+
+        tileCache.Clear();
+        ClearAll();
+
+        RenderAll();
     }
-    
-    private void ClearExistingObjects()
+
+    private void ClearAll()
     {
-        foreach (var obj in furnitureObjects.Values)
-        {
-            if (obj != null) DestroyImmediate(obj);
-        }
+        groundMap.ClearAllTiles();
+        cellsMap.ClearAllTiles();
+
+        foreach (var go in furnitureObjects.Values)
+            if (go) DestroyImmediate(go);
         furnitureObjects.Clear();
-        
-        foreach (var obj in decorObjects.Values)
-        {
-            if (obj != null) DestroyImmediate(obj);
-        }
+
+        foreach (var go in decorObjects.Values)
+            if (go) DestroyImmediate(go);
         decorObjects.Clear();
     }
 
-    private void RenderRoom(GridMap gridMap)
-    {
-        RenderFloors(gridMap);
-        RenderFurnitureInstances(gridMap);
-        RenderDecors(gridMap);
-    }
-    
-    private void RenderFloors(GridMap gridMap)
-    {
-        foreach (var cellEntry in gridMap.cells)
-        {
-            Vector2Int pos = cellEntry.Key;
-            GridCell cell = cellEntry.Value;
-            Vector3Int tilemapPos = new Vector3Int(pos.x, pos.y, 0);
+    // =========================
+    // Render Entry
+    // =========================
 
-            if (cell.Floor != null)
-            {
-                TileBase groundTile = GetTileFromCache(cell.Floor.floorTileId);
-                groundMap.SetTile(tilemapPos, groundTile);
-            }
+    private void RenderAll()
+    {
+        RenderFloors();
+        RenderFurniture();
+        RenderDecor();
+    }
+
+    // =========================
+    // Floor
+    // =========================
+
+    private void RenderFloors()
+    {
+        foreach (var pos in gridMap.GetAllWalkableCells()) { } // force chunks alive
+
+        foreach (var kv in gridMap.DebugAllCells())
+        {
+            Vector2Int pos = kv.Key;
+            CellData cell = kv.Value;
+
+            if (!cell.Has(CellFlags.HasFloor)) continue;
+
+            var tile = GetTile(cell.floorTileId);
+            if (tile == null) continue;
+
+            groundMap.SetTile(
+                new Vector3Int(pos.x, pos.y, 0),
+                tile
+            );
         }
     }
-    
-    private void RenderFurnitureInstances(GridMap gridMap)
+
+    // =========================
+    // Furniture
+    // =========================
+
+    private void RenderFurniture()
     {
-        foreach (var furnitureInstance in gridMap.GetAllFurnitureInstances())
+        foreach (var inst in gridMap.GetAllFurnitureInstances())
+            RenderFurnitureInstance(inst);
+    }
+
+    private void RenderFurnitureInstance(FurnitureInstance inst)
+    {
+        var data = furnitureDatabase.GetFurnitureData(inst.furnitureDataId);
+        if (data == null) return;
+
+        Sprite sprite = GetFurnitureSprite(data);
+        if (sprite == null) return;
+
+        GameObject go = new($"Furniture_{inst.instanceId}");
+        go.transform.SetParent(furnitureContainer);
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = -inst.anchorPos.y;
+
+        Vector3Int cellPos = new(inst.anchorPos.x, inst.anchorPos.y, 0);
+        Vector3 worldPos = groundMap.CellToWorld(cellPos);
+
+        go.transform.position = worldPos + (Vector3)data.renderOffset;
+        go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+        furnitureObjects[inst.instanceId] = go;
+    }
+
+    // =========================
+    // Decor
+    // =========================
+
+    private void RenderDecor()
+    {
+        foreach (var kv in gridMap.DebugAllCells())
         {
-            RenderFurnitureInstance(furnitureInstance);
+            Vector2Int pos = kv.Key;
+            CellData cell = kv.Value;
+
+            if (string.IsNullOrEmpty(cell.decorInstanceId))
+                continue;
+
+            RenderDecorInstance(pos, cell.decorInstanceId);
         }
     }
-    
-    private void RenderFurnitureInstance(FurnitureInstance instance)
+
+    private void RenderDecorInstance(Vector2Int pos, string decorId)
     {
-        var furnitureData = furnitureDatabase.GetFurnitureData(instance.furnitureDataId);
-        if (furnitureData == null) return;
+        var data = furnitureDatabase.GetDecorData(decorId);
+        if (data == null) return;
 
-        // 创建GameObject
-        var furnitureObj = CreateFurnitureGameObject(furnitureData);
-        if (furnitureObj == null) return;
-        
-        // 设置父级
-        furnitureObj.transform.SetParent(furnitureContainer);
-        
-        // 计算锚点的世界位置
-        Vector3Int tilemapPos = new Vector3Int(instance.anchorPos.x, instance.anchorPos.y, 0);
-        Vector3 anchorWorldPos = groundMap.CellToWorld(tilemapPos);
+        Sprite sprite = GetDecorSprite(data);
+        if (sprite == null) return;
 
-        // 设置位置（锚点位置 + 渲染偏移）
-        furnitureObj.GetComponent<SpriteRenderer>().transform.position = anchorWorldPos + (Vector3)furnitureData.renderOffset;
-        furnitureObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        GameObject go = new($"Decor_{decorId}_{pos.x}_{pos.y}");
+        go.transform.SetParent(decorContainer);
 
-        // 设置渲染层级（基于锚点的Y坐标）,Y越大越靠后，最多不能超过30000因为地板设的-30000。。。。。
-        var spriteRenderer = furnitureObj.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.sortingOrder =  -instance.anchorPos.y;
-        }
-        
-        furnitureObj.SetActive(true);
-        
-        // 缓存GameObject并绑定到GridMap
-        furnitureObjects[instance.instanceId] = furnitureObj;
-        currentGridMap.BindFurnitureObject(instance.instanceId, furnitureObj);
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = data.sortingOrder - pos.y;
+
+        Vector3Int cellPos = new(pos.x, pos.y, 0);
+        Vector3 worldPos = groundMap.CellToWorld(cellPos);
+
+        go.transform.position = worldPos + (Vector3)data.renderOffset;
+
+        decorObjects[$"{pos.x},{pos.y}"] = go;
     }
 
-    public void RenderCells(GridMap map) { 
-        foreach (KeyValuePair<Vector2Int,GridCell> cellEntry in map.cells)
-        {
-            Vector2Int pos = cellEntry.Key;
-            Vector3Int tilemapPos = new Vector3Int(pos.x, pos.y, 0);
-            if (cellEntry.Value.CanWalk())
-                cellsMap.SetTile(tilemapPos, GetTileFromCache("White_DefaultCell"));else cellsMap.SetTile(tilemapPos, GetTileFromCache("Red_DefaultCell"));
-        }
-    }
-    
-    private void RenderDecors(GridMap gridMap)
+    // =========================
+    // Walkable Overlay
+    // =========================
+
+    public void RenderWalkableOverlay()
     {
-        foreach (var (position, decor) in gridMap.GetAllDecors())
+        foreach (var kv in gridMap.DebugAllCells())
         {
-            RenderDecor(position, decor);
+            Vector2Int pos = kv.Key;
+
+            var tile = gridMap.CanWalk(pos)
+                ? GetTile("White_DefaultCell")
+                : GetTile("Red_DefaultCell");
+
+            cellsMap.SetTile(
+                new Vector3Int(pos.x, pos.y, 0),
+                tile
+            );
         }
     }
-    
-    private void RenderDecor(Vector2Int gridPos, DecorLayer decor)
+
+    // =========================
+    // Runtime Ops
+    // =========================
+
+    public void PlaceFurniture(Vector2Int anchorPos, string furnitureId)
     {
-        var decorData = furnitureDatabase.GetDecorData(decor.decorId);
-        if (decorData == null) return;
-        
-        // 直接创建GameObject
-        var decorObj = CreateDecorGameObject(decorData);
-        if (decorObj == null) return;
-        
-        // 设置父级
-        decorObj.transform.SetParent(decorContainer);
-        
-        Vector3Int tilemapPos = new Vector3Int(gridPos.x, gridPos.y, 0);
-        Vector3 worldPos = groundMap.CellToWorld(tilemapPos);
-        
-        decorObj.transform.position = worldPos + (Vector3)decorData.renderOffset;
-        
-        var spriteRenderer = decorObj.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        var data = furnitureDatabase.GetFurnitureData(furnitureId);
+        if (data == null) return;
+
+        if (!gridMap.PlaceFurniture(anchorPos, data)) return;
+
+        var inst = gridMap.GetFurnitureAt(anchorPos);
+        if (inst != null)
+            RenderFurnitureInstance(inst);
+    }
+
+    public void RemoveFurniture(Vector2Int pos)
+    {
+        var inst = gridMap.GetFurnitureAt(pos);
+        if (inst == null) return;
+
+        if (!gridMap.RemoveFurniture(pos)) return;
+
+        if (furnitureObjects.TryGetValue(inst.instanceId, out var go))
         {
-            spriteRenderer.sortingOrder = decorData.sortingOrder - gridPos.y;
+            DestroyImmediate(go);
+            furnitureObjects.Remove(inst.instanceId);
         }
-        
-        decorObj.SetActive(true);
-        decorObjects[gridPos] = decorObj;
-        currentGridMap.BindDecorObject(gridPos, decorObj);
     }
 
-    // 直接创建家具GameObject
-    private GameObject CreateFurnitureGameObject(FurnitureData furnitureData)
+    public void PlaceDecor(Vector2Int pos, string decorId)
     {
-        Sprite sprite = GetFurnitureSprite(furnitureData);
-        if (sprite == null) return null;
-        
-        // 创建GameObject
-        var go = new GameObject($"Furniture_{furnitureData.id}");
-
-        var spriteRenderer = go.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprite;
-
-        var cellObj = new GameObject("CellSprite");
-        cellObj.transform.SetParent(go.transform);
-        cellObj.transform.localPosition = new Vector3(0, 0, -0.01f); // 稍微靠前一点
-        cellObj.transform.localScale = Vector3.one;
-
-        // 添加SpriteRenderer显示cell sprite
-        var cellSpriteRenderer = cellObj.AddComponent<SpriteRenderer>();
-        cellSpriteRenderer.sprite = cell;
-
-        return go;
+        gridMap.SetDecor(pos, decorId);
+        RenderDecorInstance(pos, decorId);
     }
-    
-    // 直接创建装饰GameObject
-    private GameObject CreateDecorGameObject(DecorData decorData)
+
+    public void RemoveDecor(Vector2Int pos)
     {
-        Sprite sprite = GetDecorSprite(decorData);
-        if (sprite == null) return null;
-        
-        // 创建GameObject
-        var go = new GameObject($"Decor_{decorData.id}");
-        
-        // 添加SpriteRenderer
-        var spriteRenderer = go.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprite;
-        
-        return go;
-    }
-    
-    // 获取家具Sprite
-    private Sprite GetFurnitureSprite(FurnitureData furnitureData)
-    {
-        // 优先使用ScriptableObject中的Sprite
-        if (furnitureData.sprite != null)
-            return furnitureData.sprite;
-        
-        // 如果是用户自定义家具，从文件加载
-        if (!string.IsNullOrEmpty(furnitureData.spritePath))
+        gridMap.RemoveDecor(pos);
+
+        string key = $"{pos.x},{pos.y}";
+        if (decorObjects.TryGetValue(key, out var go))
         {
-            return LoadSpriteFromPath(furnitureData.spritePath);
+            DestroyImmediate(go);
+            decorObjects.Remove(key);
         }
-        
-        return null;
-    }
-    
-    // 获取装饰Sprite
-    private Sprite GetDecorSprite(DecorData decorData)
-    {
-        // 优先使用ScriptableObject中的Sprite
-        if (decorData.sprite != null)
-            return decorData.sprite;
-        
-        // 如果是用户自定义装饰，从文件加载
-        if (!string.IsNullOrEmpty(decorData.spritePath))
-        {
-            return LoadSpriteFromPath(decorData.spritePath);
-        }
-        
-        return null;
-    }
-    
-    // 从文件路径加载Sprite（仅用于用户自定义）
-    private Sprite LoadSpriteFromPath(string path)
-    {
-        if (userSpriteCache.TryGetValue(path, out var cachedSprite))
-            return cachedSprite;
-        
-        if (System.IO.File.Exists(path))
-        {
-            byte[] fileData = System.IO.File.ReadAllBytes(path);
-            Texture2D texture = new Texture2D(2, 2);
-            
-            if (texture.LoadImage(fileData))
-            {
-                var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f, 100);
-                userSpriteCache[path] = sprite;
-                return sprite;
-            }
-        }
-        
-        return null;
     }
 
-    private TileBase GetTileFromCache(string tileId)
+    // =========================
+    // Helpers
+    // =========================
+
+    private TileBase GetTile(string id)
     {
-        if (roomCache.TryGetValue(tileId, out var tile))
+        if (tileCache.TryGetValue(id, out var tile))
             return tile;
 
-        tile = tileLoader.LoadTile(tileId);
+        tile = tileLoader.LoadTile(id);
         if (tile != null)
-            roomCache[tileId] = tile;
+            tileCache[id] = tile;
 
         return tile;
     }
-    
-    // 动态操作方法
-    public void PlaceFurniture(Vector2Int anchorPos, string furnitureDataId)
+
+    private Sprite GetFurnitureSprite(FurnitureData data)
     {
-        if (currentGridMap == null) return;
-        
-        if (currentGridMap.PlaceFurniture(anchorPos, furnitureDataId))
-        {
-            var furnitureInstance = currentGridMap.GetFurnitureInstanceAtPosition(anchorPos);
-            if (furnitureInstance != null)
-            {
-                RenderFurnitureInstance(furnitureInstance);
-            }
-        }
-    }
-    
-    public void RemoveFurniture(Vector2Int position)
-    {
-        if (currentGridMap == null) return;
-        
-        var furnitureInstance = currentGridMap.GetFurnitureInstanceAtPosition(position);
-        if (furnitureInstance == null) return;
-        
-        string instanceId = furnitureInstance.instanceId;
-        
-        if (currentGridMap.RemoveFurniture(position))
-        {
-            if (furnitureObjects.TryGetValue(instanceId, out var obj))
-            {
-                DestroyImmediate(obj);
-                furnitureObjects.Remove(instanceId);
-            }
-        }
-    }
-    
-    public void PlaceDecor(Vector2Int position, string decorId)
-    {
-        if (currentGridMap == null) return;
-        
-        if (currentGridMap.PlaceDecor(position, decorId))
-        {
-            if (currentGridMap.cells.TryGetValue(position, out var cell) && cell.Decor != null)
-            {
-                RenderDecor(position, cell.Decor);
-            }
-        }
-    }
-    
-    public void RemoveDecor(Vector2Int position)
-    {
-        if (currentGridMap == null) return;
-        
-        if (currentGridMap.RemoveDecor(position))
-        {
-            if (decorObjects.TryGetValue(position, out var obj))
-            {
-                DestroyImmediate(obj);
-                decorObjects.Remove(position);
-            }
-        }
-    }
-    
-    public FurnitureInstance GetFurnitureAtWorldPosition(Vector3 worldPosition)
-    {
-        if (currentGridMap == null) return null;
-        
-        Vector3Int cellPos = groundMap.WorldToCell(worldPosition);
-        Vector2Int gridPos = new Vector2Int(cellPos.x, cellPos.y);
-        
-        return currentGridMap.GetFurnitureInstanceAtPosition(gridPos);
-    }
-    
-    public DecorLayer GetDecorAtWorldPosition(Vector3 worldPosition)
-    {
-        if (currentGridMap == null) return null;
-        
-        Vector3Int cellPos = groundMap.WorldToCell(worldPosition);
-        Vector2Int gridPos = new Vector2Int(cellPos.x, cellPos.y);
-        
-        if (currentGridMap.cells.TryGetValue(gridPos, out var cell))
-        {
-            return cell.Decor;
-        }
-        
+        if (data.sprite != null) return data.sprite;
+        if (!string.IsNullOrEmpty(data.spritePath))
+            return LoadSprite(data.spritePath);
         return null;
+    }
+
+    private Sprite GetDecorSprite(DecorData data)
+    {
+        if (data.sprite != null) return data.sprite;
+        if (!string.IsNullOrEmpty(data.spritePath))
+            return LoadSprite(data.spritePath);
+        return null;
+    }
+
+    private Sprite LoadSprite(string path)
+    {
+        if (userSpriteCache.TryGetValue(path, out var s))
+            return s;
+
+        if (!System.IO.File.Exists(path))
+            return null;
+
+        byte[] bytes = System.IO.File.ReadAllBytes(path);
+        var tex = new Texture2D(2, 2);
+        if (!tex.LoadImage(bytes)) return null;
+
+        var sprite = Sprite.Create(
+            tex,
+            new Rect(0, 0, tex.width, tex.height),
+            Vector2.one * 0.5f,
+            100
+        );
+
+        userSpriteCache[path] = sprite;
+        return sprite;
     }
 }
