@@ -7103,11 +7103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1a1e7aa2907b4e9962e43c007fcc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1
+  offset: {x: -0.4, y: 0, z: 0.3}
+  minWait: 2
+  maxWait: 5
   floorMap: {fileID: 1948300182}
   sortingGroup: {fileID: 254411785}
   breatheComponent: {fileID: 1682495036}
-  moveSpeed: 2
-  offset: {x: -0.4, y: 0, z: 0.3}
 --- !u!210 &254411785
 SortingGroup:
   m_ObjectHideFlags: 0
