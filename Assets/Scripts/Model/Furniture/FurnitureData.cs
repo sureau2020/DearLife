@@ -24,6 +24,26 @@ public class FurnitureData
     // 游戏逻辑
     public bool blocksMovement = true;
     
+    public int GetMaxOccupiedX()
+    {
+        int maxX = int.MinValue;
+        foreach (var cell in occupiedCells)
+        {
+            maxX = Mathf.Max(maxX, cell.x);
+        }
+        return maxX;
+    }
+
+    public int GetMaxOccupiedY()
+    {
+        int maxY = int.MinValue;
+        foreach (var cell in occupiedCells)
+        {
+            maxY = Mathf.Max(maxY, cell.y);
+        }
+        return maxY;
+    }
+
     // 获取家具的包围盒（用于检查放置空间）
     public Vector2Int GetBounds()
     {

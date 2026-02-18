@@ -114,7 +114,7 @@ public class RoomView : MonoBehaviour
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
-        sr.sortingOrder = -inst.anchorPos.y;
+        sr.sortingOrder = -inst.anchorPos.y - data.GetMaxOccupiedY();
 
         Vector3Int cellPos = new(inst.anchorPos.x, inst.anchorPos.y, 0);
         Vector3 worldPos = groundMap.CellToWorld(cellPos);
