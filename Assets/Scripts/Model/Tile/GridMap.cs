@@ -152,6 +152,31 @@ public class GridMap
         return true;
     }
 
+    public bool HasFloor(Vector2Int pos)
+    {
+        CellData cell = world.GetCell(pos);
+        return cell.Has(CellFlags.HasFloor);
+    }
+
+    public bool HasWalkbleFLoor(Vector2Int pos)
+    {
+        CellData cell = world.GetCell(pos);
+        return cell.Has(CellFlags.FloorWalkable);
+    }
+
+    public bool HasFurniture(Vector2Int pos)
+    {
+        CellData cell = world.GetCell(pos);
+        return cell.Has(CellFlags.HasFurniture);
+    }
+
+    public FurnitureInstance GetFurniture(Vector2Int pos)
+    {
+        CellData cell = world.GetCell(pos);
+        if (!cell.Has(CellFlags.HasFurniture)) return null;
+        return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
+    }
+
     // ==== Furniture ====
 
 

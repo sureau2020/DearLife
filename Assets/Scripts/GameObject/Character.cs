@@ -29,6 +29,8 @@ public class Character : MonoBehaviour
     private const float TapMaxDuration = 0.3f;
     private Plane xzPlane = new Plane(Vector3.up, Vector3.zero);
 
+    private bool isFurnishing = false;
+
 
     void Awake()
     {
@@ -38,18 +40,24 @@ public class Character : MonoBehaviour
         {
             dragThresholdPixels = Mathf.Max(20f, Screen.dpi * 0.15f);
         }
+        FurnishManager.onEnterFurnishMode += (bool mode) => isFurnishing = mode;
+    }
+
+    void OnDestroy()
+    {
+        FurnishManager.onEnterFurnishMode -= (bool mode) => isFurnishing = mode;
     }
 
     void Update()
     {
 
-//#if UNITY_ANDROID || UNITY_IOS
-//        if (!closet.isActiveAndEnabled)
-//        {
-//            CheckTouch();
-//        }
-//#else
-        if (!closet.isActiveAndEnabled) {
+        //#if UNITY_ANDROID || UNITY_IOS
+        //        if (!closet.isActiveAndEnabled && !isFurnishing)
+        //        {
+        //            CheckTouch();
+        //        }
+        //#else
+        if (!closet.isActiveAndEnabled && !isFurnishing) {
             CheckClick();
             //        CheckTouch();
         }

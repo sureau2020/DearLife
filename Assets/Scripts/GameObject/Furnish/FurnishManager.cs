@@ -1,23 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FurnishManager : MonoBehaviour
+public class FurnishManager : MonoBehaviour, IRoomDataProvider
 {
     [SerializeField] private Button furnishButton;
     [SerializeField] private FurnishInteractor furnishInteractor;
-    private RoomManager roomManager;
-    
+    private RoomManager _roomManager;
+    public RoomManager roomManager => _roomManager;
+    public static Action<bool> onEnterFurnishMode;
+    private bool isInFurnishMode = false;
 
-    void Awake()
+
+    void Start()
     {
-        RoomManager.OnRoomManagerInitialized += OnRoomManagerInitialized;
+        _roomManager = GetComponent<RoomManager>();
+        if (_roomManager != null)
+            OnRoomManagerInitialized(_roomManager);
     }
 
     void OnRoomManagerInitialized(RoomManager room) {
-        roomManager = room;
-        furnishButton.enabled = true;
+        _roomManager = room;
+        furnishButton.interactable = true;
     }
 
     void OnDestroy() {
@@ -25,9 +31,23 @@ public class FurnishManager : MonoBehaviour
     }
 
     public void EnterEditMode() { 
-        furnishInteractor.Initialize();
+        isInFurnishMode = !isInFurnishMode;
+        if (!isInFurnishMode) {
+            onEnterFurnishMode?.Invoke(false);
+        }else
+        { // 进入编辑模式
+            furnishInteractor.Initialize(this);
+            onEnterFurnishMode?.Invoke(true);
+        }
+        
     }
 
 
 
+}
+
+
+public interface IRoomDataProvider
+{
+    RoomManager roomManager { get; }
 }

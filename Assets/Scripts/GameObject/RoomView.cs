@@ -182,6 +182,63 @@ public class RoomView : MonoBehaviour
         }
     }
 
+    public void ClearCells()
+    {
+        cellsMap.ClearAllTiles();
+    }
+
+    public void RenderFurnitureLayer() {
+        foreach (var kv in gridMap.DebugAllCells())
+        {
+            Vector2Int pos = kv.Key;
+
+            if (gridMap.HasFurniture(pos))
+            {
+                cellsMap.SetTile(
+                   new Vector3Int(pos.x, pos.y, 0), GetTile("Red_DefaultCell")
+               );
+                continue;
+            }
+
+            if (gridMap.HasWalkbleFLoor(pos)) {
+                cellsMap.SetTile(
+                   new Vector3Int(pos.x, pos.y, 0), GetTile("White_DefaultCell")
+               );
+                continue;
+            }
+        }
+    }
+
+    public void RenderDecorLayer() {
+        foreach (var kv in gridMap.DebugAllCells())
+        {
+            Vector2Int pos = kv.Key;
+
+            if (gridMap.HasFloor(pos))
+            {
+                cellsMap.SetTile(
+                   new Vector3Int(pos.x, pos.y, 0), GetTile("White_DefaultCell")
+               );
+                continue;
+            }
+        }
+        foreach (var kv in gridMap.GetAllDecorInstances())
+        {
+            Vector2Int pos = kv.position;
+            cellsMap.SetTile(
+               new Vector3Int(pos.x, pos.y, 0), GetTile("Red_DefaultCell")
+           );
+        }
+    }
+
+    public void RenderFloorLayer() {
+        foreach (var kv in gridMap.DebugAllCells())
+        {
+            Vector2Int pos = kv.Key;
+            cellsMap.SetTile( new Vector3Int(pos.x, pos.y, 0), GetTile("White_DefaultCell"));
+        }
+    }
+
     // =========================
     // Runtime Ops
     // =========================
@@ -285,5 +342,10 @@ public class RoomView : MonoBehaviour
 
         userSpriteCache[path] = sprite;
         return sprite;
+    }
+
+
+    public Vector2Int WorldToCell(Vector3 pos) { 
+        return new Vector2Int(groundMap.WorldToCell(pos).x,groundMap.WorldToCell(pos).y);
     }
 }

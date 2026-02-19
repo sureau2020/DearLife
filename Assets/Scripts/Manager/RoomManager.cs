@@ -29,6 +29,7 @@ public class RoomManager : MonoBehaviour
 
         // 4. 标记完成
         IsInitialized = true;
+        Debug.Log("RoomManager: Initialization complete");
 
         // 5. 广播
         OnRoomManagerInitialized?.Invoke(this);
@@ -53,8 +54,32 @@ public class RoomManager : MonoBehaviour
     // Debug / View
     // =====================
 
-    public void ShowCells()
+    public void ShowFurnitureCells()
     {
-        roomView.RenderWalkableOverlay();
+        roomView.ClearCells();
+        roomView.RenderFurnitureLayer();
     }
+
+    public void ShowDecorCells()
+    {
+        roomView.ClearCells();
+        roomView.RenderDecorLayer();
+    }
+
+    public void ShowFloorCells()
+    {
+        roomView.ClearCells();
+        roomView.RenderFloorLayer();
+    }
+
+    // =====================
+    // interact with FurnishManager
+    // =====================
+
+    public FurnitureInstance GetFurnitureAt(Vector3 pos)
+    {
+        return GridMap.GetFurniture(roomView.WorldToCell(pos));
+    }
+
+
 }

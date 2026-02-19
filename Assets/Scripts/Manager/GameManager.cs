@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
         DialogueManager = GetComponent<DialogueManager>();
         RoomManager = GetComponent<RoomManager>();//TODO暂时不用管加载，弄完后加载得放在LoadAndCloseUI里
         StartCoroutine(LoadAndCloseUI());
