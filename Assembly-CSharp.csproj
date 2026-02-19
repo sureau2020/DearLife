@@ -196,6 +196,7 @@
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\TileBaseLibrarySO.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\FurnishInteractor.cs" />
     <Compile Include="Assets\Scripts\GameObject\CameraFocus.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectList.cs" />

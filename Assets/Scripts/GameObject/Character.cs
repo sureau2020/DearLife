@@ -27,6 +27,7 @@ public class Character : MonoBehaviour
     private bool isDragging = false;
     private float dragThresholdPixels = 20f;  
     private const float TapMaxDuration = 0.3f;
+    private Plane xzPlane = new Plane(Vector3.up, Vector3.zero);
 
 
     void Awake()
@@ -76,21 +77,46 @@ public class Character : MonoBehaviour
                     return;
                 }
             }
-
-            if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
+          
+            // 3. 计算射线与平面的交点
+            float distance; // 射线到平面的距离
+            if (xzPlane.Raycast(ray, out distance))
             {
-                SoundManager.Instance.PlaySfx("Pop");
-                Vector3 pos = Input.mousePosition;
-                pos.z = this.z; 
+                Vector3 hitPoint = ray.GetPoint(distance);
 
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
-                
-                GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
-
-                Destroy(effect, 1f);
                 if (characterTileMoveAI != null)
-                    characterTileMoveAI.MoveToPosition(hit.point);
+                {
+                    if (characterTileMoveAI.IsWalkable(hitPoint))
+                    {
+                        SoundManager.Instance.PlaySfx("Pop");
+                        Vector3 pos = Input.mousePosition;
+                        pos.z = this.z;
+
+                        GameObject effect = Instantiate(clickEffectPrefab, hitPoint, Quaternion.identity);
+
+                        Destroy(effect, 1f);
+
+                        characterTileMoveAI.MoveToPosition(hitPoint);
+                    }
+                }
             }
+
+            
+
+            //    if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
+            //{
+            //    SoundManager.Instance.PlaySfx("Pop");
+            //    Vector3 pos = Input.mousePosition;
+            //    pos.z = this.z; 
+
+            //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+
+            //    GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
+
+            //    Destroy(effect, 1f);
+            //    if (characterTileMoveAI != null)
+            //        characterTileMoveAI.MoveToPosition(hit.point);
+            //}
         }
     }
 
@@ -147,18 +173,28 @@ public class Character : MonoBehaviour
                         }
                     }
 
-                    if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Floor")))
+                    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                    float distance; // 射线到平面的距离
+                    if (xzPlane.Raycast(ray, out distance))
                     {
-                        SoundManager.Instance.PlaySfx("Pop");
-                        Vector3 pos = Input.mousePosition;
-                        pos.z = this.z;
-                        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
-                        
-                        GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
-                        Destroy(effect, 1f);
+                        Vector3 hitPoint = ray.GetPoint(distance);
 
                         if (characterTileMoveAI != null)
-                            characterTileMoveAI.MoveToPosition(hit.point);
+                        {
+                            if (characterTileMoveAI.IsWalkable(hitPoint))
+                            {
+                                SoundManager.Instance.PlaySfx("Pop");
+                                Vector3 pos = Input.mousePosition;
+                                pos.z = this.z;
+
+                                GameObject effect = Instantiate(clickEffectPrefab, hitPoint, Quaternion.identity);
+
+                                Destroy(effect, 1f);
+
+                                characterTileMoveAI.MoveToPosition(hitPoint);
+                            }
+                        }
                     }
 
                     activeFingerId = -1;

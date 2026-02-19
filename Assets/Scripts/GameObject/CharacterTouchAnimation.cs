@@ -29,12 +29,12 @@ public class CharacterTouchAnimation : MonoBehaviour
     private float rotateRecoverDuration = 0.1f;
 
     private Vector3 originScale;
-    private Quaternion originRotation = new Quaternion(0, 0, 0, 0);
+    private Quaternion originRotation = Quaternion.identity;
 
     void Awake()
     {
         originScale = transform.localScale;
-        //originRotation = transform.localRotation;
+        originRotation = transform.rotation;
         Character.recordOpenEyes += RecordEye;
     }
 
@@ -87,7 +87,8 @@ public class CharacterTouchAnimation : MonoBehaviour
             originScale.x = -Mathf.Abs(originScale.x);
         }
         transform.localScale = originScale;
-        transform.localRotation = originRotation;
+        Vector3 currentEuler = originRotation.eulerAngles;
+        transform.rotation = originRotation;
 
         if (breatheComponent != null)
             breatheComponent.SetBreathing(false);
@@ -106,15 +107,16 @@ public class CharacterTouchAnimation : MonoBehaviour
                 .SetEase(squashEase)
         );
 
+
         // 2. 左右摇（+angle ↔ -angle）
+        Quaternion left = originRotation * Quaternion.Euler(0, 0, -rotateAngle);
+        Quaternion right = originRotation * Quaternion.Euler(0, 0, rotateAngle);
+
         seq.Join(
-            transform.DORotate(
-                new Vector3(0, 0, rotateAngle),
-                rotateDuration
-            )
-            .From(new Vector3(0, 0, -rotateAngle))
-            .SetLoops(rotateLoops, LoopType.Yoyo)
-            .SetEase(Ease.InOutSine)
+            transform.DORotateQuaternion(right, rotateDuration)
+                .From(left)
+                .SetLoops(rotateLoops, LoopType.Yoyo)
+                .SetEase(Ease.InOutSine)
         );
         // 3. 回弹
         seq.Append(

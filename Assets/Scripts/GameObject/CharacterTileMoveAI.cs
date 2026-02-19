@@ -365,11 +365,27 @@ public class CharacterTileMoveAI : MonoBehaviour
         }
     }
 
+    public bool IsWalkable(Vector3 targetPos)
+    {
+        if (room == null) return false;
+        Vector2Int start = CurrentCell();
+        Vector3Int end = floorMap.WorldToCell(targetPos);
+        Vector2Int targetCell = new Vector2Int(end.x, end.y);
+        var path = room.FindPath(start, targetCell);
+        
+        return path != null && path.Count > 1;
+    }
+
     /// <summary>
     /// 获取当前状态信息（用于调试）
     /// </summary>
     public string GetStatusInfo()
     {
         return $"Alive: {isAlive}, Focused: {isFocused}, Moving: {isMoving}, Waiting: {isWaiting}, Position: {CurrentCell()}";
+    }
+
+    public Vector2Int getGridCell(Vector3 worldPos) {
+        Vector3Int gridPos = floorMap.WorldToCell(worldPos);
+        return new Vector2Int(gridPos.x, gridPos.y);
     }
 }
