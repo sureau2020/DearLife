@@ -8,7 +8,8 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject characterUI;
     [SerializeField] private CameraFocus cameraFocus;
-    [SerializeField] private CharacterMoveAI characterMoveAI;
+    //[SerializeField] private CharacterMoveAI characterMoveAI;
+    [SerializeField] private CharacterTileMoveAI characterTileMoveAI;
     [SerializeField] private CharacterTouchAnimation touchAnimation;
     [SerializeField] private Closet closet;
     [SerializeField] private GameObject clickEffectPrefab;
@@ -41,18 +42,18 @@ public class Character : MonoBehaviour
     void Update()
     {
 
-#if UNITY_ANDROID || UNITY_IOS
-        if (!closet.isActiveAndEnabled)
-        {
-            CheckTouch();
-        }
-#else
+//#if UNITY_ANDROID || UNITY_IOS
+//        if (!closet.isActiveAndEnabled)
+//        {
+//            CheckTouch();
+//        }
+//#else
         if (!closet.isActiveAndEnabled) {
             CheckClick();
             //        CheckTouch();
         }
 
-#endif
+//#endif
     }
 
     private void CheckClick()
@@ -87,8 +88,8 @@ public class Character : MonoBehaviour
                 GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
 
                 Destroy(effect, 1f);
-                if (characterMoveAI != null)
-                    characterMoveAI.MoveToIfValid(hit.point);
+                if (characterTileMoveAI != null)
+                    characterTileMoveAI.MoveToPosition(hit.point);
             }
         }
     }
@@ -156,8 +157,8 @@ public class Character : MonoBehaviour
                         GameObject effect = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity);
                         Destroy(effect, 1f);
 
-                        if (characterMoveAI != null)
-                            characterMoveAI.MoveToIfValid(hit.point);
+                        if (characterTileMoveAI != null)
+                            characterTileMoveAI.MoveToPosition(hit.point);
                     }
 
                     activeFingerId = -1;

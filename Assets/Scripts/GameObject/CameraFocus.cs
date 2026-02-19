@@ -5,11 +5,12 @@ public class CameraFocus : MonoBehaviour
 {
     private Camera cam;
     private Coroutine currentRoutine;
-    [SerializeField] private CharacterMoveAI characterMoveAI;
+    //[SerializeField] private CharacterMoveAI characterMoveAI;
+    [SerializeField] private CharacterTileMoveAI characterTileMoveAI;
 
     [Header("¾Û½¹²ÎÊý")]
     [SerializeField] private Transform target;
-    public Vector3 offset = new Vector3(0, 0, -3.5f);
+    public Vector3 offset = new Vector3(0, 0, -2f);
     public float moveSpeed = 5f;
     public float zoomSpeed = 3f;
     public float targetSize = 2f;
@@ -33,7 +34,7 @@ public class CameraFocus : MonoBehaviour
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
 
-        characterMoveAI.SetFocus(true);
+        characterTileMoveAI.SetFocus(true);
         Vector3 endPos = target.position + offset;
         currentRoutine = StartCoroutine(MoveCamera(endPos, targetSize));
     }
@@ -45,7 +46,7 @@ public class CameraFocus : MonoBehaviour
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
 
-        characterMoveAI.SetFocus(true);
+        characterTileMoveAI.SetFocus(true);
         Vector3 endPos = worldPosition + offset;
         currentRoutine = StartCoroutine(MoveCamera(endPos, targetSize));
     }
@@ -57,7 +58,7 @@ public class CameraFocus : MonoBehaviour
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
 
-        characterMoveAI.SetFocus(false);
+        characterTileMoveAI.SetFocus(false);
         currentRoutine = StartCoroutine(MoveCamera(initialPos, initialSize));
     }
 

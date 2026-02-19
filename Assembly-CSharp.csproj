@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventData.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterTileMoveAI.cs" />
     <Compile Include="Assets\Scripts\GameObject\TileMapLab.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\FurnishManager.cs" />
     <Compile Include="Assets\Scripts\Manager\IconManager.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterClip.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Scenes\Quitgame.cs" />

@@ -131,39 +131,34 @@ public class RoomView : MonoBehaviour
 
     private void RenderDecor()
     {
-        foreach (var kv in gridMap.DebugAllCells())
+        foreach (var kv in gridMap.GetAllDecorInstances())
         {
-            Vector2Int pos = kv.Key;
-            CellData cell = kv.Value;
-
-            if (string.IsNullOrEmpty(cell.decorInstanceId))
-                continue;
-
-            RenderDecorInstance(pos, cell.decorInstanceId);
+            RenderDecorInstance(kv);
         }
     }
 
-    private void RenderDecorInstance(Vector2Int pos, string decorId)
+    private void RenderDecorInstance(DecorInstance decor)
     {
-        var data = furnitureDatabase.GetDecorData(decorId);
+        var data = furnitureDatabase.GetDecorData(decor.decorId);
         if (data == null) return;
 
         Sprite sprite = GetDecorSprite(data);
         if (sprite == null) return;
 
-        GameObject go = new($"Decor_{decorId}_{pos.x}_{pos.y}");
+        GameObject go = new($"Decor_{decor.instanceId}");
         go.transform.SetParent(decorContainer);
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
-        sr.sortingOrder = data.sortingOrder - pos.y;
+        sr.sortingOrder = -decor.position.y + 1; // render above furniture
 
-        Vector3Int cellPos = new(pos.x, pos.y, 0);
+        Vector3Int cellPos = new(decor.position.x, decor.position.y, 0);
         Vector3 worldPos = groundMap.CellToWorld(cellPos);
 
         go.transform.position = worldPos + (Vector3)data.renderOffset;
+        go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
-        decorObjects[$"{pos.x},{pos.y}"] = go;
+        decorObjects[decor.instanceId] = go;
     }
 
     // =========================
@@ -217,10 +212,12 @@ public class RoomView : MonoBehaviour
         }
     }
 
+    // TODO
     public void PlaceDecor(Vector2Int pos, string decorId)
     {
         gridMap.SetDecor(pos, decorId);
-        RenderDecorInstance(pos, decorId);
+        //RenderDecorInstance(pos, decorId);
+        //TODO
     }
 
     public void RemoveDecor(Vector2Int pos)

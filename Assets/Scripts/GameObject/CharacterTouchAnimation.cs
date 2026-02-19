@@ -29,12 +29,12 @@ public class CharacterTouchAnimation : MonoBehaviour
     private float rotateRecoverDuration = 0.1f;
 
     private Vector3 originScale;
-    private Quaternion originRotation;
+    private Quaternion originRotation = new Quaternion(0, 0, 0, 0);
 
     void Awake()
     {
         originScale = transform.localScale;
-        originRotation = transform.localRotation;
+        //originRotation = transform.localRotation;
         Character.recordOpenEyes += RecordEye;
     }
 

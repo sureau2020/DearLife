@@ -75,6 +75,10 @@ public class GridMap
             {
                 AddCellInternal(pos.x, pos.y, tileInstance.tileId, "table", "");
             }
+            else if (pos.x == 4 && pos.y == 8)
+            {
+                AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "mirror");
+            }
             else
             {
                 // 使用MapDataSO中的tileId作为地板
@@ -221,6 +225,7 @@ public class GridMap
     public FurnitureInstance GetFurnitureInstance(string instanceId)
         => furnitureInstances.GetValueOrDefault(instanceId);
 
+
     public FurnitureInstance GetFurnitureAt(Vector2Int pos)
     {
         CellData cell = world.GetCell(pos);
@@ -289,4 +294,7 @@ public class GridMap
 
     public IEnumerable<FurnitureInstance> GetAllFurnitureInstances()
         => furnitureInstances.Values;
+
+    public IEnumerable<DecorInstance> GetAllDecorInstances()
+        => decorInstances.Values;
 }

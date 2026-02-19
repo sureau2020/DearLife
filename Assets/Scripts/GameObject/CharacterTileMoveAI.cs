@@ -33,6 +33,8 @@ public class CharacterTileMoveAI : MonoBehaviour
     private bool isWaiting = false;
     private bool isFocused = false;
     private bool isMoving = false;
+
+
     
     // 位置跟踪
     private Vector3Int lastGridPos;
@@ -338,12 +340,14 @@ public class CharacterTileMoveAI : MonoBehaviour
     /// 强制移动到指定位置（如果有效）
     /// </summary>
     /// <param name="targetPos">目标格子坐标</param>
-    public void MoveToPosition(Vector2Int targetPos)
+    public bool MoveToPosition(Vector3 targetPos)
     {
-        if (!isAlive || isFocused || room == null) return;
+        if (!isAlive || isFocused || room == null) return false;
 
         Vector2Int start = CurrentCell();
-        var path = room.FindPath(start, targetPos);
+        Vector3Int end = floorMap.WorldToCell(targetPos);
+        Vector2Int targetCell = new Vector2Int(end.x, end.y);
+        var path = room.FindPath(start, targetCell);
         
         if (path != null && path.Count > 1)
         {
@@ -353,11 +357,11 @@ public class CharacterTileMoveAI : MonoBehaviour
             StopAllMovement(); // 停止当前的移动
             StartMovement(); // 开始新的移动
             
-            Debug.Log($"Force moving from {start} to {targetPos}");
+            return true;
         }
         else
         {
-            Debug.LogWarning($"Cannot find path from {start} to {targetPos}");
+            return false; 
         }
     }
 
