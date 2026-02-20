@@ -81,6 +81,11 @@ public class RoomManager : MonoBehaviour
         return GridMap.GetFurniture(roomView.WorldToCell(pos));
     }
 
+    public DecorInstance GetDecorInstanceAt(Vector3 pos)
+    {
+        return GridMap.GetDecorAt(roomView.WorldToCell(pos));
+    }
+
     public Vector3 GetCellWorldLeftBottomPosition(Vector2Int cellPos)
     {
         return roomView.CellLeftBottomToWorld(cellPos);

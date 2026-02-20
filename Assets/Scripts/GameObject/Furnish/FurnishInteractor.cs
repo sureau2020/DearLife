@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class FurnishInteractor : MonoBehaviour
 {
@@ -13,8 +14,11 @@ public class FurnishInteractor : MonoBehaviour
     [SerializeField] private Image floorLayerSigh;
 
     private FurnitureInstance currentFurnitureInstance;
-    
-    
+    private DecorInstance currentDecorInstance;
+    private enum Layer { Furniture, Decor, Floor }
+    private Layer currentLayer = Layer.Furniture;
+
+
     private IRoomDataProvider roomData;
     private Plane xzPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -43,16 +47,48 @@ public class FurnishInteractor : MonoBehaviour
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
                 if (roomData == null) return;
-                FurnitureInstance furniture = roomData.roomManager.GetFurnitureAt(hitPoint);
-                if (furniture != null) {
-                    Vector3 spriteSize = furniture.furnitureObject.GetComponent<SpriteRenderer>().bounds.size;
-                    Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
-                    kuang.SetActive(true);
-                    kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
-                    kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
-                    currentFurnitureInstance = furniture;
+                switch (currentLayer) { 
+                    case Layer.Furniture:
+                        CheckFurnitureClick(hitPoint);
+                        break;
+                    case Layer.Decor:
+                        CheckDecorClick(hitPoint);
+                        break;
+                    case Layer.Floor:
+                        //CheckFloorClick(hitPoint);
+                        break;
                 }
+
+             
             }
+        }
+    }
+
+    private void CheckFurnitureClick(Vector3 hitPoint) {
+        
+        FurnitureInstance furniture = roomData.roomManager.GetFurnitureAt(hitPoint);
+        if (furniture != null)
+        {
+            Vector3 spriteSize = furniture.furnitureObject.GetComponent<SpriteRenderer>().bounds.size;
+            Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
+            kuang.SetActive(true);
+            kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
+            kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
+            currentFurnitureInstance = furniture;
+        }
+    }
+
+    private void CheckDecorClick(Vector3 hitPoint)
+    {
+        DecorInstance decor = roomData.roomManager.GetDecorInstanceAt(hitPoint);
+        if (decor != null) {
+            Vector3 spriteSize = decor.decorObject.GetComponent<SpriteRenderer>().bounds.size;
+            Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
+            if(!kuang.activeSelf) kuang.SetActive(true);
+            kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
+            kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(decor.position);
+            currentDecorInstance = decor;
+
         }
     }
 
@@ -64,6 +100,8 @@ public class FurnishInteractor : MonoBehaviour
 
     public void ShowFurnitureLayer() { 
         SoundManager.Instance.PlaySfx("Click");
+        if (kuang.activeSelf) kuang.SetActive(false);
+        currentLayer = Layer.Furniture;
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = true;
         floorLayerSigh.enabled = false;
@@ -75,6 +113,8 @@ public class FurnishInteractor : MonoBehaviour
     public void ShowDecorLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
+        currentLayer = Layer.Decor;
+        if (kuang.activeSelf) kuang.SetActive(false);
         decorLayerSigh.enabled = true;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = false;
@@ -84,6 +124,8 @@ public class FurnishInteractor : MonoBehaviour
     public void ShowFloorLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
+        if (kuang.activeSelf) kuang.SetActive(false);
+        currentLayer = Layer.Floor;
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = true;

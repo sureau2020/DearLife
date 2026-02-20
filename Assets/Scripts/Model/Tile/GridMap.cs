@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -257,6 +258,13 @@ public class GridMap
         if (!cell.Has(CellFlags.HasFurniture)) return null;
 
         return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
+    }
+
+    public DecorInstance GetDecorAt(Vector2Int pos)
+    {
+        CellData cell = world.GetCell(pos);
+        if (string.IsNullOrWhiteSpace(cell.decorInstanceId)) return null;
+        return decorInstances.GetValueOrDefault(cell.decorInstanceId);
     }
 
     // ==== Decor ====
