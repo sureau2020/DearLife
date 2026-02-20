@@ -272,7 +272,7 @@ public class RoomView : MonoBehaviour
             {
                 cellsMap.SetTile(new Vector3Int(cellPos.x, cellPos.y, 0), GetTile("Green_DefaultCell"));
             }
-            else if (cell.Has(CellFlags.HasFloor))
+            else if (cell.Has(CellFlags.FloorWalkable))
             {
                 cellsMap.SetTile(new Vector3Int(cellPos.x, cellPos.y, 0), GetTile("White_DefaultCell"));
             }
