@@ -41,9 +41,6 @@ public class FurnishManager : MonoBehaviour, IRoomDataProvider
         }
         
     }
-
-
-
 }
 
 

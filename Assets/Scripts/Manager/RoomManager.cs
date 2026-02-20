@@ -91,6 +91,11 @@ public class RoomManager : MonoBehaviour
         return roomView.CellLeftBottomToWorld(cellPos);
     }
 
+    public Vector3 GetCellWorldLeftBottomPosition(Vector3 hitPoint) { 
+        Vector2Int cellPos = roomView.WorldToCell(hitPoint);
+        return GetCellWorldLeftBottomPosition(cellPos);
+    }
+
     public void RemoveFurniture(FurnitureInstance currentFurnitureInstance) {
         roomView.RemoveFurniture(currentFurnitureInstance);
         GridMap.RemoveFurniture(currentFurnitureInstance);
@@ -99,5 +104,9 @@ public class RoomManager : MonoBehaviour
     public void RemoveDecor(DecorInstance currentDecorInstance) {
         roomView.RemoveDecor(currentDecorInstance);
         GridMap.RemoveDecor(currentDecorInstance);
+    }
+
+    public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint) {
+        roomView.PreviewMoveFurniture(furniture, hitPoint);
     }
 }

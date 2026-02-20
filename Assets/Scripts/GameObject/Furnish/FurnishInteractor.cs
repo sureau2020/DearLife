@@ -31,8 +31,9 @@ public class FurnishInteractor : MonoBehaviour
         //            CheckTouch();
         //        
         //#else
-           CheckClick();
-        //        CheckTouch();
+            CheckClick();
+            //        CheckTouch();
+        
         //#endif
     }
 
@@ -42,7 +43,6 @@ public class FurnishInteractor : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (isInstanceSelected) return;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -51,21 +51,51 @@ public class FurnishInteractor : MonoBehaviour
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
                 if (roomData == null) return;
-                switch (currentLayer) { 
-                    case Layer.Furniture:
-                        CheckFurnitureClick(hitPoint);
-                        break;
-                    case Layer.Decor:
-                        CheckDecorClick(hitPoint);
-                        break;
-                    case Layer.Floor:
-                        //CheckFloorClick(hitPoint);
-                        break;
+                if (isInstanceSelected)
+                {
+                    PreviewInstanceMove(hitPoint);
                 }
-
-             
+                else {
+                    SelectInstance(hitPoint);
+                }
             }
         }
+    }
+
+    private void PreviewInstanceMove(Vector3 hitPoint) {
+        switch (currentLayer)
+        {
+            case Layer.Furniture:
+                CheckFurnitureMove(hitPoint);
+                break;
+            case Layer.Decor:
+                break;
+            case Layer.Floor:
+                //CheckFloorClick(hitPoint);
+                break;
+        }
+    }
+
+    private void SelectInstance(Vector3 hitPoint)
+    {
+        switch (currentLayer)
+        {
+            case Layer.Furniture:
+                CheckFurnitureClick(hitPoint);
+                break;
+            case Layer.Decor:
+                CheckDecorClick(hitPoint);
+                break;
+            case Layer.Floor:
+                //CheckFloorClick(hitPoint);
+                break;
+        }
+    }
+
+    private void CheckFurnitureMove(Vector3 hitPoint) {
+        if (currentFurnitureInstance == null) return;
+        roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint);
+        kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
     }
 
     private void CheckFurnitureClick(Vector3 hitPoint) {

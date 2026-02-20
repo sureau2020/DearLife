@@ -197,7 +197,7 @@ public class RoomView : MonoBehaviour
             if (gridMap.HasFurniture(pos))
             {
                 cellsMap.SetTile(
-                   new Vector3Int(pos.x, pos.y, 0), GetTile("Red_DefaultCell")
+                   new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")
                );
                 continue;
             }
@@ -228,7 +228,7 @@ public class RoomView : MonoBehaviour
         {
             Vector2Int pos = kv.position;
             cellsMap.SetTile(
-               new Vector3Int(pos.x, pos.y, 0), GetTile("Red_DefaultCell")
+               new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")
            );
         }
     }
@@ -244,6 +244,43 @@ public class RoomView : MonoBehaviour
     // =========================
     // Runtime Ops
     // =========================
+
+    public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint) {
+        Vector2Int originPos = furniture.anchorPos;
+        List<Vector2Int> occupied = furnitureDatabase.GetFurnitureData(furniture.furnitureDataId).occupiedCells;
+        ClearOriginalCells(originPos,occupied);
+        Vector3Int cell = groundMap.WorldToCell(hitPoint);
+        Vector2Int cell2D = new Vector2Int(cell.x, cell.y);
+        ShowNewCells(cell2D, occupied);
+        MoveOnlyFurnitureTransform(furniture.furnitureObject, cell);
+    }
+
+    private void MoveOnlyFurnitureTransform(GameObject obj, Vector3Int cell)
+    { 
+        obj.transform.position = groundMap.CellToWorld(cell); 
+    }
+
+    private void ClearOriginalCells(Vector2Int originPos, List<Vector2Int> occupied) {
+        foreach (var offset in occupied)
+        {
+            Vector2Int cellPos = originPos + offset;
+            cellsMap.SetTile(new Vector3Int(cellPos.x, cellPos.y, 0), GetTile("White_DefaultCell"));
+        }
+    }
+    private void ShowNewCells(Vector2Int originPos, List<Vector2Int> occupied) {
+        foreach (var offset in occupied)
+        {
+            Vector2Int cellPos = originPos + offset;
+            if (gridMap.CanWalk(cellPos))
+            {
+                cellsMap.SetTile(new Vector3Int(cellPos.x, cellPos.y, 0), GetTile("Green_DefaultCell"));
+            }
+            else {
+                cellsMap.SetTile(new Vector3Int(cellPos.x, cellPos.y, 0), GetTile("Red_DefaultCell"));
+            }
+            
+        }
+    }
 
     public void PlaceFurniture(Vector2Int anchorPos, string furnitureId)
     {
