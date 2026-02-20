@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
@@ -18,6 +19,7 @@ public class FurnishInteractor : MonoBehaviour
     private DecorInstance currentDecorInstance;
     private enum Layer { Furniture, Decor, Floor }
     private Layer currentLayer = Layer.Furniture;
+    private bool isInstanceSelected = false;
 
 
     private IRoomDataProvider roomData;
@@ -40,6 +42,7 @@ public class FurnishInteractor : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (isInstanceSelected) return;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -77,6 +80,7 @@ public class FurnishInteractor : MonoBehaviour
             kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
             currentFurnitureInstance = furniture;
             ShowCancelBinOKButtons();
+            isInstanceSelected = true;
         }
     }
 
@@ -91,6 +95,7 @@ public class FurnishInteractor : MonoBehaviour
             kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(decor.position);
             currentDecorInstance = decor;
             ShowCancelBinOKButtons();
+            isInstanceSelected = true;
         }
     }
 
@@ -100,8 +105,27 @@ public class FurnishInteractor : MonoBehaviour
         cancelBinOkButton.SetActive(true);
     }
 
+    public void DeleteInstance() {
+        SoundManager.Instance.PlaySfx("Click");
+        if (currentLayer == Layer.Furniture && currentFurnitureInstance != null) {
+            roomData.roomManager.RemoveFurniture(currentFurnitureInstance);
+            currentFurnitureInstance = null;
+            HideCancelBinOkButtons();
+            RefreshFrnitureLayer();
+
+        }
+        else if (currentLayer == Layer.Decor && currentDecorInstance != null) {
+            roomData.roomManager.RemoveDecor(currentDecorInstance);
+            currentDecorInstance = null;
+            HideCancelBinOkButtons();
+            RefreshDecorLayer();
+        }
+    }
+
     public void HideCancelBinOkButtons() {
         SoundManager.Instance.PlaySfx("Click");
+        if (kuang.activeSelf) kuang.SetActive(false);
+        isInstanceSelected = false;
         layerChangeButtons.SetActive(true);
         cancelBinOkButton.SetActive(false);
     }
@@ -119,20 +143,27 @@ public class FurnishInteractor : MonoBehaviour
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = true;
         floorLayerSigh.enabled = false;
-        roomData.roomManager.ShowFurnitureCells();
+        RefreshFrnitureLayer();
+    }
 
+    private void RefreshFrnitureLayer() {
+        roomData.roomManager.ShowFurnitureCells();
+    }
+
+    private void RefreshDecorLayer() {
+        roomData.roomManager.ShowDecorCells();
     }
 
 
     public void ShowDecorLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
-        currentLayer = Layer.Decor;
         if (kuang.activeSelf) kuang.SetActive(false);
+        currentLayer = Layer.Decor;
         decorLayerSigh.enabled = true;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = false;
-        roomData.roomManager.ShowDecorCells();
+        RefreshDecorLayer();
     }
 
     public void ShowFloorLayer()
@@ -146,6 +177,5 @@ public class FurnishInteractor : MonoBehaviour
         roomData.roomManager.ShowFloorCells();
     }
 
-
-
+    
 }

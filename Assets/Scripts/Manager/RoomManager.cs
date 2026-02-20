@@ -91,5 +91,13 @@ public class RoomManager : MonoBehaviour
         return roomView.CellLeftBottomToWorld(cellPos);
     }
 
+    public void RemoveFurniture(FurnitureInstance currentFurnitureInstance) {
+        roomView.RemoveFurniture(currentFurnitureInstance);
+        GridMap.RemoveFurniture(currentFurnitureInstance);
+    }
 
+    public void RemoveDecor(DecorInstance currentDecorInstance) {
+        roomView.RemoveDecor(currentDecorInstance);
+        GridMap.RemoveDecor(currentDecorInstance);
+    }
 }

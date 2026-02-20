@@ -228,24 +228,16 @@ public class GridMap
         return true;
     }
 
-    public bool RemoveFurniture(Vector2Int anyOccupiedPos)
+    public void RemoveFurniture(FurnitureInstance furnitureInstance)
     {
-        CellData cell = world.GetCell(anyOccupiedPos);
-        if (!cell.Has(CellFlags.HasFurniture)) return false;
-
-        string instanceId = cell.furnitureInstanceId;
-        if (!furnitureInstances.TryGetValue(instanceId, out var inst))
-            return false;
-
-        foreach (var pos in inst.occupiedCells)
+        String id = furnitureInstance.instanceId;
+        foreach (var pos in furnitureInstance.occupiedCells)
         {
             ref CellData c = ref world.GetCellRef(pos);
             c.flags &= ~(CellFlags.HasFurniture | CellFlags.FurnitureBlocked);
             c.furnitureInstanceId = "";
         }
-
-        furnitureInstances.Remove(instanceId);
-        return true;
+        furnitureInstances.Remove(id);
     }
 
     public FurnitureInstance GetFurnitureInstance(string instanceId)
@@ -281,10 +273,12 @@ public class GridMap
         };
     }
 
-    public void RemoveDecor(Vector2Int pos)
+    public void RemoveDecor(DecorInstance decorInstance)
     {
-        ref CellData cell = ref world.GetCellRef(pos);
+        ref CellData cell = ref world.GetCellRef(decorInstance.position);
         cell.decorInstanceId = "";
+        String id = decorInstance.instanceId;
+        decorInstances.Remove(id);
     }
 
     // ==== Query ====

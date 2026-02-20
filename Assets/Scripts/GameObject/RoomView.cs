@@ -257,17 +257,12 @@ public class RoomView : MonoBehaviour
             RenderFurnitureInstance(inst);
     }
 
-    public void RemoveFurniture(Vector2Int pos)
+    public void RemoveFurniture(FurnitureInstance furnitureInstance)
     {
-        var inst = gridMap.GetFurnitureAt(pos);
-        if (inst == null) return;
-
-        if (!gridMap.RemoveFurniture(pos)) return;
-
-        if (furnitureObjects.TryGetValue(inst.instanceId, out var go))
+        if (furnitureObjects.TryGetValue(furnitureInstance.instanceId, out var go))
         {
             DestroyImmediate(go);
-            furnitureObjects.Remove(inst.instanceId);
+            furnitureObjects.Remove(furnitureInstance.instanceId);
         }
     }
 
@@ -279,15 +274,12 @@ public class RoomView : MonoBehaviour
         //TODO
     }
 
-    public void RemoveDecor(Vector2Int pos)
+    public void RemoveDecor(DecorInstance decorInstance)
     {
-        gridMap.RemoveDecor(pos);
-
-        string key = $"{pos.x},{pos.y}";
-        if (decorObjects.TryGetValue(key, out var go))
+        if (decorObjects.TryGetValue(decorInstance.instanceId, out var go))
         {
             DestroyImmediate(go);
-            decorObjects.Remove(key);
+            decorObjects.Remove(decorInstance.instanceId);
         }
     }
 
