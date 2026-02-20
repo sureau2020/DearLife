@@ -7,6 +7,7 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class FurnishInteractor : MonoBehaviour
 {
+    [SerializeField] private GameObject cancelBinOkButton;
     [SerializeField] private GameObject layerChangeButtons;
     [SerializeField] private GameObject kuang;
     [SerializeField] private Image decorLayerSigh;
@@ -75,6 +76,7 @@ public class FurnishInteractor : MonoBehaviour
             kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
             kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
             currentFurnitureInstance = furniture;
+            ShowCancelBinOKButtons();
         }
     }
 
@@ -88,8 +90,20 @@ public class FurnishInteractor : MonoBehaviour
             kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
             kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(decor.position);
             currentDecorInstance = decor;
-
+            ShowCancelBinOKButtons();
         }
+    }
+
+    private void ShowCancelBinOKButtons() {
+        SoundManager.Instance.PlaySfx("Pop");
+        layerChangeButtons.SetActive(false);
+        cancelBinOkButton.SetActive(true);
+    }
+
+    public void HideCancelBinOkButtons() {
+        SoundManager.Instance.PlaySfx("Click");
+        layerChangeButtons.SetActive(true);
+        cancelBinOkButton.SetActive(false);
     }
 
     public void Initialize(IRoomDataProvider provider) { 
