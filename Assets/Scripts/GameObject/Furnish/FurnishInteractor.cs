@@ -130,6 +130,25 @@ public class FurnishInteractor : MonoBehaviour
         }
     }
 
+    public void CancelSelection() {
+        HideCancelBinOkButtons();
+        switch (currentLayer) { 
+            case Layer.Furniture:
+                RefreshFrnitureLayer();
+                currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
+                currentFurnitureInstance = null;
+                break;
+            case Layer.Decor:
+                RefreshDecorLayer();
+                currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
+                currentDecorInstance = null;
+                break;
+            case Layer.Floor:
+                //roomData.roomManager.ShowFloorCells();
+                break;
+        }
+    }
+
     private void ShowCancelBinOKButtons() {
         SoundManager.Instance.PlaySfx("Pop");
         layerChangeButtons.SetActive(false);
