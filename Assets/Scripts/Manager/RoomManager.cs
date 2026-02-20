@@ -106,7 +106,8 @@ public class RoomManager : MonoBehaviour
         GridMap.RemoveDecor(currentDecorInstance);
     }
 
-    public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint) {
-        roomView.PreviewMoveFurniture(furniture, hitPoint);
+    public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint, Vector3 pos) {
+        Vector2Int cell = roomView.WorldToCell(pos);
+        roomView.PreviewMoveFurniture(furniture, hitPoint, cell);
     }
 }

@@ -94,7 +94,8 @@ public class FurnishInteractor : MonoBehaviour
 
     private void CheckFurnitureMove(Vector3 hitPoint) {
         if (currentFurnitureInstance == null) return;
-        roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint);
+        Vector3 pos = currentFurnitureInstance.furnitureObject.transform.position;
+        roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint,pos);
         kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
     }
 
