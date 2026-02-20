@@ -81,5 +81,10 @@ public class RoomManager : MonoBehaviour
         return GridMap.GetFurniture(roomView.WorldToCell(pos));
     }
 
+    public Vector3 GetCellWorldLeftBottomPosition(Vector2Int cellPos)
+    {
+        return roomView.CellLeftBottomToWorld(cellPos);
+    }
+
 
 }

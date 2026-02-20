@@ -123,6 +123,7 @@ public class RoomView : MonoBehaviour
         go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         furnitureObjects[inst.instanceId] = go;
+        inst.furnitureObject = go;
     }
 
     // =========================
@@ -159,6 +160,7 @@ public class RoomView : MonoBehaviour
         go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         decorObjects[decor.instanceId] = go;
+        decor.decorObject = go;
     }
 
     // =========================
@@ -347,5 +349,9 @@ public class RoomView : MonoBehaviour
 
     public Vector2Int WorldToCell(Vector3 pos) { 
         return new Vector2Int(groundMap.WorldToCell(pos).x,groundMap.WorldToCell(pos).y);
+    }
+
+    public Vector3 CellLeftBottomToWorld(Vector2Int cellPos) { 
+            return groundMap.CellToWorld(new Vector3Int(cellPos.x, cellPos.y, 0));
     }
 }

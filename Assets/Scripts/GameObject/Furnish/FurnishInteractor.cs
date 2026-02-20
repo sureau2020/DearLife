@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class FurnishInteractor : MonoBehaviour
 {
     [SerializeField] private GameObject layerChangeButtons;
+    [SerializeField] private GameObject kuang;
     [SerializeField] private Image decorLayerSigh;
     [SerializeField] private Image furnitureLayerSigh;
     [SerializeField] private Image floorLayerSigh;
+
+    private FurnitureInstance currentFurnitureInstance;
+    
+    
     private IRoomDataProvider roomData;
     private Plane xzPlane = new Plane(Vector3.up, Vector3.zero);
-    public RoomManager roomManager => roomData.roomManager;
 
     private void Update()
     {
@@ -20,7 +24,7 @@ public class FurnishInteractor : MonoBehaviour
         //            CheckTouch();
         //        
         //#else
-            CheckClick();
+           CheckClick();
         //        CheckTouch();
         //#endif
     }
@@ -38,9 +42,15 @@ public class FurnishInteractor : MonoBehaviour
             if (xzPlane.Raycast(ray, out distance))
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
-                FurnitureInstance furniture = roomManager.GetFurnitureAt(hitPoint);
-                if (furniture != null) { 
-                    
+                if (roomData == null) return;
+                FurnitureInstance furniture = roomData.roomManager.GetFurnitureAt(hitPoint);
+                if (furniture != null) {
+                    Vector3 spriteSize = furniture.furnitureObject.GetComponent<SpriteRenderer>().bounds.size;
+                    Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
+                    kuang.SetActive(true);
+                    kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
+                    kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
+                    currentFurnitureInstance = furniture;
                 }
             }
         }
@@ -57,7 +67,7 @@ public class FurnishInteractor : MonoBehaviour
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = true;
         floorLayerSigh.enabled = false;
-        roomManager.ShowFurnitureCells();
+        roomData.roomManager.ShowFurnitureCells();
 
     }
 
@@ -68,7 +78,7 @@ public class FurnishInteractor : MonoBehaviour
         decorLayerSigh.enabled = true;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = false;
-        roomManager.ShowDecorCells();
+        roomData.roomManager.ShowDecorCells();
     }
 
     public void ShowFloorLayer()
@@ -77,7 +87,7 @@ public class FurnishInteractor : MonoBehaviour
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = true;
-        roomManager.ShowFloorCells();
+        roomData.roomManager.ShowFloorCells();
     }
 
 
