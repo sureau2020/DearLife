@@ -270,12 +270,15 @@ public class RoomView : MonoBehaviour
         {
             cellsMap.SetTile(new Vector3Int(cell2D.x, cell2D.y, 0), GetTile("Red_DefaultCell"));
         }
-        MoveOnlyInstanceTransform(decor.decorObject, targetCell);
+        GameObject gameObject = decor.decorObject;
+        MoveOnlyInstanceTransform(gameObject, targetCell);
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = -targetCell.y + 1;
     }
 
     public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint, Vector2Int origin) {
         
-        List<Vector2Int> occupied = furnitureDatabase.GetFurnitureData(furniture.furnitureDataId).occupiedCells;
+        FurnitureData furnitureData = furnitureDatabase.GetFurnitureData(furniture.furnitureDataId);
+        List<Vector2Int> occupied = furnitureData.occupiedCells;
         string instId = furniture.instanceId;
         ClearOriginalCells(origin,occupied, instId);
         Vector3Int cell = groundMap.WorldToCell(hitPoint);
@@ -283,7 +286,10 @@ public class RoomView : MonoBehaviour
 
         Vector2Int originPos = furniture.anchorPos;
         ShowNewCells(cell2D, occupied, instId);
-        MoveOnlyInstanceTransform(furniture.furnitureObject, cell);
+        GameObject furnitureObj = furniture.furnitureObject;
+        MoveOnlyInstanceTransform(furnitureObj, cell);
+        furnitureObj.GetComponent<SpriteRenderer>().sortingOrder = -cell.y - furnitureData.GetMaxOccupiedY();
+
     }
 
     private void MoveOnlyInstanceTransform(GameObject obj, Vector3Int cell)
