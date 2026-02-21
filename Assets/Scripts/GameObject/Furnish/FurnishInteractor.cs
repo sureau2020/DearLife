@@ -10,7 +10,10 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public class FurnishInteractor : MonoBehaviour
 {
     [SerializeField] private GameObject cancelBinOkButton;
+    [SerializeField] private RectTransform TopStateUI;
+    public int offsetYForTopStateUI = 520;
     [SerializeField] private GameObject layerChangeButtons;
+    [SerializeField] private Button furnishButton;
     [SerializeField] private GameObject kuang;
     [SerializeField] private Image decorLayerSigh;
     [SerializeField] private Image furnitureLayerSigh;
@@ -21,6 +24,7 @@ public class FurnishInteractor : MonoBehaviour
     private enum Layer { Furniture, Decor, Floor }
     private Layer currentLayer = Layer.Furniture;
     private bool isInstanceSelected = false;
+    private bool isInEditMode = false;
 
 
     private IRoomDataProvider roomData;
@@ -40,7 +44,7 @@ public class FurnishInteractor : MonoBehaviour
 
     public void CheckClick()
     {
-        if (Application.isMobilePlatform || Input.touchSupported)
+        if (!isInEditMode || Application.isMobilePlatform || Input.touchSupported)
             return;
 
         if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -214,6 +218,7 @@ public class FurnishInteractor : MonoBehaviour
     {
         SoundManager.Instance.PlaySfx("Pop");
         layerChangeButtons.SetActive(false);
+        furnishButton.interactable = false;
         cancelBinOkButton.SetActive(true);
     }
 
@@ -242,6 +247,7 @@ public class FurnishInteractor : MonoBehaviour
         SoundManager.Instance.PlaySfx("Click");
         if (kuang.activeSelf) kuang.SetActive(false);
         isInstanceSelected = false;
+        furnishButton.interactable = true;
         layerChangeButtons.SetActive(true);
         cancelBinOkButton.SetActive(false);
     }
@@ -250,7 +256,35 @@ public class FurnishInteractor : MonoBehaviour
     {
         roomData = provider;
         layerChangeButtons.SetActive(true);
+        isInEditMode = true;
         ShowFurnitureLayer();
+        MoveTopUI();
+    }
+
+    public void MoveTopUI()
+    {
+        float targetAnchoredY = isInEditMode ? offsetYForTopStateUI : 0f;
+
+        TopStateUI.DOAnchorPosY(targetAnchoredY, 0.5f)
+            .SetEase(Ease.OutQuad) 
+            .OnComplete(() =>
+            {
+                if (!Mathf.Approximately(TopStateUI.anchoredPosition.y, targetAnchoredY))
+                {
+                    TopStateUI.anchoredPosition = new Vector2(TopStateUI.anchoredPosition.x, targetAnchoredY);
+                    Debug.Log("UI Position corrected to anchoredPosition.");
+                }
+            });
+    }
+
+    public void Close()
+    {
+        SoundManager.Instance.PlaySfx("Click");
+        isInEditMode = false;
+        layerChangeButtons.SetActive(false);
+        furnishButton.interactable = true;
+        roomData.roomManager.ClearAllCells();
+        MoveTopUI();
     }
 
     public void ShowFurnitureLayer()

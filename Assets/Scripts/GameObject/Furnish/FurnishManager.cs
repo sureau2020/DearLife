@@ -33,6 +33,7 @@ public class FurnishManager : MonoBehaviour, IRoomDataProvider
     public void EnterEditMode() { 
         isInFurnishMode = !isInFurnishMode;
         if (!isInFurnishMode) {
+            furnishInteractor.Close();
             onEnterFurnishMode?.Invoke(false);
         }else
         { // 进入编辑模式

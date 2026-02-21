@@ -72,6 +72,10 @@ public class RoomManager : MonoBehaviour
         roomView.RenderFloorLayer();
     }
 
+    public void ClearAllCells() { 
+        roomView.ClearCells();
+    }
+
     // =====================
     // interact with FurnishManager
     // =====================
