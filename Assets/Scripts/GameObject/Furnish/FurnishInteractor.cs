@@ -41,6 +41,8 @@ public class FurnishInteractor : MonoBehaviour
         if (Application.isMobilePlatform || Input.touchSupported)
             return;
 
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -149,7 +151,7 @@ public class FurnishInteractor : MonoBehaviour
                 break;
             case Layer.Decor:
                 RefreshDecorLayer();
-                currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
+                currentDecorInstance.decorObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentDecorInstance.position);
                 currentDecorInstance = null;
                 break;
             case Layer.Floor:
