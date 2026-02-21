@@ -183,14 +183,24 @@ public class FurnishInteractor : MonoBehaviour
                     }
                     else
                     {
+                        SoundManager.Instance.PlaySfx("Error");
                         Vibrate(currentFurnitureInstance.furnitureObject);
                     }
                 }
                 break;
             case Layer.Decor:
-                if (currentDecorInstance != null)
-                    //roomData.roomManager.ConfirmMoveDecor(currentDecorInstance);
-                    RefreshDecorLayer();
+                if (currentDecorInstance != null) {
+                    if (roomData.roomManager.ConfirmMoveDecor(currentDecorInstance))
+                    {
+                        HideCancelBinOkButtons();
+                        RefreshDecorLayer();
+                    }
+                    else
+                    {
+                        SoundManager.Instance.PlaySfx("Error");
+                        Vibrate(currentDecorInstance.decorObject);
+                    }
+                }
                 break;
             case Layer.Floor:
                 //roomData.roomManager.ShowFloorCells();

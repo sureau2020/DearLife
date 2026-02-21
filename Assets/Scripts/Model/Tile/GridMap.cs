@@ -210,6 +210,7 @@ public class GridMap
                 newCell.flags |= CellFlags.FurnitureBlocked;
 
             furnitureInstance.occupiedCells.Add(pos);
+            furnitureInstance.anchorPos = anchorPos;
         }
     }
 
@@ -306,6 +307,30 @@ public class GridMap
     }
 
     // ==== Decor ====
+
+    public bool CanPlaceDecor(Vector2Int cellPos, string instanceId)
+    {
+
+        CellData cell = world.GetCell(cellPos);
+        if (!cell.Has(CellFlags.HasFloor)) return false;
+        if (!string.IsNullOrEmpty(cell.decorInstanceId) && cell.decorInstanceId != instanceId) return false;
+
+        return true;
+    }
+
+    public void PlaceDecorKeepInstanceId(Vector2Int anchorPos, DecorInstance decorInstance)
+    {
+        Vector2Int originPos = decorInstance.position;
+        string instanceId = decorInstance.instanceId;
+
+        ref CellData cell = ref world.GetCellRef(originPos);
+        cell.decorInstanceId = "";
+
+        decorInstance.position = anchorPos;
+
+        ref CellData newCell = ref world.GetCellRef(anchorPos);
+        newCell.decorInstanceId = instanceId;
+    }
 
     public void SetDecor(Vector2Int pos, string decorId)
     {

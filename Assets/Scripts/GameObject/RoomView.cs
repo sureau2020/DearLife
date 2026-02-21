@@ -331,10 +331,7 @@ public class RoomView : MonoBehaviour
         }
     }
 
-    public void PlaceFurnitureKeepInstanceId(FurnitureInstance inst)
-    {
-        // RenderFurnitureInstance(inst);
-    }
+    
 
     public void RemoveFurniture(FurnitureInstance furnitureInstance)
     {

@@ -85,9 +85,19 @@ public class RoomManager : MonoBehaviour
         if (data == null) return false;
         if (!GridMap.CanPlaceFurniture(data, cellPos, currentFurnitureInstance.instanceId)) return false;
         GridMap.PlaceFurnitureKeepInstanceId(cellPos, data,currentFurnitureInstance);
-        roomView.PlaceFurnitureKeepInstanceId(currentFurnitureInstance);
-        currentFurnitureInstance.anchorPos = cellPos;
 
+        return true;
+    }
+
+    public bool ConfirmMoveDecor(DecorInstance currentDecorInstance)
+    {
+        if(currentDecorInstance == null)return false;
+        Vector2Int cellPos = roomView.WorldToCell(currentDecorInstance.decorObject.transform.position);
+        if (cellPos == null) return false;
+        DecorData data = GameManager.Instance.FurnitureDatabase.GetDecorData(currentDecorInstance.decorId);
+        if (data == null) return false;
+        if (!GridMap.CanPlaceDecor(cellPos, currentDecorInstance.instanceId)) return false;
+        GridMap.PlaceDecorKeepInstanceId(cellPos, currentDecorInstance);
         return true;
     }
 
