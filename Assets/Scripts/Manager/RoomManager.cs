@@ -110,4 +110,9 @@ public class RoomManager : MonoBehaviour
         Vector2Int cell = roomView.WorldToCell(pos);
         roomView.PreviewMoveFurniture(furniture, hitPoint, cell);
     }
+
+    public void PreviewMoveDecor(DecorInstance decor, Vector3 hitPoint, Vector3 pos) {
+        Vector2Int cell = roomView.WorldToCell(pos);
+        roomView.PreviewMoveDecor(decor, hitPoint, cell);
+    }
 }

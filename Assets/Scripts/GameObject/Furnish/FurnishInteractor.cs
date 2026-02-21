@@ -69,6 +69,7 @@ public class FurnishInteractor : MonoBehaviour
                 CheckFurnitureMove(hitPoint);
                 break;
             case Layer.Decor:
+                CheckDecorMove(hitPoint);
                 break;
             case Layer.Floor:
                 //CheckFloorClick(hitPoint);
@@ -96,6 +97,14 @@ public class FurnishInteractor : MonoBehaviour
         if (currentFurnitureInstance == null) return;
         Vector3 pos = currentFurnitureInstance.furnitureObject.transform.position;
         roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint,pos);
+        kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
+    }
+
+    private void CheckDecorMove(Vector3 hitPoint)
+    {
+        if (currentDecorInstance == null) return;
+        Vector3 pos = currentDecorInstance.decorObject.transform.position;
+        roomData.roomManager.PreviewMoveDecor(currentDecorInstance, hitPoint, pos);
         kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
     }
 

@@ -245,6 +245,34 @@ public class RoomView : MonoBehaviour
     // Runtime Ops
     // =========================
 
+    public void PreviewMoveDecor(DecorInstance decor, Vector3 hitPoint, Vector2Int origin) {
+        string instId = decor.instanceId;
+        CellData cell = gridMap.GetCell(origin);
+        if (!string.IsNullOrEmpty(cell.decorInstanceId) && instId != cell.decorInstanceId)
+        {
+            cellsMap.SetTile(new Vector3Int(origin.x, origin.y, 0), GetTile("Green_DefaultCell"));
+        }
+        else if (cell.Has(CellFlags.HasFloor))
+        {
+            cellsMap.SetTile(new Vector3Int(origin.x, origin.y, 0), GetTile("White_DefaultCell"));
+        }
+        else {
+            cellsMap.SetTile(new Vector3Int(origin.x, origin.y, 0), null);
+        }
+        Vector3Int targetCell = groundMap.WorldToCell(hitPoint);
+        Vector2Int cell2D = new Vector2Int(targetCell.x, targetCell.y);
+        CellData targetCellData = gridMap.GetCell(cell2D);
+        if (targetCellData.Has(CellFlags.HasFloor) && (string.IsNullOrEmpty(targetCellData.decorInstanceId) || targetCellData.decorInstanceId == decor.instanceId))
+        {
+            cellsMap.SetTile(new Vector3Int(cell2D.x, cell2D.y, 0), GetTile("Green_DefaultCell"));
+        }
+        else
+        {
+            cellsMap.SetTile(new Vector3Int(cell2D.x, cell2D.y, 0), GetTile("Red_DefaultCell"));
+        }
+        MoveOnlyInstanceTransform(decor.decorObject, targetCell);
+    }
+
     public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint, Vector2Int origin) {
         
         List<Vector2Int> occupied = furnitureDatabase.GetFurnitureData(furniture.furnitureDataId).occupiedCells;
@@ -255,10 +283,10 @@ public class RoomView : MonoBehaviour
 
         Vector2Int originPos = furniture.anchorPos;
         ShowNewCells(cell2D, occupied, instId);
-        MoveOnlyFurnitureTransform(furniture.furnitureObject, cell);
+        MoveOnlyInstanceTransform(furniture.furnitureObject, cell);
     }
 
-    private void MoveOnlyFurnitureTransform(GameObject obj, Vector3Int cell)
+    private void MoveOnlyInstanceTransform(GameObject obj, Vector3Int cell)
     { 
         obj.transform.position = groundMap.CellToWorld(cell); 
     }
