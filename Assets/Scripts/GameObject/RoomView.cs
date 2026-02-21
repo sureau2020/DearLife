@@ -331,16 +331,9 @@ public class RoomView : MonoBehaviour
         }
     }
 
-    public void PlaceFurniture(Vector2Int anchorPos, string furnitureId)
+    public void PlaceFurnitureKeepInstanceId(FurnitureInstance inst)
     {
-        var data = furnitureDatabase.GetFurnitureData(furnitureId);
-        if (data == null) return;
-
-        if (!gridMap.PlaceFurniture(anchorPos, data)) return;
-
-        var inst = gridMap.GetFurnitureAt(anchorPos);
-        if (inst != null)
-            RenderFurnitureInstance(inst);
+        // RenderFurnitureInstance(inst);
     }
 
     public void RemoveFurniture(FurnitureInstance furnitureInstance)

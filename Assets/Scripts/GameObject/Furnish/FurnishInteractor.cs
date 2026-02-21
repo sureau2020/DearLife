@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -31,13 +32,14 @@ public class FurnishInteractor : MonoBehaviour
         //            CheckTouch();
         //        
         //#else
-            CheckClick();
-            //        CheckTouch();
-        
+        CheckClick();
+        //        CheckTouch();
+
         //#endif
     }
 
-    public void CheckClick() {
+    public void CheckClick()
+    {
         if (Application.isMobilePlatform || Input.touchSupported)
             return;
 
@@ -57,14 +59,16 @@ public class FurnishInteractor : MonoBehaviour
                 {
                     PreviewInstanceMove(hitPoint);
                 }
-                else {
+                else
+                {
                     SelectInstance(hitPoint);
                 }
             }
         }
     }
 
-    private void PreviewInstanceMove(Vector3 hitPoint) {
+    private void PreviewInstanceMove(Vector3 hitPoint)
+    {
         switch (currentLayer)
         {
             case Layer.Furniture:
@@ -95,10 +99,11 @@ public class FurnishInteractor : MonoBehaviour
         }
     }
 
-    private void CheckFurnitureMove(Vector3 hitPoint) {
+    private void CheckFurnitureMove(Vector3 hitPoint)
+    {
         if (currentFurnitureInstance == null) return;
         Vector3 pos = currentFurnitureInstance.furnitureObject.transform.position;
-        roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint,pos);
+        roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint, pos);
         kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
     }
 
@@ -110,8 +115,9 @@ public class FurnishInteractor : MonoBehaviour
         kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
     }
 
-    private void CheckFurnitureClick(Vector3 hitPoint) {
-        
+    private void CheckFurnitureClick(Vector3 hitPoint)
+    {
+
         FurnitureInstance furniture = roomData.roomManager.GetFurnitureAt(hitPoint);
         if (furniture != null)
         {
@@ -129,10 +135,11 @@ public class FurnishInteractor : MonoBehaviour
     private void CheckDecorClick(Vector3 hitPoint)
     {
         DecorInstance decor = roomData.roomManager.GetDecorInstanceAt(hitPoint);
-        if (decor != null) {
+        if (decor != null)
+        {
             Vector3 spriteSize = decor.decorObject.GetComponent<SpriteRenderer>().bounds.size;
             Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
-            if(!kuang.activeSelf) kuang.SetActive(true);
+            if (!kuang.activeSelf) kuang.SetActive(true);
             kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
             kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(decor.position);
             currentDecorInstance = decor;
@@ -141,9 +148,11 @@ public class FurnishInteractor : MonoBehaviour
         }
     }
 
-    public void CancelSelection() {
+    public void CancelSelection()
+    {
         HideCancelBinOkButtons();
-        switch (currentLayer) { 
+        switch (currentLayer)
+        {
             case Layer.Furniture:
                 RefreshFrnitureLayer();
                 currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
@@ -160,22 +169,57 @@ public class FurnishInteractor : MonoBehaviour
         }
     }
 
-    private void ShowCancelBinOKButtons() {
+    public void ConfirmMove()
+    {
+        switch (currentLayer)
+        {
+            case Layer.Furniture:
+                if (currentFurnitureInstance != null)
+                {
+                    if (roomData.roomManager.ConfirmMoveFurniture(currentFurnitureInstance))
+                    {
+                        HideCancelBinOkButtons();
+                        RefreshFrnitureLayer();
+                    }
+                    else
+                    {
+                        Vibrate(currentFurnitureInstance.furnitureObject);
+                    }
+                }
+                break;
+            case Layer.Decor:
+                if (currentDecorInstance != null)
+                    //roomData.roomManager.ConfirmMoveDecor(currentDecorInstance);
+                    RefreshDecorLayer();
+                break;
+            case Layer.Floor:
+                //roomData.roomManager.ShowFloorCells();
+                break;
+        }
+    }
+
+
+
+    private void ShowCancelBinOKButtons()
+    {
         SoundManager.Instance.PlaySfx("Pop");
         layerChangeButtons.SetActive(false);
         cancelBinOkButton.SetActive(true);
     }
 
-    public void DeleteInstance() {
+    public void DeleteInstance()
+    {
         SoundManager.Instance.PlaySfx("Click");
-        if (currentLayer == Layer.Furniture && currentFurnitureInstance != null) {
+        if (currentLayer == Layer.Furniture && currentFurnitureInstance != null)
+        {
             roomData.roomManager.RemoveFurniture(currentFurnitureInstance);
             currentFurnitureInstance = null;
             HideCancelBinOkButtons();
             RefreshFrnitureLayer();
 
         }
-        else if (currentLayer == Layer.Decor && currentDecorInstance != null) {
+        else if (currentLayer == Layer.Decor && currentDecorInstance != null)
+        {
             roomData.roomManager.RemoveDecor(currentDecorInstance);
             currentDecorInstance = null;
             HideCancelBinOkButtons();
@@ -183,7 +227,8 @@ public class FurnishInteractor : MonoBehaviour
         }
     }
 
-    public void HideCancelBinOkButtons() {
+    public void HideCancelBinOkButtons()
+    {
         SoundManager.Instance.PlaySfx("Click");
         if (kuang.activeSelf) kuang.SetActive(false);
         isInstanceSelected = false;
@@ -191,13 +236,15 @@ public class FurnishInteractor : MonoBehaviour
         cancelBinOkButton.SetActive(false);
     }
 
-    public void Initialize(IRoomDataProvider provider) { 
+    public void Initialize(IRoomDataProvider provider)
+    {
         roomData = provider;
         layerChangeButtons.SetActive(true);
         ShowFurnitureLayer();
     }
 
-    public void ShowFurnitureLayer() { 
+    public void ShowFurnitureLayer()
+    {
         SoundManager.Instance.PlaySfx("Click");
         if (kuang.activeSelf) kuang.SetActive(false);
         currentLayer = Layer.Furniture;
@@ -207,11 +254,13 @@ public class FurnishInteractor : MonoBehaviour
         RefreshFrnitureLayer();
     }
 
-    private void RefreshFrnitureLayer() {
+    private void RefreshFrnitureLayer()
+    {
         roomData.roomManager.ShowFurnitureCells();
     }
 
-    private void RefreshDecorLayer() {
+    private void RefreshDecorLayer()
+    {
         roomData.roomManager.ShowDecorCells();
     }
 
@@ -238,5 +287,10 @@ public class FurnishInteractor : MonoBehaviour
         roomData.roomManager.ShowFloorCells();
     }
 
-    
+
+    private void Vibrate(GameObject obj)
+    {
+        obj.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false, true);
+    }
+
 }

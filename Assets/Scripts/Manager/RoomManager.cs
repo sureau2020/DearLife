@@ -76,6 +76,21 @@ public class RoomManager : MonoBehaviour
     // interact with FurnishManager
     // =====================
 
+    public bool ConfirmMoveFurniture(FurnitureInstance currentFurnitureInstance)
+    {
+        if(currentFurnitureInstance == null)return false;
+        Vector2Int cellPos = roomView.WorldToCell(currentFurnitureInstance.furnitureObject.transform.position);
+        if (cellPos == null) return false;
+        FurnitureData data = GameManager.Instance.FurnitureDatabase.GetFurnitureData(currentFurnitureInstance.furnitureDataId);
+        if (data == null) return false;
+        if (!GridMap.CanPlaceFurniture(data, cellPos, currentFurnitureInstance.instanceId)) return false;
+        GridMap.PlaceFurnitureKeepInstanceId(cellPos, data,currentFurnitureInstance);
+        roomView.PlaceFurnitureKeepInstanceId(currentFurnitureInstance);
+        currentFurnitureInstance.anchorPos = cellPos;
+
+        return true;
+    }
+
     public FurnitureInstance GetFurnitureAt(Vector3 pos)
     {
         return GridMap.GetFurniture(roomView.WorldToCell(pos));

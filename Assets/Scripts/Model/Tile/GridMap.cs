@@ -180,6 +180,38 @@ public class GridMap
 
     // ==== Furniture ====
 
+    public void PlaceFurnitureKeepInstanceId(Vector2Int anchorPos,FurnitureData data, FurnitureInstance furnitureInstance)
+    {
+        Vector2Int originPos = furnitureInstance.anchorPos;
+        string instanceId = furnitureInstance.instanceId;
+
+        foreach (var offset in data.occupiedCells)
+        {
+            // 先清除原位置
+            Vector2Int pos = originPos + offset;
+            ref CellData cell = ref world.GetCellRef(pos);
+
+            cell.furnitureInstanceId = "";
+            cell.flags &= ~CellFlags.HasFurniture;
+
+            if (data.blocksMovement)
+                cell.flags &= ~CellFlags.FurnitureBlocked;
+
+            furnitureInstance.occupiedCells.Remove(pos);
+
+            // 再放置到新位置
+            Vector2Int newPos = anchorPos + offset;
+            ref CellData newCell = ref world.GetCellRef(newPos);
+
+            newCell.furnitureInstanceId = instanceId;
+            newCell.flags |= CellFlags.HasFurniture;
+
+            if (data.blocksMovement)
+                newCell.flags |= CellFlags.FurnitureBlocked;
+
+            furnitureInstance.occupiedCells.Add(pos);
+        }
+    }
 
     // 直接放置家具（不检查位置是否合法），仅供初始化使用
     private void PlaceFurnitureInternal(Vector2Int anchorPos, FurnitureData data) {
@@ -225,6 +257,20 @@ public class GridMap
         }
 
         PlaceFurnitureInternal(anchorPos, data);
+        return true;
+    }
+
+    public bool CanPlaceFurniture(FurnitureData furnitureData, Vector2Int cellPos, string instanceId)
+    {
+        foreach (var offset in furnitureData.occupiedCells)
+        {
+            Vector2Int pos = cellPos + offset;
+            CellData cell = world.GetCell(pos);
+            if (!CanWalk(pos)) {
+                if (cell.furnitureInstanceId == instanceId) continue;
+                return false;
+            } 
+        }
         return true;
     }
 
