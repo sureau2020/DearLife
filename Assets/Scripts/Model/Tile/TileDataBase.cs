@@ -23,11 +23,22 @@ public class TileDataBase
         Debug.Log($"已加载 {tileMap.Count} 个内置tile,");
     }
 
+    public List<TileData> GetAllFloorTiles( List<TileData> tiles)
+    {
+        tiles.Clear();
+        foreach (var tile in tileMap.Values)
+        {
+            tiles.Add(tile);
+        }
+        return tiles;
+    }
+
 
     public TileData GetTileById(string id)
     {
         return tileMap[id];
     }
+
 
 
     // REQUIRE:ID必须存在于tileMap中

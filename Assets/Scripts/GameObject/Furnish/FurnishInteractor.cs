@@ -22,6 +22,7 @@ public class FurnishInteractor : MonoBehaviour
     [SerializeField] private Image furnitureLayerSigh;
     [SerializeField] private Image floorLayerSigh;
     [SerializeField] private TextMeshProUGUI hint;
+    [SerializeField] private HomeDepot homeDepot;
 
     private FurnitureInstance currentFurnitureInstance;
     private DecorInstance currentDecorInstance;
@@ -317,6 +318,7 @@ public class FurnishInteractor : MonoBehaviour
     public void ShowFurnitureLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
+        homeDepot.ShowFurnitureDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
         currentLayer = Layer.Furniture;
         decorLayerSigh.enabled = false;
@@ -339,6 +341,7 @@ public class FurnishInteractor : MonoBehaviour
     public void ShowDecorLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
+        homeDepot.ShowDecorDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
         currentLayer = Layer.Decor;
         decorLayerSigh.enabled = true;
@@ -350,6 +353,7 @@ public class FurnishInteractor : MonoBehaviour
     public void ShowFloorLayer()
     {
         SoundManager.Instance.PlaySfx("Click");
+        homeDepot.ShowFloorDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
         currentLayer = Layer.Floor;
         decorLayerSigh.enabled = false;

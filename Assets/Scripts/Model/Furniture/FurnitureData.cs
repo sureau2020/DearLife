@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class FurnitureData
+public class FurnitureData : FurnishItemData
 {
     public string id;
-    public string name;
+    public string displayName;
     public FurnitureType type;
     
     // 家具占用的格子形状 - 相对于锚点(0,0)的偏移
@@ -71,10 +71,10 @@ public class FurnitureData
 }
 
 [System.Serializable]
-public class DecorData
+public class DecorData 
 {
     public string id;
-    public string name;
+    public string displayName;
     public DecorType type;
     public Vector2 renderOffset = Vector2.zero;
     

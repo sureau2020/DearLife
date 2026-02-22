@@ -24,7 +24,7 @@ public class DecorScriptableObject : ScriptableObject
         return new DecorData
         {
             id = decorId,
-            name = decorName,
+            displayName = decorName,
             type = decorType,
             renderOffset = renderOffset,
             prefabPath = "", // 不再使用prefab

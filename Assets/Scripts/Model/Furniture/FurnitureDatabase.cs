@@ -29,7 +29,7 @@ public class FurnitureDatabase
                 allFurnitures[furniture.furnitureId] = new FurnitureData
                 {
                     id = furniture.furnitureId,
-                    name = furniture.furnitureName,
+                    displayName = furniture.furnitureName,
                     type = furniture.furnitureType,
                     occupiedCells = new List<Vector2Int>(furniture.occupiedCells),
                     renderOffset = furniture.renderOffset,
@@ -51,7 +51,7 @@ public class FurnitureDatabase
                 allDecors[decor.decorId] = new DecorData
                 {
                     id = decor.decorId,
-                    name = decor.decorName,
+                    displayName = decor.decorName,
                     type = decor.decorType,
                     renderOffset = decor.renderOffset,
                     sprite = decor.decorSprite,
@@ -177,14 +177,24 @@ public class FurnitureDatabase
     }
     
     // 获取所有家具列表（用于编辑器或UI显示）
-    public IReadOnlyList<FurnitureData> GetAllFurniture()
+    public List<FurnitureData> GetAllFurniture(List<FurnitureData> results)
     {
-        return new List<FurnitureData>(allFurnitures.Values);
+        results.Clear();
+        foreach (var item in allFurnitures.Values)
+        {
+            results.Add(item);
+        }
+        return results;
     }
     
-    public IReadOnlyList<DecorData> GetAllDecors()
+    public List<DecorData> GetAllDecors(List<DecorData> decors)
     {
-        return new List<DecorData>(allDecors.Values);
+        decors.Clear();
+        foreach (var item in allDecors.Values)
+        {
+            decors.Add(item);
+        }
+        return decors;
     }
     
     // 按类型获取家具
@@ -229,7 +239,7 @@ public class FurnitureDatabase
         {
             if (string.IsNullOrWhiteSpace(furniture.id))
             {
-                Debug.LogError($"发现无效家具ID: {furniture.name}");
+                Debug.LogError($"发现无效家具ID: {furniture.displayName}");
                 isValid = false;
             }
             
@@ -250,7 +260,7 @@ public class FurnitureDatabase
         {
             if (string.IsNullOrWhiteSpace(decor.id))
             {
-                Debug.LogError($"发现无效装饰ID: {decor.name}");
+                Debug.LogError($"发现无效装饰ID: {decor.displayName}");
                 isValid = false;
             }
             

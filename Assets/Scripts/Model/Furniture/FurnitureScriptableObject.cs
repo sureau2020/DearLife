@@ -33,7 +33,7 @@ public class FurnitureScriptableObject : ScriptableObject
         return new FurnitureData
         {
             id = furnitureId,
-            name = furnitureName,
+            displayName = furnitureName,
             type = furnitureType,
             occupiedCells = new List<Vector2Int>(occupiedCells),
             renderOffset = renderOffset,

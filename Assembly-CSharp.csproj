@@ -162,6 +162,7 @@
     <Compile Include="Assets\Scripts\UI\Tasks\Clock.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\ApparenceNameUpdater.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\HomeDepot.cs" />
     <Compile Include="Assets\Scripts\Tools\Calculators.cs" />
     <Compile Include="Assets\Scripts\Model\Furniture\FurnitureDataBaseScriptableObject.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TypeWriterBehaviour.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Event\AudioSourceEvent.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemDataBase.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\FurnishItemData.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow1.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\PersistentScriptableObject.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Special\Typewriter.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\IScriptableObjectSaveable.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\Manager\ConfirmRequestManager.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\FurnitureCell.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\NodeExecResult.cs" />
     <Compile Include="Assets\Scripts\UI\TopState\TopState.cs" />
     <Compile Include="Assets\Scripts\UI\Store\StoreCategoryButton.cs" />
