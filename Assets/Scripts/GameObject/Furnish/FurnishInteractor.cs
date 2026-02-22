@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,13 +12,16 @@ public class FurnishInteractor : MonoBehaviour
 {
     [SerializeField] private GameObject cancelBinOkButton;
     [SerializeField] private RectTransform TopStateUI;
+    [SerializeField] private RectTransform HomeDepotUI;
     public int offsetYForTopStateUI = 520;
+    public int offsetYForHomeDepotUI = -720;
     [SerializeField] private GameObject layerChangeButtons;
     [SerializeField] private Button furnishButton;
     [SerializeField] private GameObject kuang;
     [SerializeField] private Image decorLayerSigh;
     [SerializeField] private Image furnitureLayerSigh;
     [SerializeField] private Image floorLayerSigh;
+    [SerializeField] private TextMeshProUGUI hint;
 
     private FurnitureInstance currentFurnitureInstance;
     private DecorInstance currentDecorInstance;
@@ -161,11 +165,13 @@ public class FurnishInteractor : MonoBehaviour
                 RefreshFrnitureLayer();
                 currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
                 currentFurnitureInstance = null;
+                ShowHint("点击绿色格子选择相应部件");
                 break;
             case Layer.Decor:
                 RefreshDecorLayer();
                 currentDecorInstance.decorObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentDecorInstance.position);
                 currentDecorInstance = null;
+                ShowHint("点击绿色格子选择相应部件");
                 break;
             case Layer.Floor:
                 //roomData.roomManager.ShowFloorCells();
@@ -184,11 +190,13 @@ public class FurnishInteractor : MonoBehaviour
                     {
                         HideCancelBinOkButtons();
                         RefreshFrnitureLayer();
+                        ShowHint("点击绿色格子选择相应部件");
                     }
                     else
                     {
                         SoundManager.Instance.PlaySfx("Error");
                         Vibrate(currentFurnitureInstance.furnitureObject);
+                        ShowHint("当前位置不可放置此家具");
                     }
                 }
                 break;
@@ -198,11 +206,13 @@ public class FurnishInteractor : MonoBehaviour
                     {
                         HideCancelBinOkButtons();
                         RefreshDecorLayer();
+                        ShowHint("点击绿色格子选择相应部件");
                     }
                     else
                     {
                         SoundManager.Instance.PlaySfx("Error");
                         Vibrate(currentDecorInstance.decorObject);
+                        ShowHint("当前位置不可放置此装饰");
                     }
                 }
                 break;
@@ -210,6 +220,7 @@ public class FurnishInteractor : MonoBehaviour
                 //roomData.roomManager.ShowFloorCells();
                 break;
         }
+        
     }
 
 
@@ -217,6 +228,7 @@ public class FurnishInteractor : MonoBehaviour
     private void ShowCancelBinOKButtons()
     {
         SoundManager.Instance.PlaySfx("Pop");
+        ShowHint("点击其他格子移动该部件");
         layerChangeButtons.SetActive(false);
         furnishButton.interactable = false;
         cancelBinOkButton.SetActive(true);
@@ -231,6 +243,7 @@ public class FurnishInteractor : MonoBehaviour
             currentFurnitureInstance = null;
             HideCancelBinOkButtons();
             RefreshFrnitureLayer();
+            ShowHint("点击绿色格子选择相应部件");
 
         }
         else if (currentLayer == Layer.Decor && currentDecorInstance != null)
@@ -239,6 +252,7 @@ public class FurnishInteractor : MonoBehaviour
             currentDecorInstance = null;
             HideCancelBinOkButtons();
             RefreshDecorLayer();
+            ShowHint("点击绿色格子选择相应部件");
         }
     }
 
@@ -257,34 +271,47 @@ public class FurnishInteractor : MonoBehaviour
         roomData = provider;
         layerChangeButtons.SetActive(true);
         isInEditMode = true;
+        if(!hint.isActiveAndEnabled) hint.gameObject.SetActive(true);
+        ShowHint("点击绿色格子选择相应部件");
         ShowFurnitureLayer();
-        MoveTopUI();
+        MoveUI(TopStateUI, offsetYForTopStateUI, 0);
+        MoveUI(HomeDepotUI, 0,offsetYForHomeDepotUI);
     }
 
-    public void MoveTopUI()
+    public void MoveUI(RectTransform uiToBeMove, float destination, float from)
     {
-        float targetAnchoredY = isInEditMode ? offsetYForTopStateUI : 0f;
-
-        TopStateUI.DOAnchorPosY(targetAnchoredY, 0.5f)
+        float targetAnchoredY = isInEditMode ? destination : from;
+        uiToBeMove.DOAnchorPosY(targetAnchoredY, 0.5f)
             .SetEase(Ease.OutQuad) 
             .OnComplete(() =>
             {
-                if (!Mathf.Approximately(TopStateUI.anchoredPosition.y, targetAnchoredY))
+                if (!Mathf.Approximately(uiToBeMove.anchoredPosition.y, targetAnchoredY))
                 {
-                    TopStateUI.anchoredPosition = new Vector2(TopStateUI.anchoredPosition.x, targetAnchoredY);
-                    Debug.Log("UI Position corrected to anchoredPosition.");
+                    uiToBeMove.anchoredPosition = new Vector2(uiToBeMove.anchoredPosition.x, targetAnchoredY);
                 }
             });
     }
 
     public void Close()
     {
+        ClearHint();
         SoundManager.Instance.PlaySfx("Click");
         isInEditMode = false;
         layerChangeButtons.SetActive(false);
-        furnishButton.interactable = true;
         roomData.roomManager.ClearAllCells();
-        MoveTopUI();
+        MoveUI(TopStateUI,offsetYForTopStateUI, 0);
+        MoveUI(HomeDepotUI, 0,offsetYForHomeDepotUI);
+    }
+
+    private void ClearHint()
+    {
+        hint.text = "";
+        if (hint.isActiveAndEnabled) hint.gameObject.SetActive(false);
+    }
+
+    private void ShowHint(string t)
+    {
+        hint.text = "<wave>"+t;
     }
 
     public void ShowFurnitureLayer()
