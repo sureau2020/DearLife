@@ -15,10 +15,16 @@ public class HomeDepot : MonoBehaviour
     [SerializeField] private TileLoader tileLoader;
     private FurnishCategory currentCategory;
 
+    private List<FurnitureCell> furnitureList = new List<FurnitureCell>();
     private List<DecorData> decors = new List<DecorData>();
     private List<FurnitureData> furnitures = new List<FurnitureData>();
     private List<TileData> floorTiles = new List<TileData>();
     private Dictionary<string, Sprite> tileCache = new();
+
+    int currentIndex = -1;
+
+    void OnEnable() => FurnishItemEvents.OnItemClicked += HandleItemClick;
+    void OnDisable() => FurnishItemEvents.OnItemClicked -= HandleItemClick;
 
 
     public void ShowFurnitureDepot()
@@ -27,14 +33,20 @@ public class HomeDepot : MonoBehaviour
         currentCategory = FurnishCategory.Furniture;
         furnitures = GameManager.Instance.FurnitureDatabase.GetAllFurniture(furnitures);
         ClearList();
+        int index = 0;
+        currentIndex = -1;
         foreach (var furniture in furnitures)
         {
             GameObject cell = Instantiate(cellPrefab, cellList);
-            cell.GetComponent<FurnitureCell>().SetFurnitureData(furniture.sprite,furniture.id, FurnishCategory.Furniture);
+            FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
+            furnitureCell.SetFurnitureData(furniture.sprite,furniture.id, FurnishCategory.Furniture,index);
+            furnitureList.Add(furnitureCell);
+            index++;
         }
     }
 
-    private void ClearList() { 
+    private void ClearList() {
+        furnitureList.Clear();
         foreach (Transform child in cellList)
         {
             Destroy(child.gameObject);
@@ -46,10 +58,15 @@ public class HomeDepot : MonoBehaviour
         currentCategory = FurnishCategory.Decor;
         decors = GameManager.Instance.FurnitureDatabase.GetAllDecors(decors);
         ClearList();
+        int index = 0;
+        currentIndex = -1;
         foreach (var decor in decors)
         {
             GameObject cell = Instantiate(cellPrefab, cellList);
-            cell.GetComponent<FurnitureCell>().SetFurnitureData(decor.sprite,decor.id, FurnishCategory.Decor);
+            FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
+            furnitureCell.SetFurnitureData(decor.sprite,decor.id, FurnishCategory.Decor, index);
+            furnitureList.Add(furnitureCell);
+            index++;
         }
     }
 
@@ -57,9 +74,14 @@ public class HomeDepot : MonoBehaviour
         ChangeType("µØ°å");
         currentCategory = FurnishCategory.Floor;
         ClearList();
+        int index = 0;
+        currentIndex = -1;
         GameManager.Instance.TileDataBase.GetAllFloorTiles(floorTiles).ForEach(tile => {
             GameObject cell = Instantiate(cellPrefab, cellList);
-            cell.GetComponent<FurnitureCell>().SetFurnitureData(GetTileBase(tile.id),tile.id, FurnishCategory.Floor);
+            FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
+            furnitureCell.SetFurnitureData(GetTileBase(tile.id),tile.id, FurnishCategory.Floor, index);
+            furnitureList.Add(furnitureCell);
+            index++;
         });
     }
 
@@ -70,10 +92,19 @@ public class HomeDepot : MonoBehaviour
         Tile tile = tileLoader.LoadTile(tileId) as Tile;
         if (tile != null)
         {
-            tileCache[tileId] = tileSprite;
+            tileCache[tileId] = tile.sprite;
             return tile.sprite;
         }
         return null;
+    }
+
+    public void HandleItemClick(string id, FurnishCategory category, int index) {
+        FurnitureCell furnitureCell = furnitureList[index];
+        if (furnitureCell == null) return;
+        furnitureCell.SetSelected(true);
+        if (currentIndex != -1 && currentIndex != index)
+            furnitureList[currentIndex]?.SetSelected(false);
+        currentIndex = index;
     }
 
     private void ChangeType(string t) { 

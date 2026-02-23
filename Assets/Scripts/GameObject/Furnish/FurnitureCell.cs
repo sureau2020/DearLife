@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class FurnitureCell : MonoBehaviour
 {
     [SerializeField] private Image icon;
+    [SerializeField] private Image kuang;
     [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private Button _button;
     private string id;
     private FurnishCategory category;
-    public void SetFurnitureData(Sprite sprite, string id, FurnishCategory category) { 
+    public void SetFurnitureData(Sprite sprite, string id, FurnishCategory category, int index) { 
          if (sprite != null)
          {
              nameText.text = id;
@@ -22,6 +24,13 @@ public class FurnitureCell : MonoBehaviour
              }
             this.id = id;
             this.category = category;
+            _button.onClick.RemoveAllListeners();
+            _button.onClick.AddListener(() => FurnishItemEvents.TriggerItemClicked(id,category, index));
         }
     }
+
+    public void SetSelected(bool selected) {
+        kuang.gameObject.SetActive(selected);
+    }
+
 }

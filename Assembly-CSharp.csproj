@@ -223,6 +223,7 @@
     <Compile Include="Assets\Scripts\UI\Tasks\DayCell.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\X Axis\Drawer_Pull_X.cs" />
     <Compile Include="Assets\Scripts\Model\Item\WardrobeData.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\FurnishItemEvents.cs" />
     <Compile Include="Assets\Scripts\UI\Character\BackPackUI.cs" />
     <Compile Include="Assets\Scripts\UI\ErrorUI.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\HSVSliderController.cs" />
