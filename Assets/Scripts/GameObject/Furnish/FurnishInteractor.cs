@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,10 +14,12 @@ public class FurnishInteractor : MonoBehaviour
     [SerializeField] private GameObject cancelBinOkButton;
     [SerializeField] private RectTransform TopStateUI;
     [SerializeField] private RectTransform HomeDepotUI;
+    [SerializeField] private Image HomeDepotCover;
     public int offsetYForTopStateUI = 520;
     public int offsetYForHomeDepotUI = -720;
     [SerializeField] private GameObject layerChangeButtons;
     [SerializeField] private Button furnishButton;
+    [SerializeField] private Button closetButton;
     [SerializeField] private GameObject kuang;
     [SerializeField] private Image decorLayerSigh;
     [SerializeField] private Image furnitureLayerSigh;
@@ -26,10 +29,12 @@ public class FurnishInteractor : MonoBehaviour
 
     private FurnitureInstance currentFurnitureInstance;
     private DecorInstance currentDecorInstance;
-    private enum Layer { Furniture, Decor, Floor }
-    private Layer currentLayer = Layer.Furniture;
+
+    private FurnishCategory currentLayer = FurnishCategory.Furniture;
     private bool isInstanceSelected = false;
     private bool isInEditMode = false;
+    private bool isCreatingNewInstance = false;
+    private string creatingInstanceDataId = "";
 
 
     private IRoomDataProvider roomData;
@@ -64,7 +69,10 @@ public class FurnishInteractor : MonoBehaviour
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
                 if (roomData == null) return;
-                if (isInstanceSelected)
+                if (isCreatingNewInstance) {
+                    PreviewNewInstance(hitPoint);
+                }
+                else if (isInstanceSelected)
                 {
                     PreviewInstanceMove(hitPoint);
                 }
@@ -80,13 +88,13 @@ public class FurnishInteractor : MonoBehaviour
     {
         switch (currentLayer)
         {
-            case Layer.Furniture:
+            case FurnishCategory.Furniture:
                 CheckFurnitureMove(hitPoint);
                 break;
-            case Layer.Decor:
+            case FurnishCategory.Decor:
                 CheckDecorMove(hitPoint);
                 break;
-            case Layer.Floor:
+            case FurnishCategory.Floor:
                 //CheckFloorClick(hitPoint);
                 break;
         }
@@ -96,13 +104,13 @@ public class FurnishInteractor : MonoBehaviour
     {
         switch (currentLayer)
         {
-            case Layer.Furniture:
+            case FurnishCategory.Furniture:
                 CheckFurnitureClick(hitPoint);
                 break;
-            case Layer.Decor:
+            case FurnishCategory.Decor:
                 CheckDecorClick(hitPoint);
                 break;
-            case Layer.Floor:
+            case FurnishCategory.Floor:
                 //CheckFloorClick(hitPoint);
                 break;
         }
@@ -138,6 +146,7 @@ public class FurnishInteractor : MonoBehaviour
             currentFurnitureInstance = furniture;
             ShowCancelBinOKButtons();
             isInstanceSelected = true;
+            HomeDepotCover.enabled = true;
         }
     }
 
@@ -154,44 +163,69 @@ public class FurnishInteractor : MonoBehaviour
             currentDecorInstance = decor;
             ShowCancelBinOKButtons();
             isInstanceSelected = true;
+            HomeDepotCover.enabled = true;
         }
     }
 
     public void CancelSelection()
     {
+        
+        if (isCreatingNewInstance) { DeleteNewInstance(); return; }
         HideCancelBinOkButtons();
         switch (currentLayer)
         {
-            case Layer.Furniture:
+            case FurnishCategory.Furniture:
                 RefreshFrnitureLayer();
                 currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
                 currentFurnitureInstance = null;
                 ShowHint("点击绿色格子选择相应部件");
                 break;
-            case Layer.Decor:
+            case FurnishCategory.Decor:
                 RefreshDecorLayer();
                 currentDecorInstance.decorObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentDecorInstance.position);
                 currentDecorInstance = null;
                 ShowHint("点击绿色格子选择相应部件");
                 break;
-            case Layer.Floor:
+            case FurnishCategory.Floor:
                 //roomData.roomManager.ShowFloorCells();
                 break;
         }
+    }
+
+    public void DeleteNewInstance()
+    {
+        HideCancelBinOkButtons();
+        if (currentLayer == FurnishCategory.Furniture && currentFurnitureInstance != null)
+        {
+            roomData.roomManager.RemoveFurniture(currentFurnitureInstance);
+            RefreshFrnitureLayer();
+            currentFurnitureInstance = null;
+        }
+        else if (currentLayer == FurnishCategory.Decor && currentDecorInstance != null)
+        {
+            roomData.roomManager.RemoveDecor(currentDecorInstance);
+            RefreshDecorLayer();
+            currentDecorInstance = null;
+        }
+        isCreatingNewInstance = false;
+        ShowHint("点击绿色格子选择相应部件");
     }
 
     public void ConfirmMove()
     {
         switch (currentLayer)
         {
-            case Layer.Furniture:
+            case FurnishCategory.Furniture:
                 if (currentFurnitureInstance != null)
                 {
+                    Debug.Log("尝试放置家具："+currentFurnitureInstance.instanceId+" at "+currentFurnitureInstance.anchorPos);
                     if (roomData.roomManager.ConfirmMoveFurniture(currentFurnitureInstance))
                     {
+                        if (isCreatingNewInstance) ComfirmNewInstance();
                         HideCancelBinOkButtons();
                         RefreshFrnitureLayer();
                         ShowHint("点击绿色格子选择相应部件");
+                        currentFurnitureInstance = null;
                     }
                     else
                     {
@@ -201,13 +235,15 @@ public class FurnishInteractor : MonoBehaviour
                     }
                 }
                 break;
-            case Layer.Decor:
+            case FurnishCategory.Decor:
                 if (currentDecorInstance != null) {
                     if (roomData.roomManager.ConfirmMoveDecor(currentDecorInstance))
                     {
+                        if (isCreatingNewInstance) ComfirmNewInstance();
                         HideCancelBinOkButtons();
                         RefreshDecorLayer();
                         ShowHint("点击绿色格子选择相应部件");
+                        currentDecorInstance = null;
                     }
                     else
                     {
@@ -217,11 +253,26 @@ public class FurnishInteractor : MonoBehaviour
                     }
                 }
                 break;
-            case Layer.Floor:
+            case FurnishCategory.Floor:
                 //roomData.roomManager.ShowFloorCells();
                 break;
         }
         
+    }
+
+    public void ComfirmNewInstance() {
+        isCreatingNewInstance = false;
+        if (currentLayer == FurnishCategory.Furniture)
+        {
+            
+        }
+        else if (currentLayer == FurnishCategory.Decor)
+        {
+            //roomData.roomManager.ConfirmNewDecor(currentDecorInstance);
+        }
+        currentFurnitureInstance = null;
+        currentDecorInstance = null;
+        ShowHint("点击绿色格子选择相应部件");
     }
 
 
@@ -238,7 +289,8 @@ public class FurnishInteractor : MonoBehaviour
     public void DeleteInstance()
     {
         SoundManager.Instance.PlaySfx("Click");
-        if (currentLayer == Layer.Furniture && currentFurnitureInstance != null)
+        if (isCreatingNewInstance) { DeleteNewInstance(); return; }
+        if (currentLayer == FurnishCategory.Furniture && currentFurnitureInstance != null)
         {
             roomData.roomManager.RemoveFurniture(currentFurnitureInstance);
             currentFurnitureInstance = null;
@@ -247,7 +299,7 @@ public class FurnishInteractor : MonoBehaviour
             ShowHint("点击绿色格子选择相应部件");
 
         }
-        else if (currentLayer == Layer.Decor && currentDecorInstance != null)
+        else if (currentLayer == FurnishCategory.Decor && currentDecorInstance != null)
         {
             roomData.roomManager.RemoveDecor(currentDecorInstance);
             currentDecorInstance = null;
@@ -262,6 +314,7 @@ public class FurnishInteractor : MonoBehaviour
         SoundManager.Instance.PlaySfx("Click");
         if (kuang.activeSelf) kuang.SetActive(false);
         isInstanceSelected = false;
+        HomeDepotCover.enabled = false;
         furnishButton.interactable = true;
         layerChangeButtons.SetActive(true);
         cancelBinOkButton.SetActive(false);
@@ -271,11 +324,12 @@ public class FurnishInteractor : MonoBehaviour
     {
         roomData = provider;
         layerChangeButtons.SetActive(true);
+        closetButton.interactable = false;
         isInEditMode = true;
         if(!hint.isActiveAndEnabled) hint.gameObject.SetActive(true);
         ShowHint("点击绿色格子选择相应部件");
         ShowFurnitureLayer();
-        MoveUI(TopStateUI, offsetYForTopStateUI, 0);
+        MoveUI(TopStateUI, offsetYForTopStateUI, 100);
         MoveUI(HomeDepotUI, 0,offsetYForHomeDepotUI);
     }
 
@@ -300,8 +354,9 @@ public class FurnishInteractor : MonoBehaviour
         isInEditMode = false;
         layerChangeButtons.SetActive(false);
         roomData.roomManager.ClearAllCells();
-        MoveUI(TopStateUI,offsetYForTopStateUI, 0);
+        MoveUI(TopStateUI,offsetYForTopStateUI, 100);
         MoveUI(HomeDepotUI, 0,offsetYForHomeDepotUI);
+        closetButton.interactable = true;
     }
 
     private void ClearHint()
@@ -312,6 +367,7 @@ public class FurnishInteractor : MonoBehaviour
 
     private void ShowHint(string t)
     {
+        if (!hint.isActiveAndEnabled) hint.gameObject.SetActive(true);
         hint.text = "<wave>"+t;
     }
 
@@ -320,7 +376,7 @@ public class FurnishInteractor : MonoBehaviour
         SoundManager.Instance.PlaySfx("Click");
         homeDepot.ShowFurnitureDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
-        currentLayer = Layer.Furniture;
+        currentLayer = FurnishCategory.Furniture;
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = true;
         floorLayerSigh.enabled = false;
@@ -343,7 +399,7 @@ public class FurnishInteractor : MonoBehaviour
         SoundManager.Instance.PlaySfx("Click");
         homeDepot.ShowDecorDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
-        currentLayer = Layer.Decor;
+        currentLayer = FurnishCategory.Decor;
         decorLayerSigh.enabled = true;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = false;
@@ -355,11 +411,62 @@ public class FurnishInteractor : MonoBehaviour
         SoundManager.Instance.PlaySfx("Click");
         homeDepot.ShowFloorDepot();
         if (kuang.activeSelf) kuang.SetActive(false);
-        currentLayer = Layer.Floor;
+        currentLayer = FurnishCategory.Floor;
         decorLayerSigh.enabled = false;
         furnitureLayerSigh.enabled = false;
         floorLayerSigh.enabled = true;
         roomData.roomManager.ShowFloorCells();
+    }
+
+    public void PreviewNewInstance(Vector3 hitPoint) { 
+        switch (currentLayer)
+        {
+            case FurnishCategory.Furniture:
+                if (currentFurnitureInstance != null)
+                {
+                    roomData.roomManager.PreviewNewFurniture(creatingInstanceDataId, hitPoint, currentFurnitureInstance.furnitureObject.transform.position, currentFurnitureInstance);
+                }
+                else {
+                     currentFurnitureInstance = roomData.roomManager.PreviewNewFurniture(creatingInstanceDataId, hitPoint, null, null);
+                }
+                    
+                break;
+            case FurnishCategory.Decor:
+                if (currentDecorInstance != null)
+                {
+                    roomData.roomManager.PreviewNewDecor(creatingInstanceDataId, hitPoint, currentDecorInstance.decorObject.transform.position, currentDecorInstance);
+                }
+                else
+                {
+                    currentDecorInstance = roomData.roomManager.PreviewNewDecor(creatingInstanceDataId, hitPoint, null, null);
+                }
+                break;
+            case FurnishCategory.Floor:
+                //roomData.roomManager.PreviewNewFloor(creatingInstanceDataId, hitPoint);
+                break;
+        }
+        ShowCancelBinOKButtons();
+        isInstanceSelected = true;
+        HomeDepotCover.enabled = true;
+    }
+
+    public void SelectDepotItem(string id, FurnishCategory category) {
+        if (category != currentLayer) return;
+        ClearHint();
+        switch (currentLayer)
+        {
+            case FurnishCategory.Furniture:
+                ShowHint("点击格子放置该家具");
+                break;
+            case FurnishCategory.Decor:
+                ShowHint("点击格子放置该装饰"); 
+                break;
+            case FurnishCategory.Floor:
+                ShowHint("点击格子绘制地板");
+                break;
+        }
+        isCreatingNewInstance = true;
+        creatingInstanceDataId = id;
     }
 
 

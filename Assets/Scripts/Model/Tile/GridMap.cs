@@ -175,42 +175,47 @@ public class GridMap
     {
         CellData cell = world.GetCell(pos);
         if (!cell.Has(CellFlags.HasFurniture)) return null;
+        Debug.Log($"在GetFurniture时，cell.furnitureInstanceId={cell.furnitureInstanceId}");
         return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
     }
 
     // ==== Furniture ====
 
-    public void PlaceFurnitureKeepInstanceId(Vector2Int anchorPos,FurnitureData data, FurnitureInstance furnitureInstance)
+    public void PlaceFurnitureKeepInstanceId(Vector2Int anchorPos, FurnitureData data, FurnitureInstance furnitureInstance)
     {
         Vector2Int originPos = furnitureInstance.anchorPos;
         string instanceId = furnitureInstance.instanceId;
+        var offsets = data.occupiedCells.ToArray();
 
-        foreach (var offset in data.occupiedCells)
+        // --- 第一步：清除旧位置的所有格点数据 ---
+        if (originPos.x != int.MinValue) {
+            foreach (var offset in offsets)
+            {
+                Vector2Int oldPos = originPos + offset;
+                ref CellData cell = ref world.GetCellRef(oldPos);
+
+                cell.furnitureInstanceId = "";
+                cell.flags &= ~CellFlags.HasFurniture;
+                if (data.blocksMovement)
+                    cell.flags &= ~CellFlags.FurnitureBlocked;
+            }
+        }
+        // --- 第二步：更新实例本身的数据 ---
+        // 这里直接清除并重新填充，避免在循环中 Add/Remove
+        furnitureInstance.occupiedCells.Clear();
+        furnitureInstance.anchorPos = anchorPos;
+        // --- 第三步：填充新位置的所有格点数据 ---
+        foreach (var offset in offsets)
         {
-            // 先清除原位置
-            Vector2Int pos = originPos + offset;
+            Vector2Int pos = anchorPos + offset;
             ref CellData cell = ref world.GetCellRef(pos);
 
-            cell.furnitureInstanceId = "";
-            cell.flags &= ~CellFlags.HasFurniture;
-
+            cell.furnitureInstanceId = instanceId;
+            cell.flags |= CellFlags.HasFurniture;
             if (data.blocksMovement)
-                cell.flags &= ~CellFlags.FurnitureBlocked;
-
-            furnitureInstance.occupiedCells.Remove(pos);
-
-            // 再放置到新位置
-            Vector2Int newPos = anchorPos + offset;
-            ref CellData newCell = ref world.GetCellRef(newPos);
-
-            newCell.furnitureInstanceId = instanceId;
-            newCell.flags |= CellFlags.HasFurniture;
-
-            if (data.blocksMovement)
-                newCell.flags |= CellFlags.FurnitureBlocked;
+                cell.flags |= CellFlags.FurnitureBlocked;
 
             furnitureInstance.occupiedCells.Add(pos);
-            furnitureInstance.anchorPos = anchorPos;
         }
     }
 
@@ -271,6 +276,7 @@ public class GridMap
                 if (cell.furnitureInstanceId == instanceId) continue;
                 return false;
             } 
+            Debug.Log($"{furnitureData.occupiedCells.Count}在检查时");
         }
         return true;
     }
@@ -285,6 +291,21 @@ public class GridMap
             c.furnitureInstanceId = "";
         }
         furnitureInstances.Remove(id);
+    }
+
+    public FurnitureInstance CreateFurnitureInstance(FurnitureData data)
+    {
+        string instanceId = $"furniture_{nextFurnitureInstanceId++}";
+
+        FurnitureInstance instance = new FurnitureInstance
+        {
+            instanceId = instanceId,
+            furnitureDataId = data.id,
+            anchorPos = new Vector2Int(int.MinValue, int.MinValue), 
+            occupiedCells = data.occupiedCells
+        };
+        furnitureInstances.Add(instanceId, instance);
+        return instance;
     }
 
     public FurnitureInstance GetFurnitureInstance(string instanceId)
@@ -307,6 +328,19 @@ public class GridMap
     }
 
     // ==== Decor ====
+    public DecorInstance CreateDecorInstance(DecorData data) {
+        string instanceId = $"decor_{nextDecorInstanceId++}";
+        DecorInstance decor = new DecorInstance
+        {
+            instanceId = instanceId,
+            decorId = data.id,
+            position = new Vector2Int(int.MinValue, int.MinValue),
+        };
+
+        decorInstances.Add(instanceId, decor);
+
+        return decor;
+    }
 
     public bool CanPlaceDecor(Vector2Int cellPos, string instanceId)
     {

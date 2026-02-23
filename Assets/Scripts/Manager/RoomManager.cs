@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class RoomManager : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public class RoomManager : MonoBehaviour
         if (data == null) return false;
         if (!GridMap.CanPlaceFurniture(data, cellPos, currentFurnitureInstance.instanceId)) return false;
         GridMap.PlaceFurnitureKeepInstanceId(cellPos, data,currentFurnitureInstance);
-
+        Debug.Log($"Furniture {currentFurnitureInstance.instanceId} moved to {currentFurnitureInstance.anchorPos},{currentFurnitureInstance.furnitureDataId},{currentFurnitureInstance.ToString()}");
         return true;
     }
 
@@ -144,4 +145,34 @@ public class RoomManager : MonoBehaviour
         Vector2Int cell = roomView.WorldToCell(pos);
         roomView.PreviewMoveDecor(decor, hitPoint, cell);
     }
+
+    public FurnitureInstance PreviewNewFurniture(string id, Vector3 hitPoint, Vector3? curPos, FurnitureInstance? instance) {
+        Vector2Int cell = roomView.WorldToCell(hitPoint);
+        FurnitureData data = GameManager.Instance.FurnitureDatabase.GetFurnitureData(id);
+        FurnitureInstance tempInstance = GridMap.CreateFurnitureInstance(data);
+
+        if (curPos != null) {
+            Vector2Int curCell = roomView.WorldToCell((Vector3)curPos);
+            roomView.PreviewMoveFurniture(instance, hitPoint, curCell);
+        } else
+            roomView.PreviewNewFurniture(tempInstance, cell, data);
+        return tempInstance;
+    }
+
+    public DecorInstance PreviewNewDecor(string id, Vector3 hitPoint, Vector3? curPos, DecorInstance? instance)
+    {
+        Vector2Int cell = roomView.WorldToCell(hitPoint);
+        DecorData data = GameManager.Instance.FurnitureDatabase.GetDecorData(id);
+        DecorInstance tempInstance = GridMap.CreateDecorInstance(data);
+
+        if (curPos != null)
+        {
+            Vector2Int curCell = roomView.WorldToCell((Vector3)curPos);
+            roomView.PreviewMoveDecor(instance, hitPoint, curCell);
+        }
+        else
+            roomView.PreviewNewDecor(tempInstance, cell, data);
+        return tempInstance;
+    }
+
 }

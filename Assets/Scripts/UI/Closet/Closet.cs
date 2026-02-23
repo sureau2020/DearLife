@@ -20,8 +20,8 @@ public class Closet : MonoBehaviour
         else
         {
             SoundManager.Instance.PlaySfx("PanelMove");
-            character.transform.position = characterPos;
-            cameraFocus.FocusOnTarget(cameraPos);
+            //character.transform.position = characterPos;
+            cameraFocus.FocusOnTarget();
             gameObject.SetActive(true);
         }
 

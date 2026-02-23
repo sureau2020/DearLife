@@ -13,6 +13,12 @@ public class FurnishManager : MonoBehaviour, IRoomDataProvider
     public static Action<bool> onEnterFurnishMode;
     private bool isInFurnishMode = false;
 
+    void OnEnable() => FurnishItemEvents.OnItemClicked += HandleDepotItemClick;
+    void OnDisable()
+    {
+        FurnishItemEvents.OnItemClicked -= HandleDepotItemClick;
+        RoomManager.OnRoomManagerInitialized -= OnRoomManagerInitialized;
+    }
 
     void Start()
     {
@@ -21,29 +27,37 @@ public class FurnishManager : MonoBehaviour, IRoomDataProvider
             OnRoomManagerInitialized(_roomManager);
     }
 
-    void OnRoomManagerInitialized(RoomManager room) {
+    void OnRoomManagerInitialized(RoomManager room)
+    {
         _roomManager = room;
         furnishButton.interactable = true;
     }
 
-    void OnDestroy() {
-        RoomManager.OnRoomManagerInitialized -= OnRoomManagerInitialized;
-    }
 
-    public void EnterEditMode() { 
+
+    public void EnterEditMode()
+    {
         isInFurnishMode = !isInFurnishMode;
-        if (!isInFurnishMode) {
+        if (!isInFurnishMode)
+        {
             furnishInteractor.Close();
             onEnterFurnishMode?.Invoke(false);
-        }else
+        }
+        else
         { // 进入编辑模式
             furnishInteractor.Initialize(this);
             onEnterFurnishMode?.Invoke(true);
         }
-        
+
+    }
+
+    public void HandleDepotItemClick(string id, FurnishCategory category, int index)
+    {
+        if (!isInFurnishMode)
+            return;
+        furnishInteractor.SelectDepotItem(id, category);
     }
 }
-
 
 public interface IRoomDataProvider
 {

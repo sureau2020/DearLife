@@ -245,6 +245,46 @@ public class RoomView : MonoBehaviour
     // Runtime Ops
     // =========================
 
+    public void PreviewNewFurniture(FurnitureInstance inst, Vector2Int cell, FurnitureData data) {
+        Sprite sprite = GetFurnitureSprite(data);
+        if (sprite == null) return;
+
+        GameObject go = new($"Furniture_{inst.instanceId}");
+        go.transform.SetParent(furnitureContainer);
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = -cell.y - data.GetMaxOccupiedY();
+
+        Vector3Int cellPos = new(cell.x, cell.y, 0);
+        Vector3 worldPos = groundMap.CellToWorld(cellPos);
+
+        go.transform.position = worldPos + (Vector3)data.renderOffset;
+        go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+        furnitureObjects[inst.instanceId] = go;
+        inst.furnitureObject = go;
+
+        ShowNewCells(cell, data.occupiedCells, inst.instanceId);
+    }
+
+    public void PreviewNewDecor(DecorInstance inst, Vector2Int cell, DecorData data) {
+        Sprite sprite = GetDecorSprite(data);
+        if (sprite == null) return;
+        GameObject go = new($"Decor_{inst.instanceId}");
+        go.transform.SetParent(decorContainer);
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = -cell.y + 1;
+        Vector3Int cellPos = new(cell.x, cell.y, 0);
+        Vector3 worldPos = groundMap.CellToWorld(cellPos);
+        go.transform.position = worldPos + (Vector3)data.renderOffset;
+        go.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        decorObjects[inst.instanceId] = go;
+        inst.decorObject = go;
+        cellsMap.SetTile(new Vector3Int(cell.x, cell.y, 0), GetTile("Green_DefaultCell"));
+    }
+
     public void PreviewMoveDecor(DecorInstance decor, Vector3 hitPoint, Vector2Int origin) {
         string instId = decor.instanceId;
         CellData cell = gridMap.GetCell(origin);
@@ -297,6 +337,8 @@ public class RoomView : MonoBehaviour
         obj.transform.position = groundMap.CellToWorld(cell); 
     }
 
+    
+
     private void ClearOriginalCells(Vector2Int originPos, List<Vector2Int> occupied, string instId) {
         foreach (var offset in occupied)
         {
@@ -342,13 +384,7 @@ public class RoomView : MonoBehaviour
         }
     }
 
-    // TODO
-    public void PlaceDecor(Vector2Int pos, string decorId)
-    {
-        gridMap.SetDecor(pos, decorId);
-        //RenderDecorInstance(pos, decorId);
-        //TODO
-    }
+
 
     public void RemoveDecor(DecorInstance decorInstance)
     {

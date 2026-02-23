@@ -10,7 +10,7 @@ public class TopState : MonoBehaviour
     [SerializeField] private StatusBar san;
     [SerializeField] private TextMeshProUGUI money;
     [SerializeField] private StatusBar love;
-    private int yOffset = 610;
+    private int yOffset = 510;
     private float slideInDuration = 0.5f;
     private StateManager stateManager;
     private RectTransform rectTransform;
@@ -37,7 +37,7 @@ public class TopState : MonoBehaviour
         {
             Vector2 cur = rectTransform.anchoredPosition;
             rectTransform.anchoredPosition = new Vector2(cur.x, yOffset);
-            rectTransform.DOAnchorPosY(30f, slideInDuration).SetEase(Ease.OutCubic);
+            rectTransform.DOAnchorPosY(100f, slideInDuration).SetEase(Ease.OutCubic);
         }
     }
 
