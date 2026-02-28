@@ -326,13 +326,13 @@ public class GridMap
     }
 
     // ==== Decor ====
-    public DecorInstance CreateDecorInstance(DecorData data) {
+    public DecorInstance CreateDecorInstance(Vector2Int pos,DecorData data) {
         string instanceId = $"decor_{nextDecorInstanceId++}";
         DecorInstance decor = new DecorInstance
         {
             instanceId = instanceId,
             decorId = data.id,
-            position = new Vector2Int(int.MinValue, int.MinValue),
+            position = new Vector2Int(pos.x,pos.y),
         };
 
         decorInstances.Add(instanceId, decor);
@@ -354,9 +354,11 @@ public class GridMap
     {
         Vector2Int originPos = decorInstance.position;
         string instanceId = decorInstance.instanceId;
-
-        ref CellData cell = ref world.GetCellRef(originPos);
-        cell.decorInstanceId = "";
+        if (originPos.x != int.MinValue)
+        {
+            ref CellData cell = ref world.GetCellRef(originPos);
+            cell.decorInstanceId = "";
+        }
 
         decorInstance.position = anchorPos;
 

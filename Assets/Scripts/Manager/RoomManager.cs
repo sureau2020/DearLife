@@ -164,13 +164,18 @@ public class RoomManager : MonoBehaviour
     public FurnitureInstance PreviewNewFurniture(string id, Vector3 hitPoint, Vector3? curPos, FurnitureInstance? instance) {
         Vector2Int cell = roomView.WorldToCell(hitPoint);
         FurnitureData data = GameManager.Instance.FurnitureDatabase.GetFurnitureData(id);
-        FurnitureInstance tempInstance = GridMap.CreateFurnitureInstance(data);
+        FurnitureInstance tempInstance = null;
 
-        if (curPos != null) {
+        if (curPos != null)
+        {
             Vector2Int curCell = roomView.WorldToCell((Vector3)curPos);
             roomView.PreviewMoveFurniture(instance, hitPoint, curCell);
-        } else
+        }
+        else
+        {
+            tempInstance = GridMap.CreateFurnitureInstance(data);
             roomView.PreviewNewFurniture(tempInstance, cell, data);
+        }
         return tempInstance;
     }
 
@@ -178,7 +183,7 @@ public class RoomManager : MonoBehaviour
     {
         Vector2Int cell = roomView.WorldToCell(hitPoint);
         DecorData data = GameManager.Instance.FurnitureDatabase.GetDecorData(id);
-        DecorInstance tempInstance = GridMap.CreateDecorInstance(data);
+        DecorInstance tempInstance = null;
 
         if (curPos != null)
         {
@@ -186,7 +191,11 @@ public class RoomManager : MonoBehaviour
             roomView.PreviewMoveDecor(instance, hitPoint, curCell);
         }
         else
+        {
+            tempInstance = GridMap.CreateDecorInstance(cell, data);
             roomView.PreviewNewDecor(tempInstance, cell, data);
+        }
+            
         return tempInstance;
     }
 

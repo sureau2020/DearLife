@@ -214,9 +214,11 @@ public class RoomView : MonoBehaviour
     public void RenderDecorLayer() {
         foreach (var kv in gridMap.DebugAllCells())
         {
+            
             Vector2Int pos = kv.Key;
+            CellFlags flags = kv.Value.flags;
 
-            if (gridMap.HasFloor(pos))
+            if (flags.HasFlag(CellFlags.HasFloor))
             {
                 cellsMap.SetTile(
                    new Vector3Int(pos.x, pos.y, 0), GetTile("White_DefaultCell")
@@ -226,10 +228,11 @@ public class RoomView : MonoBehaviour
         }
         foreach (var kv in gridMap.GetAllDecorInstances())
         {
+            Debug.Log($"Decor instance at {kv.position} with ID {kv.instanceId}");
             Vector2Int pos = kv.position;
             cellsMap.SetTile(
-               new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")
-           );
+                   new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")
+               );
         }
     }
 
