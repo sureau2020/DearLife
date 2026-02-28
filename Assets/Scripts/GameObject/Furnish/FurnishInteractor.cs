@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class FurnishInteractor : MonoBehaviour
 {
@@ -42,14 +41,48 @@ public class FurnishInteractor : MonoBehaviour
 
     private void Update()
     {
-        //#if UNITY_ANDROID || UNITY_IOS
-        //            CheckTouch();
-        //        
-        //#else
-        CheckClick();
-        //        CheckTouch();
+#if UNITY_ANDROID || UNITY_IOS
+        CheckTouch();
 
-        //#endif
+#else
+        CheckClick();
+        //CheckTouch();
+
+#endif
+    }
+
+    public void CheckTouch()
+    {
+        if (!isInEditMode || !(Application.isMobilePlatform || Input.touchSupported))
+            return;
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) return;
+            if (touch.phase == TouchPhase.Began)
+            {
+                Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                float distance; // 射线到平面的距离
+                if (xzPlane.Raycast(ray, out distance))
+                {
+                    Vector3 hitPoint = ray.GetPoint(distance);
+                    if (roomData == null) return;
+                    if (isCreatingNewInstance)
+                    {
+                        PreviewNewInstance(hitPoint);
+                    }
+                    else if (isInstanceSelected)
+                    {
+                        PreviewInstanceMove(hitPoint);
+                    }
+                    else
+                    {
+                        SelectInstance(hitPoint);
+                    }
+                }
+            }
+        }
     }
 
     public void CheckClick()

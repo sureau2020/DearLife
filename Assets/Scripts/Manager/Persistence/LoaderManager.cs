@@ -22,6 +22,7 @@ public static class LoaderManager
 
     private static readonly string SaveDataFolder = Path.Combine(Application.persistentDataPath, "SaveData");
     private static readonly string WardrobeFilePath = Path.Combine(SaveDataFolder, "Wardrobe.json");
+    private static readonly string GridMapFilePath = Path.Combine(Application.persistentDataPath, "SaveData", "GridMap.json");
 
     public class SimpleTypeBinder : ISerializationBinder
     {
@@ -57,7 +58,6 @@ public static class LoaderManager
         yield return LoadWardrobeFromSave();
         yield return LoadItems();
     }
-
 
     private static IEnumerator LoadEvents()
     {
@@ -282,8 +282,6 @@ public static class LoaderManager
         });
     }
 
-
-
     // 加载衣柜数据（服装）
     public static IEnumerator LoadWardrobeFromSave()
     {
@@ -393,5 +391,128 @@ public static class LoaderManager
         // 保存默认数据
         SaveManager.SaveWardrobe(defaultSlots);
         Debug.Log("创建并保存默认衣柜数据");
+    }
+
+    // 加载 GridMap
+    public static OperationResult<GridMap> LoadGridMap()
+    {
+        try
+        {
+            if (!File.Exists(GridMapFilePath))
+            {
+                Debug.Log("GridMap 存档文件不存在，将创建新的 GridMap");
+                return OperationResult<GridMap>.Fail("存档文件不存在");
+            }
+
+            string json = File.ReadAllText(GridMapFilePath);
+            var saveData = JsonConvert.DeserializeObject<SaveManager.GridMapSaveData>(json, JsonSettings);
+            
+            if (saveData == null)
+            {
+                Debug.LogError("GridMap 存档格式错误");
+                return OperationResult<GridMap>.Fail("存档格式错误");
+            }
+
+            // 创建新的 GridMap 实例（不使用默认初始化）
+            var gridMap = CreateEmptyGridMap();
+            
+            // 恢复 CameraLimitMax
+            typeof(GridMap).GetProperty("CameraLimitMax").SetValue(gridMap, saveData.CameraLimitMax);
+            
+            // 恢复家具实例
+            var furnitureField = typeof(GridMap).GetField("furnitureInstances", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var furnitureInstances = (Dictionary<string, FurnitureInstance>)furnitureField.GetValue(gridMap);
+            
+            foreach (var furnitureSave in saveData.FurnitureInstances.Values)
+            {
+                var furniture = new FurnitureInstance
+                {
+                    instanceId = furnitureSave.InstanceId,
+                    furnitureDataId = furnitureSave.FurnitureDataId,
+                    anchorPos = furnitureSave.AnchorPos,
+                    occupiedCells = new List<Vector2Int>(furnitureSave.OccupiedCells)
+                };
+                furnitureInstances[furniture.instanceId] = furniture;
+            }
+            
+            // 恢复装饰实例
+            var decorField = typeof(GridMap).GetField("decorInstances", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decorInstances = (Dictionary<string, DecorInstance>)decorField.GetValue(gridMap);
+            
+            foreach (var decorSave in saveData.DecorInstances.Values)
+            {
+                var decor = new DecorInstance
+                {
+                    instanceId = decorSave.InstanceId,
+                    decorId = decorSave.DecorId,
+                    position = decorSave.Position
+                };
+                decorInstances[decor.instanceId] = decor;
+            }
+            
+            // 恢复 Cell 数据
+            foreach (var cellPair in saveData.Cells)
+            {
+                var coords = cellPair.Key.Split(',');
+                var pos = new Vector2Int(int.Parse(coords[0]), int.Parse(coords[1]));
+                var cellSave = cellPair.Value;
+                
+                ref CellData cell = ref gridMap.GetCellRef(pos);
+                cell.flags = cellSave.Flags;
+                cell.furnitureInstanceId = cellSave.FurnitureInstanceId;
+                cell.floorTileId = cellSave.FloorTileId;
+                cell.decorInstanceId = cellSave.DecorInstanceId;
+            }
+            
+            // 恢复 ID 计数器
+            var nextFurnitureIdField = typeof(GridMap).GetField("nextFurnitureInstanceId", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            nextFurnitureIdField.SetValue(gridMap, saveData.NextFurnitureInstanceId);
+            
+            var nextDecorIdField = typeof(GridMap).GetField("nextDecorInstanceId", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            nextDecorIdField.SetValue(gridMap, saveData.NextDecorInstanceId);
+            
+            Debug.Log($"GridMap 成功从 {GridMapFilePath} 加载");
+            return OperationResult<GridMap>.Complete(gridMap);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"加载 GridMap 失败：{ex.Message}");
+            return OperationResult<GridMap>.Fail($"加载失败：{ex.Message}");
+        }
+    }
+
+    // 创建空的 GridMap（跳过默认初始化）
+    private static GridMap CreateEmptyGridMap()
+    {
+        // 使用反射创建 GridMap 实例，避免调用构造函数中的初始化逻辑
+        var gridMap = System.Activator.CreateInstance<GridMap>();
+        
+        // 手动初始化必要的字段
+        var worldField = typeof(GridMap).GetField("world", 
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        worldField.SetValue(gridMap, new ChunkWorld());
+        
+        var furnitureField = typeof(GridMap).GetField("furnitureInstances", 
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        furnitureField.SetValue(gridMap, new Dictionary<string, FurnitureInstance>());
+        
+        var decorField = typeof(GridMap).GetField("decorInstances", 
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        decorField.SetValue(gridMap, new Dictionary<string, DecorInstance>());
+        
+        // 初始化数据库引用
+        var tileField = typeof(GridMap).GetField("tileDataBase", 
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        tileField.SetValue(gridMap, GameManager.Instance.TileDataBase);
+        
+        var furnitureDbField = typeof(GridMap).GetField("furnitureDatabase", 
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        furnitureDbField.SetValue(gridMap, GameManager.Instance.FurnitureDatabase);
+        
+        return gridMap;
     }
 }

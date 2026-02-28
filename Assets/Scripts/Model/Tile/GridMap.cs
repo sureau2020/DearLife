@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class GridMap
 {
@@ -276,7 +275,6 @@ public class GridMap
                 if (cell.furnitureInstanceId == instanceId) continue;
                 return false;
             } 
-            Debug.Log($"{furnitureData.occupiedCells.Count}ÔÚ¼ì²éÊ±");
         }
         return true;
     }
@@ -301,8 +299,8 @@ public class GridMap
         {
             instanceId = instanceId,
             furnitureDataId = data.id,
-            anchorPos = new Vector2Int(int.MinValue, int.MinValue), 
-            occupiedCells = data.occupiedCells
+            anchorPos = new Vector2Int(int.MinValue, int.MinValue),
+            occupiedCells = new List<Vector2Int>()
         };
         furnitureInstances.Add(instanceId, instance);
         return instance;
@@ -423,6 +421,8 @@ public class GridMap
                 }
         }
     }
+
+    
 
     public IEnumerable<FurnitureInstance> GetAllFurnitureInstances()
         => furnitureInstances.Values;

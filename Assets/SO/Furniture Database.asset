@@ -26,6 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f7c182d519bd8f841ba1da335bac48ba, type: 2}
   - {fileID: 11400000, guid: 4e55d7ca73a927241becd7b810dc4bcf, type: 2}
   - {fileID: 11400000, guid: bab1f6108fbf9a644aba0531c52f1674, type: 2}
+  - {fileID: 11400000, guid: 1f976433b366d314298033406b459c9c, type: 2}
   builtinDecors:
   - {fileID: 11400000, guid: 29975b277aac910468e31f67c494b972, type: 2}
   - {fileID: 11400000, guid: e104866d0637c5a47aa34a62974d5f81, type: 2}

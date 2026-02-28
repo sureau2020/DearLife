@@ -191,6 +191,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.MachineStateDesign.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\ComfirmInfo.cs" />
     <Compile Include="Assets\Scripts\GameObject\CharacterAppearanceRenderer.cs" />
+    <Compile Include="Assets\Scripts\UI\Setting\RestMap.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\CartesianSelector.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Special\Rainbow.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Character.cs" />

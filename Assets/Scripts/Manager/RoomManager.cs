@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using Newtonsoft.Json;
 
 public class RoomManager : MonoBehaviour
 {
@@ -19,20 +19,31 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
-        // 1. 构建世界
-        GridMap = new GridMap();
+        // 1. 尝试加载保存的 GridMap
+        var loadResult = LoaderManager.LoadGridMap();
+        if (loadResult.Success)
+        {
+            GridMap = loadResult.Data;
+            Debug.Log("GridMap 从存档加载成功");
+        }
+        else
+        {
+            Debug.Log($"GridMap 加载失败：{loadResult.Message}，创建新的 GridMap");
+            // 2. 如果加载失败，构建新的世界
+            GridMap = new GridMap();
+        }
 
-        // 2. 构建算法工具
+        // 3. 构建算法工具
         pathfinder = new Pathfinder(GridMap);
 
-        // 3. 初始化 View
+        // 4. 初始化 View
         roomView.Initialize(GridMap);
 
-        // 4. 标记完成
+        // 5. 标记完成
         IsInitialized = true;
         Debug.Log("RoomManager: Initialization complete");
 
-        // 5. 广播
+        // 6. 广播
         OnRoomManagerInitialized?.Invoke(this);
     }
 
@@ -91,6 +102,7 @@ public class RoomManager : MonoBehaviour
         if (!GridMap.CanPlaceFurniture(data, cellPos, currentFurnitureInstance.instanceId)) return false;
         GridMap.PlaceFurnitureKeepInstanceId(cellPos, data,currentFurnitureInstance);
         Debug.Log($"Furniture {currentFurnitureInstance.instanceId} moved to {currentFurnitureInstance.anchorPos},{currentFurnitureInstance.furnitureDataId},{currentFurnitureInstance.ToString()}");
+        SaveMapData();
         return true;
     }
 
@@ -103,6 +115,7 @@ public class RoomManager : MonoBehaviour
         if (data == null) return false;
         if (!GridMap.CanPlaceDecor(cellPos, currentDecorInstance.instanceId)) return false;
         GridMap.PlaceDecorKeepInstanceId(cellPos, currentDecorInstance);
+        SaveMapData();
         return true;
     }
 
@@ -129,11 +142,13 @@ public class RoomManager : MonoBehaviour
     public void RemoveFurniture(FurnitureInstance currentFurnitureInstance) {
         roomView.RemoveFurniture(currentFurnitureInstance);
         GridMap.RemoveFurniture(currentFurnitureInstance);
+        SaveMapData();
     }
 
     public void RemoveDecor(DecorInstance currentDecorInstance) {
         roomView.RemoveDecor(currentDecorInstance);
         GridMap.RemoveDecor(currentDecorInstance);
+        SaveMapData();
     }
 
     public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint, Vector3 pos) {
@@ -175,4 +190,20 @@ public class RoomManager : MonoBehaviour
         return tempInstance;
     }
 
+    public void SaveMapData()
+    {
+        var saveResult = SaveManager.SaveGridMap(GridMap);
+        if (!saveResult.Success)
+        {
+            Debug.LogError($"GridMap 保存失败：{saveResult.Message}");
+        }
+    }
+
+    public void ResetRoom()
+    {
+        GridMap = new GridMap();
+        pathfinder = new Pathfinder(GridMap);
+        roomView.Initialize(GridMap);
+        SaveMapData();
+    }
 }

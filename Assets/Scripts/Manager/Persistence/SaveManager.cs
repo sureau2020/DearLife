@@ -15,10 +15,9 @@ public static class SaveManager
     private static readonly string TaskDataFolder = Path.Combine(Application.persistentDataPath, "TaskData");
     private static readonly string CustomClothesFilePath = Path.Combine(Application.persistentDataPath, "CustomClothes");
     private static readonly string WardrobeFilePath = Path.Combine(SaveDataFolder, "Wardrobe.json");
-
+    private static readonly string GridMapFilePath = Path.Combine(SaveDataFolder, "GridMap.json");
 
     private static readonly SemaphoreSlim stateSaveSemaphore = new SemaphoreSlim(1, 1);
-
 
     // 简化序列化选项，不需要引用处理
     private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
@@ -205,12 +204,12 @@ public static class SaveManager
             string filePath = Path.Combine(SaveDataFolder, StateManagerFileName);
             if (!File.Exists(filePath))
             {
-                return OperationResult<StateManagerSaveData>.Fail("存档文件不存在"); 
+                return OperationResult<StateManagerSaveData>.Fail("存档文件不存在");
             }
 
             string json = File.ReadAllText(filePath);
             var saveData = JsonConvert.DeserializeObject<StateManagerSaveData>(json, JsonSettings);
-            
+
             if (saveData == null)
             {
                 //Debug.Log("文件存在: " + File.Exists(filePath));
@@ -226,7 +225,7 @@ public static class SaveManager
         catch (System.Exception ex)
         {
             Debug.LogError($"加载 StateManager 失败：{ex.Message}");
-            return OperationResult<StateManagerSaveData>.Fail($"存档文件解析失败：{ex.Message}"); 
+            return OperationResult<StateManagerSaveData>.Fail($"存档文件解析失败：{ex.Message}");
         }
     }
 
@@ -527,6 +526,159 @@ public static class SaveManager
     //    return data;
     //}
 
+    // GridMap 保存数据结构
+    [System.Serializable]
+    public class GridMapSaveData
+    {
+        public Vector2 CameraLimitMax;
+        public Dictionary<string, CellDataSave> Cells;
+        public Dictionary<string, FurnitureInstanceSave> FurnitureInstances;
+        public Dictionary<string, DecorInstanceSave> DecorInstances;
+        public int NextFurnitureInstanceId;
+        public int NextDecorInstanceId;
+    }
+
+    [System.Serializable]
+    public class CellDataSave
+    {
+        public CellFlags Flags;
+        public string FurnitureInstanceId;
+        public string FloorTileId;
+        public string DecorInstanceId;
+    }
+
+    [System.Serializable]
+    public class FurnitureInstanceSave
+    {
+        public string InstanceId;
+        public string FurnitureDataId;
+        public Vector2Int AnchorPos;
+        public List<Vector2Int> OccupiedCells;
+    }
+
+    [System.Serializable]
+    public class DecorInstanceSave
+    {
+        public string InstanceId;
+        public string DecorId;
+        public Vector2Int Position;
+    }
+
+    // 保存 GridMap
+    public static OperationResult SaveGridMap(GridMap gridMap)
+    {
+        try
+        {
+            if (!Directory.Exists(SaveDataFolder))
+                Directory.CreateDirectory(SaveDataFolder);
+
+            var saveData = new GridMapSaveData
+            {
+                CameraLimitMax = gridMap.CameraLimitMax,
+                Cells = new Dictionary<string, CellDataSave>(),
+                FurnitureInstances = new Dictionary<string, FurnitureInstanceSave>(),
+                DecorInstances = new Dictionary<string, DecorInstanceSave>(),
+                NextFurnitureInstanceId = GetNextFurnitureInstanceId(gridMap),
+                NextDecorInstanceId = GetNextDecorInstanceId(gridMap)
+            };
+
+            // 保存所有有效的 Cell 数据
+            foreach (var cellPair in gridMap.DebugAllCells())
+            {
+                var pos = cellPair.Key;
+                var cell = cellPair.Value;
+                
+                // 只保存有数据的 Cell（有地板或家具或装饰）
+                if (cell.Has(CellFlags.HasFloor) || 
+                    cell.Has(CellFlags.HasFurniture) || 
+                    !string.IsNullOrEmpty(cell.decorInstanceId))
+                {
+                    string key = $"{pos.x},{pos.y}";
+                    saveData.Cells[key] = new CellDataSave
+                    {
+                        Flags = cell.flags,
+                        FurnitureInstanceId = cell.furnitureInstanceId ?? "",
+                        FloorTileId = cell.floorTileId ?? "",
+                        DecorInstanceId = cell.decorInstanceId ?? ""
+                    };
+                }
+            }
+
+            // 保存家具实例
+            foreach (var furniture in gridMap.GetAllFurnitureInstances())
+            {
+                saveData.FurnitureInstances[furniture.instanceId] = new FurnitureInstanceSave
+                {
+                    InstanceId = furniture.instanceId,
+                    FurnitureDataId = furniture.furnitureDataId,
+                    AnchorPos = furniture.anchorPos,
+                    OccupiedCells = new List<Vector2Int>(furniture.occupiedCells)
+                };
+            }
+
+            // 保存装饰实例
+            foreach (var decor in gridMap.GetAllDecorInstances())
+            {
+                saveData.DecorInstances[decor.instanceId] = new DecorInstanceSave
+                {
+                    InstanceId = decor.instanceId,
+                    DecorId = decor.decorId,
+                    Position = decor.position
+                };
+            }
+
+            string json = JsonConvert.SerializeObject(saveData, JsonSettings);
+            
+            // 使用临时文件保证原子操作
+            string tempFilePath = GridMapFilePath + ".tmp";
+            File.WriteAllText(tempFilePath, json);
+            
+            if (File.Exists(GridMapFilePath))
+                File.Delete(GridMapFilePath);
+            
+            File.Move(tempFilePath, GridMapFilePath);
+            
+            Debug.Log($"GridMap 已保存到：{GridMapFilePath}");
+            return OperationResult.Complete();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"保存 GridMap 失败：{ex.Message}");
+            return OperationResult.Fail($"保存失败：{ex.Message}");
+        }
+    }
+
+    // 辅助方法获取下一个家具实例ID
+    private static int GetNextFurnitureInstanceId(GridMap gridMap)
+    {
+        int maxId = 0;
+        foreach (var furniture in gridMap.GetAllFurnitureInstances())
+        {
+            if (furniture.instanceId.StartsWith("furniture_"))
+            {
+                string idStr = furniture.instanceId.Substring("furniture_".Length);
+                if (int.TryParse(idStr, out int id) && id > maxId)
+                    maxId = id;
+            }
+        }
+        return maxId + 1;
+    }
+
+    // 辅助方法获取下一个装饰实例ID
+    private static int GetNextDecorInstanceId(GridMap gridMap)
+    {
+        int maxId = 0;
+        foreach (var decor in gridMap.GetAllDecorInstances())
+        {
+            if (decor.instanceId.StartsWith("decor_"))
+            {
+                string idStr = decor.instanceId.Substring("decor_".Length);
+                if (int.TryParse(idStr, out int id) && id > maxId)
+                    maxId = id;
+            }
+        }
+        return maxId + 1;
+    }
 }
 
 // 简单的序列化包装类

@@ -8,14 +8,14 @@ public class FurnitureCell : MonoBehaviour
 {
     [SerializeField] private Image icon;
     [SerializeField] private Image kuang;
-    [SerializeField] private TextMeshProUGUI nameText;
+    //[SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Button _button;
     private string id;
     private FurnishCategory category;
     public void SetFurnitureData(Sprite sprite, string id, FurnishCategory category, int index) { 
          if (sprite != null)
          {
-             nameText.text = id;
+             //nameText.text = id;
              icon.sprite = sprite;
              var fitter = icon.GetComponent<AspectRatioFitter>();
              if (fitter != null)

@@ -181,6 +181,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetRoom() {
+        RoomManager.ResetRoom();
+    }
+
     public string GetSetting(string key) { 
         switch(key) {
             case "MaxSalaryFactor": return StateManager.Settings.MaxSalaryFactor.ToString("F2");
