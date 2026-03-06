@@ -79,3 +79,23 @@ MonoBehaviour:
     walkable: 0
   - id: Green_DefaultCell
     walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_131
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_133
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_134
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_113
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_116
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_95
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_97
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_98
+    walkable: 1
+  - id: TopDownHouse_FloorsAndWalls_74
+    walkable: 0
+  - id: TopDownHouse_FloorsAndWalls_56
+    walkable: 0

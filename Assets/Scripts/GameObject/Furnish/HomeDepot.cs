@@ -18,8 +18,7 @@ public class HomeDepot : MonoBehaviour
     private List<FurnitureCell> furnitureList = new List<FurnitureCell>();
     private List<DecorData> decors = new List<DecorData>();
     private List<FurnitureData> furnitures = new List<FurnitureData>();
-    private List<TileData> floorTiles = new List<TileData>();
-    private Dictionary<string, Sprite> tileCache = new();
+    private List<MapData> maps = new List<MapData>();
 
     int currentIndex = -1;
 
@@ -76,24 +75,28 @@ public class HomeDepot : MonoBehaviour
         ClearList();
         int index = 0;
         currentIndex = -1;
-        GameManager.Instance.TileDataBase.GetAllFloorTiles(floorTiles).ForEach(tile => {
+        GameManager.Instance.MapDataBase.GetAllMap(maps).ForEach(map => {
             GameObject cell = Instantiate(cellPrefab, cellList);
             FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
-            furnitureCell.SetFurnitureData(GetTileBase(tile.id),tile.id, FurnishCategory.Floor, index);
+            if (map.icon == null)
+            {
+                furnitureCell.SetFurnitureData(GetMapIconAndSetIcon(map), map.id, FurnishCategory.Floor, index);
+            }
+            else { 
+                furnitureCell.SetFurnitureData(map.icon, map.id, FurnishCategory.Floor, index);
+            }
             furnitureList.Add(furnitureCell);
             index++;
         });
     }
 
-    private Sprite GetTileBase(string tileId)
+    private Sprite GetMapIconAndSetIcon(MapData map)
     {
-        if (tileCache.TryGetValue(tileId, out var tileSprite))
-            return tileSprite;
-        Tile tile = tileLoader.LoadTile(tileId) as Tile;
-        if (tile != null)
+        Sprite icon = IconManager.GetMapIcon(map.id);
+        if (icon != null)
         {
-            tileCache[tileId] = tile.sprite;
-            return tile.sprite;
+            map.icon = icon;
+            return icon;
         }
         return null;
     }

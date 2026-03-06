@@ -63,6 +63,7 @@
     <Compile Include="Assets\Editor\TilemapDataScanner.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\Editor\LiteMotionBehaviourDrawer.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Editor\AnimationProcessDrawer.cs" />
+    <Compile Include="Assets\Editor\TilemapToPNG.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Editor\TextLifeCustomEditor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\Editor\SerializedObjectListDrawer.cs" />
     <Compile Include="Assets\Editor\TilemapCleaner.cs" />

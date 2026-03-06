@@ -9,6 +9,7 @@ public class IconManager : MonoBehaviour
     [SerializeField] private SpriteAtlas giftAtlas;
     [SerializeField] private SpriteAtlas specialAtlas;
     [SerializeField] private SpriteAtlas clothAtlas;
+    [SerializeField] private SpriteAtlas mapAtlas;
 
     private static IconManager instance;
     void Awake() => instance = this;
@@ -28,6 +29,11 @@ public class IconManager : MonoBehaviour
     public static Sprite GetClothIcon(string iconID)
     {
         return instance.clothAtlas.GetSprite(iconID);
+    }
+
+    public static Sprite GetMapIcon(string iconID)
+    {
+        return instance.mapAtlas.GetSprite(iconID);
     }
 
 

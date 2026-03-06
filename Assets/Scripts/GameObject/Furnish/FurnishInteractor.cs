@@ -41,14 +41,14 @@ public class FurnishInteractor : MonoBehaviour
 
     private void Update()
     {
-//#if UNITY_ANDROID || UNITY_IOS
-//        CheckTouch();
+#if UNITY_ANDROID || UNITY_IOS
+        CheckTouch();
 
-//#else
+#else
         CheckClick();
         //CheckTouch();
 
-//#endif
+#endif
     }
 
     public void CheckTouch()

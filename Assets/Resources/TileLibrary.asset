@@ -83,3 +83,23 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: eba0946ae39d2f140a0a5cab539a79b7, type: 2}
   - tileId: Green_DefaultCell
     tile: {fileID: 11400000, guid: 0fa7b47e30398e64aa26d02ed4196d6c, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_131
+    tile: {fileID: 11400000, guid: 42c1d45ae901d2f4d900703ec0c007f1, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_133
+    tile: {fileID: 11400000, guid: 246c80c29bc758741a832a25d5d727d7, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_134
+    tile: {fileID: 11400000, guid: 1283eadc4119d1b47aaa3b12d88f08bc, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_113
+    tile: {fileID: 11400000, guid: 45c005d16e36dba459f0451c995fb4a7, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_116
+    tile: {fileID: 11400000, guid: d05d1d98e6615904fb29715a49810122, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_95
+    tile: {fileID: 11400000, guid: 6305991abca33814e8e885ece9706e1d, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_97
+    tile: {fileID: 11400000, guid: 2e6f0eee7d0226344b18cc659d5f6d65, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_98
+    tile: {fileID: 11400000, guid: d1236476e007ed44a99457fc14b64565, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_74
+    tile: {fileID: 11400000, guid: fd5bb04258258c349b59e8c2f86231a2, type: 2}
+  - tileId: TopDownHouse_FloorsAndWalls_56
+    tile: {fileID: 11400000, guid: b0f4e42b6a274eb43bfb1c8bd2a87e63, type: 2}

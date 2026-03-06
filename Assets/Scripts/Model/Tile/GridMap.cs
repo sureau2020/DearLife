@@ -30,7 +30,7 @@ public class GridMap
     {
         tileDataBase = GameManager.Instance.TileDataBase;
         furnitureDatabase = GameManager.Instance.FurnitureDatabase;
-        var mapData = Resources.Load<MapDataSO>("MapData");
+        var mapData = Resources.Load<MapDataSO>("Map/room1");
         if (mapData == null) {
             ErrorNotifier.NotifyError("Failed to load MapDataSO from Resources/MapData"); return;
         }
@@ -174,7 +174,6 @@ public class GridMap
     {
         CellData cell = world.GetCell(pos);
         if (!cell.Has(CellFlags.HasFurniture)) return null;
-        Debug.Log($"在GetFurniture时，cell.furnitureInstanceId={cell.furnitureInstanceId}");
         return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
     }
 
@@ -250,7 +249,7 @@ public class GridMap
     // 尝试放置家具，成功返回 true，失败（位置被占用）返回 false
     public bool PlaceFurniture(Vector2Int anchorPos, FurnitureData data)
     {
-        if (data == null) { Debug.LogError("FurnitureData is null"); return false; }
+        if (data == null) {  return false; }
         // 可放置检测
         foreach (var offset in data.occupiedCells)
         {

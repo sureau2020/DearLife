@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aad7fe2a34d3b5d4c9a2b4c4f3ae36a0, type: 3}
-  m_Name: MapData
+  m_Name: room1
   m_EditorClassIdentifier: 
   tileInstances:
   - position: {x: 0, y: -3, z: 0}

@@ -228,7 +228,6 @@ public class RoomView : MonoBehaviour
         }
         foreach (var kv in gridMap.GetAllDecorInstances())
         {
-            Debug.Log($"Decor instance at {kv.position} with ID {kv.instanceId}");
             Vector2Int pos = kv.position;
             cellsMap.SetTile(
                    new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")

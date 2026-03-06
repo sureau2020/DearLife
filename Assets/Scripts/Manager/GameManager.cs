@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public FurnitureDatabase FurnitureDatabase { get; private set; } 
     public TileDataBase TileDataBase { get; private set; }
 
+    public MapDatabase MapDataBase { get; private set; } 
+
 
     [SerializeField]private RebirthUI rebirthUI;
     [SerializeField] private GameObject loadingUI;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     {
         FurnitureDatabase = new FurnitureDatabase();
         TileDataBase = new TileDataBase();
+        MapDataBase = new MapDatabase();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
