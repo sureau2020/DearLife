@@ -48,4 +48,9 @@ public class ChunkWorld
         return -(((-a - 1) / size) + 1);
     }
 
+
+    public void Clear()
+    {
+        chunks.Clear();
+    }
 }

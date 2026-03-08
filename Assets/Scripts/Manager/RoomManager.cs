@@ -199,6 +199,21 @@ public class RoomManager : MonoBehaviour
         return tempInstance;
     }
 
+    public void ComfirmNewFloor(string roomBGId, Action onChanged) {
+        ConfirmRequestManager.Request(
+        content: "确定要将小屋背景吗？会清空所有家具与装饰。",
+        onConfirm: () => ChangeToNewFloor(roomBGId, onChanged)
+    );
+    }
+
+    private void ChangeToNewFloor(string roomBGId, Action onChanged) {
+        GridMap.ChangeFloor(roomBGId);
+        roomView.ChangeFloor();
+        SaveMapData();
+
+        onChanged?.Invoke();
+    }
+
     public void SaveMapData()
     {
         var saveResult = SaveManager.SaveGridMap(GridMap);

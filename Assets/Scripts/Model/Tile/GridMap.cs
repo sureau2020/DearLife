@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class GridMap
 {
-    public Vector2 CameraLimitMax { get; private set; }
+    public Vector2Int CameraLimitMax { get; private set; }
     public Action<Vector2> newCameraLimitMax;
 
     private readonly ChunkWorld world = new();
@@ -134,6 +135,32 @@ public class GridMap
             cell.flags |= CellFlags.FloorWalkable;
         else
             cell.flags &= ~CellFlags.FloorWalkable;
+    }
+
+    public void ChangeFloor(string roomId) { 
+        furnitureInstances.Clear();
+        decorInstances.Clear();
+        world.Clear();
+
+        MapData map = GameManager.Instance.MapDataBase.GetMapById(roomId);
+        CreateNewRoome(map);
+    }
+
+    private void CreateNewRoome(MapData map) { 
+        if (map == null) {
+            ErrorNotifier.NotifyError("导入地图出现问题"); return;
+        }
+        Vector2Int maxPos = Vector2Int.zero;
+        foreach (var tileInstance in map.tileInstances)
+        {
+            Vector2Int pos = new Vector2Int(tileInstance.position.x, tileInstance.position.y);
+            if (pos.x > maxPos.x) maxPos.x = pos.x;
+            if (pos.y > maxPos.y) maxPos.y = pos.y;
+            AddCellInternal(pos.x, pos.y, tileInstance.tileId, "", "");
+        }
+        CameraLimitMax = maxPos;
+        
+        newCameraLimitMax?.Invoke(new Vector2(maxPos.x, maxPos.y));
     }
 
     // ==== Walkable ====

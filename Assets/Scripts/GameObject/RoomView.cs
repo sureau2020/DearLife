@@ -59,7 +59,7 @@ public class RoomView : MonoBehaviour
     // Render Entry
     // =========================
 
-    private void RenderAll()
+    public void RenderAll()
     {
         RenderFloors();
         RenderFurniture();
@@ -72,13 +72,13 @@ public class RoomView : MonoBehaviour
 
     private void RenderFloors()
     {
+
         foreach (var pos in gridMap.GetAllWalkableCells()) { } // force chunks alive
 
         foreach (var kv in gridMap.DebugAllCells())
         {
             Vector2Int pos = kv.Key;
             CellData cell = kv.Value;
-
             if (!cell.Has(CellFlags.HasFloor)) continue;
 
             var tile = GetTile(cell.floorTileId);
@@ -89,6 +89,11 @@ public class RoomView : MonoBehaviour
                 tile
             );
         }
+    }
+
+    public void ChangeFloor() {
+        ClearAll();
+        RenderAll();
     }
 
     // =========================

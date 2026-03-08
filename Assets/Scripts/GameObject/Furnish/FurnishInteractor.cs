@@ -33,7 +33,7 @@ public class FurnishInteractor : MonoBehaviour
     private bool isInstanceSelected = false;
     private bool isInEditMode = false;
     private bool isCreatingNewInstance = false;
-    private string creatingInstanceDataId = "";
+   private string creatingInstanceDataId = "";
 
 
     private IRoomDataProvider roomData;
@@ -41,13 +41,14 @@ public class FurnishInteractor : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_ANDROID || UNITY_IOS
-        CheckTouch();
+#if UNITY_EDITOR
+        CheckClick();
+
+#elif UNITY_ANDROID || UNITY_IOS
+    CheckTouch();
 
 #else
-        CheckClick();
-        //CheckTouch();
-
+    CheckClick();
 #endif
     }
 
@@ -202,7 +203,6 @@ public class FurnishInteractor : MonoBehaviour
 
     public void CancelSelection()
     {
-        
         if (isCreatingNewInstance) { DeleteNewInstance(); return; }
         HideCancelBinOkButtons();
         switch (currentLayer)
@@ -295,14 +295,7 @@ public class FurnishInteractor : MonoBehaviour
 
     public void ComfirmNewInstance() {
         isCreatingNewInstance = false;
-        if (currentLayer == FurnishCategory.Furniture)
-        {
-            
-        }
-        else if (currentLayer == FurnishCategory.Decor)
-        {
-            //roomData.roomManager.ConfirmNewDecor(currentDecorInstance);
-        }
+        
         currentFurnitureInstance = null;
         currentDecorInstance = null;
         ShowHint("点击绿色格子选择相应部件");
@@ -476,12 +469,25 @@ public class FurnishInteractor : MonoBehaviour
                 }
                 break;
             case FurnishCategory.Floor:
-                //roomData.roomManager.PreviewNewFloor(creatingInstanceDataId, hitPoint);
+                if (creatingInstanceDataId != null) {
+                    roomData.roomManager.ComfirmNewFloor(creatingInstanceDataId, () =>
+                    {
+                        StartCoroutine(WaitAndChangeToFurnitureLayer());
+                    });
+                }
                 break;
         }
-        ShowCancelBinOKButtons();
-        isInstanceSelected = true;
-        HomeDepotCover.enabled = true;
+        if (currentLayer != FurnishCategory.Floor) {
+            ShowCancelBinOKButtons();
+            isInstanceSelected = true;
+            HomeDepotCover.enabled = true;
+        }
+    }
+
+    IEnumerator WaitAndChangeToFurnitureLayer()
+    {
+        yield return null;
+        ShowFurnitureLayer();
     }
 
     public void SelectDepotItem(string id, FurnishCategory category) {
@@ -496,7 +502,7 @@ public class FurnishInteractor : MonoBehaviour
                 ShowHint("点击格子放置该装饰"); 
                 break;
             case FurnishCategory.Floor:
-                ShowHint("点击格子绘制地板");
+                ShowHint("点击任意地方切换地板");
                 break;
         }
         isCreatingNewInstance = true;

@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         isGridMapReady = true;
         
         // 设置相机限制
-        panLimitMax = gridMap.CameraLimitMax + maxOffset;
+        panLimitMax = gridMap.CameraLimitMax + panLimitMin + maxOffset;
         
         // 订阅后续的限制变化事件
         gridMap.newCameraLimitMax += OnCameraLimitMaxChanged;
@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
 
     private void OnCameraLimitMaxChanged(Vector2 newLimit)
     {
-        panLimitMax = newLimit + panLimitMin;
+        panLimitMax = newLimit + panLimitMin+ maxOffset;
         Debug.Log($"Camera pan limit updated: {panLimitMax}");
     }
 

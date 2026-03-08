@@ -3579,7 +3579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &142006231
 Transform:
   m_ObjectHideFlags: 0
@@ -18502,9 +18502,9 @@ MonoBehaviour:
   minZoom: 5
   maxZoom: 10
   panSpeed: 23
-  panLimitMin: {x: 3, y: 7}
+  panLimitMin: {x: 1, y: 7}
   panLimitMax: {x: 3, y: 11}
-  maxOffset: {x: -1, y: 7}
+  maxOffset: {x: -1, y: 4}
   allowPanWhenPointerOverUI: 0
 --- !u!114 &662550283
 MonoBehaviour:
@@ -40960,7 +40960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1724252442
 Transform:
   m_ObjectHideFlags: 0
@@ -46461,7 +46461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1948300180
 Transform:
   m_ObjectHideFlags: 0

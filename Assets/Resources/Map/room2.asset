@@ -229,3 +229,27 @@ MonoBehaviour:
     tileId: TopDownHouse_FloorsAndWalls_1
   - position: {x: 8, y: 10, z: 0}
     tileId: TopDownHouse_FloorsAndWalls_17
+  - position: {x: -1, y: 10, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_0
+  - position: {x: -1, y: 9, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 8, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 7, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 6, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 5, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 4, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 3, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 2, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 1, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: 0, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_18
+  - position: {x: -1, y: -1, z: 0}
+    tileId: TopDownHouse_FloorsAndWalls_144
