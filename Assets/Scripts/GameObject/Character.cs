@@ -54,8 +54,12 @@ public class Character : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR 
+        if (!closet.isActiveAndEnabled && !isFurnishing) {
+            CheckClick();
+        }
 
-#if UNITY_ANDROID || UNITY_IOS
+#elif UNITY_ANDROID || UNITY_IOS
         if (!closet.isActiveAndEnabled && !isFurnishing)
         {
             CheckTouch();

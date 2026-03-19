@@ -18,6 +18,15 @@ public class GameSettings
     //0-5的数字，数字越大回复概率越高，0不回复，5肯定回复
     public int ReplyChance { get; set; } = 2;
 
+    public string API { get; set; } = "Gemini";
+
+    public string Key { get; set; } = "";
+
+    public string Model { get; set; } = "";
+
+    public string Prompt { get; set; } = "";
+
+    public bool IsAIEnabled { get; set; } = false;
 
     public OperationResult Validate()
     {
@@ -88,5 +97,50 @@ public class GameSettings
         return OperationResult.Complete();
     }
 
+    public OperationResult ChangeAPI(string api)
+    {
+        API = api;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
 
+    public OperationResult ChangeKey(string key)
+    {
+        Key = key;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
+
+    public OperationResult ChangeModel(string model)
+    {
+        Model = model;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
+
+    public OperationResult ChangePrompt(string prompt)
+    {
+        Prompt = prompt;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
+
+    public bool IsAISettingValid() { 
+        if (string.IsNullOrEmpty(API) || string.IsNullOrEmpty(Key) || string.IsNullOrEmpty(Model))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public OperationResult ChangeAIEnabled(bool enabled)
+    {
+        if (enabled && !IsAISettingValid())
+        {
+            return OperationResult.Fail("请先完善AI设置");
+        }
+        IsAIEnabled = enabled;
+        _ = GameManager.Instance.StateManager.SaveStateAsync();
+        return OperationResult.Complete();
+    }
 }

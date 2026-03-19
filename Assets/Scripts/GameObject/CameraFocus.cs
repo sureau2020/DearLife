@@ -10,7 +10,7 @@ public class CameraFocus : MonoBehaviour
 
     [Header("¾Û½¹²ÎÊý")]
     [SerializeField] private Transform target;
-    public Vector3 offset = new Vector3(0, 0, -2f);
+    public Vector3 offset = new Vector3(0, 0, -4f);
     public float moveSpeed = 5f;
     public float zoomSpeed = 3f;
     public float targetSize = 2f;
@@ -80,4 +80,6 @@ public class CameraFocus : MonoBehaviour
         cam.orthographicSize = endSize;
         currentRoutine = null;
     }
+
+
 }

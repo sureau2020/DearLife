@@ -16,5 +16,5 @@ MonoBehaviour:
   decorName: carpet
   decorType: 0
   decorSprite: {fileID: 21300000, guid: 40b4ebc03641d2f4da4d46a881a432a7, type: 3}
-  renderOffset: {x: 0, y: 0}
+  renderOffset: {x: 0, y: -3}
   sortingOrder: 0

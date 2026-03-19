@@ -16,7 +16,7 @@ public static class LoaderManager
     {
         TypeNameHandling = TypeNameHandling.Auto,
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        Converters = { new Newtonsoft.Json.Converters.StringEnumConverter() },
+        Converters = { new Newtonsoft.Json.Converters.StringEnumConverter()},
         SerializationBinder = new SimpleTypeBinder()
     };
 
@@ -516,3 +516,5 @@ public static class LoaderManager
         return gridMap;
     }
 }
+
+

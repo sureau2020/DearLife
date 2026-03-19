@@ -11,12 +11,15 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ChoicesUI choicePanelUI;
     [SerializeField] private BottomButton randomDailyEventGenerator;
 
+    [SerializeField] private AIChat aiChat;
+
     private int dailyEventShownCount = 0;
     private DateTime lastDailyEventDate = DateTime.MinValue;
     private const int MaxDailyEvents = 999;
     private const string DailyEventCountKey = "DailyEventShownCount";
     private const string DailyEventDateKey = "DailyEventDate";
     private const string DefaultDailyEventId = "Kage_daily_normal_default_1";
+    
 
     void Awake()
     {
@@ -80,6 +83,16 @@ public class DialogueManager : MonoBehaviour
         return OperationResult.Complete();
     }
 
+    public OperationResult StartDialogue(EventData eventData)
+    {
+        if (eventData == null)
+        {
+            return OperationResult.Fail("事件数据为null，无法开始对话。");
+        }
+        runner.StartEvent(eventData);
+        return OperationResult.Complete();
+    }
+
     public void StartRandomDailyDialogue()
     {
         // 检查日期是否变更，变更则重置
@@ -136,6 +149,34 @@ public class DialogueManager : MonoBehaviour
         else { 
             ItemData item = ItemDataBase.GetItemById(itemId);
             return StartDialogue(Calculators.RandomEvent(item.FilteredEventIds));
+        }
+    }
+
+    // 修改 ShowAIItemDialogue 方法，移除对 HandleAIBug 的直接返回，改为只传递 callback，不处理其返回值
+    public OperationResult ShowAIItemDialogue(int p, string itemId, CharacterData character)
+    {
+        if (p <= 1 || !Calculators.RandomChance(p))
+        {
+            return OperationResult.Complete();
+        }
+        else
+        {
+            ItemData item = ItemDataBase.GetItemById(itemId);
+            aiChat.GenerateAIDialogue(item, character, HandleAIBug);
+            return OperationResult.Complete();
+        }
+    }
+
+    // 保持 HandleAIBug 的签名和实现不变
+    private void HandleAIBug(OperationResult<EventData> operationResult)
+    {
+        if (!operationResult.Success)
+        {
+            ErrorNotifier.NotifyError($"AI对话生成失败，错误信息：{operationResult.Message}");
+        }
+        else
+        {
+            StartDialogue(operationResult.Data);
         }
     }
 

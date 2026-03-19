@@ -153,17 +153,19 @@ public class FurnishInteractor : MonoBehaviour
     private void CheckFurnitureMove(Vector3 hitPoint)
     {
         if (currentFurnitureInstance == null) return;
-        Vector3 pos = currentFurnitureInstance.furnitureObject.transform.position;
+        GameObject obj = currentFurnitureInstance.furnitureObject;
+        Vector3 pos = obj.transform.position;
         roomData.roomManager.PreviewMoveFurniture(currentFurnitureInstance, hitPoint, pos);
-        kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
+        kuang.transform.position = obj.transform.position;
     }
 
     private void CheckDecorMove(Vector3 hitPoint)
     {
         if (currentDecorInstance == null) return;
-        Vector3 pos = currentDecorInstance.decorObject.transform.position;
+        GameObject obj = currentDecorInstance.decorObject;
+        Vector3 pos = obj.transform.position;
         roomData.roomManager.PreviewMoveDecor(currentDecorInstance, hitPoint, pos);
-        kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(hitPoint);
+        kuang.transform.position = obj.transform.position;
     }
 
     private void CheckFurnitureClick(Vector3 hitPoint)
@@ -172,11 +174,13 @@ public class FurnishInteractor : MonoBehaviour
         FurnitureInstance furniture = roomData.roomManager.GetFurnitureAt(hitPoint);
         if (furniture != null)
         {
-            Vector3 spriteSize = furniture.furnitureObject.GetComponent<SpriteRenderer>().bounds.size;
+            GameObject obj = furniture.furnitureObject;
+            Vector3 spriteSize = obj.GetComponent<SpriteRenderer>().bounds.size;
             Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
             kuang.SetActive(true);
             kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
-            kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
+            kuang.transform.position = obj.transform.position;
+            //kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(furniture.anchorPos);
             currentFurnitureInstance = furniture;
             ShowCancelBinOKButtons();
             isInstanceSelected = true;
@@ -189,11 +193,12 @@ public class FurnishInteractor : MonoBehaviour
         DecorInstance decor = roomData.roomManager.GetDecorInstanceAt(hitPoint);
         if (decor != null)
         {
-            Vector3 spriteSize = decor.decorObject.GetComponent<SpriteRenderer>().bounds.size;
+            GameObject obj = decor.decorObject;
+            Vector3 spriteSize = obj.GetComponent<SpriteRenderer>().bounds.size;
             Vector3 realSize = new Vector3(spriteSize.x, spriteSize.z, 1);
             if (!kuang.activeSelf) kuang.SetActive(true);
             kuang.transform.GetComponent<SpriteRenderer>().size = realSize;
-            kuang.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(decor.position);
+            kuang.transform.position = obj.transform.position;
             currentDecorInstance = decor;
             ShowCancelBinOKButtons();
             isInstanceSelected = true;
@@ -209,13 +214,15 @@ public class FurnishInteractor : MonoBehaviour
         {
             case FurnishCategory.Furniture:
                 RefreshFrnitureLayer();
-                currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos);
+                Vector2 offset = GameManager.Instance.FurnitureDatabase.GetFurnitureData(currentFurnitureInstance.furnitureDataId).renderOffset;
+                currentFurnitureInstance.furnitureObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentFurnitureInstance.anchorPos)+ new Vector3(offset.x, offset.y, 0);
                 currentFurnitureInstance = null;
                 ShowHint("点击绿色格子选择相应部件");
                 break;
             case FurnishCategory.Decor:
                 RefreshDecorLayer();
-                currentDecorInstance.decorObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentDecorInstance.position);
+                Vector2 offsetD = GameManager.Instance.FurnitureDatabase.GetDecorData(currentDecorInstance.decorId).renderOffset;
+                currentDecorInstance.decorObject.transform.position = roomData.roomManager.GetCellWorldLeftBottomPosition(currentDecorInstance.position) + new Vector3(offsetD.x, offsetD.y, 0);
                 currentDecorInstance = null;
                 ShowHint("点击绿色格子选择相应部件");
                 break;

@@ -318,7 +318,7 @@ public class RoomView : MonoBehaviour
             cellsMap.SetTile(new Vector3Int(cell2D.x, cell2D.y, 0), GetTile("Red_DefaultCell"));
         }
         GameObject gameObject = decor.decorObject;
-        MoveOnlyInstanceTransform(gameObject, targetCell);
+        MoveOnlyInstanceTransform(gameObject, targetCell,origin);
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = -targetCell.y + 1;
     }
 
@@ -334,14 +334,15 @@ public class RoomView : MonoBehaviour
         Vector2Int originPos = furniture.anchorPos;
         ShowNewCells(cell2D, occupied, instId);
         GameObject furnitureObj = furniture.furnitureObject;
-        MoveOnlyInstanceTransform(furnitureObj, cell);
+        MoveOnlyInstanceTransform(furnitureObj, cell, origin);
         furnitureObj.GetComponent<SpriteRenderer>().sortingOrder = -cell.y - furnitureData.GetMaxOccupiedY();
 
     }
 
-    private void MoveOnlyInstanceTransform(GameObject obj, Vector3Int cell)
+    private void MoveOnlyInstanceTransform(GameObject obj, Vector3Int cell, Vector2Int origin)
     { 
-        obj.transform.position = groundMap.CellToWorld(cell); 
+        Vector3 offset = obj.transform.position - groundMap.CellToWorld(new Vector3Int(origin.x,origin.y,0));
+        obj.transform.position = groundMap.CellToWorld(cell)+ offset;
     }
 
     

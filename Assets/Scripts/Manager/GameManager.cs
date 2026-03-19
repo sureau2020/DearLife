@@ -137,8 +137,14 @@ public class GameManager : MonoBehaviour
         if (!result.Success) {
             return result;
         }
-
-        return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId);
+        GameSettings tmp = StateManager.Settings;
+        if (tmp.IsAIEnabled)
+        {
+            return DialogueManager.ShowAIItemDialogue(StateManager.Settings.ReplyChance, itemId, StateManager.Character);
+        }
+        else {
+            return DialogueManager.ShowRandomItemDialogue(StateManager.Settings.ReplyChance, itemId);
+        }
     }
 
 
@@ -194,6 +200,11 @@ public class GameManager : MonoBehaviour
             case "HourlyWage": return StateManager.Settings.HourlyWage.ToString();
             case "DifficultyBonus": return StateManager.Settings.DifficultyBonus.ToString();
             case "ReplyChance": return StateManager.Settings.ReplyChance.ToString();
+            case "API": return StateManager.Settings.API;
+            case "Key": return StateManager.Settings.Key;
+            case "Model": return StateManager.Settings.Model;
+            case "Prompt": return StateManager.Settings.Prompt;
+            case "isAIEnabled": return StateManager.Settings.IsAIEnabled.ToString();
             default: return "未知设置项";
         }
     }
@@ -209,16 +220,36 @@ public class GameManager : MonoBehaviour
                 return OperationResult.Fail("请输入合法的小数");
             }
         }
+        if (key == "isAIEnabled") {
+            if (bool.TryParse(value, out bool isEnabled))
+            {
+                return StateManager.Settings.ChangeAIEnabled(isEnabled);
+            }
+            else
+            {
+                return OperationResult.Fail("卧槽你咋搞到这个错误的");
+            }
+        }
         if (int.TryParse(value, out int var)) {
             switch (key) {
                 case "HourlyWage": return StateManager.Settings.ChangeHourlyWage(var);
                 case "DifficultyBonus": return StateManager.Settings.ChangeDifficultyBonus(var);
                 case "ReplyChance": return StateManager.Settings.ChangeReplyChance(var);
+                case "API": return StateManager.Settings.ChangeAPI(value);
+                case "Key": return StateManager.Settings.ChangeKey(value);
+                case "Model": return StateManager.Settings.ChangeModel(value);
+                case "Prompt": return StateManager.Settings.ChangePrompt(value);
                 default: return OperationResult.Fail("未知设置项");
             }
         }
         else {
-            return OperationResult.Fail("请输入合法的整数");
+            switch (key) {
+                case "API": return StateManager.Settings.ChangeAPI(value);
+                case "Key": return StateManager.Settings.ChangeKey(value);
+                case "Model": return StateManager.Settings.ChangeModel(value);
+                case "Prompt": return StateManager.Settings.ChangePrompt(value);
+                default: return OperationResult.Fail("请输入合法的整数");
+            }
         }
     }
 

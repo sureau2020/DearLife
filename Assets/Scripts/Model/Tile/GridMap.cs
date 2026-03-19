@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class GridMap
 {
-    public Vector2Int CameraLimitMax { get; private set; }
+    public Vector2 CameraLimitMax { get; private set; }
     public Action<Vector2> newCameraLimitMax;
 
     private readonly ChunkWorld world = new();

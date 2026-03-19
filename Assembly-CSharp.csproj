@@ -134,6 +134,7 @@
     <Compile Include="Assets\Scripts\Model\Tile\GridCell.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceLoader.cs" />
+    <Compile Include="Assets\Scripts\UI\Setting\SettingToogle.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemType.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\TaskList.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseStallDoor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
+    <Compile Include="Assets\Scripts\GameObject\AIChat.cs" />
     <Compile Include="Assets\Scripts\UI\Character\DialoguePanelUI.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\TileDataBase.cs" />
   </ItemGroup>
