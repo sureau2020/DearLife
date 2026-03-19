@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\UI\Setting\ResetMoney.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\FurnitureInstance.cs" />
+    <Compile Include="Assets\Scripts\UI\Ttorial\PageChange.cs" />
     <Compile Include="Assets\CoroutineRunner.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\FinalConfirmEditButton.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\CharacterInfoManager.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Match\MatchConfig.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\BgmButton.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Match\TextMatcher.cs" />
+    <Compile Include="Assets\Scripts\UI\Animation\MoveWhenClick.cs" />
     <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseStallDoor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.cs" />
