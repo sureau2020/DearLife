@@ -28,7 +28,16 @@ public class SettingDropDown : MonoBehaviour
         if (!isEditing)
         {
             isEditing = true;
-            dropdown.value = 0; 
+            if (settingKey == "Model" &&
+                AIDialogueProviders.TryGet(GameManager.Instance.StateManager.Settings.API, out var provider))
+            {
+                dropdown.ClearOptions();
+                dropdown.AddOptions(new List<string>(provider.Models));
+            }
+            string currentValue = GameManager.Instance.GetSetting(settingKey);
+            int selected = dropdown.options.FindIndex(option => option.text == currentValue);
+            dropdown.SetValueWithoutNotify(selected >= 0 ? selected : 0);
+            dropdown.RefreshShownValue();
             valueText.gameObject.SetActive(false);
             dropdown.gameObject.SetActive(true);
 

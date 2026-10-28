@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\GameObject\CameraController.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\InfoInputAnimator.cs" />
     <Compile Include="Assets\Scripts\UI\ConfirmPanel.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\Import\CustomFurnishEditor.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\ConditionNode.cs" />
     <Compile Include="Assets\Scripts\Manager\TaskManager.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\WeekCalendar.cs" />
@@ -96,11 +97,13 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TextBehaviour.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\TypewriterHandler.cs" />
     <Compile Include="Assets\Scripts\UI\Setting\SettingItem.cs" />
+    <Compile Include="Assets\Scripts\GameObject\Furnish\Import\CustomFurnishPreview.cs" />
     <Compile Include="Assets\Scripts\UI\Store\Goods.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\RecurringMissionData.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Model\GameSettings.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TimeLine\TextClip.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\CustomFurnishLibrary.cs" />
     <Compile Include="Assets\Scripts\UI\Store\ItemInfoPanel.cs" />
     <Compile Include="Assets\Scripts\Notification\NotificationManager.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\AnimationProcess.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Match\DefaultMatchConfig.cs" />
     <Compile Include="Assets\Scripts\Manager\Persistence\LoaderManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\EventDataBase.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\AI\GeminiDialogueProvider.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectDictionary.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Simple\Scripts\LoopEnable.cs" />
     <Compile Include="Assets\Scripts\UI\Tasks\Task.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Assets\SetText.cs" />
     <Compile Include="Assets\Scripts\Notification\CharacterStat.cs" />
     <Compile Include="Assets\Billboard.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\AI\IAIDialogueProvider.cs" />
     <Compile Include="Assets\Scripts\UI\RebirthUI.cs" />
     <Compile Include="Assets\Scripts\Model\Furniture\FurnitureScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Manager\PromptPanelUIManager.cs" />
@@ -185,6 +190,7 @@
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Item\ItemEntryData.cs" />
     <Compile Include="Assets\Scripts\UI\Edit\InfoItem.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\AI\AIDialogueProviders.cs" />
     <Compile Include="Assets\Scripts\Manager\EditScene\AppearanceAtlasManager.cs" />
     <Compile Include="Assets\Scripts\Model\DialogueSystem\Node\EffectNode.cs" />
     <Compile Include="Assets\Scripts\Model\Tile\TileBaseLibrarySO.cs" />
@@ -193,6 +199,7 @@
     <Compile Include="Assets\Scripts\UI\Setting\SettingDropDown.cs" />
     <Compile Include="Assets\Scripts\Tools\ErrorNotifier.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\SerializedObjectList.cs" />
+    <Compile Include="Assets\Scripts\Model\Furniture\CustomFurnishData.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\Persistence\SaveManager.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\State.cs" />
@@ -235,6 +242,7 @@
     <Compile Include="Assets\Scripts\Model\Character\HealthState.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseStallDoor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\TextLife.cs" />
+    <Compile Include="Assets\Scripts\Model\DialogueSystem\AI\DeepSeekDialogueProvider.cs" />
     <Compile Include="Assets\Scripts\Model\Mission\MissionData.cs" />
     <Compile Include="Assets\Scripts\GameObject\AIChat.cs" />
     <Compile Include="Assets\Scripts\UI\Character\DialoguePanelUI.cs" />
@@ -254,6 +262,7 @@
     <None Include="Assets\StreamingAssets\GameData\Events\12345_item_popcorn_001.json" />
     <None Include="Assets\StreamingAssets\GameData\Events\Kage_daily_G04.json" />
     <None Include="Assets\StreamingAssets\GameData\Items\yinxing_book.json" />
+    <None Include="Packages\com.unity.2d.tilemap\package.json" />
     <None Include="Assets\StreamingAssets\GameData\Events\12345_item_orange_002.json" />
     <None Include="Assets\StreamingAssets\GameData\SaveData\Wardrobe.json" />
     <None Include="Assets\StreamingAssets\GameData\Items\yinxing_shampoo.json" />
@@ -1144,9 +1153,6 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
@@ -1162,6 +1168,10 @@
     <ProjectReference Include="NativeGallery.Runtime.csproj">
       <Project>{4891abe0-55ca-eb7f-b471-d879c472cf43}</Project>
       <Name>NativeGallery.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{738c525c-0b86-c12d-3b6d-4b28c06390c0}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="NativeGallery.Editor.csproj">
       <Project>{f2679b29-942b-d7ee-7702-a2ea238c34c0}</Project>

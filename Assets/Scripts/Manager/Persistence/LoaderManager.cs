@@ -415,6 +415,8 @@ public static class LoaderManager
 
             // 创建新的 GridMap 实例（不使用默认初始化）
             var gridMap = CreateEmptyGridMap();
+            if (!gridMap.RestoreCustomBackground(saveData.CustomBackgroundId))
+                return OperationResult<GridMap>.Fail("Custom room background is missing or damaged");
             
             // 恢复 CameraLimitMax
             typeof(GridMap).GetProperty("CameraLimitMax").SetValue(gridMap, saveData.CameraLimitMax);

@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        FurnitureDatabase?.DisposeCustomItems();
         if (TimeManager.Instance != null)
         {
             TimeManager.Instance.OnMinuteChanged -= OnMinuteChanged;

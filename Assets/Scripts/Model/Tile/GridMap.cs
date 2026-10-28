@@ -6,6 +6,16 @@ using UnityEngine;
 public class GridMap
 {
     public Vector2 CameraLimitMax { get; private set; }
+    public string CustomBackgroundId { get; private set; }
+
+    public bool RestoreCustomBackground(string id)
+    {
+        if (string.IsNullOrEmpty(id)) { CustomBackgroundId = null; return true; }
+        var entry = furnitureDatabase.CustomItems.Get(id);
+        if (entry == null || entry.Data.kind != CustomFurnishKind.Background) return false;
+        CustomBackgroundId = id;
+        return true;
+    }
     public Action<Vector2> newCameraLimitMax;
 
     private readonly ChunkWorld world = new();
@@ -136,7 +146,27 @@ public class GridMap
             cell.flags &= ~CellFlags.FloorWalkable;
     }
 
-    public void ChangeFloor(string roomId) { 
+    public void ChangeFloor(string roomId) {
+        var custom = furnitureDatabase.CustomItems.Get(roomId);
+        if (custom != null && custom.Data.kind == CustomFurnishKind.Background)
+        {
+            furnitureInstances.Clear();
+            decorInstances.Clear();
+            world.Clear();
+            CustomBackgroundId = roomId;
+            var size = custom.Data.GridSize();
+            var blocked = new HashSet<Vector2Int>(custom.Data.GetBlockedCells());
+            for (int x = 0; x < size.x; x++)
+                for (int y = 0; y < size.y; y++)
+                {
+                    var pos = new Vector2Int(x, y);
+                    SetFloor(pos, "", !blocked.Contains(pos));
+                }
+            CameraLimitMax = new Vector2(size.x - 1, size.y - 1);
+            newCameraLimitMax?.Invoke(CameraLimitMax);
+            return;
+        }
+        CustomBackgroundId = null;
         furnitureInstances.Clear();
         decorInstances.Clear();
         world.Clear();
@@ -199,8 +229,13 @@ public class GridMap
     public FurnitureInstance GetFurniture(Vector2Int pos)
     {
         CellData cell = world.GetCell(pos);
-        if (!cell.Has(CellFlags.HasFurniture)) return null;
-        return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
+        if (cell.Has(CellFlags.HasFurniture))
+            return furnitureInstances.GetValueOrDefault(cell.furnitureInstanceId);
+        // All-white custom furniture has no occupancy; keep its anchor selectable.
+        foreach (var instance in furnitureInstances.Values)
+            if (instance.occupiedCells.Count == 0 && instance.anchorPos == pos)
+                return instance;
+        return null;
     }
 
     // ==== Furniture ====
@@ -292,10 +327,18 @@ public class GridMap
 
     public bool CanPlaceFurniture(FurnitureData furnitureData, Vector2Int cellPos, string instanceId)
     {
+        if (furnitureData.occupiedCells.Count == 0)
+        {
+            if (!CanWalk(cellPos)) return false;
+            var atAnchor = GetFurniture(cellPos);
+            if (atAnchor != null && atAnchor.instanceId != instanceId) return false;
+        }
         foreach (var offset in furnitureData.occupiedCells)
         {
             Vector2Int pos = cellPos + offset;
             CellData cell = world.GetCell(pos);
+            var selectable = GetFurniture(pos);
+            if (selectable != null && selectable.instanceId != instanceId) return false;
             if (!CanWalk(pos)) {
                 if (cell.furnitureInstanceId == instanceId) continue;
                 return false;

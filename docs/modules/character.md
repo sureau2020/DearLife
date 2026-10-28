@@ -10,7 +10,7 @@ Model/Character、Model/Item、PlayerData、GameSettings，商店/背包/角色�
 
 ## 最后同步
 
-commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区未提交文档；业务实现未改。
+commit `49fa54da6e0cec37f33577c8593db375d1a21015`；2026-10-28；本模块源码未改，文档同步工作区未提交的 AI 设置消费者契约。
 
 ## 职责
 
@@ -31,6 +31,8 @@ Full / Clean / San 普通变更截断至 0–100；Love 不按 100 截断。健�
 常规奖励为 `(Duration * HourlyWage + Difficulty * DifficultyBonus) * 随机倍率` 后取整，任务逾期完成可获一半，协调逻辑见 [runtime](runtime.md)。`RandomChance` 掷 1–5；物品对话调用处 p <= 1 直接不显示，应同时查看 [dialogue](dialogue.md)。
 
 健康状态与存档并非纯数据：CharacterData 构造/变更可能读取存档、访问 GameManager 和触发保存；公开 setter 可能绕过事件。买/用物品与自动保存不是原子事务。API 的操作顺序不可仅由方法名称推断。
+
+GameSettings 的 API / Key / Model / Prompt / IsAIEnabled 字段、默认 Gemini 及保存方式不变。API 现由 [dialogue](dialogue.md) 消费为供应商名称（Gemini / DeepSeek，忽略大小写和首尾空格）；Key 和 Model 仍为一组共享设置，切换供应商后需更新。IsAISettingValid 仍仅检查字段非空，具体供应商有效性由请求入口检查；没有自动迁移旧存档或新增凭证字段。
 
 ## 依赖
 
@@ -82,4 +84,5 @@ WardrobeData 虽由外观 UI 使用，声明与数据契约归本模块；附属
 
 ## 最近改动摘要
 
+- 2026-10-28：L2 消费者文档同步，说明现有 AI 设置路由与共享凭证契约；角色、物品和存档数据结构未改。
 - 2026-10-28：初始化角色与物品模块文档（L3 文档建档），无业务变更。

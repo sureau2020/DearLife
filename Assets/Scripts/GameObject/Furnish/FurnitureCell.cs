@@ -29,6 +29,13 @@ public class FurnitureCell : MonoBehaviour
         }
     }
 
+    public void SetImportAction(UnityEngine.Events.UnityAction onClick)
+    {
+        _button.onClick.RemoveAllListeners();
+        _button.onClick.AddListener(onClick);
+        SetSelected(false);
+    }
+
     public void SetSelected(bool selected) {
         kuang.gameObject.SetActive(selected);
     }

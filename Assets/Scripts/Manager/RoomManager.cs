@@ -16,6 +16,7 @@ public class RoomManager : MonoBehaviour
     public static event Action<RoomManager> OnRoomManagerInitialized;
 
     public bool IsInitialized { get; private set; }
+    public event Action OnLayoutChanged;
 
     private void Awake()
     {
@@ -177,7 +178,7 @@ public class RoomManager : MonoBehaviour
             tempInstance = GridMap.CreateFurnitureInstance(data);
             roomView.PreviewNewFurniture(tempInstance, cell, data);
         }
-        return tempInstance;
+        return tempInstance ?? instance;
     }
 
     public DecorInstance PreviewNewDecor(string id, Vector3 hitPoint, Vector3? curPos, DecorInstance? instance)
@@ -197,7 +198,7 @@ public class RoomManager : MonoBehaviour
             roomView.PreviewNewDecor(tempInstance, cell, data);
         }
             
-        return tempInstance;
+        return tempInstance ?? instance;
     }
 
     public void ComfirmNewFloor(string roomBGId, Action onChanged) {
@@ -217,6 +218,7 @@ public class RoomManager : MonoBehaviour
 
     public void SaveMapData()
     {
+        OnLayoutChanged?.Invoke();
         var saveResult = SaveManager.SaveGridMap(GridMap);
         if (!saveResult.Success)
         {

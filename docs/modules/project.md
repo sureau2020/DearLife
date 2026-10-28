@@ -10,7 +10,7 @@ Assets/Editor，Scenes，其余 prefab / 美术 / 第三方资源，Packages、P
 
 ## 最后同步
 
-commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区未提交文档与 AGENTS.md；工程设置和资源未改。
+commit `49fa54da6e0cec37f33577c8593db375d1a21015`；2026-10-28；包含工作区未提交的 Tilemap 编辑器本地包、包锁文件及本文档改动；另同步 DeepSeek 接入的 Room AI 设置提示文本。AI 接入仅更改该场景的一处说明，工作区其他 Room 布局改动保留，不属于 AI 接入；prefab 未改。
 
 ## 职责
 
@@ -27,6 +27,8 @@ commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区
 - 项目使用旧输入接口（activeInputHandler=0）；存在 inputactions 资源不代表已迁移新输入系统。
 - MapLayoutExporter 将 Tilemap 中 Tile 名称与位置写入指定 MapDataSO，不会同步 TileConfig / TileLibrary。更改 tile 名称、SO 路径或 prefab GUID 必须同步检查 [room](room.md)。
 - 本地 Plugins 有 DOTween、NativeGallery 等，部分插件目录被 .gitignore 忽略。干净检出依赖完整性未验证，不能保证复制源码即可编译。
+- Room 的 AI 设置说明列出 Gemini / DeepSeek，并提示切换 API 后选择对应模型、更新密钥；Model 下拉框运行时由 [presentation](presentation.md) 从 [dialogue](dialogue.md) 供应商目录加载。DeepSeek 接入仅更新说明文本，无需新增组件或修改 prefab。
+- `com.unity.2d.tilemap@1.0.0` 以 `Packages/com.unity.2d.tilemap/` 嵌入项目，覆盖 Unity 自带版本；锁文件应为 `source: embedded`。鼠标网格坐标差值先转为 `long` 再相减、求绝对值，避免整数回绕及 `Abs(int.MinValue)` 导致 Scene 视图反复抛出 OverflowException；保留原有每轴 500 格限幅和公开 API。后续升级 Unity 时需比较上游实现并验证是否可移除本地包，详见包内 `LOCAL_PATCH.md`。
 
 ## 依赖
 
@@ -95,6 +97,7 @@ commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区
 - [LICENSE](<../../LICENSE>) — 资源/工程文件。
 - [Packages/manifest.json](<../../Packages/manifest.json>) — 配置/聚合资源。
 - [Packages/packages-lock.json](<../../Packages/packages-lock.json>) — 配置/聚合资源。
+- [Packages/com.unity.2d.tilemap/](<../../Packages/com.unity.2d.tilemap/>) — Unity 2022.3.62f3 自带的 2D Tilemap Editor 1.0.0 完整本地副本（Editor、Tests、Documentation~、包元数据及许可）；保留原始 `.meta` / GUID。本地实现差异仅 `Editor/PaintableGrid.cs`，回归测试补充于 `Tests/Editor/TilemapPackageTests.cs`；维护说明为 `LOCAL_PATCH.md` 及其 `.meta`。
 - [ProjectSettings/AudioManager.asset](<../../ProjectSettings/AudioManager.asset>) — 资源/工程文件。
 - [ProjectSettings/BurstAotSettings_StandaloneWindows.json](<../../ProjectSettings/BurstAotSettings_StandaloneWindows.json>) — 配置/聚合资源。
 - [ProjectSettings/ClusterInputManager.asset](<../../ProjectSettings/ClusterInputManager.asset>) — 资源/工程文件。
@@ -128,10 +131,14 @@ commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区
 
 ## 验证
 
-静态核对版本、包、构建场景、脚本引用、资源目录和 .gitignore。未发现自有 `*Test*.cs` / asmdef 测试代码；依赖 Unity Test Framework 1.1.33，根目录 Tests.csproj 不代表可用测试套件。未运行 Unity 编译、EditMode / PlayMode 或设备构建。
+初始化时静态核对版本、包、构建场景、脚本引用、资源目录和 .gitignore，未发现自有 `*Test*.cs` / asmdef 测试代码；依赖 Unity Test Framework 1.1.33，根目录 Tests.csproj 不代表可用测试套件。
+
+2026-10-28 Tilemap 溢出修复：Unity 2022.3.62f3 已自动解析嵌入包并完成编辑器及测试程序集编译。与安装目录原始包逐文件比对，仅上述实现和测试两个文件内容改变，原始 `.meta` 保持一致。通过 Unity TestRunnerApi 在 EditMode 运行 `TilemapPackageEditorTests`，12/12 通过（1 个原有包加载用例 + 11 个新增坐标用例：X/Y 最小值、最大值、双向跨界、极值邻近、小步移动、500/501 限幅及不动），0 失败、0 跳过；临时验证脚本及其 `.meta` 已移除。坐标限幅提取为内部纯函数，测试不创建窗口或依赖 `Event.current`。本次未进入 Play Mode 或进行设备构建。
 
 后续验证入口：使用指定 Unity 打开项目、确认第三方资源和包完整，等待导入/编译；从 Boot 测试首启和恢复，再按受影响模块验证。Android / iOS 的通知、相册和后台存档必须在对应设备验证。
 
 ## 最近改动摘要
 
+- 2026-10-28：L0，更新 Room 的 AI 供应商使用说明；AI 接入未调整布局、组件接线或依赖包，并行的其他工作区改动保留。
+- 2026-10-28：经用户明确授权嵌入 Tilemap 1.0.0 并修复鼠标坐标差值溢出，新增边界回归测试、保留全部原始 GUID（L0，project 内部编辑器实现；无运行时契约或架构变化，无 ADR）。
 - 2026-10-28：初始化工程和资源盘点（L3 文档建档），未改包依赖、场景或 prefab。

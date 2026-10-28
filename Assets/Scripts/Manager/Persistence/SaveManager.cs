@@ -530,6 +530,7 @@ public static class SaveManager
     [System.Serializable]
     public class GridMapSaveData
     {
+        public string CustomBackgroundId;
         public Vector2 CameraLimitMax;
         public Dictionary<string, CellDataSave> Cells;
         public Dictionary<string, FurnitureInstanceSave> FurnitureInstances;
@@ -574,6 +575,7 @@ public static class SaveManager
 
             var saveData = new GridMapSaveData
             {
+                CustomBackgroundId = gridMap.CustomBackgroundId,
                 CameraLimitMax = gridMap.CameraLimitMax,
                 Cells = new Dictionary<string, CellDataSave>(),
                 FurnitureInstances = new Dictionary<string, FurnitureInstanceSave>(),

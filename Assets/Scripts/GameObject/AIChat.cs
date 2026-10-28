@@ -2,10 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json; 
 
 public class AIChat : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class AIChat : MonoBehaviour
 必须使用简体中文。
 必须是第一人称对话。
 每句话不超过20字。
-禁换行,禁解释，禁角色名，禁引号，禁任何 Markdown 代码块标签或额外的文字说明
+禁换行,禁解释，禁角色名，禁额外引号（JSON字符串引号必须保留），禁任何 Markdown 代码块标签或额外的文字说明
 输出几句角色的动作和回答。
 语气必须符合角色性格和当前关系，根据角色健康状态调整语气。";
 
@@ -38,54 +37,8 @@ public class AIChat : MonoBehaviour
 
     private int maxLine = 5; // 预设的最大对话，和 topics 数组长度一致
 
-    #region Gemini 数据结构
-    private class GeminiRequest
-    {
-        public SystemInstruction system_instruction;
-        public List<Content> contents;
-        public GenerationConfig generationConfig;
-    }
-
-    private class SystemInstruction { public List<Part> parts; }
-    private class GenerationConfig { public int maxOutputTokens; public float temperature; }
-
-    // 响应解析类
-    [Serializable]
-    public class GeminiResponse
-    {
-        [JsonProperty("candidates")]
-        public Candidate[] candidates;
-    }
-
-    [Serializable]
-    public class Candidate
-    {
-        [JsonProperty("content")]
-        public Content content;
-        [JsonProperty("finishReason")]
-        public string finishReason;
-    }
-
-    [Serializable]
-    public class Content
-    {
-        [JsonProperty("role")]
-        public string role;
-        [JsonProperty("parts")]
-        public List<Part> parts; // 注意这里是 List
-    }
-
-    [Serializable]
-    public class Part
-    {
-        [JsonProperty("text")]
-        public string text;
-
-        // Gemini 3 新增的思考内容映射（可选，不写也不影响解析 text）
-        [JsonProperty("thought")]
-        public string thought;
-    }
-    #endregion
+    private readonly HashSet<UnityWebRequest> activeRequests = new HashSet<UnityWebRequest>();
+    private int requestGeneration;
 
     private string[] topics = new string[]
     {
@@ -134,110 +87,161 @@ public class AIChat : MonoBehaviour
     private string GenerateRamdomPrompt()
     {
         System.Random rand = new System.Random();
-        int linesNum = rand.Next(maxLine);
+        int linesNum = rand.Next(1, maxLine + 1);
         int topicsNum = rand.Next(topics.Length);
         return $"\n生成{linesNum}句此时说的话,\n{topics[topicsNum]}. 输出为JSON数组";
+    }
+
+    private void OnDisable()
+    {
+        requestGeneration++;
+        foreach (var request in activeRequests)
+        {
+            request.Abort();
+            request.Dispose();
+        }
+        activeRequests.Clear();
+        StopAllCoroutines();
     }
 
     public IEnumerator GenerateDialogue(
         string prompt,
         Action<EventData> onSuccess,
         Action<string> onFail,
-        float timeout = 10f)
+        float timeout = 30f)
     {
-        GameSettings settings = GameManager.Instance.StateManager.Settings;
-        string apiKey = settings.Key;
-        string model = settings.Model;
+        if (!isActiveAndEnabled) yield break;
 
-        // 关键点 1: Gemini 的 API Key 直接拼接在 URL 后面
-        string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
-        
-        // 关键点 2: 使用 Newtonsoft 构建标准的 Gemini 请求对象
-        var requestObj = new GeminiRequest
+        GameSettings settings = GameManager.Instance?.StateManager?.Settings;
+        if (settings == null)
         {
-            system_instruction = new SystemInstruction
+            onFail?.Invoke("GameManager 数据未初始化");
+            yield break;
+        }
+        if (!AIDialogueProviders.TryGet(settings.API, out var provider))
+        {
+            onFail?.Invoke("不支持的 AI 接口，请检查供应商设置");
+            yield break;
+        }
+        if (string.IsNullOrWhiteSpace(settings.Key) || string.IsNullOrWhiteSpace(settings.Model))
+        {
+            onFail?.Invoke("请先填写 AI 密钥和模型");
+            yield break;
+        }
+        if (string.IsNullOrWhiteSpace(prompt) || timeout <= 0 || float.IsNaN(timeout) || float.IsInfinity(timeout))
+        {
+            onFail?.Invoke("AI 提示词或超时设置无效");
+            yield break;
+        }
+
+        int generation = requestGeneration;
+        UnityWebRequest request = null;
+        UnityWebRequestAsyncOperation operation = null;
+        try
+        {
+            request = provider.CreateRequest(settings.Key.Trim(), settings.Model.Trim(), systemPrompt, prompt);
+            request.timeout = Mathf.Max(1, Mathf.CeilToInt(timeout));
+            activeRequests.Add(request);
+            operation = request.SendWebRequest();
+        }
+        catch (Exception)
+        {
+            if (request != null)
             {
-                parts = new List<Part> { new Part { text = systemPrompt } }
-            },
-            contents = new List<Content>
-            {
-                new Content
-                {
-                    role = "user",
-                    parts = new List<Part> { new Part { text = prompt } }
-                }
-            },
-            generationConfig = new GenerationConfig
-            {
-                maxOutputTokens = 2000, // 稍微多给一点余量
-                temperature = 0.7f
+                activeRequests.Remove(request);
+                request.Dispose();
             }
-        };
-        string jsonBody = JsonConvert.SerializeObject(requestObj);
+            onFail?.Invoke(provider.Name + " 请求启动失败，请检查设置与网络");
+        }
+        if (operation == null) yield break;
 
-        using (UnityWebRequest req = new UnityWebRequest(apiUrl, "POST"))
+        try
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonBody);
-            req.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            req.downloadHandler = new DownloadHandlerBuffer();
-            req.SetRequestHeader("Content-Type", "application/json");
-
-            float timer = 0f;
-            var operation = req.SendWebRequest();
-
-            while (!operation.isDone)
+            float startedAt = Time.realtimeSinceStartup;
+            while (true)
             {
-                if (timer > timeout)
+                if (generation != requestGeneration || !isActiveAndEnabled) yield break;
+                if (operation.isDone) break;
+                if (Time.realtimeSinceStartup - startedAt >= timeout)
                 {
+                    request.Abort();
                     onFail?.Invoke("AI请求超时");
                     yield break;
                 }
-                timer += Time.deltaTime;
                 yield return null;
             }
 
-            if (req.result != UnityWebRequest.Result.Success)
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                // 如果报错，尝试解析报错信息，方便调试
-                onFail?.Invoke($"Gemini Error: {req.error}\nDetail: {req.downloadHandler.text}");
+                onFail?.Invoke(GetRequestError(provider.Name, request));
                 yield break;
             }
+
+            EventData eventData = null;
+            string error = null;
             try
             {
-                var res = JsonConvert.DeserializeObject<GeminiResponse>(req.downloadHandler.text);
-
-                // 基础检查
-                if (res?.candidates == null || res.candidates.Length == 0) throw new Exception("AI未返回有效内容");
-
-                string rawText = res.candidates[0].content.parts[0].text.Trim();
-
-                // --- 核心改动：清理 Markdown 标签并解析数组 ---
-                if (rawText.StartsWith("```json"))
-                {
-                    rawText = rawText.Replace("```json", "").Replace("```", "").Trim();
-                }
-
-                // 使用 Newtonsoft 解析为字符串列表
-                List<string> lines = JsonConvert.DeserializeObject<List<string>>(rawText);
-
-                if (lines == null || lines.Count == 0) throw new Exception("解析后的对话数组为空");
-
-                // 检查 GameManager 状态
+                string rawText = provider.ReadResponseText(request.downloadHandler.text);
+                List<string> lines = ParseDialogueLines(rawText);
                 if (GameManager.Instance?.StateManager?.Character == null)
-                {
-                    onFail?.Invoke("GameManager 数据未初始化");
-                    yield break;
-                }
-
-                // --- 核心改动：调用支持多节点的生成方法 ---
-                EventData eventData = CreateMultiLineDialogueEvent(lines);
-                onSuccess?.Invoke(eventData);
+                    throw new InvalidOperationException("GameManager 数据未初始化");
+                eventData = CreateMultiLineDialogueEvent(lines);
             }
             catch (Exception ex)
             {
-                onFail?.Invoke($"解析 JSON 数组失败: {ex.Message}\n原始文本: {req.downloadHandler.text}");
+                error = "AI对话解析失败: " + ex.Message;
             }
+
+            // Callbacks run outside parsing so consumer exceptions cannot trigger a second callback.
+            if (error != null) onFail?.Invoke(error);
+            else onSuccess?.Invoke(eventData);
         }
+        finally
+        {
+            if (activeRequests.Remove(request)) request.Dispose();
+        }
+    }
+
+    private static List<string> ParseDialogueLines(string rawText)
+    {
+        rawText = rawText.Trim();
+        if (rawText.StartsWith("```"))
+        {
+            int newline = rawText.IndexOf('\n');
+            if (newline < 0 || !rawText.EndsWith("```"))
+                throw new InvalidOperationException("AI 返回的 JSON 代码块不完整");
+            rawText = rawText.Substring(newline + 1, rawText.Length - newline - 4).Trim();
+        }
+
+        var array = JArray.Parse(rawText);
+        if (array.Count == 0) throw new InvalidOperationException("对话数组为空");
+        var lines = new List<string>();
+        foreach (var line in array)
+        {
+            if (line.Type != JTokenType.String || string.IsNullOrWhiteSpace((string)line))
+                throw new InvalidOperationException("对话数组必须只包含非空字符串");
+            lines.Add(((string)line).Trim());
+        }
+        return lines;
+    }
+
+    private static string GetRequestError(string providerName, UnityWebRequest request)
+    {
+        string message;
+        switch (request.responseCode)
+        {
+            case 400:
+            case 422: message = "请求参数无效，请检查模型设置"; break;
+            case 401:
+            case 403: message = "认证失败，请检查对应供应商的密钥和权限"; break;
+            case 402: message = "账户余额不足"; break;
+            case 404: message = "模型不存在，请检查模型名称"; break;
+            case 429: message = "请求过于频繁，请稍后重试"; break;
+            case 500:
+            case 503: message = "服务暂不可用，请稍后重试"; break;
+            default: message = "请求失败或超时，请检查网络后重试"; break;
+        }
+        return $"{providerName}（HTTP {request.responseCode}）：{message}";
     }
 
     private EventData CreateMultiLineDialogueEvent(List<string> lines)

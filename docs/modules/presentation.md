@@ -10,7 +10,7 @@
 
 ## 最后同步
 
-commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区未提交文档；业务实现未改。
+commit `49fa54da6e0cec37f33577c8593db375d1a21015`；2026-10-28；包含工作区未提交的 AI 模型下拉框与文档改动。
 
 ## 职责
 
@@ -29,11 +29,13 @@ commit `00d29af1871434383c29e34a13459b3534ee77ee`；2026-10-28；包含工作区
 
 UI 不拥有业务状态；应通过既有业务入口修改。当前仍有 UI 直接改模型字段和静态单例的实现，不宣称已完成分层。Character 在编辑器走鼠标、移动平台走触摸分支；布置/衣柜会屏蔽部分角色交互。
 
+SettingDropDown 编辑 Model 时根据 Settings.API 从 [dialogue](dialogue.md) 的 AIDialogueProviders 读取模型列表，并优先选中已保存模型；其他设置下拉框保持原选项。每次编辑重新获取，API 改动后无需重启面板。API 输入与 Key 继续使用原 SettingItem；切换供应商后需填写对应密钥并确认模型，没有每家独立凭证或自动切换已保存模型。
+
 DOTween 驱动多处 UI 和角色动画，CameraFocus 仍使用协程；维护时需匹配对象关闭/销毁生命周期。PromptUIManager 的文件/类名不匹配属于现状，不在扫描中擅自改名，挂载状态需 Unity 验证。
 
 ## 依赖
 
-[runtime](runtime.md)、[character](character.md)、[room](room.md)、[appearance](appearance.md)，uGUI / TMP / DOTween / Unity 输入与音频。
+[runtime](runtime.md)、[character](character.md)、[dialogue](dialogue.md)（供应商模型清单）、[room](room.md)、[appearance](appearance.md)，uGUI / TMP / DOTween / Unity 输入与音频。
 
 ## 被依赖
 
@@ -99,6 +101,9 @@ DOTween 驱动多处 UI 和角色动画，CameraFocus 仍使用协程；维护�
 
 静态核对公开入口、订阅与调用方。Character 当前用两个独立 lambda 进行订阅/退订，不能视作有效退订；本次仅记录。未运行点击、相机、动画或音效；维护后需在 Unity 验证 UI 遮挡和平台输入。
 
+2026-10-28：模型下拉框源码通过基于本地 Unity 程序集的 C# 编译；静态核对 Room 场景 Model 挂载为启用的 SettingDropDown（旧文本输入禁用），未修改挂载或 prefab。未运行 UI；需从 Boot 验证先改 API 为 DeepSeek、打开模型选择、保存、重开及切回 Gemini。
+
 ## 最近改动摘要
 
+- 2026-10-28：L2，SettingDropDown 从独立 AI 供应商目录加载模型列表，保留设置入口和序列化引用。
 - 2026-10-28：初始化通用表现模块（L3 文档建档），记录委托及文件名限制。

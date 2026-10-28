@@ -26,6 +26,7 @@ public class FurnitureData : FurnishItemData
     
     public int GetMaxOccupiedX()
     {
+        if (occupiedCells.Count == 0) return 0;
         int maxX = int.MinValue;
         foreach (var cell in occupiedCells)
         {
@@ -36,6 +37,7 @@ public class FurnitureData : FurnishItemData
 
     public int GetMaxOccupiedY()
     {
+        if (occupiedCells.Count == 0) return 0;
         int maxY = int.MinValue;
         foreach (var cell in occupiedCells)
         {

@@ -39,8 +39,20 @@ public class FurnishInteractor : MonoBehaviour
     private IRoomDataProvider roomData;
     private Plane xzPlane = new Plane(Vector3.up, Vector3.zero);
 
+    private void OnEnable() { homeDepot.ImportOpened += OnImportOpened; }
+    private void OnDisable() { homeDepot.ImportOpened -= OnImportOpened; }
+
+    private void OnImportOpened()
+    {
+        if (isInstanceSelected) return;
+        isCreatingNewInstance = false;
+        creatingInstanceDataId = "";
+        ClearHint();
+    }
+
     private void Update()
     {
+        if (homeDepot.IsImportOpen) return;
 #if UNITY_EDITOR
         CheckClick();
 

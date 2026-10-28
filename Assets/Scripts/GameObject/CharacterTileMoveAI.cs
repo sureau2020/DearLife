@@ -47,6 +47,7 @@ public class CharacterTileMoveAI : MonoBehaviour
     void OnDisable()
     {
         RoomManager.OnRoomManagerInitialized -= InitializeWalking;
+        if (room != null) room.OnLayoutChanged -= OnRoomLayoutChanged;
         if (character != null)
         {
             character.OnHealthChanged -= OnCharacterStateChangedHandler;
@@ -55,12 +56,41 @@ public class CharacterTileMoveAI : MonoBehaviour
 
     private void InitializeWalking(RoomManager roomManager)
     {
+        if (room != null) room.OnLayoutChanged -= OnRoomLayoutChanged;
+        if (character != null) character.OnHealthChanged -= OnCharacterStateChangedHandler;
         room = roomManager;
+        room.OnLayoutChanged += OnRoomLayoutChanged;
         character = GameManager.Instance.StateManager.Character;
         character.OnHealthChanged += OnCharacterStateChangedHandler;
         
         // 开始随机游荡
         StartWandering();
+    }
+
+    private void Start()
+    {
+        if (room == null && GameManager.Instance != null && GameManager.Instance.RoomManager != null
+            && GameManager.Instance.RoomManager.IsInitialized)
+            InitializeWalking(GameManager.Instance.RoomManager);
+        if (room != null) OnRoomLayoutChanged();
+    }
+
+    private void OnRoomLayoutChanged()
+    {
+        StopAllMovement();
+        if (!room.GridMap.CanWalk(CurrentCell()))
+        {
+            Vector2Int nearest = default;
+            float distance = float.MaxValue;
+            foreach (var cell in room.GridMap.GetAllWalkableCells())
+            {
+                float candidate = (cell - CurrentCell()).sqrMagnitude;
+                if (candidate < distance) { distance = candidate; nearest = cell; }
+            }
+            if (distance < float.MaxValue)
+                transform.position = floorMap.GetCellCenterWorld(new Vector3Int(nearest.x, nearest.y, 0)) + offset;
+        }
+        if (isAlive && !isFocused) StartWandering();
     }
 
     void Update()

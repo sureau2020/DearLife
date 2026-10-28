@@ -7,15 +7,55 @@ public class FurnitureDatabase
 {
     private readonly Dictionary<string, FurnitureData> allFurnitures = new();
     private readonly Dictionary<string, DecorData> allDecors = new();
+    public CustomFurnishLibrary CustomItems { get; }
+    private readonly List<FurnitureData> customRuntimeFurniture = new();
 
     // 用户自定义数据路径
     private string userFurnitureDataPath => Path.Combine(Application.persistentDataPath, "UserFurnitureData.json");
     private string userDecorDataPath => Path.Combine(Application.persistentDataPath, "UserDecorData.json");
 
-    public FurnitureDatabase()
+    public FurnitureDatabase(string customDirectory = null)
     {
         LoadBuiltinData();
-        //LoadUserData();
+        // Legacy JSON entry points remain unchanged. New imports have a separate versioned store.
+        CustomItems = new CustomFurnishLibrary(customDirectory);
+        foreach (var entry in CustomItems.Entries) RegisterCustomItem(entry);
+        CustomItems.Added += RegisterCustomItem;
+    }
+
+    private void RegisterCustomItem(CustomFurnishLibrary.Entry entry)
+    {
+        var source = entry.Data;
+        if (source.kind == CustomFurnishKind.Furniture)
+        {
+            var data = ScriptableObject.CreateInstance<FurnitureData>();
+            data.id = source.id;
+            data.displayName = source.displayName;
+            data.occupiedCells = source.GetBlockedCells();
+            data.sprite = entry.Sprite;
+            data.renderOffset = Vector2.zero;
+            data.blocksMovement = true;
+            AddCustomFurniture(data);
+            customRuntimeFurniture.Add(data);
+        }
+        else if (source.kind == CustomFurnishKind.Decor)
+        {
+            AddCustomDecor(new DecorData {
+                id = source.id, displayName = source.displayName,
+                sprite = entry.Sprite, renderOffset = Vector2.zero
+            });
+        }
+    }
+
+    public void DisposeCustomItems()
+    {
+        CustomItems.Dispose();
+        foreach (var data in customRuntimeFurniture)
+        {
+            if (Application.isPlaying) Object.Destroy(data);
+            else Object.DestroyImmediate(data);
+        }
+        customRuntimeFurniture.Clear();
     }
 
     private void LoadBuiltinData()
@@ -243,7 +283,7 @@ public class FurnitureDatabase
                 isValid = false;
             }
             
-            if (furniture.occupiedCells == null || furniture.occupiedCells.Count == 0)
+            if (furniture.occupiedCells == null || (furniture.occupiedCells.Count == 0 && CustomItems.Get(furniture.id) == null))
             {
                 Debug.LogError($"家具 {furniture.id} 缺少占用格子定义");
                 isValid = false;

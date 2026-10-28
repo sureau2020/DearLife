@@ -22,9 +22,16 @@ public class HomeDepot : MonoBehaviour
     private List<MapData> maps = new List<MapData>();
 
     int currentIndex = -1;
+    private CustomFurnishEditor importEditor;
+    public bool IsImportOpen => importEditor != null && importEditor.gameObject.activeSelf;
+    public event System.Action ImportOpened;
 
     void OnEnable() => FurnishItemEvents.OnItemClicked += HandleItemClick;
-    void OnDisable() => FurnishItemEvents.OnItemClicked -= HandleItemClick;
+    void OnDisable()
+    {
+        FurnishItemEvents.OnItemClicked -= HandleItemClick;
+        if (importEditor != null) importEditor.Close();
+    }
 
 
     public void ShowFurnitureDepot()
@@ -43,6 +50,7 @@ public class HomeDepot : MonoBehaviour
             furnitureList.Add(furnitureCell);
             index++;
         }
+        AddImportCell();
     }
 
     private void ClearList() {
@@ -68,14 +76,39 @@ public class HomeDepot : MonoBehaviour
             furnitureList.Add(furnitureCell);
             index++;
         }
-        furnitureList.Add(AddCustomCell(index));
+        AddImportCell();
     }
 
-    private FurnitureCell AddCustomCell(int index) {
+    private void AddImportCell()
+    {
         GameObject cell = Instantiate(customCellPrefab, cellList);
-        FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
-        furnitureCell.SetFurnitureData(null, "custom_tile", FurnishCategory.Decor, index);
-        return furnitureCell;
+        cell.GetComponent<FurnitureCell>().SetImportAction(OpenImport);
+    }
+
+    private void OpenImport()
+    {
+        if (IsImportOpen) return;
+        var prefab = Resources.Load<CustomFurnishEditor>("UI/CustomFurnishEditor");
+        if (prefab == null)
+        {
+            ErrorNotifier.NotifyError("CustomFurnishEditor prefab is missing");
+            return;
+        }
+        var canvas = GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+        ImportOpened?.Invoke();
+        var category = currentCategory;
+        var kind = category == FurnishCategory.Furniture ? CustomFurnishKind.Furniture
+            : category == FurnishCategory.Decor ? CustomFurnishKind.Decor : CustomFurnishKind.Background;
+        importEditor = Instantiate(prefab, canvas.rootCanvas.transform);
+        importEditor.transform.SetAsLastSibling();
+        importEditor.Initialize(kind, GameManager.Instance.FurnitureDatabase.CustomItems,
+            () => {
+                if (this == null || !isActiveAndEnabled) return;
+                if (category == FurnishCategory.Furniture) ShowFurnitureDepot();
+                else if (category == FurnishCategory.Decor) ShowDecorDepot();
+                else ShowFloorDepot();
+            }, () => { importEditor = null; });
     }
 
     public void ShowFloorDepot() { 
@@ -97,6 +130,14 @@ public class HomeDepot : MonoBehaviour
             furnitureList.Add(furnitureCell);
             index++;
         });
+        foreach (var entry in GameManager.Instance.FurnitureDatabase.CustomItems.Entries)
+        {
+            if (entry.Data.kind != CustomFurnishKind.Background) continue;
+            var cell = Instantiate(cellPrefab, cellList).GetComponent<FurnitureCell>();
+            cell.SetFurnitureData(entry.Sprite, entry.Data.id, FurnishCategory.Floor, index++);
+            furnitureList.Add(cell);
+        }
+        AddImportCell();
     }
 
     private Sprite GetMapIconAndSetIcon(MapData map)
@@ -111,6 +152,7 @@ public class HomeDepot : MonoBehaviour
     }
 
     public void HandleItemClick(string id, FurnishCategory category, int index) {
+        if (category != currentCategory || index < 0 || index >= furnitureList.Count) return;
         FurnitureCell furnitureCell = furnitureList[index];
         if (furnitureCell == null) return;
         furnitureCell.SetSelected(true);

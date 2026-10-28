@@ -33,6 +33,7 @@ DearLife（人生养成）是用角色养成、任务报酬、物品消费、对
 |---|---|---|
 | [0001](adr/0001-existing-architecture.md) | 单体 Unity 工程与 JSON / ScriptableObject 数据现状 | 现状记录 |
 | [0002](adr/0002-async-strategy.md) | UniTask 适用性与分阶段引入建议 | 评估完成；暂不引入 |
+| [0003](adr/0003-ai-dialogue-providers.md) | 独立 AI 对话供应商与 DeepSeek 接入 | 已采用 |
 
 ## 扫描范围与验证
 

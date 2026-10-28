@@ -22,6 +22,7 @@ public class RoomView : MonoBehaviour
     [SerializeField] private Sprite cellSprite;
 
     private GridMap gridMap;
+    private GameObject customBackground;
 
     private readonly Dictionary<string, GameObject> furnitureObjects = new();
     private readonly Dictionary<string, GameObject> decorObjects = new();
@@ -43,6 +44,8 @@ public class RoomView : MonoBehaviour
 
     private void ClearAll()
     {
+        if (customBackground != null) Destroy(customBackground);
+        customBackground = null;
         groundMap.ClearAllTiles();
         cellsMap.ClearAllTiles();
 
@@ -72,6 +75,22 @@ public class RoomView : MonoBehaviour
 
     private void RenderFloors()
     {
+        if (!string.IsNullOrEmpty(gridMap.CustomBackgroundId))
+        {
+            var entry = furnitureDatabase.CustomItems.Get(gridMap.CustomBackgroundId);
+            if (entry == null) return;
+            if (customBackground != null) Destroy(customBackground);
+            customBackground = new GameObject("CustomRoomBackground");
+            customBackground.transform.SetParent(groundMap.transform, false);
+            customBackground.transform.position = groundMap.CellToWorld(Vector3Int.zero);
+            customBackground.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+            var renderer = customBackground.AddComponent<SpriteRenderer>();
+            renderer.sprite = entry.Sprite;
+            var groundRenderer = groundMap.GetComponent<TilemapRenderer>();
+            renderer.sortingLayerID = groundRenderer.sortingLayerID;
+            renderer.sortingOrder = groundRenderer.sortingOrder;
+            return;
+        }
 
         foreach (var pos in gridMap.GetAllWalkableCells()) { } // force chunks alive
 
@@ -195,11 +214,12 @@ public class RoomView : MonoBehaviour
     }
 
     public void RenderFurnitureLayer() {
+        ShowEmptyFurnitureAnchors();
         foreach (var kv in gridMap.DebugAllCells())
         {
             Vector2Int pos = kv.Key;
 
-            if (gridMap.HasFurniture(pos))
+            if (gridMap.GetFurniture(pos) != null)
             {
                 cellsMap.SetTile(
                    new Vector3Int(pos.x, pos.y, 0), GetTile("Green_DefaultCell")
@@ -214,6 +234,13 @@ public class RoomView : MonoBehaviour
                 continue;
             }
         }
+    }
+
+    private void ShowEmptyFurnitureAnchors()
+    {
+        foreach (var instance in gridMap.GetAllFurnitureInstances())
+            if (instance.occupiedCells.Count == 0 && instance.anchorPos.x != int.MinValue)
+                cellsMap.SetTile(new Vector3Int(instance.anchorPos.x, instance.anchorPos.y, 0), GetTile("Green_DefaultCell"));
     }
 
     public void RenderDecorLayer() {
@@ -272,7 +299,7 @@ public class RoomView : MonoBehaviour
         furnitureObjects[inst.instanceId] = go;
         inst.furnitureObject = go;
 
-        ShowNewCells(cell, data.occupiedCells, inst.instanceId);
+        ShowNewCells(cell, PreviewCells(data), inst.instanceId);
     }
 
     public void PreviewNewDecor(DecorInstance inst, Vector2Int cell, DecorData data) {
@@ -325,7 +352,7 @@ public class RoomView : MonoBehaviour
     public void PreviewMoveFurniture(FurnitureInstance furniture, Vector3 hitPoint, Vector2Int origin) {
         
         FurnitureData furnitureData = furnitureDatabase.GetFurnitureData(furniture.furnitureDataId);
-        List<Vector2Int> occupied = furnitureData.occupiedCells;
+        List<Vector2Int> occupied = PreviewCells(furnitureData);
         string instId = furniture.instanceId;
         ClearOriginalCells(origin,occupied, instId);
         Vector3Int cell = groundMap.WorldToCell(hitPoint);
@@ -365,6 +392,9 @@ public class RoomView : MonoBehaviour
             }
         }
     }
+    private static List<Vector2Int> PreviewCells(FurnitureData data) => data.occupiedCells.Count == 0
+        ? new List<Vector2Int> { Vector2Int.zero } : data.occupiedCells;
+
     private void ShowNewCells(Vector2Int originPos, List<Vector2Int> occupied, string instId) {
         foreach (var offset in occupied)
         {

@@ -48,7 +48,10 @@
     <Compile Include="Assets\Editor\TilemapDataScanner.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\LiteMotion\Editor\LiteMotionBehaviourDrawer.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Animation\Editor\AnimationProcessDrawer.cs" />
+    <Compile Include="Assets\Editor\CustomFurnishValidation.cs" />
     <Compile Include="Assets\Editor\TilemapToPNG.cs" />
+    <Compile Include="Assets\Editor\FurnishValidationBootstrap.cs" />
+    <Compile Include="Assets\Editor\CustomFurnishEditorBuilder.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\Editor\TextLifeCustomEditor.cs" />
     <Compile Include="Assets\EnjoyGameClub\TextLifeFramework\Core\SerializedObject\Editor\SerializedObjectListDrawer.cs" />
     <Compile Include="Assets\Editor\TilemapCleaner.cs" />
@@ -873,9 +876,6 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>D:\uproject\RenShengYangCheng\DearLife\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
@@ -895,6 +895,10 @@
     <ProjectReference Include="NativeGallery.Runtime.csproj">
       <Project>{4891abe0-55ca-eb7f-b471-d879c472cf43}</Project>
       <Name>NativeGallery.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{738c525c-0b86-c12d-3b6d-4b28c06390c0}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="NativeGallery.Editor.csproj">
       <Project>{f2679b29-942b-d7ee-7702-a2ea238c34c0}</Project>
