@@ -10,13 +10,16 @@ using Newtonsoft.Json;
 public class AIChat : MonoBehaviour
 {
     private string systemPrompt = @"你是视觉小说角色对话生成器。
-任务：生成一句角色台词。
+任务：1. 每句独立
+2. 不要编号
+3. 不要解释
+4. 输出为JSON数组
 必须使用简体中文。
 必须是第一人称对话。
-不超过200个汉字。
-禁换行/解释/角色名
+每句话不超过20字。
+禁换行,禁解释，禁角色名，禁引号，禁任何 Markdown 代码块标签或额外的文字说明
 输出几句角色的动作和回答。
-语气必须符合角色性格。";
+语气必须符合角色性格和当前关系，根据角色健康状态调整语气。";
 
     private string userPrompt = @"角色：{characterName}
 性格：
@@ -32,6 +35,8 @@ public class AIChat : MonoBehaviour
 健康状态：
 {healthStatus}
 生成一句此时说的话。";
+
+    private int maxLine = 5; // 预设的最大对话，和 topics 数组长度一致
 
     #region Gemini 数据结构
     private class GeminiRequest
@@ -82,6 +87,16 @@ public class AIChat : MonoBehaviour
     }
     #endregion
 
+    private string[] topics = new string[]
+    {
+        "话题是收到的东西，如果是食物描述味道",
+        "话题是关心给予者，用{playerName}称呼给予者",
+        "话题是自己的心情",
+        "话题是由这个东西联想到的一件过去的事",
+        "话题是由这个东西联想到的一件生活小事",
+        "话题是由这个东西联想到的一个想法"
+    };
+
     public void GenerateAIDialogue(ItemData item, CharacterData character, Action<OperationResult<EventData>> callback)
     {
         string prompt = CombinePrompt(item, character);
@@ -98,6 +113,7 @@ public class AIChat : MonoBehaviour
 
     private string CombinePrompt(ItemData item, CharacterData character)
     {
+        string result = userPrompt + GenerateRamdomPrompt();
         string characterName = character.Name;
         string personnalities = character.GetPersonalityDescription();
         string playerName = character.PlayerAppellation;
@@ -106,13 +122,21 @@ public class AIChat : MonoBehaviour
         string itemInfo = $"{item.Name}，{item.Description}";
         string healthStatus = character.HealthState.ToString();
 
-        return userPrompt.Replace("{characterName}", characterName)
+        return result.Replace("{characterName}", characterName)
             .Replace("{personnalities}", personnalities)
             .Replace("{playerName}", playerName)
             .Replace("{relation}", relation)
             .Replace("{characterInfo}", characterInfo)
             .Replace("{itemInfo}", itemInfo)
             .Replace("{healthStatus}", healthStatus);
+    }
+
+    private string GenerateRamdomPrompt()
+    {
+        System.Random rand = new System.Random();
+        int linesNum = rand.Next(maxLine);
+        int topicsNum = rand.Next(topics.Length);
+        return $"\n生成{linesNum}句此时说的话,\n{topics[topicsNum]}. 输出为JSON数组";
     }
 
     public IEnumerator GenerateDialogue(
@@ -145,7 +169,7 @@ public class AIChat : MonoBehaviour
             },
             generationConfig = new GenerationConfig
             {
-                maxOutputTokens = 300, // 稍微多给一点余量
+                maxOutputTokens = 2000, // 稍微多给一点余量
                 temperature = 0.7f
             }
         };
@@ -182,30 +206,68 @@ public class AIChat : MonoBehaviour
             {
                 var res = JsonConvert.DeserializeObject<GeminiResponse>(req.downloadHandler.text);
 
-                // 逐级检查，哪级报错哪级会停
-                if (res == null) throw new Exception("JSON 转换结果为 null");
-                if (res.candidates == null || res.candidates.Length == 0) throw new Exception("candidates 为空");
-                if (res.candidates[0].content == null) throw new Exception("content 为空");
-                if (res.candidates[0].content.parts == null || res.candidates[0].content.parts.Count == 0) throw new Exception("parts 为空");
+                // 基础检查
+                if (res?.candidates == null || res.candidates.Length == 0) throw new Exception("AI未返回有效内容");
 
-                string line = res.candidates[0].content.parts[0].text;
-                if (string.IsNullOrEmpty(line)) throw new Exception("text 字段内容为空");
+                string rawText = res.candidates[0].content.parts[0].text.Trim();
 
-                // 这一步最危险，建议加个 null 检查
+                // --- 核心改动：清理 Markdown 标签并解析数组 ---
+                if (rawText.StartsWith("```json"))
+                {
+                    rawText = rawText.Replace("```json", "").Replace("```", "").Trim();
+                }
+
+                // 使用 Newtonsoft 解析为字符串列表
+                List<string> lines = JsonConvert.DeserializeObject<List<string>>(rawText);
+
+                if (lines == null || lines.Count == 0) throw new Exception("解析后的对话数组为空");
+
+                // 检查 GameManager 状态
                 if (GameManager.Instance?.StateManager?.Character == null)
                 {
-                    onFail?.Invoke("解析成功但 GameManager 数据未初始化");
+                    onFail?.Invoke("GameManager 数据未初始化");
                     yield break;
                 }
 
-                EventData eventData = CreateItemDialogueEvent(line);
+                // --- 核心改动：调用支持多节点的生成方法 ---
+                EventData eventData = CreateMultiLineDialogueEvent(lines);
                 onSuccess?.Invoke(eventData);
             }
             catch (Exception ex)
             {
-                onFail?.Invoke($"解析链条中断: {ex.Message}");
+                onFail?.Invoke($"解析 JSON 数组失败: {ex.Message}\n原始文本: {req.downloadHandler.text}");
             }
         }
+    }
+
+    private EventData CreateMultiLineDialogueEvent(List<string> lines)
+    {
+        string eventId = "ai_event_" + Guid.NewGuid().ToString("N");
+        string speakerName = GameManager.Instance.StateManager.Character.Name;
+        Dictionary<string, BaseNode> nodes = new Dictionary<string, BaseNode>();
+
+        for (int i = 0; i < lines.Count; i++)
+        {
+            string nodeId = "node" + i;
+            string nextNodeId = (i < lines.Count - 1) ? "node" + (i + 1) : null;
+
+            DialogueNode node = new DialogueNode(
+                nodeId,
+                nextNodeId, // 连向下一个节点
+                speakerName,
+                lines[i].Trim()
+            );
+
+            nodes.Add(nodeId, node);
+        }
+
+        // 入口点固定为 node0
+        return new EventData(
+            eventId,
+            DialogueType.Item,
+            "node0",
+            nodes
+        );
     }
 
     private EventData CreateItemDialogueEvent(string text)

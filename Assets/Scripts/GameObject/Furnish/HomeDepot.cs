@@ -12,6 +12,7 @@ public class HomeDepot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI type;
     [SerializeField] private RectTransform cellList;
     [SerializeField] private GameObject cellPrefab;
+    [SerializeField] private GameObject customCellPrefab;
     [SerializeField] private TileLoader tileLoader;
     private FurnishCategory currentCategory;
 
@@ -67,6 +68,14 @@ public class HomeDepot : MonoBehaviour
             furnitureList.Add(furnitureCell);
             index++;
         }
+        furnitureList.Add(AddCustomCell(index));
+    }
+
+    private FurnitureCell AddCustomCell(int index) {
+        GameObject cell = Instantiate(customCellPrefab, cellList);
+        FurnitureCell furnitureCell = cell.GetComponent<FurnitureCell>();
+        furnitureCell.SetFurnitureData(null, "custom_tile", FurnishCategory.Decor, index);
+        return furnitureCell;
     }
 
     public void ShowFloorDepot() { 

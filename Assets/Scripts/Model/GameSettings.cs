@@ -22,7 +22,7 @@ public class GameSettings
 
     public string Key { get; set; } = "";
 
-    public string Model { get; set; } = "";
+    public string Model { get; set; } = "gemini-3.1-flash-lite-preview";
 
     public string Prompt { get; set; } = "";
 
